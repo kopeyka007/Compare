@@ -10,7 +10,7 @@
 		var routes, setRoutes;
 
 		routes = [
-			'panel/:controller/:id/'
+			'panel/:controller/:id/',
 			'panel/:controller/',
 			'panel'
 		];
