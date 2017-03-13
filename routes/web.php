@@ -11,6 +11,7 @@
 |
 */
 
+<<<<<<< .merge_file_a96104
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Blade;
 
@@ -19,6 +20,10 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {    
     return view('welcome');
+=======
+Route::get('/', function () {
+    return view('template');
+>>>>>>> .merge_file_a93316
 });
 
 // Маршруты аутентификации...
