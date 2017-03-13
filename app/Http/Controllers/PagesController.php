@@ -9,4 +9,7 @@ class PagesController extends Controller
         return "f.test";
         //var_dump($list);
     }
+    public function list(){
+      return 'test';
+    }
 }

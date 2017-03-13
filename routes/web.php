@@ -53,9 +53,9 @@ Route::get('/pages/panel/dashboard', function () {
 //Route::delete('/pages/panel/{controller}', '{controller}Controller@delete');
 
 Route::get('/pages/panel/{controller}', function($controller){
-    $app = app();
+    $app = app();    
     $object = $app->make('\App\Http\Controllers\\'.$controller.'Controller');
-    return $object->callAction('list', $parameters = array());
+    return $object->callAction('show', $parameters = array());
   });
 
 

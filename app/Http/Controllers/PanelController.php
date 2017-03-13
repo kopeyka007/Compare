@@ -8,5 +8,8 @@ use App\Http\Controllers\Controller;
 
 class PanelController extends Controller
 {
+  public function list(){
+    return 'test';
+  }
      
 }
