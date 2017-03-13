@@ -10,7 +10,64 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Blade;
+
+//Blade::setEscapedContentTags('[[', ']]');
+//Blade::setContentTags('[[[', ']]]');
+
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('template');
 });
+Route::get('/compare', function () {
+    return view('template');
+});
+Route::get('/compare/{list}', function () {
+    return view('template');
+});
+
+Route::get('/pages/index/', function () {
+    return view('compare.index');
+});
+Route::get('/pages/{list}', function () {
+    return view('compare.compare');
+});
+
+Route::get('/panel', function () {
+    return view('panel.template');
+});
+Route::get('/panel/{controller}', function () {
+    return view('panel.template');
+});
+Route::get('/panel/{controller}/{id}', function () {
+    return view('panel.template');
+});
+
+Route::get('/pages/panel/dashboard', function () {
+    return view('panel.dashboard');
+});
+Route::get('/pages/panel/', function () {
+    return view('panel.template');
+});
+
+
+
+
+
+// Маршруты аутентификации...
+//Route::get('panel/login', 'Auth\AuthController@getLogin');
+//Route::post('panel/login', 'Auth\AuthController@postLogin');
+//Route::get('panel/logout', 'Auth\AuthController@getLogout');
+
+// Маршруты регистрации...
+//Route::get('auth/register', 'Auth\AuthController@getRegister');
+//Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+
+
+//Route::get('compare/{list}', 'PagesController@test');
+//Route::get('compare/{list}', 'PagesController@test');
+//Route::any('/', 'PagesController@test');
+
+//Route::get('panel', 'PanelController@admin');
