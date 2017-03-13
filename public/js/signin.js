@@ -7,6 +7,8 @@
 				users_email: $scope.email,
 				users_password: $scope.password
 			};
-			$http.post("", post_mas)
+			$http.post("", post_mas).then(function(response) {
+				console.log(response.data);
+			}
 		}
 })();
