@@ -26,12 +26,33 @@ Route::get('/compare', function () {
 Route::get('/compare/{list}', function () {
     return view('template');
 });
+
 Route::get('/pages/index/', function () {
     return view('compare.index');
 });
 Route::get('/pages/{list}', function () {
     return view('compare.compare');
 });
+
+Route::get('/panel', function () {
+    return view('panel.template');
+});
+Route::get('/panel/{controller}', function () {
+    return view('panel.template');
+});
+Route::get('/panel/{controller}/{id}', function () {
+    return view('panel.template');
+});
+
+Route::get('/pages/panel/dashboard', function () {
+    return view('panel.dashboard');
+});
+Route::get('/pages/panel/', function () {
+    return view('panel.template');
+});
+
+
+
 
 
 // Маршруты аутентификации...
