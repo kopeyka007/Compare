@@ -1,12 +1,12 @@
 (function(){
-	var compare = angular.module('compare', []);
-
-	compare.controller('compareController', function() {
-		
-	});
+	var compare = angular.module('compare', ['ngRoute']);
 
 	compare.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-		$locationProvider.html5Mode(true);
+		
+		$locationProvider.html5Mode({
+			enabled: true,
+			requireBase: false
+		});
 		var routes, setRoutes;
 
 		routes = [
@@ -42,4 +42,9 @@
 	   $routeProvider
 			.when('/', {templateUrl: '/pages/index'});
 	}]);
+	
+	compare.controller('compareController', function() {
+		
+	});
+
 })();

@@ -26,6 +26,7 @@
 		</section>
 
 		<script src="/js/angular.min.js"></script>
+		<script src="/js/angular-route.min.js"></script>
 		<script src="/js/myapp.js"></script>
     </body>
 </html>
