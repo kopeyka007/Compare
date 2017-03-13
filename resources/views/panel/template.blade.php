@@ -12,7 +12,6 @@
     <body>
 		<section>
 			<div class="container">
-				<h1>Dashboard</h1>
 				<div ng-view>
 				</div>
 			</div>
