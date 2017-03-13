@@ -11,6 +11,7 @@
 |
 */
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Blade;
 
 //Blade::setEscapedContentTags('[[', ']]');
@@ -47,14 +48,10 @@ Route::get('/panel/{controller}/{id}', function () {
 Route::get('/pages/panel/dashboard', function () {
     return view('panel.dashboard');
 });
-//Route::get('/pages/panel/{controller}', '{controller}Controller@list');
-//Route::put('/pages/panel/{controller}', '{controller}Controller@create');
-//Route::post('/pages/panel/{controller}', '{controller}Controller@update');
-//Route::delete('/pages/panel/{controller}', '{controller}Controller@delete');
-
 Route::get('/pages/panel/{controller}', function($controller){
     $app = app();    
-    $object = $app->make('\App\Http\Controllers\\'.$controller.'Controller');
+    $parameters['auth'] = Auth::check();
+    $object = $app->make('\App\Http\Controllers\\'.($parameters['auth'] ? $controller : 'Auth').'Controller');
     return $object->callAction('show', $parameters = array());
   });
 
