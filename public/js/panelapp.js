@@ -1,7 +1,7 @@
 (function(){
 	var panelApp = angular.module('panelApp', ['ngRoute']);
 	
-	compareApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+	panelApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
 		$locationProvider.html5Mode({
 			enabled: true,
