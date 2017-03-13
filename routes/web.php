@@ -56,6 +56,8 @@ Route::get('/pages/panel/{controller}', function($controller){
   });
 
 
+Route::post('api/signin','AuthController@signin');
+
 
 
 
