@@ -11,6 +11,29 @@
 |
 */
 
-Route::get('/', function () {
+use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Blade;
+
+//Blade::setEscapedContentTags('[[', ']]');
+//Blade::setContentTags('[[[', ']]]');
+
+Route::get('/', function () {    
     return view('welcome');
 });
+
+// Маршруты аутентификации...
+Route::get('panel/login', 'Auth\AuthController@getLogin');
+Route::post('panel/login', 'Auth\AuthController@postLogin');
+Route::get('panel/logout', 'Auth\AuthController@getLogout');
+
+// Маршруты регистрации...
+//Route::get('auth/register', 'Auth\AuthController@getRegister');
+//Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+
+
+//Route::get('compare/{list}', 'PagesController@test');
+//Route::get('compare/{list}', 'PagesController@test');
+//Route::any('/', 'PagesController@test');
+
+//Route::get('panel', 'PanelController@admin');
