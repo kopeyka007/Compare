@@ -49,8 +49,9 @@ Route::get('/pages/panel/dashboard', function () {
     return view('panel.dashboard');
 });
 Route::get('/pages/panel/{controller}', function($controller){
-    $app = app();    
-    $parameters['auth'] = Auth::check();
+    $app = app();
+    //var_dump(Auth::check());
+    $parameters['auth'] = Auth::check();    
     $object = $app->make('\App\Http\Controllers\\'.($parameters['auth'] ? $controller : 'Auth').'Controller');
     return $object->callAction('show', $parameters = array());
   });
