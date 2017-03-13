@@ -26,6 +26,12 @@ Route::get('/compare', function () {
 Route::get('/compare/{list}', function () {
     return view('template');
 });
+Route::get('/pages/index/', function () {
+    return view('compare.index');
+});
+Route::get('/pages/{list}', function () {
+    return view('compare.compare');
+});
 
 
 // Маршруты аутентификации...
