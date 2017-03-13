@@ -12,7 +12,6 @@
     <body>
 		<section>
 			<div class="container">
-				<h1>Dashboard</h1>
 				<div ng-view>
 				</div>
 			</div>
@@ -20,5 +19,6 @@
 		<script src="/js/angular.min.js"></script>
 		<script src="/js/angular-route.min.js"></script>
 		<script src="/js/panelapp.js"></script>
+		<script src="/js/signin.js"></script>
     </body>
 </html>

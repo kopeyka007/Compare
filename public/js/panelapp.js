@@ -1,5 +1,6 @@
+var panelApp = angular.module('panelApp', ['ngRoute']);
 (function(){
-	var panelApp = angular.module('panelApp', ['ngRoute']);
+	
 	
 	panelApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
