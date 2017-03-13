@@ -21,7 +21,7 @@
 			config = {
 				templateUrl: function(params)
 				{
-					if (params.controller)
+					if (params.controller && params.id)
 					{
 						return '/pages/panel/' + params.controller + '/' + params.id;
 					}
@@ -29,11 +29,10 @@
 					{
 						return '/pages/panel/' + params.controller;
 					}
-					else
+					else if (params)
 					{
 						return  '/pages/panel/dashboard';
-					}
-					
+					}	
 				}
 			};
 			
