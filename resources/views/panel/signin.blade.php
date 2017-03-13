@@ -3,11 +3,10 @@
 		<a><img src="#" alt="#"></a>
 	</div>
 
-
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-6 col-md-offset-3">
 			<div class="panel panel-default">
-				<div class="form-container">
+				<div class="panel-body">
 					<form name="form">
 						<div class="form-group">
 							<label>Email address</label>
@@ -18,7 +17,7 @@
 							<input type="password" class="form-control" placeholder="Password" name="password" ng-model="password" />
 						</div>
 						<div class="form-group">
-							<button type="submit" class="btn btn-success btn-block text-center" ng-click="signin()">Log in</button>
+							<button type="submit" class="btn btn-success text-center" ng-click="signin()">Log in</button>
 						</div>
 					</form>
 				</div>
