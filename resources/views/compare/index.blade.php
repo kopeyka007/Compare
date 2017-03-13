@@ -6,6 +6,7 @@
 		</div>
 		<div class="col-md-8">
 			<div class="content-section">
+				Home page
 			</div>
 		</div>
 	</div>

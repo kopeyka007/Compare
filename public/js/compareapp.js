@@ -1,7 +1,7 @@
 (function(){
-	var compare = angular.module('compare', ['ngRoute']);
+	var compareApp = angular.module('compareApp', ['ngRoute']);
 
-	compare.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+	compareApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
 		$locationProvider.html5Mode({
 			enabled: true,
@@ -43,7 +43,7 @@
 			.when('/', {templateUrl: '/pages/index'});
 	}]);
 	
-	compare.controller('compareController', function() {
+	compareApp.controller('compareController', function() {
 		
 	});
 
