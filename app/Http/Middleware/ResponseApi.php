@@ -15,9 +15,9 @@ class ResponseApi
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $controller)
+    public function handle($request, Closure $next)
     {
-        var_dump($request->controller);
+        //var_dump($request->controller);
         //exit();
         /*$data = $next($request);
         return Response::json(array(

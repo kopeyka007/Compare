@@ -50,17 +50,15 @@ Route::get('/pages/panel/dashboard', function () {
 });
 Route::get('/pages/panel/{controller}', function($controller){    
     $app = app();
-    //var_dump(Auth::check());
     //Auth::logout();
-    //$parameters['auth'] = Auth::check();    
     $object = $app->make('\App\Http\Controllers\\'.(Auth::check() ? ucfirst($controller) : 'Auth').'Controller');
     return $object->callAction('show', $parameters = array());
-  });
-  //})->middleware('respapi');
+  //});
+  })->middleware('respapi');
 
 
 Route::post('api/signin','AuthController@signin');
-Route::post('api/users/info','AuthController@info');
+Route::get('api/users/info','AuthController@info');
 Route::post('api/signout','AuthController@signout');
 
 
