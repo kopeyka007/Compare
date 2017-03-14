@@ -14,8 +14,7 @@ class AuthController extends Controller
     return view('panel.signin');
   }
 
-  public function signin(Request $request){    
-    //return 'tet';
+  public function signin(Request $request){
     if (Auth::attempt(['email' => $request->input('users_email'), 'password' => $request->input('users_password')]))
         {  
           $response['data'] = true;
@@ -38,7 +37,6 @@ class AuthController extends Controller
         $response['data'] = false;
       }      
       return $response;
-
     }
 
     public function signout(Request $request){      
