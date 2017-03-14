@@ -58,7 +58,16 @@
 		$scope.user = false;
 		$http.get("/api/users/info").then(function(response) {
 			$scope.user = response.data;
+			console.log();
 		});
+		
+		$scope.logout = function() {
+			$http.post("/api/signout", {}).then(function(response){
+				(function(){
+					$window.location.href = "/";
+				});	
+			});
+		}
 	}
-	
+
 })();

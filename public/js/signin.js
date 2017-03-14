@@ -3,7 +3,7 @@
 	
 	function signinCtrl($scope, $http, validate){
 		$scope.signin = function() {
-			console.log($scope.errors);
+			
 			var error = 1;
 			error *= validate.check($scope, $scope.form.email, 'Email');
 			error *= validate.check($scope, $scope.form.password, 'Password');
