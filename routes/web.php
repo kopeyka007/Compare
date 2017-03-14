@@ -56,11 +56,12 @@ Route::get('/pages/panel/{controller}', function($controller){
 
 
 Route::post('api/signin','AuthController@signin');
-Route::get('api/users/info','AuthController@info');
 Route::post('api/signout','AuthController@signout');
+Route::get('api/users/info','AuthController@info');
+Route::get('api/users/types','UsersController@get_users_types');
 
 
-
+//Route::get('users/test','UsersController@get_users_types');
 
 
 

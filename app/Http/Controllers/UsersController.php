@@ -32,9 +32,13 @@ class UsersController extends Controller
     return $response;
   }
 
-  public function create(Request $request){
-    $response['data']['users_types'] = UsersTypes::all();
+  public function get_users_types(){
+    $response['data'] = UsersTypes::all();
     return $response;
+  }
+
+  public function create(Request $request){
+    
   }
 
   public function update(Request $request){
