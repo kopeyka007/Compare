@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-
 use App\Http\Requests;
 use Illuminate\Http\Request;
 //use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -10,9 +9,8 @@ use Validator;
 //use Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
-
-
-use Auth;
+use Illuminate\Support\Facades\Auth;
+//use Auth;
 
 class AuthController extends Controller
 {  
@@ -57,11 +55,17 @@ class AuthController extends Controller
       //var_dump(bcrypt('1234'));
       //return redirect()->intended('dashboard');
       //Auth::logout();
-      //var_dump(Auth::check());
+      //var_dump($request->input('users_password'));
+
       if (Auth::attempt(['email' => $request->input('users_email'), 'password' => $request->input('users_password')]))
+      //if (Auth::attempt(['email' => 'div-art@com', 'password' => $request->input('users_password')]))
+      //if (Auth::attempt(['email' => 'div-art@com', 'password' => '1234']))
         {
-            echo "tak";            
-            //return redirect()->intended('users');
+            //echo "tak";            
+            //return redirect()->intended('');            
+            $user = Auth::user();
+            var_dump($user);
+            Auth::logout();
         }
         else{
           echo "no";

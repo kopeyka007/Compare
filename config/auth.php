@@ -91,7 +91,7 @@ return [
     |
     */
 
-    'users_password' => [
+    'password' => [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
