@@ -60,6 +60,8 @@ Route::get('/pages/panel/{controller}', function($controller){
 
 
 Route::post('api/signin','AuthController@signin');
+Route::post('api/users/info','AuthController@info');
+Route::post('api/signout','AuthController@signout');
 
 
 
