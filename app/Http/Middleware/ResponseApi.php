@@ -15,7 +15,7 @@ class ResponseApi
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $controller)
+    public function handle($request, Closure $next)
     {
         //var_dump($request->controller);
         //exit();
@@ -26,11 +26,14 @@ class ResponseApi
 
             ), 200); // 400 being the HTTP code for an invalid request.
         */
-        //$model = app($fullyQualifiedNameOfModel);
+          /*$model = app("App/User");
           $validator = app('validator')->make($request->input(), $model->rules($request));
           if ($validator->fails()) {
              return $this->response($request, $validator->errors());
             }
-          return $next($request);
+          return $next($request);*/
+        //var_dump($next($request));
+        //return $next($request);
+
     }
 }

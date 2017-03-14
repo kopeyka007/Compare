@@ -13,9 +13,9 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array
-     */
+     */    
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'type', 'email', 'password',
     ];
 
     /**
@@ -26,4 +26,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+       public function rules(\Illuminate\Http\Request $request)
+       {
+          return [
+             'email' => 'required|',             
+          ];
+       }
 }
