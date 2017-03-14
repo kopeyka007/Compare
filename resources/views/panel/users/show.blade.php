@@ -10,23 +10,20 @@
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label>Email</label>
-						<input type="email" class="form-control" placeholder="Name" required="required" />
+						<input type="email" class="form-control" name="email" ng-model="email" required="required" />
 					</div>
 				</div>
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label>Password</label>
-						<input type="password" class="form-control" placeholder="email" required="required" />
+						<input type="password" class="form-control" name="password" ng-model="password" required="required" />
 					</div>
 				</div>
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label>Type of user</label>
-						<select class="form-control">
-							<option>Admin</option>
-							<option>Admin</option>
-							<option>User</option>
-							<option>User</option>
+						<select class="form-control" ng-model="user_type">
+							<option ng-repeat="type in type_users" value="@{{type.id}}">@{{type.name}}</option>
 						</select>
 					</div>
 				</div>
