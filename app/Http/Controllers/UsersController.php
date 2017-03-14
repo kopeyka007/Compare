@@ -14,6 +14,7 @@ class UsersController extends Controller
   public function show(){
     //var_dump($parameters);
     //Auth::logout();
-    return 'test';
+    //return 'test';
+    return view('panel.users.show');
   }
 }
