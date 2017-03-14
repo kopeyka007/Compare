@@ -22,6 +22,8 @@
 			modalInstance.result.then(function (result) {
 				$rootScope.errors = [result];
 				$scope.get_list();
+			}, function() {
+
 			}); 
 		};
 		
