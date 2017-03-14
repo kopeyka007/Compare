@@ -15,8 +15,15 @@
 					users_password: $scope.password
 				};
 			
-				$http.post("/api/signin", post_mas).then(function(response) {
-					$window.location.reload(true);
+				$http.post('/api/signin', post_mas).then(function(response) {
+					
+					$scope.errors = [response.data.message];
+					if (response.data.data)
+					{
+						$window.location.reload(true);
+					}
+					
+			
 				});
 			}
 		};

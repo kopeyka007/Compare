@@ -54,12 +54,12 @@
 	function panelCtrl($scope, $http, $window, $uibModal){
 		$scope.errors = [];
 		$scope.user = false;
-		$http.get("/api/users/info").then(function(response) {
+		$http.get('/api/users/info').then(function(response) {
 			$scope.user = response.data.data;
 		});
 		
 		$scope.logout = function() {
-			$http.post("/api/signout", {}).then(function(response){
+			$http.post('/api/signout', {}).then(function(response){
 				$window.location.reload(true);
 			});
 		}
@@ -80,8 +80,11 @@
 	angular.module('panelApp').controller('ModalUserCtrl', ['$scope', '$http', '$uibModalInstance', ModalUserCtrl]);
 		function ModalUserCtrl($scope, $http, $uibModalInstance) {
 			
+			$http.get('/api/users/status').then(function(response){
+				console.log(response);
+			})
+			
 			$scope.ok = function () {
-				
 				$uibModalInstance.close();
 			};
 
