@@ -13,7 +13,7 @@
 	
     <body>
 		<section>
-			<nav class="navbar navbar-default">
+			<nav class="navbar navbar-default" ng-if="user">
 				<div class="container">
 					<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -31,7 +31,7 @@
 						<li><a href="#">Link</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-						<li><a href="" ng-click="logout()">Signout</a></li>
+						<li><a href="" ng-click="logout()">Sign out</a></li>
 						</ul>
 					</div>
 				</div>

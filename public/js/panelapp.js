@@ -46,26 +46,22 @@
 	   $routeProvider
 			.when('/', {templateUrl: '/pages/panel/dashboard'});
 	}]);
-	
-
 })();
 
 (function(){
-	angular.module('panelApp').controller('panelCtrl', ['$scope', '$http', panelCtrl]);
+	angular.module('panelApp').controller('panelCtrl', ['$scope', '$http', '$window', panelCtrl]);
 	
-	function panelCtrl($scope, $http){
+	function panelCtrl($scope, $http, $window){
 		$scope.errors = [];
 		$scope.user = false;
 		$http.get("/api/users/info").then(function(response) {
 			$scope.user = response.data;
-			console.log();
+			console.log(response.data);
 		});
 		
 		$scope.logout = function() {
 			$http.post("/api/signout", {}).then(function(response){
-				(function(){
-					$window.location.href = "/";
-				});	
+				$window.location.reload(true);
 			});
 		}
 	}

@@ -1,7 +1,7 @@
 (function(){
-	angular.module('panelApp').controller('signinCtrl', ['$scope', '$http', 'validate', signinCtrl]);
+	angular.module('panelApp').controller('signinCtrl', ['$scope', '$http', '$window', 'validate', signinCtrl]);
 	
-	function signinCtrl($scope, $http, validate){
+	function signinCtrl($scope, $http, $window, validate){
 		$scope.signin = function() {
 			
 			var error = 1;
@@ -17,6 +17,7 @@
 			
 				$http.post("/api/signin", post_mas).then(function(response) {
 					console.log(response.data);
+					$window.location.reload(true);
 				});
 			}
 		};
