@@ -39,16 +39,25 @@ class UsersController extends Controller
 
   public function save(Request $request){
     $user = new User;
-    $user->email =  $request->input('user_email');
-    $user->password = bcrypt($request->input('user_password'));
-    $user->type_id = $request->input('user_type');
-    if ($user->save()){
-      $response['data'] = true;          
-      $response['message'] = ['type'=>'succes', 'text'=>'User created'];
+    $user_id = $request->input('id');
+    //update
+    if ($user_id){
+      
     }
-    else{
-      $response['data'] = false;          
-      $response['message'] = ['type'=>'error', 'text'=>'Error']; 
+    //create
+    else
+    {
+      $user->email =  $request->input('user_email');
+      $user->password = bcrypt($request->input('user_password'));
+      $user->type_id = $request->input('user_type');
+      if ($user->save()){
+        $response['data'] = true;          
+        $response['message'] = ['type'=>'success', 'text'=>'User created'];
+      }
+      else{
+        $response['data'] = false;          
+        $response['message'] = ['type'=>'error', 'text'=>'Error']; 
+      }    
     }    
     return $response;
   }
