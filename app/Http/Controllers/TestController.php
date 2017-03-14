@@ -1,9 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-//namespace App\Http\Middleware;
 
 use App\Http\Controllers\Controller;
-use Auth;
+
 
 class UsersController extends Controller
 {
@@ -11,9 +10,8 @@ class UsersController extends Controller
   {
     //$this->middleware('RedirectIfAuthenticated');
   }
-  public function show(){
-    //var_dump($parameters);
-    //Auth::logout();
+  public function show(){    
+    
     return 'test';
   }
 }
