@@ -81,11 +81,11 @@
 		function ModalUserCtrl($scope, $http, $uibModalInstance) {
 			$scope.type_users = [];
 			
-			/* $http.get('/api/users/types').then(function(response){
+			$http.get('/api/users/types').then(function(response){
 				$scope.type_users = response.data.data;
 				$scope.user_type = $scope.type_users[0].id;
 				console.log($scope.user_type);
-			}); */
+			});
 														
 			$scope.ok = function () {
 				
