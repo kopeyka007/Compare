@@ -1,7 +1,7 @@
 (function(){
-	angular.module('panelApp').controller('usersCtrl', ['$scope', '$http', '$window', '$uibModal', 'validate', usersCtrl]);
+	angular.module('panelApp').controller('usersCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', usersCtrl]);
 	
-	function usersCtrl($scope, $http, $window, $uibModal, validate){
+	function usersCtrl($scope, $rootScope, $http, $window, $uibModal, validate){
 		$scope.types = [];
 		
 		$http.get('/api/users/types').then(function(response){
@@ -17,6 +17,17 @@
 					items: {'types': $scope.types}
 				}
 			});	
+			
+			modalInstance.result.then(function (result) {
+				$rootScope.errors = [result];
+			}); 
+		};
+		
+		$scope.list = [];
+		$scope.get_list = function() {
+			$http.get('/api/users/list').then(function(response){
+				$scope.list = response.data.data;
+			});
 		};
 	}
 })();
@@ -32,15 +43,14 @@
 				var user_data = {
 					user_email: $scope.email,
 					user_password: $scope.password,
-					user_type: $scope.user_type
+					user_type: $scope.user_type.id
 				}
 				
 				$http.post('/api/users/save', user_data).then(function(response){
-					$scope.type_users = response.data.data;
+					if (response.data.data) {
+						$uibModalInstance.close(response.data.message);
+					}
 				});
-				
-				$uibModalInstance.close();
-				console.log(user_data);
 			};
 
 			$scope.cancel = function () {

@@ -1,6 +1,27 @@
 <div ng-controller="usersCtrl">
 	<h1>Show</h1>
 
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Email</th>
+				<th>Type</th>
+				<th>Edit</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="user in list">
+				<td>@{{user.id}}</td>
+				<td>@{{user.email}}</td>
+				<td>@{{user.role}}</td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+
 	<div class="modal-demo">
 		<script type="text/ng-template" id="myModalContent.html">
 			<div class="modal-header">

@@ -44,11 +44,11 @@ class UsersController extends Controller
     $user->type_id = $request->input('user_type');
     if ($user->save()){
       $response['data'] = true;          
-      $response['message'] = ['type'=>'succes', 'text'=>'User created'];
+      $response['message'] = ['type'=>'success', 'text'=>'User created'];
     }
     else{
       $response['data'] = false;          
-      $response['message'] = ['type'=>'error', 'text'=>'Error']; 
+      $response['message'] = ['type'=>'danger', 'text'=>'Error']; 
     }    
     return $response;
   }
