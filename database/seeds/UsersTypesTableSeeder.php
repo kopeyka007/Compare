@@ -13,15 +13,15 @@ class UsersTypesTableSeeder extends Seeder
     {
         DB::table('users_types')->insert([            
             'id' => 1,
-            'name' => 'superadministrator',            
+            'name' => 'Super Admin',            
         ]);
         DB::table('users_types')->insert([            
             'id' => 2,
-            'name' => 'administrator',            
+            'name' => 'Category Admin',            
         ]);
         DB::table('users_types')->insert([
             'id' => 3,
-            'name' => 'moderator',            
+            'name' => 'Product Uploader',            
         ]);
 
     }
