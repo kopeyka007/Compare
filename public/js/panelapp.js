@@ -1,5 +1,5 @@
 (function(){
-	angular.module('panelApp', ['ngRoute']);
+	angular.module('panelApp', ['ngRoute', 'ngSanitize', 'ngAnimate', 'ui.bootstrap']);
 	angular.module('panelApp').config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
 		$locationProvider.html5Mode({
@@ -49,14 +49,13 @@
 })();
 
 (function(){
-	angular.module('panelApp').controller('panelCtrl', ['$scope', '$http', '$window', panelCtrl]);
+	angular.module('panelApp').controller('panelCtrl', ['$scope', '$http', '$window', '$uibModal', panelCtrl]);
 	
-	function panelCtrl($scope, $http, $window){
+	function panelCtrl($scope, $http, $window, $uibModal){
 		$scope.errors = [];
 		$scope.user = false;
 		$http.get("/api/users/info").then(function(response) {
-			$scope.user = response.data;
-			console.log(response.data);
+			$scope.user = response.data.data;
 		});
 		
 		$scope.logout = function() {
@@ -64,6 +63,30 @@
 				$window.location.reload(true);
 			});
 		}
-	}
+		
+		$scope.add_users = function () {
+			var modalInstance;
+            modalInstance = $uibModal.open({
+                templateUrl: "myModalContent.html",
+                controller: 'ModalUserCtrl'
 
+			});	
+		}
+	}
+})();
+
+
+(function(){
+	angular.module('panelApp').controller('ModalUserCtrl', ['$scope', '$http', '$uibModalInstance', ModalUserCtrl]);
+		function ModalUserCtrl($scope, $http, $uibModalInstance) {
+			
+			$scope.ok = function () {
+				
+				$uibModalInstance.close();
+			};
+
+			$scope.cancel = function () {
+				$uibModalInstance.dismiss('cancel');
+			};
+		}
 })();

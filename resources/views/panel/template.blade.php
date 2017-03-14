@@ -16,19 +16,19 @@
 			<nav class="navbar navbar-default" ng-if="user">
 				<div class="container">
 					<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Brand</a>
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">Brand</a>
 					</div>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
-						<li><a href="#">Link</a></li>
+						<li><a href="/panel/users">Users</a></li>
+						<li><a href="/panel/categories">Categories</a></li>
+						<li><a href="/panel/attributes">Attributes</a></li>
+						<li><a href="/panel/products">Products</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 						<li><a href="" ng-click="logout()">Sign out</a></li>
@@ -42,6 +42,9 @@
 			</div>
 		</section>
 		
+		<script src="/js/angular-animate.min.js"></script>
+		<script src="/js/angular-sanitize.min.js"></script>
+		<script src="/js/ui-bootstrap-tpls-2.5.0.js"></script>
 		<script src="/js/panelapp.js"></script>
 		<script src="/js/signin.js"></script>
 		<script src="/js/validate.js"></script>
