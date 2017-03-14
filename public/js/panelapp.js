@@ -52,7 +52,6 @@
 	angular.module('panelApp').controller('panelCtrl', ['$scope', '$rootScope', '$http', '$window', panelCtrl]);
 	
 	function panelCtrl($scope, $rootScope, $http, $window, $uibModal){
-		$rootScope.errors = ['ghgdhgf'];
 		$scope.user = false;
 		$http.get('/api/users/info').then(function(response) {
 			$scope.user = response.data.data;

@@ -1,7 +1,10 @@
 <div ng-controller="usersCtrl">
 	<h1>Show</h1>
-
-	<table class="table table-striped table-hover">
+	<div class="form-group">
+		<button type="button" class="btn btn-primary" ng-click="add_users()">Create User</button>
+	</div>
+	
+	<table class="table table-striped table-hover" ng-show="list.length">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -16,7 +19,7 @@
 				<td>@{{user.id}}</td>
 				<td>@{{user.email}}</td>
 				<td>@{{user.role}}</td>
-				<td></td>
+				<td><button type="button" class="btn btn-default" ng-click="add_users(user.id)">Edit</button></td>
 				<td></td>
 			</tr>
 		</tbody>
@@ -32,19 +35,19 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label>Email</label>
-							<input type="email" class="form-control" name="email" ng-model="email" required="required" />
+							<input type="email" class="form-control" name="email" ng-model="user.email" required="required" />
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label>Password</label>
-							<input type="password" class="form-control" name="password" ng-model="password" required="required" />
+							<input type="password" class="form-control" name="password" ng-model="user.password" required="required" />
 						</div>
 					</div>
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label>Type of user</label>
-							<select class="form-control" ng-model="user_type" ng-options="type as type.name for type in type_users track by type.id">
+							<select class="form-control" ng-model="user.type" ng-options="type as type.name for type in type_users track by type.id">
 							</select>
 						</div>
 					</div>
@@ -55,6 +58,6 @@
 				<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 			</div>
 		</script>
-		<button type="button" class="btn btn-default" ng-click="add_users()">Open me!</button>
+		
 	</div>
 </div>

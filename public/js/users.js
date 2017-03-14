@@ -8,18 +8,20 @@
 			$scope.types = response.data.data;
 		});
 		
-		$scope.add_users = function () {
+		$scope.add_users = function(id) {
+			id = id || false;
 			var modalInstance;
             modalInstance = $uibModal.open({
                 templateUrl: "myModalContent.html",
                 controller: 'ModalUserCtrl',
 				resolve: {
-					items: {'types': $scope.types}
+					items: {'types': $scope.types, 'id': id}
 				}
 			});	
 			
 			modalInstance.result.then(function (result) {
 				$rootScope.errors = [result];
+				$scope.get_list();
 			}); 
 		};
 		
@@ -29,6 +31,7 @@
 				$scope.list = response.data.data;
 			});
 		};
+		$scope.get_list();
 	}
 })();
 
@@ -36,17 +39,19 @@
 	angular.module('panelApp').controller('ModalUserCtrl', ['$scope', '$http', '$uibModalInstance', 'items', ModalUserCtrl]);
 		function ModalUserCtrl($scope, $http, $uibModalInstance, items) {
 			$scope.user_type = items.types[0];
-			$scope.type_users = items.types;
+			$scope.user = {'email': '',
+						   'password': '',
+						   'type': items.types};
+			
+			if (items.id)
+			{
+				$http.get('/api/users/list').then(function(response){
+					$scope.user = response.data.data;
+				});
+			}
 														
 			$scope.ok = function () {
-				
-				var user_data = {
-					user_email: $scope.email,
-					user_password: $scope.password,
-					user_type: $scope.user_type.id
-				}
-				
-				$http.post('/api/users/save', user_data).then(function(response){
+				$http.post('/api/users/save', $scope.user).then(function(response){
 					if (response.data.data) {
 						$uibModalInstance.close(response.data.message);
 					}

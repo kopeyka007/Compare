@@ -37,7 +37,7 @@
 				</div>
 			</nav>
 			<div class="container">
-				<div class="error-msg">
+				<div class="error-msg" ng-show="errors.length">
 					<div class="alert alert-@{{msg.type}}" ng-repeat="msg in errors" ng-init="showme = true" ng-show="showme" role="alert">@{{msg.text}}
 						 <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="showme = false"><span aria-hidden="true">&times;</span></button>
 					</div>
