@@ -17,15 +17,13 @@ class AuthController extends Controller
   public function show(){
     return view('panel.signin');
   }
-  public function signin(Request $request){
-      if (Auth::attempt(['email' => $request->input('users_email'), 'password' => $request->input('users_password')]))
+  public function signin(Request $request){    
+    if (Auth::attempt(['email' => $request->input('users_email'), 'password' => $request->input('users_password')]))
         {  
-            //$user = Auth::user();
-            //return $user;
-            return true;
+          return 'true';
         }
-        else{
-          return false;
+        else{          
+          return 'false';          
         }
         
     }

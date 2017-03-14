@@ -12,9 +12,6 @@ class UsersController extends Controller
     //$this->middleware('RedirectIfAuthenticated');
   }
   public function show(){
-    //var_dump($parameters);
-    //Auth::logout();
-    //return 'test';
     return view('panel.users.show');
   }
 }
