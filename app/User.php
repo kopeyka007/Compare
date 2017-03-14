@@ -27,10 +27,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-       public function rules(\Illuminate\Http\Request $request)
-       {
-          return [
-             'email' => 'required|',             
-          ];
-       }
+    public function role()
+    {      
+      return $this->belongsTo('App\UsersTypes','type_id','id');
+    }
+
+
+
 }

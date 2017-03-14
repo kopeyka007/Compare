@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 use Closure;
 use Validator;
-use Illuminate\Support\Facades\Response;
+//use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class ResponseApi
 {
@@ -19,13 +21,9 @@ class ResponseApi
     {
         //var_dump($request->controller);
         //exit();
-        /*$data = $next($request);
-        return Response::json(array(
-                'success' => false,
-                'errors' => Validator::getData(),
-
-            ), 200); // 400 being the HTTP code for an invalid request.
-        */
+        $data = $next($request);
+        return response()->json($data); // 400 being the HTTP code for an invalid request.
+        
           /*$model = app("App/User");
           $validator = app('validator')->make($request->input(), $model->rules($request));
           if ($validator->fails()) {
