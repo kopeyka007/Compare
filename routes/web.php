@@ -12,11 +12,15 @@
 */
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-//use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Artisan;
 
-//Blade::setEscapedContentTags('[[', ']]');
-//Blade::setContentTags('[[[', ']]]');
-
+Route::get('/migrate', function () {
+    Artisan::call('migrate:rollback');
+    Artisan::call('migrate');
+    Artisan::call('db:seed', array('--class' => 'UsersTableSeeder'));
+    Artisan::call('db:seed', array('--class' => 'UsersTypesTableSeeder'));
+    return 'All migrates and seed run';
+});
 
 Route::get('/', function () {
     return view('template');
@@ -59,25 +63,7 @@ Route::post('api/signin','AuthController@signin');
 Route::post('api/signout','AuthController@signout');
 Route::get('api/users/info','AuthController@info');
 Route::get('api/users/types','UsersController@get_users_types');
+Route::get('api/users/list','UsersController@get_all');
 Route::post('api/users/save','UsersController@save');
 
-//Route::get('users/test','UsersController@get_users_types');
-
-
-
-// Маршруты аутентификации...
-//Route::get('panel/login', 'Auth\AuthController@getLogin');
-//Route::post('panel/login', 'Auth\AuthController@postLogin');
-//Route::get('panel/logout', 'Auth\AuthController@getLogout');
-
-// Маршруты регистрации...
-//Route::get('auth/register', 'Auth\AuthController@getRegister');
-//Route::post('auth/register', 'Auth\AuthController@postRegister');
-
-
-
-//Route::get('compare/{list}', 'PagesController@test');
-//Route::get('compare/{list}', 'PagesController@test');
-//Route::any('/', 'PagesController@test');
-
-//Route::get('panel', 'PanelController@admin');
+Route::get('users/test','UsersController@test');
