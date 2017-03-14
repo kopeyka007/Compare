@@ -63,6 +63,7 @@ Route::post('api/signin','AuthController@signin');
 Route::post('api/signout','AuthController@signout');
 Route::get('api/users/info','AuthController@info');
 Route::get('api/users/types','UsersController@get_users_types');
+Route::get('api/users/list','UsersController@get_all');
 Route::post('api/users/save','UsersController@save');
 
 Route::get('users/test','UsersController@test');
