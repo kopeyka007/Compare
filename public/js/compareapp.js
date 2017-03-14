@@ -1,6 +1,6 @@
+var compareApp = angular.module('compareApp', ['ngRoute']);
 (function(){
-	var compareApp = angular.module('compareApp', ['ngRoute']);
-
+	
 	compareApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
 		$locationProvider.html5Mode({

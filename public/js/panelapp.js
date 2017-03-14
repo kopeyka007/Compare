@@ -1,8 +1,6 @@
-var panelApp = angular.module('panelApp', ['ngRoute']);
 (function(){
-	
-	
-	panelApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+	angular.module('panelApp', ['ngRoute']);
+	angular.module('panelApp').config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
 		$locationProvider.html5Mode({
 			enabled: true,
@@ -49,4 +47,13 @@ var panelApp = angular.module('panelApp', ['ngRoute']);
 			.when('/', {templateUrl: '/pages/panel/dashboard'});
 	}]);
 	
+
+})();
+
+(function(){
+	angular.module('panelApp').controller('panelCtrl', ['$scope', panelCtrl]);
+	
+	function panelCtrl($scope){
+		$scope.errors = [];
+	}
 })();

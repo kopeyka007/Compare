@@ -1,4 +1,4 @@
-<html lang="en" ng-app="panelApp">
+<html lang="en" ng-app="panelApp" ng-controller="panelCtrl">
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,6 +7,8 @@
 		<link href="/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/css/font-awesome.min.css" rel="stylesheet" />
 		<link href="/css/style.css" rel="stylesheet" />
+		<script src="/js/angular.min.js"></script>
+		<script src="/js/angular-route.min.js"></script>
 	</head>
 	
     <body>
@@ -16,9 +18,10 @@
 				</div>
 			</div>
 		</section>
-		<script src="/js/angular.min.js"></script>
-		<script src="/js/angular-route.min.js"></script>
+		
 		<script src="/js/panelapp.js"></script>
 		<script src="/js/signin.js"></script>
+		<script src="/js/validate.js"></script>
+		
     </body>
 </html>
