@@ -20,18 +20,20 @@ class AuthController extends Controller
   public function signin(Request $request){    
     if (Auth::attempt(['email' => $request->input('users_email'), 'password' => $request->input('users_password')]))
         {  
-          return 'true';
+          $respose['data'] = true;          
         }
         else{          
-          return 'false';          
+          $respose['data'] = false;          
         }
+        return $respose;
         
     }
     public function info(Request $request){
-      return Auth::user();
+      $respose['data'] = Auth::user() ? Auth::user() : false;
+      return $respose;
     }
 
-    public function signout(Request $request){
+    public function signout(Request $request){      
       Auth::logout();
     }
 
