@@ -51,9 +51,14 @@
 })();
 
 (function(){
-	angular.module('panelApp').controller('panelCtrl', ['$scope', panelCtrl]);
+	angular.module('panelApp').controller('panelCtrl', ['$scope', '$http', panelCtrl]);
 	
-	function panelCtrl($scope){
+	function panelCtrl($scope, $http){
 		$scope.errors = [];
+		$scope.user = false;
+		$http.get("/api/users/info").then(function(response) {
+			$scope.user = response.data;
+		});
 	}
+	
 })();
