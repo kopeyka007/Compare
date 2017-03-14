@@ -26,15 +26,14 @@ class ResponseApi
 
             ), 200); // 400 being the HTTP code for an invalid request.
         */
-          
-          /*
+          /*$model = app("App/User");
           $validator = app('validator')->make($request->input(), $model->rules($request));
           if ($validator->fails()) {
              return $this->response($request, $validator->errors());
             }
-          return $next($request);
-            */
-        return $next($request);
+          return $next($request);*/
+        //var_dump($next($request));
+        //return $next($request);
 
     }
 }

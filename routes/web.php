@@ -53,8 +53,8 @@ Route::get('/pages/panel/{controller}', function($controller){
     //Auth::logout();
     $object = $app->make('\App\Http\Controllers\\'.(Auth::check() ? ucfirst($controller) : 'Auth').'Controller');
     return $object->callAction('show', $parameters = array());
-  //});
-  })->middleware('respapi');
+  });
+  //})->middleware('respapi');
 
 
 Route::post('api/signin','AuthController@signin');
