@@ -52,8 +52,12 @@ Route::get('/panel/{controller}/{id}', function () {
 Route::get('/pages/panel/dashboard', function () {
     return view('panel.dashboard');
 });
-Route::get('/pages/panel/{controller}', function($controller){    
-    $app = app();    
+Route::get('/pages/panel/{controller}', function($controller){        
+    $app = app();
+    /*if (File::exists('\App\Http\Controllers\\'.ucfirst($controller).'Controller'))
+    {
+        echo "tak";
+    }*/    
     $object = $app->make('\App\Http\Controllers\\'.(Auth::check() ? ucfirst($controller) : 'Auth').'Controller');    
     return $object->callAction('show', $parameters = array());
   });
@@ -65,5 +69,5 @@ Route::get('api/users/info','AuthController@info');
 Route::get('api/users/types','UsersController@get_users_types');
 Route::get('api/users/list','UsersController@get_all');
 Route::post('api/users/save','UsersController@save');
-
-Route::get('users/test','UsersController@test');
+Route::post('api/users/view/{id}','UsersController@view');
+Route::get('users/test','UsersController@get_all');
