@@ -46,8 +46,6 @@
 	   $routeProvider
 			.when('/', {templateUrl: '/pages/panel/dashboard'});
 	}]);
-	
-
 })();
 
 (function(){
