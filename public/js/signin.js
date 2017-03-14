@@ -22,8 +22,6 @@
 					{
 						$window.location.reload(true);
 					}
-					
-			
 				});
 			}
 		};

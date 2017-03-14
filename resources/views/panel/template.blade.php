@@ -47,6 +47,7 @@
 		<script src="/js/ui-bootstrap-tpls-2.5.0.js"></script>
 		<script src="/js/panelapp.js"></script>
 		<script src="/js/signin.js"></script>
+		<script src="/js/users.js"></script>
 		<script src="/js/validate.js"></script>
 		
     </body>
