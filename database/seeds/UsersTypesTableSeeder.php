@@ -13,12 +13,13 @@ class UsersTypesTableSeeder extends Seeder
     {
         DB::table('users_types')->insert([            
             'name' => 'superadministrator',            
-        ],
-        [            
+        ]);
+        DB::table('users_types')->insert([            
             'name' => 'administrator',            
-        ],
-        [
+        ]);
+        DB::table('users_types')->insert([
             'name' => 'moderator',            
         ]);
+
     }
 }

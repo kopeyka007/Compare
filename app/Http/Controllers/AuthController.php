@@ -58,18 +58,16 @@ class AuthController extends Controller
       //var_dump($request->input('users_password'));
 
       if (Auth::attempt(['email' => $request->input('users_email'), 'password' => $request->input('users_password')]))
-      //if (Auth::attempt(['email' => 'div-art@com', 'password' => $request->input('users_password')]))
-      //if (Auth::attempt(['email' => 'div-art@com', 'password' => '1234']))
         {
-            //echo "tak";            
-            //return redirect()->intended('');            
+            
             $user = Auth::user();
-            var_dump($user);
-            Auth::logout();
+            return $user;
+            //Auth::logout();
         }
         else{
-          echo "no";
+          //echo "no";
         }
+        
     }
 }
 
