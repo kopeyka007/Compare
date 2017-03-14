@@ -37,19 +37,31 @@ class UsersController extends Controller
     return $response;
   }
 
+  public function view($id){
+    $user = User::find($id);
+    if ($user){
+      $response['data'] = $user;          
+      $response['message'] = ['type'=>'success', 'text'=>'User created'];
+    }
+    else{
+      $response['data'] = false;          
+      $response['message'] = ['type'=>'error', 'text'=>'User created'];
+    }
+  }
   public function save(Request $request){
     $user = new User;
     $user_id = $request->input('id');
     //update
     if ($user_id){
-      
+
     }
     //create
     else
     {
-      $user->email =  $request->input('user_email');
-      $user->password = bcrypt($request->input('user_password'));
-      $user->type_id = $request->input('user_type');
+      $user->email =  $request->input('email');
+      $user->password = bcrypt($request->input('password'));
+      $user->type_id = $request->input('type');
+
       if ($user->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'User created'];
