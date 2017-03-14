@@ -56,7 +56,7 @@ class UsersController extends Controller
       }
       else{
         $response['data'] = false;          
-        $response['message'] = ['type'=>'error', 'text'=>'Error']; 
+        $response['message'] = ['type'=>'danger', 'text'=>'Error']; 
       }    
     }    
     return $response;

@@ -22,7 +22,7 @@ class AuthController extends Controller
         }
         else{          
           $response['data'] = false;          
-          $response['message'] = ['type'=>'error', 'text'=>'Incorect username or password'];
+          $response['message'] = ['type'=>'danger', 'text'=>'Incorect username or password'];
         }
         return $response;        
     }
