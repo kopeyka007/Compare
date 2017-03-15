@@ -1,21 +1,33 @@
 (function(){
 	angular.module('panelApp').controller('usersCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', usersCtrl]);
 	
-	function usersCtrl($scope, $rootScope, $http, $window, $uibModal, validate){
+	function usersCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
 		$scope.types = [];
-		
-		$http.get('/api/users/types').then(function(response){
+		$http.get('/api/users/types').then(function(response) {
 			$scope.types = response.data.data;
 		});
 		
 		$scope.add_users = function(id) {
 			id = id || false;
+
+			var user = {};
+			if (id)
+			{
+				for (var k in $scope.list)
+				{
+					if ($scope.list[k].id == id)
+					{
+						user = $scope.list[k];
+					}
+				}
+			}
+
 			var modalInstance;
             modalInstance = $uibModal.open({
                 templateUrl: "myModalContent.html",
                 controller: 'ModalUserCtrl',
 				resolve: {
-					items: {'types': $scope.types, 'id': id}
+					items: {'types': $scope.types, 'user': user}
 				}
 			});	
 			
@@ -40,16 +52,15 @@
 (function(){
 	angular.module('panelApp').controller('ModalUserCtrl', ['$scope', '$http', '$uibModalInstance', 'items', ModalUserCtrl]);
 		function ModalUserCtrl($scope, $http, $uibModalInstance, items) {
-			$scope.user_type = items.types[0];
-			$scope.user = {'email': '',
+			$scope.types = items.types;
+			$scope.user = {'id': 0,
+						   'email': '',
 						   'password': '',
-						   'type': items.types};
+						   'type': items.types[0]};
 			
-			if (items.id)
+			if (items.user && items.user.id)
 			{
-				$http.get('/api/users/list').then(function(response){
-					$scope.user = response.data.data;
-				});
+				$scope.user = items.user;
 			}
 														
 			$scope.ok = function () {
@@ -64,6 +75,4 @@
 				$uibModalInstance.dismiss('cancel');
 			};
 		}
-		
-		
 })();

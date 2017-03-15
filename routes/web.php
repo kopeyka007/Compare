@@ -70,7 +70,7 @@ Route::get('api/users/info','AuthController@info');
 Route::get('api/users/types','UsersController@get_users_types');
 Route::get('api/users/list','UsersController@get_all');
 Route::post('api/users/save','UsersController@save');
-Route::post('api/users/view/{id}','UsersController@view');
+Route::get('api/users/view/{id}','UsersController@view');
 
 
 

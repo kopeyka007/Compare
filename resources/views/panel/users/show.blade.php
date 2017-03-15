@@ -38,7 +38,7 @@
 							<input type="email" class="form-control" name="email" ng-model="user.email" required="required" />
 						</div>
 					</div>
-					<div class="col-sm-12">
+					<div class="col-sm-12" ng-show="user.id == 0">
 						<div class="form-group">
 							<label>Password</label>
 							<input type="password" class="form-control" name="password" ng-model="user.password" required="required" />
@@ -47,7 +47,7 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label>Type of user</label>
-							<select class="form-control" ng-model="user.type" ng-options="type as type.name for type in type_users track by type.id">
+							<select class="form-control" ng-model="user.type" ng-options="type.name for type in types track by type.id">
 							</select>
 						</div>
 					</div>
