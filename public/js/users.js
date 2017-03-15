@@ -27,7 +27,7 @@
                 templateUrl: "ModalUsersContent.html",
                 controller: 'ModalUsersCtrl',
 				resolve: {
-					items: {'types': $scope.types, 'user': user}
+					items: {'types': $scope.types, 'user': user, 'list': $scope.list}
 				}
 			});	
 			
@@ -97,6 +97,15 @@
 			if ( ! $scope.user.id)
 			{
 				error *= validate.check($scope, $scope.form.password, 'Password');
+			}
+
+			for (var k in items.list)
+			{
+				if ($scope.user.email.toLowerCase() == items.list[k].email.toLowerCase() && $scope.user.id != items.list[k].id)
+				{
+					error *= 0;
+					$scope.errors.push({'text': ('The user with this emails is already in database'), 'type': 'danger'});
+				}
 			}
 
 			if (error)

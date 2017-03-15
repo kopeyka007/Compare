@@ -21,7 +21,7 @@
                 templateUrl: "ModalCatsContent.html",
                 controller: 'ModalCatsCtrl',
 				resolve: {
-					items: {'cat': cat}
+					items: {'cat': cat, 'list': $scope.list}
 				}
 			});	
 			
@@ -82,6 +82,15 @@
 			error *= validate.check($scope, $scope.form.name, 'Name');
 			error *= validate.check($scope, $scope.form.slug, 'Slug');
 			
+			for (var k in items.list)
+			{
+				if ($scope.cat.cats_alias.toLowerCase() == items.list[k].cats_alias.toLowerCase() && $scope.cat.cats_id != items.list[k].cats_id)
+				{
+					error *= 0;
+					$scope.errors.push({'text': ('This slug is already in database'), 'type': 'danger'});
+				}
+			}
+
 			if (error)
 			{
 				$http.post('/api/cats/save', $scope.cat).then(function(response) {

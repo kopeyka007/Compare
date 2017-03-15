@@ -27,7 +27,7 @@
 			</tbody>
 		</table>
 
-		<div class="alert alert-info text-center" role="alert">
+		<div class="alert alert-info text-center" role="alert" ng-show=" ! list.length">
 			There is no any data
 		</div>
 	</div>

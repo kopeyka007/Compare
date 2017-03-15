@@ -15,7 +15,7 @@
 					<th class="td-icon">Remove</th>
 				</tr>
 			</thead>
-			
+
 			<tbody>
 				<tr ng-repeat="cat in list">
 					<td class="td-id">@{{cat.cats_id}}</td>
@@ -27,7 +27,7 @@
 			</tbody>
 		</table>
 
-		<div class="alert alert-info text-center" role="alert">
+		<div class="alert alert-info text-center" role="alert" ng-show=" ! list.length">
 			There is no any data
 		</div>
 	</div>
@@ -64,7 +64,7 @@
 	</form>
 
 	<div class="modal-footer">
-		<button class="btn btn-primary" type="button" ng-click="save()">OK</button>
-		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+		<button class="btn btn-primary" type="button" ng-click="save()">Save</button>
+		<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 	</div>
 </script>
