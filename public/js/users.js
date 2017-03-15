@@ -70,7 +70,10 @@
 			
 			if (items.user && items.user.id)
 			{
-				$scope.user = items.user;
+				for (var k in items.user)
+				{
+					$scope.user[k] = items.user[k];
+				}
 			}
 														
 			$scope.ok = function () {
