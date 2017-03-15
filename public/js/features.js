@@ -91,7 +91,7 @@
 
 			if (error)
 			{
-				for (var key in $scope.feature)
+				/*for (var key in $scope.feature)
 				{
 					$scope.fd.append(key, $scope.feature[key]);
 				}
@@ -104,7 +104,13 @@
 					}
 				};
 				$scope.xhr.open("post", "/api/features/save");
-				$scope.xhr.send($scope.fd);
+				$scope.xhr.send($scope.fd);*/
+				$http.post('/api/features/save', $scope.feature).then(function(response) {
+					if (response.data.data)
+					{
+						$uibModalInstance.close(response.data.message);
+					}
+				});
 			}
 		};
 
