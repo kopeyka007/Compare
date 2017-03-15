@@ -24,7 +24,6 @@ class ResponseApi
         $currentAction = \Route::currentRouteAction();
         list($controller, $method) = explode('@', $currentAction);
         $controller = preg_replace('/.*\\\/', '', $controller);        
-
         return response()->json($data->original); 
         
           /*$model = app("App/User");

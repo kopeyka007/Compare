@@ -68,8 +68,8 @@ Route::post('api/signout','AuthController@signout');
 Route::get('api/users/info','AuthController@info');
 //users
 Route::get('api/users/types','UsersController@get_users_types');
-//Route::get('api/users/list','UsersController@get_all');
-Route::get('api/users/list','UsersController@get_all')->middleware('respapi');
+Route::get('api/users/list','UsersController@get_all');
+//Route::get('api/users/list','UsersController@get_all')->middleware('respapi');
 Route::post('api/users/save','UsersController@save');
 Route::get('api/users/view/{id}','UsersController@view');
 Route::delete('api/users/delete/{id}','UsersController@delete');
@@ -77,10 +77,13 @@ Route::delete('api/users/delete/{id}','UsersController@delete');
 Route::get('api/cats/list','CatsController@get_all');
 Route::post('api/cats/save','CatsController@save');
 Route::delete('api/cats/delete/{id}','CatsController@delete');
+//brands
+Route::get('api/brands/list','BrandsController@get_all');
+Route::post('api/brands/save','BrandsController@save');
+Route::delete('api/brands/delete/{id}','BrandsController@delete');
 
 
 
 
 
-
-Route::get('test/','CatsController@get_all');
+Route::get('test/{id}','CatsController@delete');
