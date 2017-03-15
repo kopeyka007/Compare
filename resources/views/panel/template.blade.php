@@ -25,23 +25,26 @@
 					</div>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-						<li><a href="/panel/users">Users</a></li>
-						<li><a href="/panel/categories">Categories</a></li>
-						<li><a href="/panel/attributes">Attributes</a></li>
-						<li><a href="/panel/products">Products</a></li>
+							<li><a href="/panel/users">Users</a></li>
+							<li><a href="/panel/categories">Categories</a></li>
+							<li><a href="/panel/attributes">Attributes</a></li>
+							<li><a href="/panel/products">Products</a></li>
 						</ul>
+
 						<ul class="nav navbar-nav navbar-right">
-						<li><a href="" ng-click="logout()">Sign out</a></li>
+							<li><a href="" ng-click="logout()">Sign out</a></li>
 						</ul>
 					</div>
 				</div>
 			</nav>
+
 			<div class="container">
 				<div class="error-msg" ng-show="errors.length">
 					<div class="alert alert-@{{msg.type}}" ng-repeat="msg in errors" ng-init="showme = true" ng-show="showme" role="alert">@{{msg.text}}
 						 <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="showme = false"><span aria-hidden="true">&times;</span></button>
 					</div>
 				</div>
+
 				<div ng-view>
 				</div>
 			</div>
@@ -54,6 +57,5 @@
 		<script src="/js/signin.js"></script>
 		<script src="/js/users.js"></script>
 		<script src="/js/validate.js"></script>
-		
     </body>
 </html>
