@@ -54,8 +54,9 @@
 })();
 
 (function() {
-	angular.module('panelApp').controller('ModalCatsCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'items', ModalCatsCtrl]);
-	function ModalCatsCtrl($scope, $rootScope, $http, $uibModalInstance, items) {
+	angular.module('panelApp').controller('ModalCatsCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'validate', 'items', ModalCatsCtrl]);
+	function ModalCatsCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items) {
+		$scope.errors = [];
 		$scope.cat = {'id': 0,
 					  'slug': '',
 					  'name': ''};
@@ -67,14 +68,30 @@
 				$scope.cat[k] = items.cat[k];
 			}
 		}
+
+		$scope.slug = function() {
+			console.log($scope.form.slug.$pristine);
+			if ( ! $scope.cat.id && $scope.form.slug.$pristine)
+			{
+				$scope.cat.slug = $scope.cat.name.replace(/ /gi, '-').toLowerCase();
+			}
+		};
 													
 		$scope.save = function () {
-			$http.post('/api/cats/save', $scope.cat).then(function(response) {
-				if (response.data.data)
-				{
-					$uibModalInstance.close(response.data.message);
-				}
-			});
+			$scope.errors = [];
+			var error = 1;
+			error *= validate.check($scope, $scope.form.name, 'Name');
+			error *= validate.check($scope, $scope.form.slug, 'Slug');
+			
+			if (error)
+			{
+				$http.post('/api/cats/save', $scope.cat).then(function(response) {
+					if (response.data.data)
+					{
+						$uibModalInstance.close(response.data.message);
+					}
+				});
+			}
 		};
 
 		$scope.cancel = function () {

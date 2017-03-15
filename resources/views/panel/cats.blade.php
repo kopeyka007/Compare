@@ -34,23 +34,29 @@
 		<h3 ng-show="cat.id">Edit Category</h3>
 	</div>
 
-	<div class="modal-body coverletter-modal">
+	<form name="form" class="modal-body coverletter-modal" novalidate="novalidate">
+		<div ng-show="errors.length">
+			<div class="alert alert-@{{msg.type}}" ng-repeat="msg in errors" ng-init="showme = true" ng-show="showme" role="alert">@{{msg.text}}
+				 <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="showme = false"><span aria-hidden="true">&times;</span></button>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Name</label>
-					<input type="text" class="form-control" name="name" ng-model="cat.name" required="required" />
+					<input type="text" class="form-control" name="name" ng-model="cat.name" ng-change="slug()" required="required" />
 				</div>
 			</div>
 
-			<div class="col-sm-12" ng-show="user.id == 0">
+			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Slug</label>
 					<input type="text" class="form-control" name="slug" ng-model="cat.slug" required="required" />
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 
 	<div class="modal-footer">
 		<button class="btn btn-primary" type="button" ng-click="save()">OK</button>
