@@ -18,7 +18,7 @@
 			<tbody>
 				<tr ng-repeat="brand in list">
 					<td class="td-id">@{{brand.brands_id}}</td>
-					<td>@{{brand.brand_name}}</td>
+					<td>@{{brand.brands_name}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(brand.brands_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(brand.brands_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>

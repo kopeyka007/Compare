@@ -59,6 +59,8 @@
 		<script src="/js/signin.js"></script>
 		<script src="/js/users.js"></script>
 		<script src="/js/cats.js"></script>
+		<script src="/js/brands.js"></script>
+		<script src="/js/features.js"></script>
 		<script src="/js/validate.js"></script>
     </body>
 </html>
