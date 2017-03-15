@@ -15,17 +15,9 @@ class CatsController extends Controller
   }
 
   public function get_all(){
-    $cats = Cats::all();
-    /*$i=0;
-    foreach ($users as $user) {
-      $response['data'][$i]['id'] = $user->id;      
-      $response['data'][$i]['email'] = $user->email;
-      $response['data'][$i]['type'] = ['id'=>$user->role->id, 'name'=>$user->role->name];      
-      $i++;
-    }*/
+    $cats = Cats::all();    
     $response['data'] = $cats;
-    return $response;
-    //return $response;
+    return $response;    
   }
 
   public function view($id){

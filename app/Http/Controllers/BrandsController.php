@@ -14,6 +14,12 @@ class BrandsController extends Controller
     return view('panel.brands');
   }
 
+  public function get_all(){
+    $brands = Brands::all();    
+    $response['data'] = $brands;
+    return $response;    
+  }
+  
   public function view($id){
     $brand = Brands::find($id);    
     if ($brand){
@@ -28,10 +34,10 @@ class BrandsController extends Controller
   
   public function save(Request $request){
     $brand = new Brands;
-    $brand_id = $request->input('id');
+    $brand_id = $request->input('brands_id');
     //update
     if ($brand_id && $brand_id <> 0){
-      $current = Cats::find($cat_id);
+      $current = Brands::find($brand_id);
       if ($current){
         $current->brands_name = $request->input('brands_name');        
         if ($current->save()){
