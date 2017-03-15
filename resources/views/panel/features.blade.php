@@ -61,21 +61,6 @@
 
 			<div class="col-sm-12">
 				<div class="form-group">
-					<label>Group</label>
-					<select class="form-control" name="groups_id" ng-model="feature.groups_id" ng-options="group.groups_name for group in groups track by group.groups_id">
-					</select>
-				</div>
-			</div>
-
-			<div class="col-sm-12" ng-show="feature.groups_id == 0">
-				<div class="form-group">
-					<label>New Group Name</label>
-					<input type="text" class="form-control" name="groups_name" ng-model="feature.groups_name" ng-required="feature.groups_id == 0" />
-				</div>
-			</div>
-
-			<div class="col-sm-12">
-				<div class="form-group">
 					<label>Name</label>
 					<input type="text" class="form-control" name="name" ng-model="feature.features_name" required="required" />
 				</div>

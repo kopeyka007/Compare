@@ -6,12 +6,6 @@
 			$scope.cats = response.data.data;
 		});
 
-		$scope.groups = [];
-		$http.get('/api/groups/list').then(function(response) {
-			$scope.groups = response.data.data;
-			$scope.groups.unshift({'groups_id': 0, 'groups_name': 'Create new Group'});
-		});
-
 		$scope.add = function(id) {
 			id = id || false;
 
@@ -70,8 +64,6 @@
 		$scope.errors = [];
 		$scope.feature = {'features_id': 0,
 						  'cats_id': 0,
-						  'groups_id': 0,
-						  'groups_name': '',
 					  	  'features_name': '',
 					  	  'features_icon': '',
 					  	  'features_desc': '',
@@ -92,7 +84,6 @@
 			var error = 1;
 			error *= validate.check($scope, $scope.form.name, 'Name');
 			error *= validate.check($scope, $scope.form.cats_id, 'Category');
-			error *= validate.check($scope, $scope.form.groups_name, 'New Group Name');
 
 			if (error)
 			{
