@@ -1,4 +1,4 @@
-(function(){
+(function() {
 	angular.module('panelApp').controller('usersCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', usersCtrl]);
 	
 	function usersCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
@@ -7,7 +7,7 @@
 			$scope.types = response.data.data;
 		});
 		
-		$scope.add_users = function(id) {
+		$scope.add = function(id) {
 			id = id || false;
 
 			var user = {};
@@ -24,8 +24,8 @@
 
 			var modalInstance;
             modalInstance = $uibModal.open({
-                templateUrl: "myModalContent.html",
-                controller: 'ModalUserCtrl',
+                templateUrl: "ModalUsersContent.html",
+                controller: 'ModalUsersCtrl',
 				resolve: {
 					items: {'types': $scope.types, 'user': user}
 				}
@@ -45,7 +45,7 @@
 			}); 
 		};
 
-		$scope.remove_users = function(id) {
+		$scope.remove = function(id) {
 			if (confirm('Do you realy want to remove this item?'))
 			{
 				$http.delete('/api/users/delete/' + id).then(function(response) {
@@ -64,7 +64,7 @@
 		
 		$scope.list = [];
 		$scope.get_list = function() {
-			$http.get('/api/users/list').then(function(response){
+			$http.get('/api/users/list').then(function(response) {
 				$scope.list = response.data.data;
 			});
 		};
@@ -72,33 +72,34 @@
 	}
 })();
 
-(function(){
-	angular.module('panelApp').controller('ModalUserCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'items', ModalUserCtrl]);
-		function ModalUserCtrl($scope, $rootScope, $http, $uibModalInstance, items) {
-			$scope.types = items.types;
-			$scope.user = {'id': 0,
-						   'email': '',
-						   'password': '',
-						   'type': items.types[0]};
-			
-			if (items.user && items.user.id)
+(function() {
+	angular.module('panelApp').controller('ModalUsersCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'items', ModalUsersCtrl]);
+	function ModalUsersCtrl($scope, $rootScope, $http, $uibModalInstance, items) {
+		$scope.types = items.types;
+		$scope.user = {'id': 0,
+					   'email': '',
+					   'password': '',
+					   'type': items.types[0]};
+		
+		if (items.user && items.user.id)
+		{
+			for (var k in items.user)
 			{
-				for (var k in items.user)
-				{
-					$scope.user[k] = items.user[k];
-				}
+				$scope.user[k] = items.user[k];
 			}
-														
-			$scope.ok = function () {
-				$http.post('/api/users/save', $scope.user).then(function(response){
-					if (response.data.data) {
-						$uibModalInstance.close(response.data.message);
-					}
-				});
-			};
-
-			$scope.cancel = function () {
-				$uibModalInstance.dismiss('cancel');
-			};
 		}
+													
+		$scope.save = function () {
+			$http.post('/api/users/save', $scope.user).then(function(response) {
+				if (response.data.data)
+				{
+					$uibModalInstance.close(response.data.message);
+				}
+			});
+		};
+
+		$scope.cancel = function () {
+			$uibModalInstance.dismiss('cancel');
+		};
+	}
 })();

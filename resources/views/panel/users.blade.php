@@ -1,7 +1,7 @@
 <div ng-controller="usersCtrl">
-	<h1>Show</h1>
+	<h1>Users</h1>
 	<div class="form-group">
-		<button type="button" class="btn btn-primary" ng-click="add_users()">Create User</button>
+		<button type="button" class="btn btn-primary" ng-click="add()">Create User</button>
 	</div>
 	
 	<div class="table-responsive">
@@ -20,20 +20,21 @@
 					<td class="td-id">@{{user.id}}</td>
 					<td class="td-type">@{{user.type.name}}</td>
 					<td>@{{user.email}}</td>
-					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add_users(user.id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
-					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove_users(user.id)"><i class="fa fa-trash-o text-danger"></i></button></td>
+					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(user.id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
+					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(user.id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </div>
 
-<script type="text/ng-template" id="myModalContent.html">
+<script type="text/ng-template" id="ModalUsersContent.html">
 	<div class="modal-header">
-		<h3>Add User</h3>
+		<h3 ng-show=" ! user.id">Create User</h3>
+		<h3 ng-show="user.id">Edit User</h3>
 	</div>
 
-	<div class="modal-body  coverletter-modal">
+	<div class="modal-body coverletter-modal">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group">
@@ -60,7 +61,7 @@
 	</div>
 
 	<div class="modal-footer">
-		<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+		<button class="btn btn-primary" type="button" ng-click="save()">Save</button>
+		<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 	</div>
 </script>

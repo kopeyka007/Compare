@@ -7,8 +7,8 @@
 		<link href="/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/css/font-awesome.min.css" rel="stylesheet" />
 		<link href="/css/style.css" rel="stylesheet" />
-		<script src="/js/angular.min.js"></script>
-		<script src="/js/angular-route.min.js"></script>
+		<script src="/js/libs/angular.min.js"></script>
+		<script src="/js/libs/angular-route.min.js"></script>
 	</head>
 	
     <body>
@@ -27,6 +27,7 @@
 						<ul class="nav navbar-nav">
 							<li><a href="/panel/users/" ng-if="access('users')">Users</a></li>
 							<li><a href="/panel/cats/" ng-if="access('cats')">Categories</a></li>
+							<li><a href="/panel/brands/" ng-if="access('brands')">Brands</a></li>
 							<li><a href="/panel/features/" ng-if="access('features')">Features</a></li>
 							<li><a href="/panel/filters/" ng-if="access('filters')">Filters</a></li>
 							<li><a href="/panel/prods/" ng-if="access('prods')">Products</a></li>
@@ -51,12 +52,13 @@
 			</div>
 		</section>
 		
-		<script src="/js/angular-animate.min.js"></script>
-		<script src="/js/angular-sanitize.min.js"></script>
-		<script src="/js/ui-bootstrap-tpls-2.5.0.js"></script>
+		<script src="/js/libs/angular-animate.min.js"></script>
+		<script src="/js/libs/angular-sanitize.min.js"></script>
+		<script src="/js/libs/ui-bootstrap-tpls-2.5.0.js"></script>
 		<script src="/js/panelapp.js"></script>
 		<script src="/js/signin.js"></script>
 		<script src="/js/users.js"></script>
+		<script src="/js/cats.js"></script>
 		<script src="/js/validate.js"></script>
     </body>
 </html>
