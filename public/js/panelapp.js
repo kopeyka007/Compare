@@ -52,7 +52,12 @@
 	angular.module('panelApp').controller('panelCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', panelCtrl]);
 	
 	function panelCtrl($scope, $rootScope, $http, $window, $location) {
+		$rootScope.token = '';
 		$rootScope.errors = [];
+
+		$scope.token = function(token) {
+			$rootScope.token = token;
+		};
 
 		$rootScope.user = false;
 		$scope.info = function() {
