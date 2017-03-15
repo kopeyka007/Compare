@@ -54,7 +54,19 @@ class UsersController extends Controller
     $user_id = $request->input('id');
     //update
     if ($user_id){
-
+      $current = User::find($user_id);
+      if ($current){
+        $current->email = $request->input('email');
+        if ($current->save()){
+          $response['data'] = true;          
+          $response['message'] = ['type'=>'success', 'text'=>'User saved'];
+        }
+      }
+      else{
+        $response['data'] = false;          
+        $response['message'] = ['type'=>'error', 'text'=>'User not found'];
+      }
+        
     }
     //create
     else
@@ -82,8 +94,17 @@ class UsersController extends Controller
 
   }
 
-  public function delete(Request $request){
-
+  public function delete($id){
+    $user = User::find($id);    
+    if ($user && $user->delete()){
+      $response['data']['type'] = true;      
+      $response['message'] = ['type'=>'success', 'text'=>'User deleted'];      
+    }
+    else{
+      $response['data'] = false;          
+      $response['message'] = ['type'=>'error', 'text'=>'User not found'];
+    }
+    return $response;
   }
 
   public function test(){    

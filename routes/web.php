@@ -71,6 +71,7 @@ Route::get('api/users/types','UsersController@get_users_types');
 Route::get('api/users/list','UsersController@get_all');
 Route::post('api/users/save','UsersController@save');
 Route::get('api/users/view/{id}','UsersController@view');
+Route::delete('api/users/delete/{id}','UsersController@delete');
 
 
 
@@ -78,5 +79,4 @@ Route::get('api/users/view/{id}','UsersController@view');
 
 
 
-
-Route::get('users/test/{id}','UsersController@view');
+Route::get('users/test/{id}','UsersController@delete');
