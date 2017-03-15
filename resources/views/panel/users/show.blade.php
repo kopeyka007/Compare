@@ -19,7 +19,7 @@
 				<td>@{{user.id}}</td>
 				<td>@{{user.email}}</td>
 				<td>@{{user.role}}</td>
-				<td><button type="button" class="btn btn-default" ng-click="add_users(user.id)">Edit</button></td>
+				<td><button type="button" class="btn btn-link text-success" ng-click="add_users(user.id)"><i class="fa fa-pencil-square-o"></i></button></td>
 				<td></td>
 			</tr>
 		</tbody>
