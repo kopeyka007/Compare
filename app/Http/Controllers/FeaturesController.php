@@ -17,14 +17,13 @@ class FeaturesController extends Controller
   }
 
   public function get_all(){
-    $features = Features::all();    
+    $features = Features::with('cats_id')->get();    
     $response['data'] = $features;
     return $response;    
   }
 
   public function view($id){
-    $feature = Features::find($id);    
-    //var_dump($feature->test);
+    $feature = Features::with('cats_id')->find($id);
     if ($feature){
       $response['data'] = $feature;            
     }
@@ -35,10 +34,7 @@ class FeaturesController extends Controller
     return $response;
   }
   
-  public function save(Request $request){
-    //var_dump($request->all());
-    //var_dump($request->input('features_name'));
-    //exit();
+  public function save(Request $request){    
     $feature = new Features;
     $feature_id = $request->input('features_id');
     //update
@@ -62,8 +58,7 @@ class FeaturesController extends Controller
       else{
         $response['data'] = false;          
         $response['message'] = ['type'=>'danger', 'text'=>'Feature not found'];
-      }
-        
+      } 
     }
     //create
     else
@@ -102,7 +97,7 @@ class FeaturesController extends Controller
 
   public function set_relation_category($cats_id, $features_id){
     $features = Features::find($features_id);
-    if ($features->cats()->sync([$cats_id])) return true;    
+    if ($features->cats_id()->sync([$cats_id])) return true;    
   }
 
 

@@ -10,7 +10,7 @@ class Cats extends Model
     protected $table = 'cats';
     protected $primaryKey ='cats_id';
 
-    public function test(){
-      return $this->morphMany('App\Features', 'cats_features');
+    public function features(){      
+        return $this->belongsToMany('App\Features', 'cats_features', 'cats_id', 'features_id');
     }
 }

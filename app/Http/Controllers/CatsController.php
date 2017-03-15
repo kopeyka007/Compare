@@ -15,13 +15,13 @@ class CatsController extends Controller
   }
 
   public function get_all(){
-    $cats = Cats::all();    
+    $cats = Cats::with('features')->get();    
     $response['data'] = $cats;
     return $response;    
   }
 
   public function view($id){
-    $cat = User::find($id);    
+    $cat = Cats::with('features')->find($id);    
     if ($cat){
       $response['data'] = $cat;            
     }
