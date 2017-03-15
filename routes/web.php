@@ -98,4 +98,4 @@ Route::delete('api/features/delete/{id}','FeaturesController@delete');
 
 
 
-Route::get('test/{id}','CatsController@delete');
+Route::get('test/{id}','FeaturesController@view');

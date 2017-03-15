@@ -17,11 +17,11 @@ class CreateFeaturesTable extends Migration
             $table->increments('features_id');                        
             $table->integer('features_pos')->default(0);            
             $table->string('features_name');            
-            $table->string('features_icon');            
-            $table->string('features_desc');            
-            $table->string('features_units');            
-            $table->string('features_around');            
-            $table->string('features_norm');            
+            $table->string('features_icon')->default('')->nullable();         
+            $table->string('features_desc')->default('')->nullable();
+            $table->string('features_units')->default('')->nullable();            
+            $table->string('features_around')->default('')->nullable();            
+            $table->string('features_norm')->default('')->nullable();            
         }); 
     }
 

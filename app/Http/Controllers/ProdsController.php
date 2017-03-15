@@ -14,12 +14,6 @@ class ProdsController extends Controller
     return view('panel.prods');
   }
 
-  public function get_all(){
-    $prods = Prods::all();    
-    $response['data'] = $prods;
-    return $response;    
-  }
-
   public function view($id){
     $prod = Prods::find($id);    
     if ($prod){

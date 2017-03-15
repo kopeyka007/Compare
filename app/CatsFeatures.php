@@ -8,6 +8,5 @@ class CatsFeatures extends Model
 {
     public $timestamps = false;
     protected $table = 'cats_features';
-    protected $primaryKey ='rows_id';    
-
+    protected $primaryKey ='rows_id';
 }
