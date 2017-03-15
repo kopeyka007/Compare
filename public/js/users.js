@@ -33,6 +33,12 @@
 			
 			modalInstance.result.then(function (result) {
 				$rootScope.errors = [result];
+				if (id == $rootScope.user.id)
+				{
+					$http.get('/api/users/info').then(function(response) {
+						$rootScope.user = response.data.data;
+					});
+				}
 				$scope.get_list();
 			}, function() {
 
@@ -44,7 +50,14 @@
 			{
 				$http.delete('/api/users/delete/' + id).then(function(response) {
 					$rootScope.errors = [response.data.message];
-					$scope.get_list();
+					if (id == $rootScope.user.id)
+					{
+						$window.location.reload();
+					}
+					else
+					{
+						$scope.get_list();
+					}
 				});
 			}
 		};
@@ -60,8 +73,8 @@
 })();
 
 (function(){
-	angular.module('panelApp').controller('ModalUserCtrl', ['$scope', '$http', '$uibModalInstance', 'items', ModalUserCtrl]);
-		function ModalUserCtrl($scope, $http, $uibModalInstance, items) {
+	angular.module('panelApp').controller('ModalUserCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'items', ModalUserCtrl]);
+		function ModalUserCtrl($scope, $rootScope, $http, $uibModalInstance, items) {
 			$scope.types = items.types;
 			$scope.user = {'id': 0,
 						   'email': '',

@@ -25,10 +25,11 @@
 
 					<div class="collapse navbar-collapse" id="menu">
 						<ul class="nav navbar-nav">
-							<li><a href="/panel/users">Users</a></li>
-							<li><a href="/panel/categories">Categories</a></li>
-							<li><a href="/panel/attributes">Attributes</a></li>
-							<li><a href="/panel/products">Products</a></li>
+							<li><a href="/panel/users/" ng-if="access('users')">Users</a></li>
+							<li><a href="/panel/cats/" ng-if="access('cats')">Categories</a></li>
+							<li><a href="/panel/features/" ng-if="access('features')">Features</a></li>
+							<li><a href="/panel/filters/" ng-if="access('filters')">Filters</a></li>
+							<li><a href="/panel/prods/" ng-if="access('prods')">Products</a></li>
 						</ul>
 
 						<ul class="nav navbar-nav navbar-right">
