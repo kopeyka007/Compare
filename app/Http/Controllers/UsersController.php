@@ -61,7 +61,7 @@ class UsersController extends Controller
     {
       $user->email =  $request->input('email');
       $user->password = bcrypt($request->input('password'));
-      $user->type_id = $request->input('type');
+      $user->type_id = $request->input('type')['id'];            
 
       if ($user->save()){
         $response['data'] = true;          
