@@ -103,8 +103,8 @@
 						//$uibModalInstance.close(response.data.message);
 					}
 				};
-				$scope.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				$scope.xhr.open("post", "/api/features/save");
+				$scope.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				$scope.xhr.send($scope.fd);
 				/*$http.post('/api/features/save', $scope.feature).then(function(response) {
 					if (response.data.data)
