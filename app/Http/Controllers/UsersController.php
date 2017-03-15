@@ -57,6 +57,7 @@ class UsersController extends Controller
       $current = User::find($user_id);
       if ($current){
         $current->email = $request->input('email');
+        $user->type_id = $request->input('type')['id'];
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'User saved'];
