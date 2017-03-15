@@ -31,7 +31,7 @@ class AuthController extends Controller
         $user = User::find(Auth::user()->id);
         $response['data']['id'] = $user->id;
         $response['data']['email'] = $user->email;
-        $response['data']['role'] = $user->role->name;
+        $response['data']['type'] = ['id'=>$user->role->id,'name'=>$user->role->name];
       }
       else{
         $response['data'] = false;
