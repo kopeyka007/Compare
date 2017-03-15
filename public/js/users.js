@@ -43,7 +43,7 @@
 			if (confirm('Do you realy want to remove this item?'))
 			{
 				$http.delete('/api/users/delete/' + id).then(function(response) {
-					$rootScope.errors = response.data.message;
+					$rootScope.errors = [response.data.message];
 					$scope.get_list();
 				});
 			}
@@ -70,7 +70,10 @@
 			
 			if (items.user && items.user.id)
 			{
-				$scope.user = items.user;
+				for (var k in items.user)
+				{
+					$scope.user[k] = items.user[k];
+				}
 			}
 														
 			$scope.ok = function () {

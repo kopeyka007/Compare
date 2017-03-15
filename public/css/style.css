@@ -7,9 +7,19 @@
 	position: relative;
 }
 
+.td-id {
+	text-align: left;
+	width: 50px;
+}
+
 .td-icon {
 	text-align: center;
 	width: 75px;
+}
+
+.td-type {
+	text-align: left;
+	width: 160px;
 }
 
 .content-border {
