@@ -10,8 +10,8 @@
 				<th>ID</th>
 				<th>Email</th>
 				<th>Type</th>
-				<th>Edit</th>
-				<th>Remove</th>
+				<th class="td-icon">Edit</th>
+				<th class="td-icon">Remove</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -19,8 +19,8 @@
 				<td>@{{user.id}}</td>
 				<td>@{{user.email}}</td>
 				<td>@{{user.role}}</td>
-				<td><button type="button" class="btn btn-link text-success" ng-click="add_users(user.id)"><i class="fa fa-pencil-square-o"></i></button></td>
-				<td></td>
+				<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add_users(user.id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
+				<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove_users(user.id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 			</tr>
 		</tbody>
 	</table>

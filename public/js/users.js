@@ -38,6 +38,16 @@
 
 			}); 
 		};
+
+		$scope.remove_users = function(id) {
+			if (confirm('Do you realy want to remove this item?'))
+			{
+				$http.delete('/api/users/delete/' + id).then(function(response) {
+					$rootScope.errors = response.data.message;
+					$scope.get_list();
+				});
+			}
+		};
 		
 		$scope.list = [];
 		$scope.get_list = function() {
