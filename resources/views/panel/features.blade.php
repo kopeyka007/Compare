@@ -90,7 +90,7 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Around...</label>
-					<input type="text" class="form-control" name="around" ng-model="feature.features_around" placeholder="Arounf XX% bigger size than" />
+					<input type="text" class="form-control" name="around" ng-model="feature.features_around" placeholder="Around XX% bigger size than" />
 				</div>
 			</div>
 		</div>

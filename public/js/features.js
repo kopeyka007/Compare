@@ -62,8 +62,9 @@
 	angular.module('panelApp').controller('ModalFeaturesCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'validate', 'items', ModalFeaturesCtrl]);
 	function ModalFeaturesCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items) {
 		$scope.errors = [];
+		$scope.cats = [{'cats_id': 0, 'cats_name': 'Chose Category'}].concat(items.cats);
 		$scope.feature = {'features_id': 0,
-						  'cats_id': 0,
+						  'cats_id': {'cats_id': 0, 'cats_name': 'Chose Category'},
 					  	  'features_name': '',
 					  	  'features_icon': '',
 					  	  'features_desc': '',
