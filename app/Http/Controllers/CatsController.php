@@ -42,7 +42,7 @@ class CatsController extends Controller
   
   public function save(Request $request){
     $cat = new Cats;
-    $cat_id = $request->input('id');
+    $cat_id = $request->input('cats_id');
     //update
     if ($cat_id && $cat_id <> 0){
       $current = Cats::find($cat_id);

@@ -26,7 +26,7 @@ class UsersController extends Controller
     foreach ($users as $user) {
       $response['data'][$i]['id'] = $user->id;      
       $response['data'][$i]['email'] = $user->email;
-      $response['data'][$i]['type'] = ['id'=>$user->role->id, 'name'=>$user->role->name];      
+      $response['data'][$i]['type'] = ['id'=>$user->role->id, 'name'=>$user->role->name];
       $i++;
     }
     return $response;
