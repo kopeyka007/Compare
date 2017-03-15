@@ -8,4 +8,6 @@ class Groups extends Model
 {
     public $timestamps = false;
     protected $table = 'groups';
+    protected $primaryKey ='groups_id';        
+
 }

@@ -8,4 +8,5 @@ class CatsFilters extends Model
 {    
     public $timestamps = false;
     protected $table = 'cats_filters';
+    protected $primaryKey ='rows_id';
 }

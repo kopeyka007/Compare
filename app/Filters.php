@@ -8,4 +8,5 @@ class Filters extends Model
 {
     public $timestamps = false;
     protected $table = 'filters';
+    protected $primaryKey ='filters_id';        
 }

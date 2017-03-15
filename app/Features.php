@@ -8,4 +8,5 @@ class Features extends Model
 {
     public $timestamps = false;
     protected $table = 'features';
+    protected $primaryKey ='features_id';        
 }

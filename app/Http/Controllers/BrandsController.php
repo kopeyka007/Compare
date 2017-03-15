@@ -15,45 +15,43 @@ class BrandsController extends Controller
   }
 
   public function view($id){
-    $cat = User::find($id);    
-    if ($cat){
-      $response['data'] = $cat;            
+    $brand = Brands::find($id);    
+    if ($brand){
+      $response['data'] = $brand;            
     }
     else{
       $response['data'] = false;          
-      $response['message'] = ['type'=>'danger', 'text'=>'User not found'];
+      $response['message'] = ['type'=>'danger', 'text'=>'Brand not found'];
     }
     return $response;
   }
   
   public function save(Request $request){
-    $cat = new Cats;
-    $cat_id = $request->input('id');
+    $brand = new Brands;
+    $brand_id = $request->input('id');
     //update
-    if ($cat_id && $cat_id <> 0){
+    if ($brand_id && $brand_id <> 0){
       $current = Cats::find($cat_id);
       if ($current){
-        $current->cats_name = $request->input('cats_name');
-        $current->cats_alias = $request->input('cats_alias');
+        $current->brands_name = $request->input('brands_name');        
         if ($current->save()){
           $response['data'] = true;          
-          $response['message'] = ['type'=>'success', 'text'=>'Category saved'];
+          $response['message'] = ['type'=>'success', 'text'=>'Brand saved'];
         }
       }
       else{
         $response['data'] = false;          
-        $response['message'] = ['type'=>'danger', 'text'=>'Category not found'];
+        $response['message'] = ['type'=>'danger', 'text'=>'Brand not found'];
       }
         
     }
     //create
     else
     {
-      $cat->cats_name =  $request->input('cats_name');
-      $cat->cats_alias = $request->input('cats_alias');      
-      if ($cat->save()){
+      $brand->brands_name =  $request->input('brands_name');
+      if ($brand->save()){
         $response['data'] = true;          
-        $response['message'] = ['type'=>'success', 'text'=>'Category created'];
+        $response['message'] = ['type'=>'success', 'text'=>'Brand created'];
       }
       else{
         $response['data'] = false;          
@@ -64,14 +62,14 @@ class BrandsController extends Controller
   }
 
   public function delete($id){
-    $cat = Cats::find($id);    
-    if ($cat && $cat->delete()){
+    $brand = Brands::find($id);    
+    if ($brand && $brand->delete()){
       $response['data']['type'] = true;      
-      $response['message'] = ['type'=>'success', 'text'=>'Category deleted'];      
+      $response['message'] = ['type'=>'success', 'text'=>'Brand deleted'];      
     }
     else{
       $response['data'] = false;          
-      $response['message'] = ['type'=>'danger', 'text'=>'Category not found'];
+      $response['message'] = ['type'=>'danger', 'text'=>'Brand not found'];
     }
     return $response;
   }
