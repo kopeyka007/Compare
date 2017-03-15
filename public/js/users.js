@@ -1,10 +1,9 @@
 (function(){
 	angular.module('panelApp').controller('usersCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', usersCtrl]);
 	
-	function usersCtrl($scope, $rootScope, $http, $window, $uibModal, validate){
+	function usersCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
 		$scope.types = [];
-		
-		$http.get('/api/users/types').then(function(response){
+		$http.get('/api/users/types').then(function(response) {
 			$scope.types = response.data.data;
 		});
 		
@@ -47,7 +46,7 @@
 			
 			if (items.id)
 			{
-				$http.get('/api/users/list').then(function(response){
+				$http.get('/api/users/view/' + items.id).then(function(response){
 					$scope.user = response.data.data;
 				});
 			}

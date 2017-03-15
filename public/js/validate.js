@@ -6,12 +6,11 @@
 		
 		function validate() {		
 			return {
-				check: function(scope, field, name) {	
-					if (! field.$pristine)
+				check: function(scope, field, name) {
+					if ( ! field.$pristine)
 					{
 						if (field.$valid)
 						{
-							
 							return true;
 						}
 						else

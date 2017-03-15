@@ -51,14 +51,15 @@
 (function(){
 	angular.module('panelApp').controller('panelCtrl', ['$scope', '$rootScope', '$http', '$window', panelCtrl]);
 	
-	function panelCtrl($scope, $rootScope, $http, $window, $uibModal){
+	function panelCtrl($scope, $rootScope, $http, $window, $uibModal) {
+		$rootScope.errors = [];
 		$scope.user = false;
 		$http.get('/api/users/info').then(function(response) {
 			$scope.user = response.data.data;
 		});
 		
 		$scope.logout = function() {
-			$http.post('/api/signout', {}).then(function(response){
+			$http.post('/api/signout', {}).then(function(response) {
 				$window.location.reload(true);
 			});
 		};

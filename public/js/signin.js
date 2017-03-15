@@ -1,8 +1,9 @@
 (function(){
 	angular.module('panelApp').controller('signinCtrl', ['$scope', '$rootScope', '$http', '$window', 'validate', signinCtrl]);
 	
-	function signinCtrl($scope, $rootScope, $http, $window, validate){
+	function signinCtrl($scope, $rootScope, $http, $window, validate) {
 		$scope.signin = function() {
+			$rootScope.errors = [];
 			var error = 1;
 			error *= validate.check($rootScope, $scope.form.email, 'Email');
 			error *= validate.check($rootScope, $scope.form.password, 'Password');

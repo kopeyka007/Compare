@@ -1,5 +1,7 @@
+.signin-row {
+	margin-top: 100px;
+}
 
-.signin-body {
-	margin-top: 200px;
-	position: relative;
+.error-msg {
+	margin-top: 20px;
 }

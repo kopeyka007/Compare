@@ -47,7 +47,7 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label>Type of user</label>
-							<select class="form-control" ng-model="user.type" ng-options="type as type.name for type in type_users track by type.id">
+							<select class="form-control" ng-model="user.type" ng-options="type as type.name for type in types track by type.id">
 							</select>
 						</div>
 					</div>
