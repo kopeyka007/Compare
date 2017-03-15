@@ -38,15 +38,16 @@ class UsersController extends Controller
   }
 
   public function view($id){
-    $user = User::find($id);
+    $user = User::find($id);    
     if ($user){
-      $response['data'] = $user;          
-      $response['message'] = ['type'=>'success', 'text'=>'User created'];
+      $response['data'] = $user;
+      $response['data']['type'] = ['id'=>$user->role->id, 'name'=>$user->role->name];      
     }
     else{
       $response['data'] = false;          
-      $response['message'] = ['type'=>'error', 'text'=>'User created'];
+      $response['message'] = ['type'=>'error', 'text'=>'User not found'];
     }
+    return $response;
   }
   public function save(Request $request){
     $user = new User;
