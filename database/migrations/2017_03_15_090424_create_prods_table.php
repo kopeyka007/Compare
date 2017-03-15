@@ -17,7 +17,7 @@ class CreateProdsTable extends Migration
             $table->increments('prods_id');            
             $table->integer('cats_id');            
             $table->integer('brands_id');            
-            $table->integer('prods_pos');            
+            $table->integer('prods_pos')->default(0);            
             $table->string('prods_name');            
             $table->string('prods_alias');
             $table->string('prods_foto');

@@ -16,7 +16,7 @@ class CreateFiltersTable extends Migration
         Schema::create('filters', function (Blueprint $table) {
             $table->increments('filters_id');            
             $table->integer('groups_id');            
-            $table->integer('filters_pos');            
+            $table->integer('filters_pos')->default(0);            
             $table->string('filters_name');            
             $table->string('filters_alias');            
             $table->string('filters_type');            

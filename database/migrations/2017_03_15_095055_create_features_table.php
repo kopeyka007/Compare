@@ -15,7 +15,7 @@ class CreateFeaturesTable extends Migration
     {
         Schema::create('features', function (Blueprint $table) {
             $table->increments('features_id');                        
-            $table->integer('features_pos');            
+            $table->integer('features_pos')->default(0);            
             $table->string('features_name');            
             $table->string('features_icon');            
             $table->string('features_desc');            
