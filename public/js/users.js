@@ -73,8 +73,9 @@
 })();
 
 (function() {
-	angular.module('panelApp').controller('ModalUsersCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'items', ModalUsersCtrl]);
-	function ModalUsersCtrl($scope, $rootScope, $http, $uibModalInstance, items) {
+	angular.module('panelApp').controller('ModalUsersCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'validate', 'items', ModalUsersCtrl]);
+	function ModalUsersCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items) {
+		$scope.errors = [];
 		$scope.types = items.types;
 		$scope.user = {'id': 0,
 					   'email': '',
@@ -90,12 +91,23 @@
 		}
 													
 		$scope.save = function () {
-			$http.post('/api/users/save', $scope.user).then(function(response) {
-				if (response.data.data)
-				{
-					$uibModalInstance.close(response.data.message);
-				}
-			});
+			$scope.errors = [];
+			var error = 1;
+			error *= validate.check($scope, $scope.form.email, 'Email');
+			if ( ! $scope.user.id)
+			{
+				error *= validate.check($scope, $scope.form.password, 'Password');
+			}
+
+			if (error)
+			{
+				$http.post('/api/users/save', $scope.user).then(function(response) {
+					if (response.data.data)
+					{
+						$uibModalInstance.close(response.data.message);
+					}
+				});
+			}
 		};
 
 		$scope.cancel = function () {
