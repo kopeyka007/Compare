@@ -59,8 +59,8 @@
 })();
 
 (function() {
-	angular.module('panelApp').controller('ModalFeaturesCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'validate', 'items', ModalFeaturesCtrl]);
-	function ModalFeaturesCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items) {
+	angular.module('panelApp').controller('ModalFeaturesCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', '$timeout', 'validate', 'items', ModalFeaturesCtrl]);
+	function ModalFeaturesCtrl($scope, $rootScope, $http, $uibModalInstance, $timeout, validate, items) {
 		$scope.errors = [];
 		$scope.cats = [{'cats_id': 0, 'cats_name': 'Chose Category'}].concat(items.cats);
 		$scope.feature = {'features_id': 0,
@@ -79,7 +79,10 @@
 				$scope.feature[k] = items.feature[k];
 			}
 		}
-													
+								
+		$scope.fd = new FormData();
+		$scope.xhr = new XMLHttpRequest;
+		$scope.fr = new FileReader();					
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;
@@ -88,13 +91,42 @@
 
 			if (error)
 			{
-				$http.post('/api/features/save', $scope.feature).then(function(response) {
-					if (response.data.data)
+				for (var key in $scope.feature)
+				{
+					$scope.fd.append(key, $scope.feature[key]);
+				}
+
+				$scope.xhr.onload = function() {
+					if ($scope.xhr.readyState == 4)
 					{
-						$uibModalInstance.close(response.data.message);
+						console.log(JSON.parse($scope.xhr.responseText));
+						//$uibModalInstance.close(response.data.message);
 					}
-				});
+				};
+				$scope.xhr.open("post", "/api/features/save");
+				$scope.xhr.send($scope.fd);
 			}
+		};
+
+		$scope.preview = false;
+		$scope.load = function(file) {
+			$scope.preview = false;
+			if (file.files.length)
+			{
+				$scope.fr.readAsDataURL(file.files[0]);
+				$scope.fd.append('features_icon', file.files[0]);
+
+				$scope.fr.onload = function() {
+					$scope.$apply(function () {
+						$scope.preview = $scope.fr.result;
+			        });
+				};
+			}
+		};
+
+		$scope.remove_file = function() {
+			$scope.preview = false;
+			$scope.fd.delete('features_icon');
 		};
 
 		$scope.cancel = function () {

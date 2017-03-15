@@ -61,6 +61,20 @@
 
 			<div class="col-sm-12">
 				<div class="form-group">
+					<label>Icon</label>
+					<div>
+						<button type="button" class="btn btn-info btn-file">
+							<span>Browse file...</span>
+							<input type="file" accept="image/*" name="file" ng-model="file" onchange="angular.element(this).scope().load(this)" />
+						</button>
+						<img src="@{{preview}}" class="img-preview" alt="" ng-show="preview" />
+						<a href="javascript:void(0);" ng-show="preview" ng-click="remove_file()">Remove</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-12">
+				<div class="form-group">
 					<label>Name</label>
 					<input type="text" class="form-control" name="name" ng-model="feature.features_name" required="required" />
 				</div>
