@@ -91,10 +91,11 @@
 
 			if (error)
 			{
-				for (var key in $scope.feature)
+				/*for (var key in $scope.feature)
 				{
 					$scope.fd.append(key, $scope.feature[key]);
 				}
+				$scope.fd.append('_token', $rootScope.token);
 
 				$scope.xhr.onload = function() {
 					if ($scope.xhr.readyState == 4)
@@ -105,15 +106,16 @@
 				};
 
 				$scope.xhr.open("post", "/api/features/save");
-				$scope.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				$scope.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+				$scope.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 				$scope.xhr.setRequestHeader("X-CSRF-Token", $rootScope.token);
-				$scope.xhr.send($scope.fd);
-				/*$http.post('/api/features/save', $scope.feature).then(function(response) {
+				$scope.xhr.send($scope.fd);*/
+				$http.post('/api/features/save', $scope.feature).then(function(response) {
 					if (response.data.data)
 					{
 						$uibModalInstance.close(response.data.message);
 					}
-				});*/
+				});
 			}
 		};
 
