@@ -9,7 +9,7 @@
 			{
 				for (var k in $scope.list)
 				{
-					if ($scope.list[k].id == id)
+					if ($scope.list[k].cats_id == id)
 					{
 						cat = $scope.list[k];
 					}
@@ -57,11 +57,11 @@
 	angular.module('panelApp').controller('ModalCatsCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'validate', 'items', ModalCatsCtrl]);
 	function ModalCatsCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items) {
 		$scope.errors = [];
-		$scope.cat = {'id': 0,
-					  'slug': '',
-					  'name': ''};
+		$scope.cat = {'cats_id': 0,
+					  'cats_alias': '',
+					  'cats_name': ''};
 		
-		if (items.cat && items.cat.id)
+		if (items.cat && items.cat.cats_id)
 		{
 			for (var k in items.cat)
 			{
@@ -70,10 +70,9 @@
 		}
 
 		$scope.slug = function() {
-			console.log($scope.form.slug.$pristine);
-			if ( ! $scope.cat.id && $scope.form.slug.$pristine)
+			if ( ! $scope.cat.cats_id && $scope.form.slug.$pristine)
 			{
-				$scope.cat.slug = $scope.cat.name.replace(/ /gi, '-').toLowerCase();
+				$scope.cat.cats_alias = $scope.cat.cats_name.replace(/ /gi, '-').toLowerCase();
 			}
 		};
 													

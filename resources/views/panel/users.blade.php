@@ -15,6 +15,7 @@
 					<th class="td-icon">Remove</th>
 				</tr>
 			</thead>
+			
 			<tbody>
 				<tr ng-repeat="user in list">
 					<td class="td-id">@{{user.id}}</td>
@@ -25,6 +26,10 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<div class="alert alert-info text-center" role="alert">
+			There is no any data
+		</div>
 	</div>
 </div>
 
@@ -36,7 +41,7 @@
 
 	<form name="form" class="modal-body coverletter-modal" novalidate='novalidate'>
 		<div ng-show="errors.length">
-			<div class="alert alert-@{{msg.type}}" ng-repeat="msg in errors" ng-init="showme = true" ng-show="showme" role="alert">@{{msg.text}}
+			<div class="alert alert-@{{msg.type}}" ng-repeat="msg in errors" role="alert">@{{msg.text}}
 				 <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="showme = false"><span aria-hidden="true">&times;</span></button>
 			</div>
 		</div>
