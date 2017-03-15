@@ -19,10 +19,9 @@ class ResponseApi
      */
     public function handle($request, Closure $next)
     {
-        //var_dump($request->controller);
-        //exit();
         $data = $next($request);
-        return response()->json($data); // 400 being the HTTP code for an invalid request.
+        var_dump($request->controller);
+        return response()->json($data->original); 
         
           /*$model = app("App/User");
           $validator = app('validator')->make($request->input(), $model->rules($request));

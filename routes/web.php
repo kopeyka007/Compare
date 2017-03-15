@@ -62,16 +62,18 @@ Route::get('/pages/panel/{controller}', function($controller){
     return $object->callAction('show', $parameters = array());
   });
 
-
+//auth
 Route::post('api/signin','AuthController@signin');
 Route::post('api/signout','AuthController@signout');
 Route::get('api/users/info','AuthController@info');
-
+//users
 Route::get('api/users/types','UsersController@get_users_types');
 Route::get('api/users/list','UsersController@get_all');
+//Route::get('api/users/list','UsersController@get_all')->middleware('respapi');
 Route::post('api/users/save','UsersController@save');
 Route::get('api/users/view/{id}','UsersController@view');
 Route::delete('api/users/delete/{id}','UsersController@delete');
+//cats
 
 
 
@@ -79,4 +81,4 @@ Route::delete('api/users/delete/{id}','UsersController@delete');
 
 
 
-Route::get('users/test/{id}','UsersController@delete');
+Route::get('test/{id}','UsersController@delete');

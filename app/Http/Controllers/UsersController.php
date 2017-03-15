@@ -45,10 +45,11 @@ class UsersController extends Controller
     }
     else{
       $response['data'] = false;          
-      $response['message'] = ['type'=>'error', 'text'=>'User not found'];
+      $response['message'] = ['type'=>'danger', 'text'=>'User not found'];
     }
     return $response;
   }
+  
   public function save(Request $request){
     $user = new User;
     $user_id = $request->input('id');
@@ -65,7 +66,7 @@ class UsersController extends Controller
       }
       else{
         $response['data'] = false;          
-        $response['message'] = ['type'=>'error', 'text'=>'User not found'];
+        $response['message'] = ['type'=>'danger', 'text'=>'User not found'];
       }
         
     }
@@ -87,13 +88,6 @@ class UsersController extends Controller
     }    
     return $response;
   }
-  public function create(Request $request){
-    
-  }
-
-  public function update(Request $request){
-
-  }
 
   public function delete($id){
     $user = User::find($id);    
@@ -103,13 +97,9 @@ class UsersController extends Controller
     }
     else{
       $response['data'] = false;          
-      $response['message'] = ['type'=>'error', 'text'=>'User not found'];
+      $response['message'] = ['type'=>'danger', 'text'=>'User not found'];
     }
     return $response;
-  }
-
-  public function test(){    
-    
   }
 }
 ?>
