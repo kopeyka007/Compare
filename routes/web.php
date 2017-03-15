@@ -76,7 +76,7 @@ Route::delete('api/users/delete/{id}','UsersController@delete');
 //cats
 Route::get('api/cats/list','CatsController@get_all');
 Route::post('api/cats/save','CatsController@save');
-
+Route::delete('api/cats/delete/{id}','CatsController@delete');
 
 
 
