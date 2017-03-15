@@ -12,11 +12,15 @@
 */
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-//use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Artisan;
 
-//Blade::setEscapedContentTags('[[', ']]');
-//Blade::setContentTags('[[[', ']]]');
-
+Route::get('/migrate', function () {
+    Artisan::call('migrate:rollback');
+    Artisan::call('migrate');
+    Artisan::call('db:seed', array('--class' => 'UsersTableSeeder'));
+    Artisan::call('db:seed', array('--class' => 'UsersTypesTableSeeder'));
+    return 'All migrates and seed run';
+});
 
 Route::get('/', function () {
     return view('template');
@@ -48,35 +52,22 @@ Route::get('/panel/{controller}/{id}', function () {
 Route::get('/pages/panel/dashboard', function () {
     return view('panel.dashboard');
 });
-Route::get('/pages/panel/{controller}', function($controller){    
+Route::get('/pages/panel/{controller}', function($controller){        
     $app = app();
-    //Auth::logout();
-    $object = $app->make('\App\Http\Controllers\\'.(Auth::check() ? ucfirst($controller) : 'Auth').'Controller');
+    /*if (File::exists('\App\Http\Controllers\\'.ucfirst($controller).'Controller'))
+    {
+        echo "tak";
+    }*/    
+    $object = $app->make('\App\Http\Controllers\\'.(Auth::check() ? ucfirst($controller) : 'Auth').'Controller');    
     return $object->callAction('show', $parameters = array());
   });
-  //})->middleware('respapi');
 
 
 Route::post('api/signin','AuthController@signin');
-Route::get('api/users/info','AuthController@info');
 Route::post('api/signout','AuthController@signout');
-
-
-
-
-// Маршруты аутентификации...
-//Route::get('panel/login', 'Auth\AuthController@getLogin');
-//Route::post('panel/login', 'Auth\AuthController@postLogin');
-//Route::get('panel/logout', 'Auth\AuthController@getLogout');
-
-// Маршруты регистрации...
-//Route::get('auth/register', 'Auth\AuthController@getRegister');
-//Route::post('auth/register', 'Auth\AuthController@postRegister');
-
-
-
-//Route::get('compare/{list}', 'PagesController@test');
-//Route::get('compare/{list}', 'PagesController@test');
-//Route::any('/', 'PagesController@test');
-
-//Route::get('panel', 'PanelController@admin');
+Route::get('api/users/info','AuthController@info');
+Route::get('api/users/types','UsersController@get_users_types');
+Route::get('api/users/list','UsersController@get_all');
+Route::post('api/users/save','UsersController@save');
+Route::post('api/users/view/{id}','UsersController@view');
+Route::get('users/test','UsersController@get_all');

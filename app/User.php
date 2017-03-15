@@ -9,6 +9,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public $timestamps = false;
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -27,10 +29,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-       public function rules(\Illuminate\Http\Request $request)
-       {
-          return [
-             'email' => 'required|',             
-          ];
-       }
+    public function role()
+    {      
+      return $this->belongsTo('App\UsersTypes','type_id','id');
+    }
+
+
+
 }

@@ -1,14 +1,8 @@
 <div ng-controller="signinCtrl">
-	<div class="signin-header">
-		<a><img src="#" alt="#"></a>
-	</div>
 
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			<div class="error-msg">
-				<div class="alert alert-@{{msg.type}}" ng-repeat="msg in errors" role="alert">@{{msg.text}}</div>
-			</div>
-			<div class="panel panel-default">
+			<div class="panel panel-default signin-body">
 				<div class="panel-body">
 					<form name="form" novalidate="novalidate">
 						<div class="form-group">

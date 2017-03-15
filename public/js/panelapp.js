@@ -1,5 +1,5 @@
 (function(){
-	angular.module('panelApp', ['ngRoute']);
+	angular.module('panelApp', ['ngRoute', 'ngSanitize', 'ngAnimate', 'ui.bootstrap']);
 	angular.module('panelApp').config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
 		$locationProvider.html5Mode({
@@ -49,20 +49,18 @@
 })();
 
 (function(){
-	angular.module('panelApp').controller('panelCtrl', ['$scope', '$http', '$window', panelCtrl]);
+	angular.module('panelApp').controller('panelCtrl', ['$scope', '$rootScope', '$http', '$window', panelCtrl]);
 	
-	function panelCtrl($scope, $http, $window){
-		$scope.errors = [];
+	function panelCtrl($scope, $rootScope, $http, $window, $uibModal){
 		$scope.user = false;
-		$http.get("/api/users/info").then(function(response) {
-			$scope.user = response.data;
-			console.log(response.data);
+		$http.get('/api/users/info').then(function(response) {
+			$scope.user = response.data.data;
 		});
 		
 		$scope.logout = function() {
-			$http.post("/api/signout", {}).then(function(response){
+			$http.post('/api/signout', {}).then(function(response){
 				$window.location.reload(true);
 			});
-		}
+		};
 	}
 })();
