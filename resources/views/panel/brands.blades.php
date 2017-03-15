@@ -1,7 +1,7 @@
-<div ng-controller="catsCtrl">
-	<h1>Categories</h1>
+<div ng-controller="brandsCtrl">
+	<h1>Brands</h1>
 	<div class="form-group">
-		<button type="button" class="btn btn-primary" ng-click="add()">Create Category</button>
+		<button type="button" class="btn btn-primary" ng-click="add()">Create Brand</button>
 	</div>
 	
 	<div class="table-responsive">
@@ -9,7 +9,6 @@
 			<thead>
 				<tr>
 					<th class="td-id">ID</th>
-					<th class="td-type">Slug</th>
 					<th>Name</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
@@ -17,12 +16,11 @@
 			</thead>
 
 			<tbody>
-				<tr ng-repeat="cat in list">
-					<td class="td-id">@{{cat.cats_id}}</td>
-					<td class="td-type">@{{cat.cats_alias}}</td>
-					<td>@{{cat.cats_name}}</td>
-					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(cat.cats_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
-					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(cat.cats_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
+				<tr ng-repeat="brand in list">
+					<td class="td-id">@{{brand.brands_id}}</td>
+					<td>@{{brand.brand_name}}</td>
+					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(brand.brands_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
+					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(brand.brands_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
 			</tbody>
 		</table>
@@ -33,10 +31,10 @@
 	</div>
 </div>
 
-<script type="text/ng-template" id="ModalCatsContent.html">
+<script type="text/ng-template" id="ModalBrandsContent.html">
 	<div class="modal-header">
-		<h3 ng-show=" ! cat.cats_id">Create Category</h3>
-		<h3 ng-show="cat.cats_id">Edit Category</h3>
+		<h3 ng-show=" ! brand.brands_id">Create Brand</h3>
+		<h3 ng-show="brand.brands_id">Edit Brand</h3>
 	</div>
 
 	<form name="form" class="modal-body coverletter-modal" novalidate="novalidate">
@@ -50,14 +48,7 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Name</label>
-					<input type="text" class="form-control" name="name" ng-model="cat.cats_name" ng-change="slug()" required="required" />
-				</div>
-			</div>
-
-			<div class="col-sm-12">
-				<div class="form-group">
-					<label>Slug</label>
-					<input type="text" class="form-control" name="slug" ng-model="cat.cats_alias" required="required" />
+					<input type="text" class="form-control" name="name" ng-model="brand.brands_name" required="required" />
 				</div>
 			</div>
 		</div>
