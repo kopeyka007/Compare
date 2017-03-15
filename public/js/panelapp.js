@@ -78,7 +78,7 @@
 
 			if (rules[page])
 			{
-				return $rootScope.user.type.id >= rules[page];
+				return $rootScope.user.type.id <= rules[page];
 			}
 
 			return false;
