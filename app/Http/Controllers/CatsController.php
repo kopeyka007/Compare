@@ -23,7 +23,8 @@ class CatsController extends Controller
       $response['data'][$i]['type'] = ['id'=>$user->role->id, 'name'=>$user->role->name];      
       $i++;
     }*/
-    return $cats;
+    $response['data'] = $cats;
+    return $response;
     //return $response;
   }
 

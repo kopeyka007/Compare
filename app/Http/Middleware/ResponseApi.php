@@ -20,7 +20,11 @@ class ResponseApi
     public function handle($request, Closure $next)
     {
         $data = $next($request);
-        var_dump($request->controller);
+        //var_dump($request->controller);
+        $currentAction = \Route::currentRouteAction();
+        list($controller, $method) = explode('@', $currentAction);
+        $controller = preg_replace('/.*\\\/', '', $controller);        
+
         return response()->json($data->original); 
         
           /*$model = app("App/User");
