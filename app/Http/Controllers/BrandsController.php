@@ -11,7 +11,7 @@ class BrandsController extends Controller
   }
 
   public function show(){       
-    return view('panel.brands.show');
+    return view('panel.brands');
   }
 
 }

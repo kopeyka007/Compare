@@ -74,6 +74,8 @@ Route::post('api/users/save','UsersController@save');
 Route::get('api/users/view/{id}','UsersController@view');
 Route::delete('api/users/delete/{id}','UsersController@delete');
 //cats
+Route::get('api/cats/list','CatsController@get_all');
+Route::post('api/cats/save','CatsController@save');
 
 
 
@@ -81,4 +83,4 @@ Route::delete('api/users/delete/{id}','UsersController@delete');
 
 
 
-Route::get('test/{id}','UsersController@delete');
+Route::get('test/','CatsController@get_all');

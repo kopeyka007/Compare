@@ -17,7 +17,7 @@ class UsersController extends Controller
     //$this->middleware('RedirectIfAuthenticated');
   }
   public function show(){       
-    return view('panel.users.show');
+    return view('panel.users');
   }
 
   public function get_all(){
@@ -49,7 +49,7 @@ class UsersController extends Controller
     }
     return $response;
   }
-  
+
   public function save(Request $request){
     $user = new User;
     $user_id = $request->input('id');
