@@ -14,6 +14,12 @@ class FiltersController extends Controller
     return view('panel.filters');
   }
 
+  public function get_all(){
+    $filters = Filters::all();    
+    $response['data'] = $filters;
+    return $response;    
+  }
+
   public function view($id){
     $filter = Filters::find($id);    
     if ($filter){
