@@ -46,8 +46,8 @@ class CatsController extends Controller
     if ($cat_id && $cat_id <> 0){
       $current = Cats::find($cat_id);
       if ($current){
-        $current->cats_name = $request->input('name');
-        $current->cats_alias = $request->input('slug').'temp';
+        $current->cats_name = $request->input('cats_name');
+        $current->cats_alias = $request->input('cats_alias');
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Category saved'];
@@ -62,8 +62,8 @@ class CatsController extends Controller
     //create
     else
     {
-      $cat->cats_name =  $request->input('name');
-      $cat->cats_alias = $request->input('slug').'temp';      
+      $cat->cats_name =  $request->input('cats_name');
+      $cat->cats_alias = $request->input('cats_alias');      
       if ($cat->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Category created'];
