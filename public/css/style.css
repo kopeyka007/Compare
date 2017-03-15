@@ -1,3 +1,6 @@
+.signin-row {
+	margin-top: 100px;
+}
 
 .signin-body {
 	margin-top: 200px;
@@ -32,4 +35,8 @@
 .content-name {
 	font-weight: 600;
 	font-size: 20px;
+}
+
+.error-msg {
+	margin-top: 20px;
 }
