@@ -106,4 +106,11 @@ class CatsController extends Controller
     }
     return $response; 
   }
+  //Front ---------------------
+  public function shortlist(){    
+    $cats = Cats::with('prods')
+    ->with('prods.brands_id')
+    ->get();    
+    return $cats;    
+  }
 }
