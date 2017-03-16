@@ -49,19 +49,44 @@
 })();
 
 (function(){
-	angular.module('panelApp').controller('panelCtrl', ['$scope', '$rootScope', '$http', '$window', panelCtrl]);
+	angular.module('panelApp').controller('panelCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', panelCtrl]);
 	
-	function panelCtrl($scope, $rootScope, $http, $window, $uibModal) {
+	function panelCtrl($scope, $rootScope, $http, $window, $location) {
+		$rootScope.token = '';
 		$rootScope.errors = [];
-		$scope.user = false;
-		$http.get('/api/users/info').then(function(response) {
-			$scope.user = response.data.data;
-		});
+
+		$scope.token = function(token) {
+			$rootScope.token = token;
+		};
+
+		$rootScope.user = false;
+		$scope.info = function() {
+			$http.get('/api/users/info').then(function(response) {
+				$rootScope.user = response.data.data;
+			});
+		};
+		$scope.info();
 		
 		$scope.logout = function() {
 			$http.post('/api/signout', {}).then(function(response) {
 				$window.location.reload(true);
 			});
+		};
+
+		$scope.access = function(page) {
+			var rules = {'users': 1,
+					 	 'cats': 2,
+					 	 'brands': 2,
+						 'features': 2,
+					  	 'filters': 2,
+					  	 'prods': 3};
+
+			if (rules[page])
+			{
+				return $rootScope.user.type.id <= rules[page];
+			}
+
+			return false;
 		};
 	}
 })();

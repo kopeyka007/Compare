@@ -7,6 +7,49 @@
 	position: relative;
 }
 
+.td-id {
+	text-align: left;
+	width: 50px;
+}
+
+.td-icon {
+	text-align: center;
+	width: 75px;
+}
+
+.td-type {
+	text-align: left;
+	width: 160px;
+}
+
+.btn-file {
+	position: relative;
+	z-index: 0;
+	vertical-align: middle;
+	overflow: hidden;
+}
+
+.btn-file > span {
+	position: relative;
+	z-index: 0;
+}
+
+.btn-file > input[type=file] {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	font-size: 150px;
+	opacity: 0;
+}
+
+.img-preview {
+	max-width: 100px;
+	max-height: 100px;
+	margin: 0 15px;
+	vertical-align: middle;
+}
+
 .content-border {
 	background: #fff;
 	padding: 5px;
