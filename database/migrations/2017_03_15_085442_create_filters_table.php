@@ -18,7 +18,7 @@ class CreateFiltersTable extends Migration
             $table->integer('groups_id');            
             $table->integer('filters_pos')->default(0);            
             $table->string('filters_name');            
-            $table->string('filters_alias');            
+            $table->string('filters_alias')->default('')->nullable();            
             $table->string('filters_type')->default('')->nullable();            
             $table->boolean('filters_filter')->default(0);            
         }); 

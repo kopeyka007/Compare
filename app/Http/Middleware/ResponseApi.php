@@ -19,13 +19,13 @@ class ResponseApi
      */
     public function handle($request, Closure $next)
     {
-        $data = $next($request);
-        //var_dump($request->controller);
+        $data = $next($request);        
         $currentAction = \Route::currentRouteAction();
         list($controller, $method) = explode('@', $currentAction);
         $controller = preg_replace('/.*\\\/', '', $controller);        
         return response()->json($data->original); 
         
+
           /*$model = app("App/User");
           $validator = app('validator')->make($request->input(), $model->rules($request));
           if ($validator->fails()) {
