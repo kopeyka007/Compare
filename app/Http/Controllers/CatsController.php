@@ -27,7 +27,7 @@ class CatsController extends Controller
     }
     else{
       $response['data'] = false;          
-      $response['message'] = ['type'=>'danger', 'text'=>'User not found'];
+      $response['message'] = ['type'=>'danger', 'text'=>'Category not found'];
     }
     return $response;
   }

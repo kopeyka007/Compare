@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Filters;
+use App\Groups;
 use Illuminate\Http\Request;
 
 class FiltersController extends Controller
@@ -15,7 +16,7 @@ class FiltersController extends Controller
   }
 
   public function get_all(){
-    $filters = Filters::all();    
+    $filters = Filters::with('groups_id')->get();    
     $response['data'] = $filters;
     return $response;    
   }
@@ -86,6 +87,12 @@ class FiltersController extends Controller
       $response['message'] = ['type'=>'danger', 'text'=>'Filter not found'];
     }
     return $response;
+  }
+
+  public function get_all_groups(){
+    $groups = Groups::all();    
+    $response['data'] = $groups;
+    return $response;   
   }
 
 

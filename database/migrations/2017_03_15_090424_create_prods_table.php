@@ -16,14 +16,14 @@ class CreateProdsTable extends Migration
         Schema::create('prods', function (Blueprint $table) {
             $table->increments('prods_id');            
             $table->integer('cats_id');            
-            $table->integer('brands_id');            
+            $table->integer('brands_id')->nullable();            
             $table->integer('prods_pos')->default(0);            
             $table->string('prods_name');            
             $table->string('prods_alias');
-            $table->string('prods_foto');
-            $table->string('prods_amazon');
-            $table->float('prods_price', 8, 2);            
-            $table->boolean('prods_active');            
+            $table->string('prods_foto')->default('')->nullable();
+            $table->string('prods_amazon')->default('')->nullable();
+            $table->float('prods_price', 8, 2)->nullable();            
+            $table->boolean('prods_active')->default(false);            
         }); 
     }
 
