@@ -37,7 +37,7 @@
 		<h3 ng-show="filter.filters_id">Edit Filter</h3>
 	</div>
 
-	<form name="form" class="modal-body coverletter-modal" novalidate="novalidate">
+	<form name="form" class="modal-body coverletter-modal" novalidate="novalidate" enctype="multipart/form-data">
 		<div ng-show="errors.length">
 			<div class="alert alert-@{{msg.type}}" ng-repeat="msg in errors" role="alert" ng-init="showme = true" ng-show="showme">@{{msg.text}}
 				 <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="showme = false"><span aria-hidden="true">&times;</span></button>
@@ -47,10 +47,53 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group">
-					<label>Name</label>
-					<input type="text" class="form-control" name="name" ng-model="filter.filters_name" required="required" />
+					<label>Category</label>
+					<select class="form-control" name="cats_id" ng-model="filter.cats_id" required="required" ng-options="cat.cats_name for cat in cats track by cat.cats_id">
+					</select>
 				</div>
 			</div>
+			
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Group</label>
+					<select class="form-control" name="groups_id" ng-model="filter.groups_id" required="required" ng-options="group.groups_name for group in groups track by group.groups_id">
+					</select>
+				</div>
+			</div>
+			
+			<div class="col-sm-12" ng-show="filter.groups_id.groups_id == 0">
+				<div class="form-group">
+					<label>Group Name</label>
+					<input type="text" class="form-control" name="groups_name" ng-model="filter.groups_name" ng-required="filter.groups_id.groups_id == 0" />
+				</div>
+			</div>
+
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Name</label>
+					<input type="text" class="form-control" name="filters_name" ng-model="filter.filters_name" required="required" />
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Filter Type</label>
+					<select class="form-control" ng-model="filter.filters_type">
+						<option value="check">Check</option>
+						<option value="text">Text</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" ng-model="filter.filters_filter" ng-checked="filter.filters_filter == 1" />
+						Show as filter
+					</label>
+				</div>
+			</div>
+
 		</div>
 	</form>
 
