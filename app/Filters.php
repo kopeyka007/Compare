@@ -14,4 +14,7 @@ class Filters extends Model
     {      
       return $this->belongsTo('App\Groups', 'groups_id', 'groups_id');
     }
+    public function cats_id(){      
+      return $this->belongsToMany('App\Cats', 'cats_filters', 'filters_id', 'cats_id');
+    }
 }
