@@ -13,10 +13,10 @@ class GroupsTableSeeder extends Seeder
     public function run()
     {
         DB::table('groups')->insert([            
-            'groups_name' => 'filter_grouup1',            
+            'groups_name' => 'filter_group1',            
         ]);
         DB::table('groups')->insert([            
-            'groups_name' => 'filter_grouup2',            
+            'groups_name' => 'filter_group2',            
         ]);
     }
 }
