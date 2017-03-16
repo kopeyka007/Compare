@@ -67,16 +67,20 @@
 	angular.module('panelApp').controller('ModalProdsCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', '$timeout', 'validate', 'items', ModalProdsCtrl]);
 	function ModalProdsCtrl($scope, $rootScope, $http, $uibModalInstance, $timeout, validate, items) {
 		$scope.errors = [];
+		$scope.filters = [];
+		$scope.features = [];
 		$scope.cats = [{'cats_id': 0, 'cats_name': 'Choose Category'}].concat(items.cats);
 		$scope.brands = [{'brands_id': 0, 'brands_name': 'Choose Brand'}].concat(items.brands);
 		$scope.prod = {'prods_id': 0,
 						  'cats_id': {'cats_id': 0, 'cats_name': 'Choose Category'},
 						  'brands_id': {'brands_id': 0, 'brands_name': 'Choose Brand'},
-					  	  'prods_name': '',
+					  	  'filters_id': {'filters_id': 0, 'filters_name': 'Choose Filter'},
+						  'features_id': {'features_id': 0, 'features_name': 'Choose Feature'},
+						  'prods_name': '',
 					  	  'prods_alias': '',
 						  'prods_amazon': '',
 						  'prods_price': '',
-						  'prods_active': 0
+						  'prods_active': 0,
 						  };
 		
 		if (items.prod && items.prod.prods_id)
@@ -93,6 +97,17 @@
 				$scope.prod.prods_alias = $scope.prod.prods_name.replace(/ /gi, '-').toLowerCase();
 			}
 		};
+		
+		$scope.initFilters = function() {
+			
+			$http.get('/api/cats/filters/' + $scope.prod.cats_id.cats_id).then(function(response) {
+				$scope.filters = response.data.data;
+			});
+			
+			$http.get('/api/cats/features/' + $scope.prod.cats_id.cats_id).then(function(response) {
+				$scope.features = response.data.data;
+			});
+		}
 		
 		$scope.save = function () {
 			$scope.errors = [];
@@ -111,7 +126,6 @@
 
 			if (error)
 			{
-				console.log($scope.prod.prods_active);
 				$http.post('/api/prods/save', $scope.prod).then(function(response) {
 					if (response.data.data)
 					{
