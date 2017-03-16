@@ -83,6 +83,7 @@ Route::post('api/brands/save','BrandsController@save');
 Route::delete('api/brands/delete/{id}','BrandsController@delete');
 //filters
 Route::get('api/filters/list','FiltersController@get_all');
+Route::get('api/filters/list_groups','FiltersController@get_all_groups');
 Route::post('api/filters/save','FiltersController@save');
 Route::delete('api/filters/delete/{id}','FiltersController@delete');
 //prods
@@ -98,4 +99,4 @@ Route::delete('api/features/delete/{id}','FeaturesController@delete');
 
 
 
-Route::get('test/{id}','CatsController@view');
+Route::get('test/','FiltersController@get_all');
