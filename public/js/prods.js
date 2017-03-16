@@ -76,7 +76,7 @@
 					  	  'prods_alias': '',
 						  'prods_amazon': '',
 						  'prods_price': '',
-						  'prods_active': 1
+						  'prods_active': 0
 						  };
 		
 		if (items.prod && items.prod.prods_id)
@@ -111,6 +111,7 @@
 
 			if (error)
 			{
+				console.log($scope.prod.prods_active);
 				$http.post('/api/prods/save', $scope.prod).then(function(response) {
 					if (response.data.data)
 					{
