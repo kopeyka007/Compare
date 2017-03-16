@@ -90,7 +90,7 @@
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;
-			error *= validate.check($scope, $scope.form.name, 'Name');
+			error *= validate.check($scope, $scope.form.filters_name, 'Name');
 			error *= validate.check($scope, $scope.form.cats_id, 'Category');
 			error *= validate.check($scope, $scope.form.groups_name, 'Group Name');
 
