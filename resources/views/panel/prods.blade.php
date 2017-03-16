@@ -101,7 +101,7 @@
 				<div class="form-group">
 					<label class="col-md-4">@{{filter.filters_name}}</label>
 					<div class="col-md-8">
-						<input type="text" class="form-control" ng-model="prod.filters[filter.filters_id]" />
+						<input type="@{{filter.filters_type + 'box'}}" class="form-control" ng-model="prod.filters[filter.filters_id]" />
 					</div>
 				</div>
 			</div>

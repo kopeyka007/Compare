@@ -95,6 +95,11 @@
 	right: 3px;
 }
 
+.coverletter-modal input[type=checkbox] {
+	width: auto;
+	height: auto;
+}
+
 .content-brand {
 	text-transform: uppercase;
 }
@@ -316,6 +321,10 @@
 	right: 50%;
 	margin-right: -82px;
 	bottom: 0;
+}
+
+.btn-compare {
+	margin-top: 10px;
 }
 
 .error-msg {

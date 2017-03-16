@@ -6,7 +6,10 @@
 			</div>
 		</div>
 		<div class="col-md-8">
-			<div class="content-section">Home page
+			<div class="content-section">
+				<div class="categories">
+					<h2>Categories</h2>
+				</div>
 				<div class="row">
 					<div class="col-md-3">
 						<div class="content-border selected">
