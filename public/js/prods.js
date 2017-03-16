@@ -99,7 +99,6 @@
 			var error = 1;
 			error *= validate.check($scope, $scope.form.prods_name, 'Name');
 			error *= validate.check($scope, $scope.form.slug, 'Slug');
-			error *= validate.check($scope, $scope.form.prods_id, 'Product');
 			
 			for (var k in items.list)
 			{
