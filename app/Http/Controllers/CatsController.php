@@ -110,7 +110,21 @@ class CatsController extends Controller
   public function shortlist(){    
     $cats = Cats::with('prods')
     ->with('prods.brands_id')
-    ->get();    
-    return $cats;    
+    ->get();
+    $cats2 = Cats::with(['prods'=>function($query){
+
+    }])
+    ->with(['prods.brands_id'=>function ($query){
+      $query->select('brands_id', 'brands_name');      
+      //$query->asdasd();
+    }])
+    ->get();        
+
+    $cats3 = Cats::with(['prods'=>function($query){
+      //$query->sesd();
+    }])
+    ->get();        
+
+    return $cats2;    
   }
 }
