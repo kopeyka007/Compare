@@ -20,7 +20,7 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="content-brand">
-											Apple
+											@{{brand}}
 										</div>
 									</div>
 									<div class="col-md-6">
