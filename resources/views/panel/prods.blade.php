@@ -9,7 +9,10 @@
 			<thead>
 				<tr>
 					<th class="td-id">ID</th>
+					<th>Brands</th>
 					<th>Name</th>
+					<th>Product Alias</th>
+					<th>Link to Amazon</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -18,7 +21,10 @@
 			<tbody>
 				<tr ng-repeat="prod in list">
 					<td class="td-id">@{{prod.prods_id}}</td>
+					<td>@{{prod.brands_id.brands_name}}</td>
 					<td>@{{prod.prods_name}}</td>
+					<td>@{{prod.prods_alias}}</td>
+					<td>@{{prod.prods_amazon}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(prod.prods_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(prod.prods_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>

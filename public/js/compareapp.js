@@ -1,7 +1,6 @@
-var compareApp = angular.module('compareApp', ['ngRoute']);
 (function(){
-	
-	compareApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+	angular.module('compareApp', ['ngRoute']);
+	angular.module('compareApp').config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
 		$locationProvider.html5Mode({
 			enabled: true,
@@ -42,9 +41,18 @@ var compareApp = angular.module('compareApp', ['ngRoute']);
 	   $routeProvider
 			.when('/', {templateUrl: '/pages/index'});
 	}]);
-	
-	compareApp.controller('compareController', function() {
-		
-	});
+})();
 
+(function(){
+	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', compareCtrl]);
+	
+	function compareCtrl($scope, $rootScope, $http, $window) {
+		$scope.list_products = function() {
+			$http.get('/api/cats/front/shortlist').then(function() {
+				$scope.products = response.data;
+				console.log($scope.data);
+			});
+		}
+		$scope.list_products();
+	}
 })();
