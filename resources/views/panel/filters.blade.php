@@ -30,3 +30,32 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/ng-template" id="ModalFiltersContent.html">
+	<div class="modal-header">
+		<h3 ng-show=" ! filter.filters_id">Create Filter</h3>
+		<h3 ng-show="filter.filters_id">Edit Filter</h3>
+	</div>
+
+	<form name="form" class="modal-body coverletter-modal" novalidate="novalidate">
+		<div ng-show="errors.length">
+			<div class="alert alert-@{{msg.type}}" ng-repeat="msg in errors" role="alert" ng-init="showme = true" ng-show="showme">@{{msg.text}}
+				 <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="showme = false"><span aria-hidden="true">&times;</span></button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Name</label>
+					<input type="text" class="form-control" name="name" ng-model="filter.filters_name" required="required" />
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="save()">Save</button>
+		<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</script>
