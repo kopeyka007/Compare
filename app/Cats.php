@@ -11,10 +11,14 @@ class Cats extends Model
     protected $primaryKey ='cats_id';
 
     public function features(){      
-        return $this->belongsToMany('App\Features', 'cats_features', 'cats_id', 'features_id');
+      return $this->belongsToMany('App\Features', 'cats_features', 'cats_id', 'features_id');
     }
 
     public function filters(){      
-        return $this->belongsToMany('App\Filters', 'cats_filters', 'cats_id', 'filters_id');
+      return $this->belongsToMany('App\Filters', 'cats_filters', 'cats_id', 'filters_id');
+    }
+
+    public function prods(){
+      return $this->belongsTo('App\Prods','cats_id');
     }
 }

@@ -101,8 +101,8 @@ class ProdsController extends Controller
     }
     return $response;
   }
-
-  function set_relation_filters($prods_id, $filters){
+  //relations with filters
+  private function set_relation_filters($prods_id, $filters){
     if (count($filters)){
       $prod = Prods::find($prods_id);
       foreach ($filters as $item=>$value) {
@@ -111,7 +111,8 @@ class ProdsController extends Controller
       $prod->filters_id()->sync($arr);    
     }
   }
-  function set_relation_features($prods_id, $features){
+  //relations with features
+  private  function set_relation_features($prods_id, $features){
     if (count($features)){
       $prod = Prods::find($prods_id);
       foreach ($features as $item=>$value) {
@@ -120,6 +121,8 @@ class ProdsController extends Controller
       $prod->features_id()->sync($arr);      
     }
   }
+
+  
 
 
 }

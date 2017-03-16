@@ -97,8 +97,16 @@ Route::get('api/features/list','FeaturesController@get_all');
 Route::post('api/features/save','FeaturesController@save');
 Route::delete('api/features/delete/{id}','FeaturesController@delete');
 //-------------------------
+//Front
+Route::get('api/cats/front/shortlist','CatsController@shortlist');
+
+
+
+
+
+
 
 //for testing
-Route::get('test/{id}','CatsController@get_filters');
+Route::get('test','CatsController@shortlist');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 

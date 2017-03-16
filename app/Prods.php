@@ -16,4 +16,7 @@ class Prods extends Model
     public function features_id(){      
       return $this->belongsToMany('App\Features', 'prods_features', 'prods_id', 'features_id')->withPivot('features_value');  
     }
+    public function brands_id(){
+      return $this->belongsTo('App\Brands','brands_id');
+    }
 }
