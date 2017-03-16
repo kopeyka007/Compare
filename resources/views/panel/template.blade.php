@@ -63,6 +63,7 @@
 		<script src="/js/brands.js"></script>
 		<script src="/js/features.js"></script>
 		<script src="/js/filters.js"></script>
+		<script src="/js/prods.js"></script>
 		<script src="/js/validate.js"></script>
     </body>
 </html>
