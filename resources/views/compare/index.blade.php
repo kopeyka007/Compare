@@ -9,7 +9,7 @@
 			<div class="col-md-8">
 				<div class="content-section">
 					<div class="categories">
-						<h2>Categories</h2>
+						<h2>@{{products[0].cats_alias}}</h2>
 					</div>
 					<div class="row">
 						<div class="col-md-3">

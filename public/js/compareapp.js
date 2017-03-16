@@ -46,13 +46,16 @@
 (function(){
 	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', compareCtrl]);
 	
+	
 	function compareCtrl($scope, $rootScope, $http, $window) {
+		$scope.products = [];
 		$scope.list_products = function() {
-			$http.get('/api/cats/front/shortlist').then(function() {
+			$http.get('/api/cats/front/shortlist').then(function(response) {
 				$scope.products = response.data;
-				console.log($scope.data);
+				console.log($scope.products[0].cats_alias);
 			});
 		}
 		$scope.list_products();
+		
 	}
 })();
