@@ -17,7 +17,7 @@ class CreateProdsFeaturesTable extends Migration
             $table->increments('rows_id');                        
             $table->integer('prods_id');            
             $table->integer('features_id');                        
-            $table->string('features_value');
+            $table->string('features_value')->default('')->nullable();
         }); 
     }
 
