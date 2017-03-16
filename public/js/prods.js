@@ -94,6 +94,17 @@
 			}
 		};
 		
+		$scope.initFilters = function() {
+			console.log($scope.prod.cats_id);
+			$http.get('/api/cats/filters', $scope.prod.cats_id).then(function(response) {
+				$scope.cats = response.data.data;
+			});
+			
+			$http.get('api/cats/features', $scope.prod.cats_id).then(function(response) {
+				$scope.cats = response.data.data;
+			});
+		}
+		
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;
@@ -111,7 +122,6 @@
 
 			if (error)
 			{
-				console.log($scope.prod.prods_active);
 				$http.post('/api/prods/save', $scope.prod).then(function(response) {
 					if (response.data.data)
 					{

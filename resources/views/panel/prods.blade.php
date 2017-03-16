@@ -48,7 +48,7 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Category</label>
-					<select class="form-control" name="cats_id" ng-model="prod.cats_id" required="required" ng-options="cat.cats_name for cat in cats track by cat.cats_id">
+					<select class="form-control" name="cats_id" ng-model="prod.cats_id" required="required" ng-options="cat.cats_name for cat in cats track by cat.cats_id" ng-change="initFilters()">
 					</select>
 				</div>
 			</div>
@@ -95,7 +95,7 @@
 			<div class="col-sm-12">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" ng-model="prod.prods_active" ng-checked="prod.prods_active == 1" />
+						<input type="checkbox" ng-model="prod.prods_active" ng-init="prod.prods_active = true" ng-checked="prod.prods_active == 1" />
 						Active
 					</label>
 				</div>
