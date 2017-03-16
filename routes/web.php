@@ -19,6 +19,7 @@ Route::get('/migrate', function () {
     Artisan::call('migrate');
     Artisan::call('db:seed', array('--class' => 'UsersTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'UsersTypesTableSeeder'));
+    Artisan::call('db:seed', array('--class' => 'GroupsTableSeeder'));
     return 'All migrates and seed run';
 });
 
@@ -94,6 +95,8 @@ Route::delete('api/prods/delete/{id}','ProdsController@delete');
 Route::get('api/features/list','FeaturesController@get_all');
 Route::post('api/features/save','FeaturesController@save');
 Route::delete('api/features/delete/{id}','FeaturesController@delete');
+
+
 //
-Route::get('test/','FiltersController@get_all');
-Route::get('signout/','AuthController@signout');
+Route::get('test/{id}','ProdsController@view');
+
