@@ -14,6 +14,12 @@ class ProdsController extends Controller
     return view('panel.prods');
   }
 
+  public function get_all(){
+    $prods = Prods::get();    
+    $response['data'] = $prods;
+    return $response; 
+  }
+
   public function view($id){
     $prod = Prods::find($id);    
     if ($prod){
@@ -28,13 +34,13 @@ class ProdsController extends Controller
   
   public function save(Request $request){
     $prod = new Prods;
-    $prod_id = $request->input('id');
+    $prods_id = $request->input('prods_id');
     //update
-    if ($prod_id && $prod_id <> 0){
-      $current = Prods::find($prod_id);
+    if ($prods_id && $prods_id <> 0){
+      $current = Prods::find($prods_id);
       if ($current){
-        $current->cats_id = $request->input('cats_id');        
-        $current->brands_id = $request->input('brands_id');        
+        $current->cats_id = $request->input('cats_id')['cats_id'];
+        $current->brands_id = $request->input('brands_id')['brands_id'];        
         $current->prods_name = $request->input('prods_name');        
         $current->prods_alias = $request->input('prods_alias');        
         //$current->prods_foto = $request->input('prods_foto');        
@@ -55,8 +61,8 @@ class ProdsController extends Controller
     //create
     else
     {      
-      $prod->cats_id = $request->input('cats_id');        
-      $prod->brands_id = $request->input('brands_id');        
+      $prod->cats_id = $request->input('cats_id')['cats_id'];        
+      $prod->brands_id = $request->input('brands_id')['brands_id'];        
       $prod->prods_name = $request->input('prods_name');        
       $prod->prods_alias = $request->input('prods_alias');        
       //$prod->prods_foto = $request->input('prods_foto');        

@@ -62,15 +62,14 @@ Route::get('/pages/panel/{controller}', function($controller){
     $object = $app->make('\App\Http\Controllers\\'.(Auth::check() ? ucfirst($controller) : 'Auth').'Controller');    
     return $object->callAction('show', $parameters = array());
   });
-
+//Admin panel---------------
 //auth
 Route::post('api/signin','AuthController@signin');
 Route::post('api/signout','AuthController@signout');
 Route::get('api/users/info','AuthController@info');
 //users
 Route::get('api/users/types','UsersController@get_users_types');
-//Route::get('api/users/list','UsersController@get_all');
-Route::get('api/users/list','UsersController@get_all')->middleware('respapi');
+Route::get('api/users/list','UsersController@get_all');
 Route::post('api/users/save','UsersController@save');
 Route::get('api/users/view/{id}','UsersController@view');
 Route::delete('api/users/delete/{id}','UsersController@delete');
@@ -95,8 +94,9 @@ Route::delete('api/prods/delete/{id}','ProdsController@delete');
 Route::get('api/features/list','FeaturesController@get_all');
 Route::post('api/features/save','FeaturesController@save');
 Route::delete('api/features/delete/{id}','FeaturesController@delete');
+//-------------------------
 
-
-//
+//for testing
 Route::get('test/{id}','ProdsController@view');
+Route::get('testapi','UsersController@get_all')->middleware('respapi');
 

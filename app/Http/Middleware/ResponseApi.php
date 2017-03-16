@@ -19,11 +19,15 @@ class ResponseApi
      */
     public function handle($request, Closure $next)
     {
+        $app = app();
         $data = $next($request);        
         $currentAction = \Route::currentRouteAction();
-        list($controller, $method) = explode('@', $currentAction);
-        $controller = preg_replace('/.*\\\/', '', $controller);        
-        return response()->json($data->original); 
+        list($controller_name, $method) = explode('@', $currentAction);
+        $controller_name = preg_replace('/.*\\\/', '', $controller_name);        
+        //$controller = $app->make($controller_name);
+        $response = $data->original;
+        $response['message'] = ['type'=>'danger', 'text'=>'Test-api'];        
+        return response()->json($response); 
         
 
           /*$model = app("App/User");
