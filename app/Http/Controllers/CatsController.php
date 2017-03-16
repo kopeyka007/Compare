@@ -82,10 +82,11 @@ class CatsController extends Controller
     return $response;
   }
 
-  public function get_filters($id){
-    $cat = Cats::find($id);
+  public function get_filters($id){    
+    $cat = Cats::find($id)->filters;
+    //$cat = Cats::with('filters', 'filters.groups_id')->find($id);    
     if ($cat){
-      $response['data'] = $cat->filters;
+      $response['data'] = $cat;
     }
     else{
       $response['data'] = false;          
