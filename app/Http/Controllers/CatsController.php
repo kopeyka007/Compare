@@ -72,7 +72,7 @@ class CatsController extends Controller
   public function delete($id){
     $cat = Cats::find($id);    
     if ($cat && $cat->delete()){
-      $response['data']['type'] = true;      
+      $response['data'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'Category deleted'];      
     }
     else{
@@ -82,4 +82,27 @@ class CatsController extends Controller
     return $response;
   }
 
+  public function get_filters($id){
+    $cat = Cats::find($id);
+    if ($cat){
+      $response['data'] = $cat->filters;
+    }
+    else{
+      $response['data'] = false;          
+      $response['message'] = ['type'=>'danger', 'text'=>'Category not found'];
+    }
+    return $response;
+  }
+
+  public function get_features($id){
+    $cat = Cats::find($id);
+    if ($cat){
+      $response['data'] = $cat->features;
+    }
+    else{
+      $response['data'] = false;          
+      $response['message'] = ['type'=>'danger', 'text'=>'Category not found'];
+    }
+    return $response; 
+  }
 }
