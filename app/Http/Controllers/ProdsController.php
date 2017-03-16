@@ -15,7 +15,7 @@ class ProdsController extends Controller
   }
 
   public function get_all(){
-    $prods = Prods::get();    
+    $prods = Prods::with('filters_id')->with('features_id')->get();    
     $response['data'] = $prods;
     return $response; 
   }
@@ -47,7 +47,11 @@ class ProdsController extends Controller
         $current->prods_amazon = $request->input('prods_amazon');        
         $current->prods_price = $request->input('prods_price');        
         $current->prods_active = $request->input('prods_active');
-        if ($current->save()){
+        $filters = $request->input('filters');
+        $features = $request->input('features');
+        if ($current->save()){          
+          $this->set_relation_filters($prods_id, $filters);
+          $this->set_relation_features($prods_id, $features);
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Product saved'];
         }
@@ -69,7 +73,11 @@ class ProdsController extends Controller
       $prod->prods_amazon = $request->input('prods_amazon');        
       $prod->prods_price = $request->input('prods_price');        
       $prod->prods_active = $request->input('prods_active');    
+      $filters = $request->input('filters');
+      $features = $request->input('features');
       if ($prod->save()){
+        $this->set_relation_filters($prod->prods_id, $filters);
+        $this->set_relation_features($prod->prods_id, $features);
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Product created'];
       }
@@ -92,6 +100,25 @@ class ProdsController extends Controller
       $response['message'] = ['type'=>'danger', 'text'=>'Product not found'];
     }
     return $response;
+  }
+
+  function set_relation_filters($prods_id, $filters){
+    if (count($filters)){
+      $prod = Prods::find($prods_id);
+      foreach ($filters as $item=>$value) {
+        $arr[$item]['filters_value'] = $value;
+      }
+      $prod->filters_id()->sync($arr);    
+    }
+  }
+  function set_relation_features($prods_id, $features){
+    if (count($features)){
+      $prod = Prods::find($prods_id);
+      foreach ($features as $item=>$value) {
+        $arr[$item]['features_value'] = $value;
+      }
+      $prod->features_id()->sync($arr);      
+    }
   }
 
 
