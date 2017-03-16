@@ -93,6 +93,34 @@
 			</div>
 			
 			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Filters</label>
+				</div>
+			</div>
+			<div class="col-sm-12" ng-repeat="filter in filters">
+				<div class="form-group">
+					<label class="col-md-4">@{{filter.filters_name}}</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" ng-model="prod.filters[filter.filters_id]" />
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Features</label>
+				</div>
+			</div>
+			
+			<div class="col-sm-12" ng-repeat="feature in features">
+				<div class="form-group">
+					<label class="col-md-4">@{{feature.features_name}}</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" ng-model="prod.features[feature.features_id]" />
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
 				<div class="checkbox">
 					<label>
 						<input type="checkbox" ng-model="prod.prods_active" ng-init="prod.prods_active = true" ng-checked="prod.prods_active == 1" />
