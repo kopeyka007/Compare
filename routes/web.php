@@ -99,6 +99,6 @@ Route::delete('api/features/delete/{id}','FeaturesController@delete');
 //-------------------------
 
 //for testing
-Route::get('test/{id}','CatsController@get_features');
+Route::get('test/{id}','CatsController@get_filters');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 

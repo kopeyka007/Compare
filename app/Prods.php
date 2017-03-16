@@ -11,9 +11,9 @@ class Prods extends Model
     protected $primaryKey ='prods_id';            
 
     public function filters_id(){      
-      return $this->belongsToMany('App\Filters', 'prods_filters', 'prods_id', 'filters_id');
+      return $this->belongsToMany('App\Filters', 'prods_filters', 'prods_id', 'filters_id')->withPivot('filters_value', 'filters_comment');
     }
     public function features_id(){      
-      return $this->belongsToMany('App\Features', 'prods_features', 'prods_id', 'features_id');
+      return $this->belongsToMany('App\Features', 'prods_features', 'prods_id', 'features_id')->withPivot('features_value');  
     }
 }
