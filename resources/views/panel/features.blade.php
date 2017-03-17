@@ -3,6 +3,8 @@
 	<div class="form-group">
 		<button type="button" class="btn btn-primary" ng-click="add()">Create Feature</button>
 	</div>
+
+	<img src="{{ asset('storage/icons/IH3vmnVvlOUiDz2ARqdxEWDCIknMdBCKCuMbevh0.jpeg') }}" alt="" width="100" />
 	
 	<div class="table-responsive">
 		<table class="table table-striped table-hover" ng-show="list.length">
@@ -65,10 +67,10 @@
 					<div>
 						<button type="button" class="btn btn-info btn-file">
 							<span>Browse file...</span>
-							<input type="file" accept="image/*" name="file" ng-model="file" onchange="angular.element(this).scope().load(this)" />
+							<input type="file" accept="image/*" name="file" ng-model="features_icon" ngf-select />
 						</button>
-						<img src="@{{preview}}" class="img-preview" alt="" ng-show="preview" />
-						<a href="javascript:void(0);" ng-show="preview" ng-click="remove_file()">Remove</a>
+						<img ngf-thumbnail="features_icon" class="img-preview" ng-show="features_icon" alt="" />
+						<a href="javascript:void(0);" ng-show="features_icon" ng-click="remove_file()">Remove</a>
 					</div>
 				</div>
 			</div>
@@ -111,7 +113,7 @@
 	</form>
 
 	<div class="modal-footer">
-		<button class="btn btn-primary" type="button" ng-click="save()">Save</button>
+		<button class="btn btn-primary" type="button" ng-click="save(features_icon)">Save</button>
 		<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 	</div>
 </script>

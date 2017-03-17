@@ -34,7 +34,8 @@ class FeaturesController extends Controller
     return $response;
   }
   
-  public function save(Request $request){    
+  public function save(Request $request){ 
+    //print_r($request->file->store('icons'));
     $feature = new Features;
     $feature_id = $request->input('features_id');
     //update
