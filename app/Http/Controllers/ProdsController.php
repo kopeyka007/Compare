@@ -138,9 +138,11 @@ class ProdsController extends Controller
   }
 
   //Front
-  public function get_prods_with_filters_group(){
-    $prods = Prods::with('filters_id', 'filters_id.groups')->find([4]);
-    //$groups[$filter->groups->groups_name][] = $filter;
+  public function get_prods_with_filters_group($ids){
+    //$prods = Prods::with('filters_id', 'filters_id.groups')->find([4]);
+    //$ids = [0=>4, 1=>5];
+    $prods = Prods::with('filters_id', 'filters_id.groups')->find($ids);
+    
     foreach ($prods as $prod) {
       foreach ($prod->filters_id as $filter) {
         $arr[$filter->groups->groups_name][] = $filter;
@@ -155,15 +157,17 @@ class ProdsController extends Controller
     return $prods;
   }
 
-  public function get_compare_prods(Request $request){
-    $string = 'prod1-vs-prod2';
-    //return $string;
-    $prods = explode('-vs-', $string);
-    //var_dump($prods);
-    for ($i=0; $i <= count($prods) ; $i++) { 
-      $prod = Prods::find 
-    }
-
+  public function get_compare_prods(Request $request){    
+    $url = $request->input('url');
+    $url = str_replace('compare/', '', $url);
+    $aliases = explode('-vs-', $url);    
+    for ($i=0; $i < count($aliases) ; $i++) {
+      $alias = str_replace('/', '', $aliases[$i]);
+      $prod = Prods::where('prods_alias', $alias)->first();
+      $ids[] = $prod->prods_id;
+    }    
+    $response['data'] = $this->get_prods_with_filters_group($ids);
+    return $response;
   }
 
   
