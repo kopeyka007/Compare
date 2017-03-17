@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Prods;
 use Illuminate\Http\Request;
+use Storage;
 
 class ProdsController extends Controller
 {
@@ -37,6 +38,8 @@ class ProdsController extends Controller
   }
   
   public function save(Request $request){
+    //var_dump($request->input('prods_price'));
+    //exit();
     $prod = new Prods;
     $prods_id = $request->input('prods_id');
     //update
@@ -47,10 +50,15 @@ class ProdsController extends Controller
         $current->brands_id = $request->input('brands_id')['brands_id'];        
         $current->prods_name = $request->input('prods_name');        
         $current->prods_alias = $request->input('prods_alias');        
-        //$current->prods_foto = $request->input('prods_foto');        
-        $current->prods_amazon = $request->input('prods_amazon');        
-        $current->prods_price = $request->input('prods_price');        
-        $current->prods_active = $request->input('prods_active');
+        $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):0;
+        //delete file
+        if ($current->prods_foto !== 0 && $current->prods_foto !== $file){
+          Storage::delete(stristr($current->prods_foto, 'prods'));    
+        }
+        $current->prods_foto = $file;                
+        $current->prods_amazon = $request->input('prods_amazon');
+        $current->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');        
+        $current->prods_active = ($request->input('prods_active') == 'true')?1:0;
         $filters = $request->input('filters');
         $features = $request->input('features');
         if ($current->save()){          
@@ -73,10 +81,11 @@ class ProdsController extends Controller
       $prod->brands_id = $request->input('brands_id')['brands_id'];        
       $prod->prods_name = $request->input('prods_name');        
       $prod->prods_alias = $request->input('prods_alias');        
-      //$prod->prods_foto = $request->input('prods_foto');        
+      $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):0;
+      $prod->prods_foto = $file;
       $prod->prods_amazon = $request->input('prods_amazon');        
-      $prod->prods_price = $request->input('prods_price');        
-      $prod->prods_active = $request->input('prods_active');    
+      $prod->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');
+      $prod->prods_active = ($request->input('prods_active') == 'true')?1:0;    
       $filters = $request->input('filters');
       $features = $request->input('features');
       if ($prod->save()){
@@ -96,6 +105,8 @@ class ProdsController extends Controller
   public function delete($id){
     $prod = Prods::find($id);    
     if ($prod && $prod->delete()){
+      if ($prod->prods_foto !== 0)
+        Storage::delete(stristr($prod->prods_foto, 'prods'));
       $response['data']['type'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'Product deleted'];      
     }
