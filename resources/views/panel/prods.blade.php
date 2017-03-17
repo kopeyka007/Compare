@@ -16,6 +16,7 @@
 					<th>Price</th>
 					<th>Link to Amazon</th>
 					<th>Active</th>
+					<th>Photo</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -31,6 +32,7 @@
 					<td>$@{{prod.prods_price}}</td>
 					<td>@{{prod.prods_amazon}}</td>
 					<td>@{{prod.prods_active | checkmark}}</td>
+					<td class="td-photo"><img src="@{{prod.prods_foto}}" /></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(prod.prods_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(prod.prods_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>

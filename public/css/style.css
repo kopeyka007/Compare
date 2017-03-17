@@ -7,16 +7,25 @@
 	position: relative;
 }
 
+.header {
+	background: #444444;
+	color: #fff;
+	
+	text-transform: uppercase;
+}
+
 .td-id {
 	text-align: left;
 	width: 50px;
 }
 
-.td-id img {
+.td-id img,
+.td-photo img {
 	max-width: 100%;
 }
 
-.td-icon {
+.td-icon,
+.td-photo {
 	text-align: center;
 	width: 75px;
 }

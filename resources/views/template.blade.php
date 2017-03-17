@@ -12,16 +12,10 @@
     <body>
 		<section class="header">
 			<div class="container">
-				<h3>Header</h3>
+				<h3>Compare</h3>
 			</div>
 		</section>
-		
-		<section class="site-menu">
-			<div class="container">
-				<h3>Site Menu</h3>
-			</div>
-		</section>
-		
+			
 		<section class="content" ng-view>
 		</section>
 

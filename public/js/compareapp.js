@@ -66,11 +66,9 @@
 		
 		$scope.selectedProds = {};
 		
-		
-		
-		
 		$scope.chooseProd = function(prod) {
 			prod.selected = 1 - prod.selected;
+			
 			if (prod.selected == 1)
 			{
 				if ($scope.selectedCount < $scope.selectedMax)
@@ -90,8 +88,12 @@
 			$scope.linkCompare();
 		};
 		
+		
+		
+		$scope.preLink = '';
 		$scope.selectedCount = 0;
 		$scope.linkCompare = function() {
+			console.log($scope.selectedProds);
 			var aliases = [];
 			$scope.selectedCount = 0;
 			for (var id in $scope.selectedProds)
@@ -103,7 +105,17 @@
 					$scope.selectedCount++;
 				}
 			}
-			$scope.compareAlias = aliases.join('-vs-');
+			if (aliases.length > 1)
+			{
+				$scope.preLink = 'compare/';
+				$scope.compareAlias = $scope.preLink + aliases.join('-vs-');
+			}
+			else
+			{
+				$scope.preLink = 'smartphone/'
+				$scope.compareAlias = $scope.preLink + aliases.join();
+			}
+			
 		}
 		
 	}
