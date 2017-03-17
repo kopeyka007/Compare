@@ -111,17 +111,6 @@ class CatsController extends Controller
     $cats = Cats::with('prods')
     ->with('prods.brands_id')
     ->get();
-    $cats2 = Cats::with(['prods'=>function($query){
-        $query->select('prods_id', 'cats_id','brands_id');
-        $query->orderBy('brands_id');
-    }])
-    ->with(['prods.brands_id'=>function($query){
-        $query->select('brands_id');
-    }])
-    ->get();        
-
-    $cats3 = Cats::with('prods','prods.brands_id')->get();        
-
-    return $cats2;    
+    return $cats;    
   }
 }
