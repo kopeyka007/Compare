@@ -19,6 +19,6 @@ class Cats extends Model
     }
 
     public function prods(){
-      return $this->belongsTo('App\Prods','cats_id');
+      return $this->hasMany('App\Prods','cats_id');
     }
 }
