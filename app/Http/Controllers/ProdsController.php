@@ -17,7 +17,8 @@ class ProdsController extends Controller
   public function get_all(){
     $prods = Prods::with('filters_id')->
     with('features_id')->
-    with('brands_id')
+    with('brands_id')->
+    with('cats_id')
     ->get();    
     $response['data'] = $prods;
     return $response; 
