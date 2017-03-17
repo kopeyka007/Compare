@@ -5,7 +5,7 @@
 				<thead>
 					<tr>
 						<th><h4>Features</h4></th>
-						<th ng-repeat="prod in compareList"><h4>Xiaomi @{{prod.prods_name}}</h4></th>
+						<th ng-repeat="prod in compareList"><h4>@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</h4></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -25,13 +25,13 @@
 								</label>
 							</div>
 						</td>
-						<td ng-repeat="photo in compareList">
-							<div class="compare-head" ng-class="{'inactive': }">
+						<td class="td-header" ng-repeat="photo in compareList">
+							<div class="compare-head" ng-class="{'inactive': ! photo}">
 								<div class="compare-img text-center">
 									<img src="@{{photo.prods_foto}}" alt="#" />
 								</div>
 								<div class="compare-price text-danger">
-									Rs. 9.599
+									$@{{photo.prods_price}}
 								</div>
 								<div class="compare-close">
 									<i class="fa fa-times-circle" aria-hidden="true"></i>
