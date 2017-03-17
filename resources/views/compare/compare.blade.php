@@ -28,7 +28,6 @@
 						<td class="td-header" ng-repeat="photo in compareList">
 							<div class="compare-head" ng-class="{'inactive': ! photo}">
 								<div class="compare-img text-center">
-									<img src="http://comparewear.com/images/products/casio-wsd-f10.jpg" alt="#" />
 									<img src="@{{photo.prods_foto}}" alt="#" />
 								</div>
 								<div class="compare-price text-danger">
