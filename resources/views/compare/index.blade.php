@@ -1,4 +1,4 @@
-<div ng-controller="compareCtrl">
+<div ng-controller="mainCtrl">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">

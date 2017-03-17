@@ -10,7 +10,7 @@
 
 		routes = [
 			'compare/:alias/',
-			'compare'
+			':cat/:prod'
 		];
 
 		setRoutes = function(route) {
@@ -25,7 +25,14 @@
 					}
 					else
 					{
-						return  '/pages/index';
+						if (params.cat && param.prod)
+						{
+							return '/pages/personal';
+						}
+						else
+						{
+							return  '/pages/index';
+						}
 					}
 				}
 			};
@@ -44,10 +51,10 @@
 })();
 
 (function(){
-	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', compareCtrl]);
+	angular.module('compareApp').controller('mainCtrl', ['$scope', '$rootScope', '$http', '$window', mainCtrl]);
 	
 	
-	function compareCtrl($scope, $rootScope, $http, $window) {
+	function mainCtrl($scope, $rootScope, $http, $window) {
 		$scope.selectedMax = 4;
 		$scope.cats = [];
 		$scope.list_products = function() {
@@ -59,11 +66,9 @@
 		
 		$scope.selectedProds = {};
 		
-		
-		
-		
 		$scope.chooseProd = function(prod) {
 			prod.selected = 1 - prod.selected;
+			
 			if (prod.selected == 1)
 			{
 				if ($scope.selectedCount < $scope.selectedMax)
@@ -83,8 +88,12 @@
 			$scope.linkCompare();
 		};
 		
+		
+		
+		$scope.preLink = '';
 		$scope.selectedCount = 0;
 		$scope.linkCompare = function() {
+			console.log($scope.selectedProds);
 			var aliases = [];
 			$scope.selectedCount = 0;
 			for (var id in $scope.selectedProds)
@@ -96,7 +105,17 @@
 					$scope.selectedCount++;
 				}
 			}
-			$scope.compareAlias = aliases.join('-vs-');
+			if (aliases.length > 1)
+			{
+				$scope.preLink = 'compare/';
+				$scope.compareAlias = $scope.preLink + aliases.join('-vs-');
+			}
+			else
+			{
+				$scope.preLink = 'smartphone/'
+				$scope.compareAlias = $scope.preLink + aliases.join();
+			}
+			
 		}
 		
 	}
