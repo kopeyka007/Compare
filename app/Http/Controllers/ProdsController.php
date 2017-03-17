@@ -139,10 +139,20 @@ class ProdsController extends Controller
 
   //Front
   public function get_prods_with_filters_group($ids){    
-    $prods = Prods::with('filters_id', 'filters_id.groups', 'brands_id')->find($ids);    
+    //$prods = Prods::with('filters_id', 'filters_id.groups', 'brands_id')->find($ids);    
+    
+    $prods = Prods::with('filters_id')
+    ->with(['filters_id'=>function($query){
+      $query->select('filters_id', 'groups_id', 'filters_name');            
+    }])
+    ->with(['filters_id.groups'=>function ($query){
+    }])
+    ->with('brands_id')
+    ->find($ids);    
+    
     foreach ($prods as $prod) {
       foreach ($prod->filters_id as $filter) {        
-        $arr[$filter->groups->groups_id][] = $filter;
+        $arr[$filter->groups->groups_id]['groups_filters'][] = $filter;
         $arr[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;
         unset($filter->groups);
       }
