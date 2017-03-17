@@ -29,7 +29,7 @@
 						<div class="groups-footer" ng-repeat="cats in cats">
 							<h4>@{{cat.cats_name}}</h4>
 							<div ng-repeat="prod in cat.prods">
-								<p ><a>@{{cat.prods}}</a></p>
+								<p ><a>@{{prod.brands_id.brands_name}}</a></p>
 							</div>
 						</div>
 					</div>

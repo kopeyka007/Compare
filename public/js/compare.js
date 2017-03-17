@@ -11,7 +11,7 @@
 			console.log($scope.compareList);
 		});
 		
-		$http.post('/api/compare/list', {url}).then(function(response){
+		$http.post('/api/compare/catsfilters', {url}).then(function(response){
 			$scope.filterList = response.data.data;
 			console.log($scope.filterList);
 		});
