@@ -28,7 +28,6 @@
 						<td class="td-header" ng-repeat="photo in compareList">
 							<div class="compare-head" ng-class="{'inactive': ! photo}">
 								<div class="compare-img text-center">
-									<img src="http://comparewear.com/images/products/casio-wsd-f10.jpg" alt="#" />
 									<img src="@{{photo.prods_foto}}" alt="#" />
 								</div>
 								<div class="compare-price text-danger">
@@ -76,90 +75,98 @@
 						<td></td>
 						<td></td>
 					</tr>
-					<tr>
-						<td><h3>General</h3></td>
-						<td colspan="4"></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><h4>Dual Sim</h4></td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-					</tr>
-					<tr>
-						<td><h4>Sim Size</h4></td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-					</tr>
-					<tr>
-						<td><h4>Device Type</h4></td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-					</tr>
-					<tr>
-						<td><h4>Release Date</h4></td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-					</tr>
-					<tr>
-						<td><h3>Design</h3></td>
-						<td colspan="4"></td>
-					</tr>
-					<tr>
-						<td><h4>Dimensions</h4></td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-					</tr>
-					<tr>
-						<td><h4>Weight</h4></td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-					</tr>
-					<tr>
-						<td><h3>Display</h3></td>
-						<td colspan="4"></td>
-					</tr>
-					<tr>
-						<td><h4>Weight</h4></td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-					</tr>
-					<tr>
-						<td><h4>Weight</h4></td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-					</tr>
-					<tr>
-						<td><h4>Weight</h4></td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-					</tr>
 				</tbody>
 			</table>
+			
+			<div class="groups-box" ng-repeat="">
+				<h3>@{{}}</h3>
+				<table>
+					<tbody>
+						<tr>
+							<td></td>
+							<td colspan="4"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><h4>Dual Sim</h4></td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+						</tr>
+						<tr>
+							<td><h4>Sim Size</h4></td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+						</tr>
+						<tr>
+							<td><h4>Device Type</h4></td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+						</tr>
+						<tr>
+							<td><h4>Release Date</h4></td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+						</tr>
+						<tr>
+							<td><h3>Design</h3></td>
+							<td colspan="4"></td>
+						</tr>
+						<tr>
+							<td><h4>Dimensions</h4></td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+						</tr>
+						<tr>
+							<td><h4>Weight</h4></td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+						</tr>
+						<tr>
+							<td><h3>Display</h3></td>
+							<td colspan="4"></td>
+						</tr>
+						<tr>
+							<td><h4>Weight</h4></td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+						</tr>
+						<tr>
+							<td><h4>Weight</h4></td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+						</tr>
+						<tr>
+							<td><h4>Weight</h4></td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+							<td>GSM+GSM (Hybrid Slot)</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

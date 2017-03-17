@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="filter-section">
-					Filter
+					<h1>Filter</h1>
 				</div>
 			</div>
 			<div class="col-md-9">
