@@ -107,6 +107,6 @@ Route::get('api/cats/front/shortlist','CatsController@shortlist');
 
 
 //for testing
-Route::get('test','CatsController@shortlist');
+Route::get('test','ProdsController@get_prods_with_filters_group');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 

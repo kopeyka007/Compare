@@ -17,4 +17,8 @@ class Filters extends Model
     public function cats_id(){      
       return $this->belongsToMany('App\Cats', 'cats_filters', 'filters_id', 'cats_id');
     }
+    public function groups()
+    {      
+      return $this->hasOne('App\Groups', 'groups_id', 'groups_id');
+    }
 }

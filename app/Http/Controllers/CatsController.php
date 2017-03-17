@@ -95,6 +95,20 @@ class CatsController extends Controller
     return $response;
   }
 
+  public function get_filters_groups($id){    
+    //$cat = Cats::find($id);    
+    $cats = Cats::with('filters.groups')->find($id);
+    $filters = $cats->filters;
+    foreach ($cats->filters as $filter) {      
+      $groups[$filter->groups->groups_name][] = $filter;
+    }
+    //return $cats->filters;
+    return $groups;
+    //return $filters;
+
+    //return $response;
+  }
+
   public function get_features($id){
     $cat = Cats::find($id);
     if ($cat){
