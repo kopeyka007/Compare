@@ -67,6 +67,20 @@
 			
 			<div class="col-sm-12">
 				<div class="form-group">
+					<label>Icon</label>
+					<div>
+						<button type="button" class="btn btn-info btn-file">
+							<span>Browse file...</span>
+							<input type="file" accept="image/*" name="file" ng-model="prods_photo" ngf-select />
+						</button>
+						<img ngf-thumbnail="features_icon" class="img-preview" ng-show="prods_photo" alt="" />
+						<a href="javascript:void(0);" ng-show="prods_photo" ng-click="remove_file()">Remove</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<div class="form-group">
 					<label>Brands</label>
 					<select class="form-control" name="brands_id" ng-model="prod.brands_id" required="required" ng-options="brand.brands_name for brand in brands track by brand.brands_id">
 					</select>
@@ -145,7 +159,7 @@
 	</form>
 
 	<div class="modal-footer">
-		<button class="btn btn-primary" type="button" ng-click="save()">Save</button>
+		<button class="btn btn-primary" type="button" ng-click="save(prods_photo)">Save</button>
 		<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 	</div>
 </script>

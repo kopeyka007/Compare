@@ -52,7 +52,6 @@
 		$scope.get_list = function() {
 			$http.get('/api/features/list').then(function(response) {
 				$scope.list = response.data.data;
-				console.log($scope.list);
 			});
 		};
 		$scope.get_list();
@@ -81,10 +80,7 @@
 				$scope.feature[k] = items.feature[k];
 			}
 		}
-								
-		$scope.fd = new FormData();
-		$scope.xhr = new XMLHttpRequest;
-		$scope.fr = new FileReader();					
+	
 		$scope.save = function (file) {
 			$scope.errors = [];
 			var error = 1;

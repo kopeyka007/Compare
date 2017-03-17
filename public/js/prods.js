@@ -1,6 +1,6 @@
 (function() {
-	angular.module('panelApp').controller('prodsCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', prodsCtrl]);
-	function prodsCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
+	angular.module('panelApp').controller('prodsCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', 'Upload', prodsCtrl]);
+	function prodsCtrl($scope, $rootScope, $http, $window, $uibModal, validate, Upload) {
 		$scope.cats = [];
 		$http.get('/api/cats/list').then(function(response) {
 			$scope.cats = response.data.data;
@@ -64,8 +64,8 @@
 })();
 
 (function() {
-	angular.module('panelApp').controller('ModalProdsCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', '$timeout', 'validate', 'items', ModalProdsCtrl]);
-	function ModalProdsCtrl($scope, $rootScope, $http, $uibModalInstance, $timeout, validate, items) {
+	angular.module('panelApp').controller('ModalProdsCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', '$timeout', 'validate', 'items', 'Upload', ModalProdsCtrl]);
+	function ModalProdsCtrl($scope, $rootScope, $http, $uibModalInstance, $timeout, validate, items, Upload) {
 		$scope.errors = [];
 		$scope.filters = [];
 		$scope.features = [];
@@ -81,6 +81,7 @@
 						  'prods_amazon': '',
 						  'prods_price': '',
 						  'prods_active': 0,
+						  'prods_photo': ''
 						  };
 		
 		if (items.prod && items.prod.prods_id)
@@ -109,7 +110,7 @@
 			});
 		}
 		
-		$scope.save = function () {
+		$scope.save = function (file) {
 			$scope.errors = [];
 			var error = 1;
 			error *= validate.check($scope, $scope.form.prods_name, 'Name');
@@ -126,15 +127,19 @@
 
 			if (error)
 			{
-				$http.post('/api/prods/save', $scope.prod).then(function(response) {
-					if (response.data.data)
+				file.upload = Upload.upload({
+					url: '/api/prods/save',
+					file: file,
+					data: $scope.prod,
+			    }).then(function (response) {
+			    	if (response.data.data)
 					{
 						$uibModalInstance.close(response.data.message);
 					}
-				});
+			    });
 			}
 		};
-
+		
 		$scope.cancel = function () {
 			$uibModalInstance.dismiss('cancel');
 		};
