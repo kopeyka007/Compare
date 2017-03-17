@@ -58,7 +58,6 @@
 		$scope.get_list = function() {
 			$http.get('/api/filters/list').then(function(response) {
 				$scope.list = response.data.data;
-				console.log($scope.list);
 			});
 		};
 		$scope.get_list();

@@ -15,6 +15,7 @@
 					<th>Name</th>
 					<th>Description</th>
 					<th>Units</th>
+					<th>Optimal value</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -27,6 +28,7 @@
 					<td>@{{feature.features_name}}</td>
 					<td>@{{feature.features_desc}}</td>
 					<td>@{{feature.features_units}}</td>
+					<td>@{{feature.features_norm}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(feature.features_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(feature.features_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>

@@ -27,7 +27,7 @@
 					<td>@{{prod.brands_id.brands_name}}</td>
 					<td>@{{prod.prods_name}}</td>
 					<td>@{{prod.cats_id.cats_name}}</td>
-					<td><a href="http://compare.da/@{{prod.cats_id.cats_alias + prod.prods_alias}}">compare.da/@{{prod.prods_alias}}</a></td>
+					<td><a href="http://compare.da/@{{prod.cats_id.cats_alias + '/' + prod.prods_alias}}">compare.da/@{{prod.prods_alias}}</a></td>
 					<td>$@{{prod.prods_price}}</td>
 					<td>@{{prod.prods_amazon}}</td>
 					<td>@{{prod.prods_active | checkmark}}</td>
