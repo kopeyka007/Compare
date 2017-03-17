@@ -52,10 +52,26 @@
 		$scope.list_products = function() {
 			$http.get('/api/cats/front/shortlist').then(function(response) {
 				$scope.products = response.data;
-				console.log($scope.products[0].cats_alias);
+				console.log($scope.products[0]);
+				console.log($scope.products[1]);
 			});
 		}
 		$scope.list_products();
+		
+		$scope.compareAlias = 'http://compare.da/';
+		
+		$scope.chooseProd = function() {
+			if (this.selected == true)
+			{
+				this.selected = false;
+			}
+			else 
+			{
+				this.selected = true;
+			}
+			
+			$scope.compareAlias += $scope.products[0].prods.prods_alias;
+		}
 		
 	}
 })();
