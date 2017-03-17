@@ -1,4 +1,4 @@
-<html lang="en" ng-app="compareApp">
+<html lang="en" ng-app="compareApp" ng-controller="mainCtrl">
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -28,5 +28,7 @@
 		<script src="/js/libs/angular.min.js"></script>
 		<script src="/js/libs/angular-route.min.js"></script>
 		<script src="/js/compareapp.js"></script>
+		<script src="/js/compare.js"></script>
+		
     </body>
 </html>

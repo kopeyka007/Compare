@@ -12,6 +12,10 @@
 	width: 50px;
 }
 
+.td-id img {
+	max-width: 100%;
+}
+
 .td-icon {
 	text-align: center;
 	width: 75px;

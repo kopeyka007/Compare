@@ -10,7 +10,7 @@
 
 		routes = [
 			'compare/:alias/',
-			'compare'
+			':cat/:prod'
 		];
 
 		setRoutes = function(route) {
@@ -25,7 +25,14 @@
 					}
 					else
 					{
-						return  '/pages/index';
+						if (params.cat && param.prod)
+						{
+							return '/pages/personal';
+						}
+						else
+						{
+							return  '/pages/index';
+						}
 					}
 				}
 			};
@@ -44,10 +51,10 @@
 })();
 
 (function(){
-	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', compareCtrl]);
+	angular.module('compareApp').controller('mainCtrl', ['$scope', '$rootScope', '$http', '$window', mainCtrl]);
 	
 	
-	function compareCtrl($scope, $rootScope, $http, $window) {
+	function mainCtrl($scope, $rootScope, $http, $window) {
 		$scope.selectedMax = 4;
 		$scope.cats = [];
 		$scope.list_products = function() {
