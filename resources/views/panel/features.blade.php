@@ -4,8 +4,6 @@
 		<button type="button" class="btn btn-primary" ng-click="add()">Create Feature</button>
 	</div>
 
-	<img src="{{ asset('storage/icons/IH3vmnVvlOUiDz2ARqdxEWDCIknMdBCKCuMbevh0.jpeg') }}" alt="" width="100" />
-	
 	<div class="table-responsive">
 		<table class="table table-striped table-hover" ng-show="list.length">
 			<thead>
@@ -15,6 +13,7 @@
 					<th>Name</th>
 					<th>Description</th>
 					<th>Units</th>
+					<th>Optimal value</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -23,10 +22,11 @@
 			<tbody>
 				<tr ng-repeat="feature in list">
 					<td class="td-id">@{{feature.features_id}}</td>
-					<td class="td-id">@{{feature.features_icon}}</td>
+					<td class="td-id"><img src="@{{feature.features_icon}}" alt="#" /></td>
 					<td>@{{feature.features_name}}</td>
 					<td>@{{feature.features_desc}}</td>
 					<td>@{{feature.features_units}}</td>
+					<td>@{{feature.features_norm}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(feature.features_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(feature.features_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>

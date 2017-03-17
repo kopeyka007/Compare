@@ -80,10 +80,7 @@
 				$scope.feature[k] = items.feature[k];
 			}
 		}
-								
-		$scope.fd = new FormData();
-		$scope.xhr = new XMLHttpRequest;
-		$scope.fr = new FileReader();					
+	
 		$scope.save = function (file) {
 			$scope.errors = [];
 			var error = 1;

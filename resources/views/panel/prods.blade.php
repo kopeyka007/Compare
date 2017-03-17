@@ -11,8 +11,11 @@
 					<th class="td-id">ID</th>
 					<th>Brands</th>
 					<th>Name</th>
+					<th>Category</th>
 					<th>Product Alias</th>
+					<th>Price</th>
 					<th>Link to Amazon</th>
+					<th>Active</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -23,8 +26,11 @@
 					<td class="td-id">@{{prod.prods_id}}</td>
 					<td>@{{prod.brands_id.brands_name}}</td>
 					<td>@{{prod.prods_name}}</td>
-					<td>@{{prod.prods_alias}}</td>
+					<td>@{{prod.cats_id.cats_name}}</td>
+					<td><a href="http://compare.da/@{{prod.cats_id.cats_alias + '/' + prod.prods_alias}}">compare.da/@{{prod.prods_alias}}</a></td>
+					<td>$@{{prod.prods_price}}</td>
 					<td>@{{prod.prods_amazon}}</td>
+					<td>@{{prod.prods_active | checkmark}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(prod.prods_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(prod.prods_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
@@ -56,6 +62,20 @@
 					<label>Category</label>
 					<select class="form-control" name="cats_id" ng-model="prod.cats_id" required="required" ng-options="cat.cats_name for cat in cats track by cat.cats_id" ng-change="initFilters()">
 					</select>
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Icon</label>
+					<div>
+						<button type="button" class="btn btn-info btn-file">
+							<span>Browse file...</span>
+							<input type="file" accept="image/*" name="file" ng-model="prods_photo" ngf-select />
+						</button>
+						<img ngf-thumbnail="features_icon" class="img-preview" ng-show="prods_photo" alt="" />
+						<a href="javascript:void(0);" ng-show="prods_photo" ng-click="remove_file()">Remove</a>
+					</div>
 				</div>
 			</div>
 			
@@ -139,7 +159,7 @@
 	</form>
 
 	<div class="modal-footer">
-		<button class="btn btn-primary" type="button" ng-click="save()">Save</button>
+		<button class="btn btn-primary" type="button" ng-click="save(prods_photo)">Save</button>
 		<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 	</div>
 </script>

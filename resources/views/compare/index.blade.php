@@ -35,7 +35,7 @@
 											</div>
 										</div>
 										<div class="content-name text-center">
-											<a href="/@{{prod.prods_alias}}">@{{prod.prods_name}}</a>
+											<a href="@{{cat.cats_alias}}/@{{prod.prods_alias}}">@{{prod.prods_name}}</a>
 										</div>
 									</div>
 								</div>
