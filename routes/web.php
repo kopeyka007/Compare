@@ -20,7 +20,7 @@ Route::get('/migratefull', function () {
     Artisan::call('db:seed', array('--class' => 'UsersTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'UsersTypesTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'GroupsTableSeeder'));
-    Artisan::call('db:seed storage:link');
+    //Artisan::call('db:seed storage:link');
     return 'All migrates and seed run';
 });
 Route::get('/migrate', function () {
@@ -51,21 +51,18 @@ Route::get('/panel', function () {
     return view('panel.template');
 });
 Route::get('/panel/{controller}', function () {
-    return view('panel.template');
+    return view('panel.template');    
 });
 Route::get('/panel/{controller}/{id}', function () {
     return view('panel.template');
 });
 
-Route::get('/pages/panel/dashboard', function () {
-    return view('panel.dashboard');
+Route::get('/pages/panel/dashboard', function () {    
+    if (Auth::check()) return view('panel.dashboard');
+    else return view('panel.signin');
 });
 Route::get('/pages/panel/{controller}', function($controller){        
-    $app = app();
-    /*if (File::exists('\App\Http\Controllers\\'.ucfirst($controller).'Controller'))
-    {
-        echo "tak";
-    }*/    
+    $app = app();   
     $object = $app->make('\App\Http\Controllers\\'.(Auth::check() ? ucfirst($controller) : 'Auth').'Controller');    
     return $object->callAction('show', $parameters = array());
   });

@@ -138,20 +138,18 @@ class CatsController extends Controller
       $prod = Prods::where('prods_alias', $alias)->first();
       $ids[] = $prod->cats_id;
     }
-    $response['data'] = $this->get_cats_filters($ids);
+    $response['data'] = $this->get_all_cats_filters($ids);
     return $response;
   }
 
-  private function get_cats_filters($ids){
+  private function get_all_cats_filters($ids){
     $cats = Cats::with('filters.groups')->find($ids);    
     foreach ($cats as $cat) {      
       foreach ($cat->filters as $filter) {
         $groups[$filter->groups->groups_id]['groups_filters'][] = $filter;
-        $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;
-        $cat['groups'] = $groups;
+        $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
       }
-      unset($cat->filters);
-    }    
-    return $cats;
+    }
+    return $groups;    
   }
 }
