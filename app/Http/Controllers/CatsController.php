@@ -144,17 +144,12 @@ class CatsController extends Controller
 
   private function get_all_cats_filters($ids){
     $cats = Cats::with('filters.groups')->find($ids);    
-    /*
-    $cats = Cats::with(['filters.groups'=>function ($query){
-      $query->where('filers.filter')
-    }])
-    */
     foreach ($cats as $cat) {      
       foreach ($cat->filters as $filter) {
         $groups[$filter->groups->groups_id]['groups_filters'][] = $filter;
         $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
       }
     }
-    return $groups;
+    return $groups;    
   }
 }
