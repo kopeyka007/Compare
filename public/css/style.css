@@ -67,6 +67,10 @@
 	cursor: pointer;
 }
 
+.content-border.limit:not(.selected) {
+	background: red;
+}
+
 .content-border:hover .content-price {
 	color: #0FB35A;
 }
@@ -102,11 +106,13 @@
 
 .content-brand {
 	text-transform: uppercase;
+	padding: 5px;
 }
 
 .content-price {
 	font-weight: 600;
 	color: #ccc;
+	padding: 5px;
 }
 
 .content-name {

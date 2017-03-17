@@ -48,29 +48,55 @@
 	
 	
 	function compareCtrl($scope, $rootScope, $http, $window) {
-		$scope.products = [];
+		$scope.selectedMax = 4;
+		$scope.cats = [];
 		$scope.list_products = function() {
 			$http.get('/api/cats/front/shortlist').then(function(response) {
-				$scope.products = response.data;
-				console.log($scope.products[0]);
-				console.log($scope.products[1]);
+				$scope.cats = response.data;
 			});
-		}
+		};
 		$scope.list_products();
 		
-		$scope.compareAlias = 'http://compare.da/';
+		$scope.selectedProds = {};
 		
-		$scope.chooseProd = function() {
-			if (this.selected == true)
+		
+		
+		
+		$scope.chooseProd = function(prod) {
+			prod.selected = 1 - prod.selected;
+			if (prod.selected == 1)
 			{
-				this.selected = false;
+				if ($scope.selectedCount < $scope.selectedMax)
+				{
+					$scope.selectedProds[prod.prods_id] = prod;
+				}
+				else
+				{
+					prod.selected = 0;
+				}
 			}
-			else 
+			else
 			{
-				this.selected = true;
+				$scope.selectedProds[prod.prods_id] = false;
 			}
 			
-			$scope.compareAlias += $scope.products[0].prods.prods_alias;
+			$scope.linkCompare();
+		};
+		
+		$scope.selectedCount = 0;
+		$scope.linkCompare = function() {
+			var aliases = [];
+			$scope.selectedCount = 0;
+			for (var id in $scope.selectedProds)
+			{
+				var prod = $scope.selectedProds[id];
+				if (prod)
+				{
+					aliases.push(prod.prods_alias);
+					$scope.selectedCount++;
+				}
+			}
+			$scope.compareAlias = aliases.join('-vs-');
 		}
 		
 	}
