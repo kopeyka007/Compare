@@ -60,6 +60,7 @@
 		$scope.list_products = function() {
 			$http.get('/api/cats/front/shortlist').then(function(response) {
 				$scope.cats = response.data;
+				console.log($scope.cats);
 			});
 		};
 		$scope.list_products();

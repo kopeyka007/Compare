@@ -18,6 +18,11 @@
 	color: #fff;
 }
 
+.footer a {
+	color: #fff;
+	text-decoration: none;
+}
+
 .wrap-categories {
 	border-bottom: 1px solid #ccc;
 }
@@ -308,6 +313,16 @@
 
 .compare-img img {
 	max-width: 100%;
+}
+
+.compare-img {
+	position: relative;
+}
+
+.compare-img img:first-child {
+	max-width: 100%;
+	position: absolute;
+	z-index: -1;
 }
 
 .compare-close {

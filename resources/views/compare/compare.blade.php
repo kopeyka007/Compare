@@ -28,13 +28,14 @@
 						<td class="td-header" ng-repeat="photo in compareList">
 							<div class="compare-head" ng-class="{'inactive': ! photo}">
 								<div class="compare-img text-center">
+									<img src="http://comparewear.com/images/products/casio-wsd-f10.jpg" alt="#" />
 									<img src="@{{photo.prods_foto}}" alt="#" />
 								</div>
 								<div class="compare-price text-danger">
 									$@{{photo.prods_price}}
 								</div>
 								<div class="compare-close">
-									<i class="fa fa-times-circle" aria-hidden="true"></i>
+									<i class="fa fa-times-circle" aria-hidden="true" ng-click=""></i>
 								</div>
 								<div class="wrap-add-btn">
 									<button class="btn btn-info add-btn">Add Another Products</button>
@@ -79,8 +80,12 @@
 						<td><h3>General</h3></td>
 						<td colspan="4"></td>
 					</tr>
-					<tr ng-repeat="filter in compareList.groups">
-						<td>@{{filter.filters_name}}</td>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td><h4>Dual Sim</h4></td>

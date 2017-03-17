@@ -23,9 +23,17 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-xs-12">
-						
 						<h4><i class="fa fa-home" aria-hidden="true"></i> Compare Wearables</h4>
+						<p><a href="/">Home</a></p>
+						<p><a href="/">About the developer</a></p>
+						<div class="groups-footer" ng-repeat="cats in cats">
+							<h4>@{{cat.cats_name}}</h4>
+							<div ng-repeat="prod in cat.prods">
+								<p ><a>@{{cat.prods}}</a></p>
+							</div>
+						</div>
 					</div>
+					
 					<div class="col-md-6col-xs-12">
 					</div>
 				</div>
