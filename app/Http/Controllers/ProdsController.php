@@ -15,7 +15,10 @@ class ProdsController extends Controller
   }
 
   public function get_all(){
-    $prods = Prods::with('filters_id')->with('features_id')->get();    
+    $prods = Prods::with('filters_id')->
+    with('features_id')->
+    with('brands_id')
+    ->get();    
     $response['data'] = $prods;
     return $response; 
   }
@@ -120,6 +123,13 @@ class ProdsController extends Controller
       }
       $prod->features_id()->sync($arr);      
     }
+  }
+
+  //Front
+  public function get_prods_with_filters_group(){
+    $prod = Prods::with('filters_id', 'filters_id.groups')->find([1,2]);
+
+    return $prod;
   }
 
   

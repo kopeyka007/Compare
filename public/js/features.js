@@ -1,6 +1,6 @@
 (function() {
-	angular.module('panelApp').controller('featuresCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', featuresCtrl]);
-	function featuresCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
+	angular.module('panelApp').controller('featuresCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'Upload', 'validate', featuresCtrl]);
+	function featuresCtrl($scope, $rootScope, $http, $window, $uibModal, Upload, validate) {
 		$scope.cats = [];
 		$http.get('/api/cats/list').then(function(response) {
 			$scope.cats = response.data.data;
@@ -59,8 +59,8 @@
 })();
 
 (function() {
-	angular.module('panelApp').controller('ModalFeaturesCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', '$timeout', 'validate', 'items', ModalFeaturesCtrl]);
-	function ModalFeaturesCtrl($scope, $rootScope, $http, $uibModalInstance, $timeout, validate, items) {
+	angular.module('panelApp').controller('ModalFeaturesCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', '$timeout', 'Upload', 'validate', 'items', ModalFeaturesCtrl]);
+	function ModalFeaturesCtrl($scope, $rootScope, $http, $uibModalInstance, $timeout, Upload, validate, items) {
 		$scope.errors = [];
 		$scope.cats = [{'cats_id': 0, 'cats_name': 'Choose Category'}].concat(items.cats);
 		$scope.feature = {'features_id': 0,
@@ -70,7 +70,8 @@
 					  	  'features_desc': '',
 					  	  'features_units': '',
 					  	  'features_around': '',
-					  	  'features_norm': ''};
+					  	  'features_norm': '',
+					  	  '_token': $rootScope.token};
 		
 		if (items.feature && items.feature.features_id)
 		{
@@ -83,7 +84,7 @@
 		$scope.fd = new FormData();
 		$scope.xhr = new XMLHttpRequest;
 		$scope.fr = new FileReader();					
-		$scope.save = function () {
+		$scope.save = function (file) {
 			$scope.errors = [];
 			var error = 1;
 			error *= validate.check($scope, $scope.form.name, 'Name');
@@ -91,53 +92,21 @@
 
 			if (error)
 			{
-				/*for (var key in $scope.feature)
-				{
-					$scope.fd.append(key, $scope.feature[key]);
-				}
-				$scope.fd.append('_token', $rootScope.token);
-
-				$scope.xhr.onload = function() {
-					if ($scope.xhr.readyState == 4)
-					{
-						console.log(JSON.parse($scope.xhr.responseText));
-						//$uibModalInstance.close(response.data.message);
-					}
-				};
-
-				$scope.xhr.open("post", "/api/features/save");
-				$scope.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-				$scope.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-				$scope.xhr.setRequestHeader("X-CSRF-Token", $rootScope.token);
-				$scope.xhr.send($scope.fd);*/
-				$http.post('/api/features/save', $scope.feature).then(function(response) {
-					if (response.data.data)
+				file.upload = Upload.upload({
+					url: '/api/features/save',
+					file: file,
+					data: $scope.feature,
+			    }).then(function (response) {
+			    	if (response.data.data)
 					{
 						$uibModalInstance.close(response.data.message);
 					}
-				});
-			}
-		};
-
-		$scope.preview = false;
-		$scope.load = function(file) {
-			$scope.preview = false;
-			if (file.files.length)
-			{
-				$scope.fr.readAsDataURL(file.files[0]);
-				$scope.fd.append('features_icon', file.files[0]);
-
-				$scope.fr.onload = function() {
-					$scope.$apply(function () {
-						$scope.preview = $scope.fr.result;
-			        });
-				};
+			    });
 			}
 		};
 
 		$scope.remove_file = function() {
-			$scope.preview = false;
-			$scope.fd.delete('features_icon');
+			$scope.features_icon = false;
 		};
 
 		$scope.cancel = function () {
