@@ -26,6 +26,7 @@
 
 					<div class="collapse navbar-collapse" id="menu">
 						<ul class="nav navbar-nav">
+							<li><a href="/panel/">Dashboard</a></li>
 							<li><a href="/panel/users/" ng-if="access('users')">Users</a></li>
 							<li><a href="/panel/cats/" ng-if="access('cats')">Categories</a></li>
 							<li><a href="/panel/brands/" ng-if="access('brands')">Brands</a></li>

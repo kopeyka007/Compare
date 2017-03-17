@@ -37,6 +37,8 @@ class FeaturesController extends Controller
   }
   
   public function save(Request $request){         
+    //var_dump($request->file);
+    //exit();
     $feature = new Features;
     $features_id = $request->input('features_id');
     //update
@@ -44,7 +46,7 @@ class FeaturesController extends Controller
       $current = Features::find($features_id);
       if ($current){        
         $current->features_id = $features_id;        
-        $current->features_name = $request->input('features_name');
+        $current->features_name = $request->input('features_name');        
         $file = ($request->file) ? asset('storage/'.$request->file->store('features')):0;
         //delete file
         if ($current->features_icon !== 0 && $current->features_icon !== $file){
@@ -69,8 +71,9 @@ class FeaturesController extends Controller
     //create
     else
     { 
-      $feature->features_name = $request->input('features_name');        
-      $feature->features_icon = asset('storage/'.$request->file->store('features'));
+      $feature->features_name = $request->input('features_name');
+      $file = ($request->file) ? asset('storage/'.$request->file->store('features')):0;
+      $feature->features_icon = $file;
       $feature->features_desc = $request->input('features_desc');                
       $feature->features_units = $request->input('features_units');        
       $feature->features_around = $request->input('features_around');        
