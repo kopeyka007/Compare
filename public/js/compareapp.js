@@ -1,7 +1,6 @@
-var compareApp = angular.module('compareApp', ['ngRoute']);
 (function(){
-	
-	compareApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+	angular.module('compareApp', ['ngRoute']);
+	angular.module('compareApp').config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
 		$locationProvider.html5Mode({
 			enabled: true,
@@ -42,9 +41,63 @@ var compareApp = angular.module('compareApp', ['ngRoute']);
 	   $routeProvider
 			.when('/', {templateUrl: '/pages/index'});
 	}]);
-	
-	compareApp.controller('compareController', function() {
-		
-	});
+})();
 
+(function(){
+	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', compareCtrl]);
+	
+	
+	function compareCtrl($scope, $rootScope, $http, $window) {
+		$scope.selectedMax = 4;
+		$scope.cats = [];
+		$scope.list_products = function() {
+			$http.get('/api/cats/front/shortlist').then(function(response) {
+				$scope.cats = response.data;
+			});
+		};
+		$scope.list_products();
+		
+		$scope.selectedProds = {};
+		
+		
+		
+		
+		$scope.chooseProd = function(prod) {
+			prod.selected = 1 - prod.selected;
+			if (prod.selected == 1)
+			{
+				if ($scope.selectedCount < $scope.selectedMax)
+				{
+					$scope.selectedProds[prod.prods_id] = prod;
+				}
+				else
+				{
+					prod.selected = 0;
+				}
+			}
+			else
+			{
+				$scope.selectedProds[prod.prods_id] = false;
+			}
+			
+			$scope.linkCompare();
+		};
+		
+		$scope.selectedCount = 0;
+		$scope.linkCompare = function() {
+			var aliases = [];
+			$scope.selectedCount = 0;
+			for (var id in $scope.selectedProds)
+			{
+				var prod = $scope.selectedProds[id];
+				if (prod)
+				{
+					aliases.push(prod.prods_alias);
+					$scope.selectedCount++;
+				}
+			}
+			$scope.compareAlias = aliases.join('-vs-');
+		}
+		
+	}
 })();

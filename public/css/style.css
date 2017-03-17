@@ -67,6 +67,10 @@
 	cursor: pointer;
 }
 
+.content-border.limit:not(.selected) {
+	background: red;
+}
+
 .content-border:hover .content-price {
 	color: #0FB35A;
 }
@@ -95,13 +99,20 @@
 	right: 3px;
 }
 
+.coverletter-modal input[type=checkbox] {
+	width: auto;
+	height: auto;
+}
+
 .content-brand {
 	text-transform: uppercase;
+	padding: 5px;
 }
 
 .content-price {
 	font-weight: 600;
 	color: #ccc;
+	padding: 5px;
 }
 
 .content-name {
@@ -316,6 +327,10 @@
 	right: 50%;
 	margin-right: -82px;
 	bottom: 0;
+}
+
+.btn-compare {
+	margin-top: 10px;
 }
 
 .error-msg {
