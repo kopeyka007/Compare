@@ -139,7 +139,7 @@ class ProdsController extends Controller
 
   //Front
   public function get_prods_with_filters_group($ids){    
-    $prods = Prods::with('brands_id')->find($ids);    
+    $prods = Prods::with('brands_id')->where('prods_active',1)->find($ids);    
     /*
     foreach ($prods as $prod) {
       foreach ($prod->filters_id as $filter) {        
