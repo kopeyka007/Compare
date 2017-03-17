@@ -139,9 +139,31 @@ class ProdsController extends Controller
 
   //Front
   public function get_prods_with_filters_group(){
-    $prod = Prods::with('filters_id', 'filters_id.groups')->find([1,2]);
+    $prods = Prods::with('filters_id', 'filters_id.groups')->find([4]);
+    //$groups[$filter->groups->groups_name][] = $filter;
+    foreach ($prods as $prod) {
+      foreach ($prod->filters_id as $filter) {
+        $arr[$filter->groups->groups_name][] = $filter;
+        unset($filter->groups);
+      }
+      $prod['groups'] = $arr;
+      //$arr[$prod] = $arr;
+      //$arr['groups'] = $groups;
+      unset($prod->filters_id);
+    }
+    //return $arr;
+    return $prods;
+  }
 
-    return $prod;
+  public function get_compare_prods(Request $request){
+    $string = 'prod1-vs-prod2';
+    //return $string;
+    $prods = explode('-vs-', $string);
+    //var_dump($prods);
+    for ($i=0; $i <= count($prods) ; $i++) { 
+      $prod = Prods::find 
+    }
+
   }
 
   
