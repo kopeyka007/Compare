@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Cats;
+use App\Prods;
 use Illuminate\Http\Request;
 
 class CatsController extends Controller
@@ -126,5 +127,34 @@ class CatsController extends Controller
     ->with('prods.brands_id')
     ->get();
     return $cats;    
+  }
+
+  public function get_compare_filters(Request $request){
+    $url = $request->input('url');
+    /*
+    $url = str_replace('compare/', '', $url);
+    $aliases = explode('-vs-', $url);    
+    for ($i=0; $i < count($aliases) ; $i++) {
+      $alias = str_replace('/', '', $aliases[$i]);
+      $prod = Prods::where('prods_alias', $alias)->first();
+      $ids[] = $prod->cats_id;
+    }
+    */
+    $ids = [0=>1, 1=>2];
+    $response['data'] = $this->get_cats_filters($ids);
+    return $response;
+  }
+
+  private function get_cats_filters($ids){
+    $cats = Cats::with('filters.groups')->find($ids);    
+    foreach ($cats as $cat) {      
+      foreach ($cat->filters as $filter) {
+        $groups[$filter->groups->groups_name][] = $filter;
+      }
+      $cat['groups'] = $groups[$filter->groups->groups_name][] = $filter;
+    }
+    //return $cats->filters;
+    //return $groups;
+    return $cats;
   }
 }
