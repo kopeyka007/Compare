@@ -319,12 +319,6 @@
 	position: relative;
 }
 
-.compare-img img:first-child {
-	max-width: 100%;
-	position: absolute;
-	z-index: -1;
-}
-
 .compare-close {
 	position: absolute;
 	z-index: 1;
