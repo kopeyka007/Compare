@@ -41,19 +41,6 @@
 								</div>
 							</div>
 						</td>
-						<td>
-							<div class="compare-head inactive">
-								<div class="compare-img text-center">
-									<img src="https://img2.smartprix.com/mobiles/1101qthqlvr/s-1/xiaomi_redmi_3s_prime.jpg" alt="#" />
-								</div>
-								<div class="compare-price text-danger">
-									Rs. 9.599
-								</div>
-								<div class="compare-close">
-									<i class="fa fa-times-circle" aria-hidden="true"></i>
-								</div>
-							</div>
-						</td>
 					</tr>
 					<tr>
 						<td><h3>Overview</h3></td>
@@ -92,12 +79,8 @@
 						<td><h3>General</h3></td>
 						<td colspan="4"></td>
 					</tr>
-					<tr>
-						<td><h4>Sim Type</h4></td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
-						<td>GSM+GSM (Hybrid Slot)</td>
+					<tr ng-repeat="filter in compareList.groups">
+						<td>@{{filter.filters_name}}</td>
 					</tr>
 					<tr>
 						<td><h4>Dual Sim</h4></td>
