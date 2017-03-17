@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="filter-section">
-					<h1>Filter</h1>
+					<h2>Filter</h2>
 				</div>
 			</div>
 			<div class="col-md-9">
@@ -11,6 +11,7 @@
 					<div class="wrap-categories">	
 						<div class="categories">
 							<h2>@{{cat.cats_name}}</h2>
+							
 						</div>
 						<div class="row">
 							<div ng-repeat="prod in cat.prods">

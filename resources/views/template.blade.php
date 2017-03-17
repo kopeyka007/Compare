@@ -12,7 +12,7 @@
     <body>
 		<section class="header">
 			<div class="container">
-				<h3>Compare</h3>
+				<h3><a class="home-link" href="/">Compare</a></h3>
 			</div>
 		</section>
 			
