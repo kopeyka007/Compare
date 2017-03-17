@@ -56,6 +56,7 @@
 		<script src="/js/libs/angular-animate.min.js"></script>
 		<script src="/js/libs/angular-sanitize.min.js"></script>
 		<script src="/js/libs/ui-bootstrap-tpls-2.5.0.js"></script>
+		<script src="/js/libs/ng-file-upload.min.js"></script>
 		<script src="/js/panelapp.js"></script>
 		<script src="/js/signin.js"></script>
 		<script src="/js/users.js"></script>
