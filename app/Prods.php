@@ -19,4 +19,7 @@ class Prods extends Model
     public function brands_id(){
       return $this->belongsTo('App\Brands','brands_id');
     }
+    public function cats_id(){
+      return $this->belongsTo('App\Cats','cats_id');
+    }
 }
