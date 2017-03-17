@@ -38,16 +38,15 @@ class FeaturesController extends Controller
   
   public function save(Request $request){     
     $feature = new Features;
-    $feature_id = $request->input('features_id');
+    $features_id = $request->input('features_id');
     //update
-    if ($feature_id && $feature_id <> 0){
+    if ($features_id && $features_id <> 0){
       $current = Features::find($feature_id);
-      if ($current){
-        $features_id = $request->input('features_id');
+      if ($current){        
         $current->features_id = $features_id;        
         $current->features_name = $request->input('features_name');
         $file = ($request->file) ? asset('storage/'.$request->file->store('features')):0;
-        //change file or delete
+        //delete file
         if ($current->features_icon !== 0 && $current->features_icon !== $file){
           Storage::delete(stristr($current->features_icon, 'features'));    
         }        
@@ -92,6 +91,8 @@ class FeaturesController extends Controller
   public function delete($id){
     $feature = Features::find($id);    
     if ($feature && $feature->delete()){
+      if ($feature->features_icon !== 0)
+        Storage::delete(stristr($feature->features_icon, 'features'));
       $response['data']['type'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'Feature deleted'];      
     }
