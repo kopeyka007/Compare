@@ -10,6 +10,10 @@
 				<tr>
 					<th class="td-id">ID</th>
 					<th>Name</th>
+					<th>Category</th>
+					<th>Group</th>
+					<th>Filter Type</th>
+					<th>Show as filter</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -19,6 +23,10 @@
 				<tr ng-repeat="filter in list">
 					<td class="td-id">@{{filter.filters_id}}</td>
 					<td>@{{filter.filters_name}}</td>
+					<td>@{{filter.cats_id[0].cats_name}}</td>
+					<td>@{{filter.groups_id.groups_name}}</td>
+					<td>@{{filter.filters_type}}</td>
+					<td>@{{filter.filters_filter | checkmark}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(filter.filters_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(filter.filters_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>

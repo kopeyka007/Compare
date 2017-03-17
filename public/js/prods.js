@@ -57,7 +57,6 @@
 		$scope.get_list = function() {
 			$http.get('/api/prods/list').then(function(response) {
 				$scope.list = response.data.data;
-				console.log($scope.list);
 			});
 		};
 		$scope.get_list();
