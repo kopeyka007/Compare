@@ -18,6 +18,19 @@
 			
 		<section class="content" ng-view>
 		</section>
+		
+		<section class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-xs-12">
+						
+						<h4><i class="fa fa-home" aria-hidden="true"></i> Compare Wearables</h4>
+					</div>
+					<div class="col-md-6col-xs-12">
+					</div>
+				</div>
+			</div>
+		</section>
 
 		<script src="/js/libs/angular.min.js"></script>
 		<script src="/js/libs/angular-route.min.js"></script>

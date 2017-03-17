@@ -66,7 +66,7 @@
 		
 		$scope.selectedProds = {};
 		
-		$scope.chooseProd = function(prod) {
+		$scope.chooseProd = function(prod, alias) {
 			prod.selected = 1 - prod.selected;
 			
 			if (prod.selected == 1)
@@ -85,14 +85,12 @@
 				$scope.selectedProds[prod.prods_id] = false;
 			}
 			
-			$scope.linkCompare();
+			$scope.linkCompare(alias);
 		};
-		
-		
 		
 		$scope.preLink = '';
 		$scope.selectedCount = 0;
-		$scope.linkCompare = function() {
+		$scope.linkCompare = function(alias) {
 			console.log($scope.selectedProds);
 			var aliases = [];
 			$scope.selectedCount = 0;
@@ -112,7 +110,7 @@
 			}
 			else
 			{
-				$scope.preLink = 'smartphone/'
+				$scope.preLink = '/' + alias + '/';
 				$scope.compareAlias = $scope.preLink + aliases.join();
 			}
 			
