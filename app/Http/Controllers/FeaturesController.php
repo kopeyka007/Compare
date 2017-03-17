@@ -36,12 +36,12 @@ class FeaturesController extends Controller
     return $response;
   }
   
-  public function save(Request $request){     
+  public function save(Request $request){         
     $feature = new Features;
     $features_id = $request->input('features_id');
     //update
     if ($features_id && $features_id <> 0){
-      $current = Features::find($feature_id);
+      $current = Features::find($features_id);
       if ($current){        
         $current->features_id = $features_id;        
         $current->features_name = $request->input('features_name');
