@@ -5,7 +5,7 @@ use App\Features;
 use App\Cats;
 use App\CatsFeatures;
 use Illuminate\Http\Request;
-
+use Storage;
 class FeaturesController extends Controller
 {
   public function __construct()
@@ -17,7 +17,9 @@ class FeaturesController extends Controller
   }
 
   public function get_all(){
-    $features = Features::with('cats_id')->get();    
+    $features = Features::with('cats_id')->get();
+    //$features->features_icon = /($features->features_icon);
+    //print_r($fea);
     $response['data'] = $features;
     return $response;    
   }
@@ -34,8 +36,7 @@ class FeaturesController extends Controller
     return $response;
   }
   
-  public function save(Request $request){ 
-    //print_r($request->file->store('icons'));
+  public function save(Request $request){     
     $feature = new Features;
     $feature_id = $request->input('features_id');
     //update
@@ -44,8 +45,13 @@ class FeaturesController extends Controller
       if ($current){
         $features_id = $request->input('features_id');
         $current->features_id = $features_id;        
-        $current->features_name = $request->input('features_name');        
-        //$current->features_icon = $request->input('features_icon');        
+        $current->features_name = $request->input('features_name');
+        $file = ($request->file) ? asset('storage/'.$request->file->store('features')):0;
+        //change file or delete
+        if ($current->features_icon !== 0 && $current->features_icon !== $file){
+          Storage::delete(stristr($current->features_icon, 'features'));    
+        }        
+        $current->features_icon = $file;
         $current->features_desc = $request->input('features_desc');                
         $current->features_units = $request->input('features_units');        
         $current->features_around = $request->input('features_around');        
@@ -65,7 +71,7 @@ class FeaturesController extends Controller
     else
     { 
       $feature->features_name = $request->input('features_name');        
-      //$feature->features_icon = $request->input('features_icon');        
+      $feature->features_icon = asset('storage/'.$request->file->store('features'));
       $feature->features_desc = $request->input('features_desc');                
       $feature->features_units = $request->input('features_units');        
       $feature->features_around = $request->input('features_around');        

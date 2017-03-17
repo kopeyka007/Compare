@@ -14,13 +14,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
 
-Route::get('/migrate', function () {
+Route::get('/migratefull', function () {
     Artisan::call('migrate:rollback');
     Artisan::call('migrate');
     Artisan::call('db:seed', array('--class' => 'UsersTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'UsersTypesTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'GroupsTableSeeder'));
+    Artisan::call('db:seed storage:link');
     return 'All migrates and seed run';
+});
+Route::get('/migrate', function () {
+    //Artisan::call('migrate:rollback');
+    Artisan::call('migrate');
+    Artisan::call('db:seed storage:link');
+    return 'New artisan run';
 });
 
 Route::get('/', function () {
