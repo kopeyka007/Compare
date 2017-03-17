@@ -5,10 +5,7 @@
 				<thead>
 					<tr>
 						<th><h4>Features</h4></th>
-						<th><h4>Xiaomi Redmi 3S Prime</h4></th>
-						<th><h4>Xiaomi Redmi 3S Prime</h4></th>
-						<th><h4>Xiaomi Redmi 3S Prime</h4></th>
-						<th><h4>Xiaomi Redmi 3S Prime</h4></th>
+						<th ng-repeat="prod in compareList"><h4>Xiaomi @{{prod.prods_name}}</h4></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -28,10 +25,10 @@
 								</label>
 							</div>
 						</td>
-						<td>
-							<div class="compare-head">
+						<td ng-repeat="photo in compareList">
+							<div class="compare-head" ng-class="{'inactive': }">
 								<div class="compare-img text-center">
-									<img src="https://img2.smartprix.com/mobiles/1101qthqlvr/s-1/xiaomi_redmi_3s_prime.jpg" alt="#" />
+									<img src="@{{photo.prods_foto}}" alt="#" />
 								</div>
 								<div class="compare-price text-danger">
 									Rs. 9.599
@@ -39,18 +36,8 @@
 								<div class="compare-close">
 									<i class="fa fa-times-circle" aria-hidden="true"></i>
 								</div>
-							</div>
-						</td>
-						<td>
-							<div class="compare-head">
-								<div class="compare-img text-center">
-									<img src="https://img2.smartprix.com/mobiles/1101qthqlvr/s-1/xiaomi_redmi_3s_prime.jpg" alt="#" />
-								</div>
-								<div class="compare-price text-danger">
-									Rs. 9.599
-								</div>
-								<div class="compare-close">
-									<i class="fa fa-times-circle" aria-hidden="true"></i>
+								<div class="wrap-add-btn">
+									<button class="btn btn-info add-btn">Add Another Products</button>
 								</div>
 							</div>
 						</td>
@@ -64,9 +51,6 @@
 								</div>
 								<div class="compare-close">
 									<i class="fa fa-times-circle" aria-hidden="true"></i>
-								</div>
-								<div class="wrap-add-btn">
-									<button class="btn btn-info add-btn">Add Another Products</button>
 								</div>
 							</div>
 						</td>

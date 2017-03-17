@@ -302,6 +302,10 @@
 	display: inline-block;
 }
 
+.compare-img img {
+	max-width: 100%;
+}
+
 .compare-close {
 	position: absolute;
 	z-index: 1;
