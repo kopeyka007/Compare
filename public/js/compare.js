@@ -7,7 +7,7 @@
 		
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data;
-			console.log($scope.compareList.filters_name);
+			console.log($scope.compareList);
 		});
 	}
 })();
