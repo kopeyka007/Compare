@@ -130,8 +130,7 @@ class CatsController extends Controller
   }
 
   public function get_compare_filters(Request $request){
-    $url = $request->input('url');
-    /*
+    $url = $request->input('url');    
     $url = str_replace('compare/', '', $url);
     $aliases = explode('-vs-', $url);    
     for ($i=0; $i < count($aliases) ; $i++) {
@@ -139,8 +138,6 @@ class CatsController extends Controller
       $prod = Prods::where('prods_alias', $alias)->first();
       $ids[] = $prod->cats_id;
     }
-    */
-    $ids = [0=>1, 1=>2];
     $response['data'] = $this->get_cats_filters($ids);
     return $response;
   }
@@ -149,12 +146,12 @@ class CatsController extends Controller
     $cats = Cats::with('filters.groups')->find($ids);    
     foreach ($cats as $cat) {      
       foreach ($cat->filters as $filter) {
-        $groups[$filter->groups->groups_name][] = $filter;
+        $groups[$filter->groups->groups_id]['groups_filters'][] = $filter;
+        $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;
+        $cat['groups'] = $groups;
       }
-      $cat['groups'] = $groups[$filter->groups->groups_name][] = $filter;
-    }
-    //return $cats->filters;
-    //return $groups;
+      unset($cat->filters);
+    }    
     return $cats;
   }
 }
