@@ -4,6 +4,7 @@
 		$scope.mode = 'all';
 		$scope.filterList = [];
 		$scope.compareList = [];
+		$scope.closestProd = '';
 		var url = $location.path();
 		
 		$http.post('/api/compare/list', {url}).then(function(response){
