@@ -53,16 +53,24 @@
 (function(){
 	angular.module('compareApp').controller('mainCtrl', ['$scope', '$rootScope', '$http', '$window', mainCtrl]);
 	
-	
 	function mainCtrl($scope, $rootScope, $http, $window) {
 		$scope.selectedMax = 4;
 		$scope.cats = [];
+		
 		$scope.list_products = function() {
 			$http.get('/api/cats/front/shortlist').then(function(response) {
 				$scope.cats = response.data;
 			});
 		};
+		
+		$scope.list_filters = function() {
+			$http.get('/api/filters/front/filtersfilter').then(function(response) {
+				$scope.list_filters = response.data.data;
+				console.log($scope.list_filters);
+			});
+		};
 		$scope.list_products();
+		$scope.list_filters();
 		
 		$scope.selectedProds = {};
 		
