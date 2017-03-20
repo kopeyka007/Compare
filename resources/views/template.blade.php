@@ -12,7 +12,7 @@
     <body>
 		<section class="header">
 			<div class="container">
-				<h3><a class="home-link" href="/">Compare</a></h3>
+				<a href="/" class="home-link">Compare</a>
 			</div>
 		</section>
 			
@@ -26,11 +26,12 @@
 						<h3><i class="fa fa-home" aria-hidden="true"></i> Compare Wearables</h3>
 						<p><a href="/">Home</a></p>
 						<p><a href="/">About the developer</a></p>
-					</div>	
+					</div>
+
 					<div class="groups-footer col-md-6" ng-repeat="cat in products">
-						<h3 ng-if="cat.prods.length"><i class="fa fa-folder-open-o" aria-hidden="true"></i> @{{cat.cats_name}}</h3>
+						<h3><i class="fa fa-folder-open-o" aria-hidden="true"></i> @{{cat.cats_name}}</h3>
 						<div ng-repeat="prod in cat.prods">
-							<p><a href="@{{cat.cats_alias}}/@{{prod.prods_alias}}">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a></p>
+							<p><a href="/@{{cat.cats_alias}}/@{{prod.prods_alias}}">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a></p>
 						</div>
 					</div>
 				</div>
@@ -43,6 +44,5 @@
 		<script src="/js/index.js"></script>
 		<script src="/js/compare.js"></script>
 		<script src="/js/prods_info.js"></script>
-		
     </body>
 </html>

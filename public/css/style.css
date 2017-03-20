@@ -33,35 +33,6 @@
 	text-decoration: none;
 }
 
-.table > tbody > tr > td.td-header {
-	vertical-align: middle;
-}
-
-.td-id {
-	text-align: left;
-	width: 50px;
-}
-
-.td-name {
-	width: 250px;
-}
-
-.td-id img,
-.td-photo img {
-	max-width: 100%;
-}
-
-.td-icon,
-.td-photo {
-	text-align: center;
-	width: 75px;
-}
-
-.td-type {
-	text-align: left;
-	width: 160px;
-}
-
 .btn-file {
 	position: relative;
 	z-index: 0;
@@ -253,11 +224,6 @@
 	vertical-align: top;
 }
 
-.features-img img {
-	width: 40px;
-	
-}
-
 .features-head {
 	width: 35%;
 }
@@ -297,53 +263,19 @@
 	font-weight: 600;
 }
 
-.spec-head {
-	width: 170px;
+.compare-head img,
+.compare-price {
+	display: inline-block;
+	vertical-align: middle;
 }
 
-.compare-table {
-	width: 100%;
-}
-
-.compare-table label {
-	margin-bottom: 5px;
-}
-
-.compare-table th {
-	width: 21%;
-}
-
-.compare-table th:first-child {
-	width: 16%;
-}
-
-.compare-table td h4 {
-	text-align: right;
+.compare-head img {
+	max-width: 50%;
 }
 
 .compare-head {
 	position: relative;
-}
-
-.compare-img,
-.compare-price {
-	width: 48%;
-	display: inline-block;
-}
-
-.compare-img img {
-	max-width: 100%;
-}
-
-.compare-img {
-	position: relative;
-}
-
-.compare-close {
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	right: 0;
+	z-index: 0;
 }
 
 .compare-close {
@@ -352,6 +284,23 @@
 
 .compare-head {
 	position: relative;
+	z-index: 0;
+	width: 100%;
+}
+
+.compare-head .compare-link {
+	display: block;
+	width: 100%;
+	position: relative;
+	z-index: 0;
+	text-decoration: none;
+}
+
+.compare-head .compare-close {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 15px;
 }
 
 .wrap-add-btn {
@@ -364,19 +313,9 @@
 	height: 42%;
 	background: #fff;
 	box-shadow: 0px -3px 1px -1px rgba(0,0,0,0.2);
-	display: none;
 }
 
-.inactive .wrap-add-btn {
-	display: block;
-}
-
-.inactive .compare-close {
-	display: none;
-}
-
-.inactive .compare-img,
-.inactive .compare-price {
+.inactive .compare-link {
 	opacity: 0.5;
 }
 
@@ -417,6 +356,39 @@
 	height: 1px;
 	background: #ddd;
 	margin: 30px 0;
+}
+
+.prods-cell {
+	text-align: center;
+	width: 20%;
+	vertical-align: middle;
+}
+
+.prods-cell h4 {
+	margin: 0;
+	font-weight: bold;
+}
+
+.prods-cell p {
+	margin: 0;
+	color: #ccc;
+	font-weight: 400;
+}
+
+.prods-cell .fa {
+	font-size: 20px;
+}
+
+.filters-cell {
+	width: 20%;
+}
+
+.features-box {
+	text-align: left;
+}
+
+.features-head img {
+	max-width: 20px;
 }
 
 .error-msg {
