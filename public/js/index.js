@@ -14,7 +14,7 @@
 		$scope.filters_model = {};
 		$scope.slectedFilters = {};
 		$scope.changeFilter = function(id) {
-			$scope.slectedFilters = {id: $scope.filters_model[id]};
+			$scope.slectedFilters[id] = $scope.filters_model[id];
 		};
 
 		$scope.filterProds = function(value, index, array) {
@@ -23,7 +23,7 @@
 			{
 				if ($scope.slectedFilters[i] != '')
 				{
-					if (value.filters[i] != $scope.slectedFilters[i])
+					if ((value.filters[i] && value.filters[i] != $scope.slectedFilters[i]) || ! value.filters[i])
 					{
 						show = false;
 					}

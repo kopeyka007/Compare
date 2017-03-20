@@ -26,7 +26,7 @@
 			</div>
 
 			<div class="col-md-9">
-				<div class="content-section" ng-repeat="cat in products | filter:{'cats_id': cats_model}" ng-if="cat.prods.length" ng-init="selectedCount[cat.cats_id] = 0; selectedProds[cat.cats_id] = {}">
+				<div class="content-section" ng-repeat="cat in products | filter:{'cats_id': cats_model}" ng-if="(cat.prods | filter:filterProds).length" ng-init="selectedCount[cat.cats_id] = 0; selectedProds[cat.cats_id] = {}">
 					<div class="wrap-categories">	
 						<div class="categories">
 							<div class="row title-line">
