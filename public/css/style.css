@@ -297,6 +297,10 @@
 	font-weight: 600;
 }
 
+.spec-head {
+	width: 170px;
+}
+
 .compare-table {
 	width: 100%;
 }

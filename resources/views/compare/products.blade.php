@@ -145,7 +145,7 @@
 									<tr>
 										<td>
 											<div class="spec-group">
-												<h4>@{{group.groups_name}}</h4>
+												<h3><strong>@{{group.groups_name}}</strong></h3>
 											</div>
 										</td>
 									</tr>
@@ -156,7 +156,7 @@
 											<div class="features-name">@{{filter.filters_name}}</div>	
 										</td>
 										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
+											@{{filter.filters_value}}
 										</td>
 									</tr>
 								</tbody>
