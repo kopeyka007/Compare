@@ -8,12 +8,12 @@
 		
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data;
-			
+			console.log($scope.filterList);
 		});
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
 			$scope.filterList = response.data.data;
-			console.log($scope.filterList);
+			
 		});
 		
 		$scope.closeLink = function(prods_id, alias) {
