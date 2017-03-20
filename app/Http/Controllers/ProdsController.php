@@ -171,8 +171,15 @@ class ProdsController extends Controller
   }
 
   public function get_prods_detail(Request $request){
-    //$url = $request->input('url');
-
+    $url = $request->input('url');
+    $aliases = explode('/', $url);        
+    $prods_alias  = $aliases[2];
+    $prod = Prods::with('brands_id', 'cats_id', 'filters_id', 'features_id')->where('prods_alias', $prods_alias)->first();
+    foreach ($prod->filters_id as $filter) {
+      
+    }
+    $response['data'] = $prod;
+    return $response;
   }
 
 
