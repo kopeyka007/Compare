@@ -191,7 +191,7 @@ class ProdsController extends Controller
       $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
       unset($filter->groups);
     }
-    $prod['groups'] = $groups;
+    $prod['groups'] = $groups;    
     unset($prod->filters_id);
 
     $features = array();
@@ -206,6 +206,13 @@ class ProdsController extends Controller
     }
     $prod['features'] = $features;
     unset($prod->features_id);
+
+    //get liked prods    
+    $liked = Prods::where('cats_id', $prod->cats_id)
+    ->where('prods_active',1)
+    ->take(3)
+    ->get();
+    $prod['liked'] = $liked;
 
     $response['data'] = $prod;
     return $response;
