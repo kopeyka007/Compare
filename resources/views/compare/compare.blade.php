@@ -103,7 +103,7 @@
 							<td class="td-header" ng-repeat="i in [0, 1, 2, 3]">
 								<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
 									<div class="compare-price text-danger">
-										$@{{prod.filters[0].filters_name}}
+										$@{{prod.filters[filter.filters_id].filters_name}}
 									</div>
 								</div>
 							</td>
