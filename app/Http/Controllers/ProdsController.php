@@ -139,14 +139,11 @@ class ProdsController extends Controller
 
   //Front
   public function get_prods_with_filters_group($ids){    
-    $prods = Prods::with('brands_id', 'filters_id')->where('prods_active',1)->find($ids);    
-    
-    foreach ($prods as $prod) {
-      $k=0;
+    $prods = Prods::with('brands_id', 'filters_id')->where('prods_active',1)->find($ids);
+    foreach ($prods as $prod) {      
       foreach ($prod->filters_id as $filter) {
-        $arr[$k]['filters_name'] = $filter->filters_name;
-        $arr[$k]['filters_value'] = $filter->pivot->filters_value;        
-        $k++;
+        $arr[$filter->filters_id]['filters_name'] = $filter->filters_name;
+        $arr[$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
       }
       $prod['filters'] = $arr;      
       unset($prod->filters_id);
