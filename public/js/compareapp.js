@@ -66,7 +66,6 @@
 		$scope.list_filters = function() {
 			$http.get('/api/filters/front/filtersfilter').then(function(response) {
 				$scope.list_filters = response.data.data;
-				console.log($scope.list_filters);
 			});
 		};
 		$scope.list_products();

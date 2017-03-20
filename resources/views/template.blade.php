@@ -41,6 +41,7 @@
 		<script src="/js/libs/angular-route.min.js"></script>
 		<script src="/js/compareapp.js"></script>
 		<script src="/js/compare.js"></script>
+		<script src="/js/prods_info.js"></script>
 		
     </body>
 </html>

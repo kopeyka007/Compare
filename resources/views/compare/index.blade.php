@@ -2,27 +2,29 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<div class="filter-section">
-					<h2>Filter</h2>
-					
-					<div ng-repeat="prod in cat.prods">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox">@{{prod.brands_id.brands_name}}
-							</label>
+				<div class="sidebar-nav-fixed affix">
+					<div class="filter-section">
+						<h2>Filter</h2>
+						<div>
+							<div class="checkbox">
+								<h3>Category</h3>
+								<select>
+									<option ng-repeat="cat in cats">@{{cat.cats_name}}</option>
+								</select>
+							</div>
 						</div>
-					</div>
-					<div ng-repeat="filter in list_filters">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox">@{{filter.filters_name}}
-							</label>
+						<div ng-repeat="filter in list_filters">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">@{{filter.filters_name}}
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-9">
-				<div class="content-section" ng-repeat="cat in cats | filter:cats_filters" ng-if="cat.prods.length">
+				<div class="content-section" ng-repeat="cat in cats" ng-if="cat.prods.length">
 					<div class="wrap-categories">	
 						<div class="categories">
 							<h2>@{{cat.cats_name}}</h2>
