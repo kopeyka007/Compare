@@ -42,7 +42,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="products-spec-head text-danger">
+						<div class="products-spec-head text-danger" ng-if="prodsInfo.features.notvalid.length">
 							<h3>Disadvantages</h3>
 						</div>
 						<div class="table-responsive">
