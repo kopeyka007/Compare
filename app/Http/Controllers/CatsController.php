@@ -128,7 +128,18 @@ class CatsController extends Controller
   public function shortlist(){    
     $cats = Cats::with('prods')
     ->with('prods.brands_id')
+    ->with('prods.filters_id')    
     ->get();
+    foreach ($cats as $cat) {
+      foreach ($cat->prods as $prod) {
+        $filters = array();
+        foreach ($prod->filters_id as $filter) {
+            $filters[$filter->filters_id] = $filter->pivot->filters_value;
+        }
+        $prod['filters'] = $filters;
+        unset($prod->filters_id);
+      }      
+    }
     return $cats;    
   }
 
