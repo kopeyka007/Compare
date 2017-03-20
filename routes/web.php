@@ -41,12 +41,13 @@ Route::get('/compare/{list}', function () {
 Route::get('/pages/index/', function () {
     return view('compare.index');
 });
-Route::get('/pages/{list}', function () {
-    return view('compare.compare');
-});
 Route::get('/pages/products/', function () {
     return view('compare.products');
 });
+Route::get('/pages/{list}', function () {
+    return view('compare.compare');
+});
+
 
 Route::get('/panel', function () {
     return view('panel.template');
