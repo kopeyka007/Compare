@@ -8,10 +8,12 @@
 		
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data;
+			console.log($scope.compareList);
 		});
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
 			$scope.filterList = response.data.data;
+			
 		});
 		
 		$scope.closeLink = function(prods_id, alias) {
@@ -25,7 +27,6 @@
 					$scope.selectedCount++;
 				}
 			}
-console.log(prods_id);
 			$scope.preLink = '/compare/';
 			return $scope.preLink + aliases.join('-vs-');
 			

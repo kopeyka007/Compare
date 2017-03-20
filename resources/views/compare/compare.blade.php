@@ -94,91 +94,19 @@
 				</tbody>
 			</table>
 			
-			<div class="groups-box">
-				<h3>@{{}}</h3>
-				<table>
+			<div class="groups-box" ng-repeat="group in filterList">
+				<h3>@{{group.groups_name}}</h3>
+				<table class="table">
 					<tbody>
-						<tr>
-							<td></td>
-							<td colspan="4"></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><h4>Dual Sim</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Sim Size</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Device Type</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Release Date</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h3>Design</h3></td>
-							<td colspan="4"></td>
-						</tr>
-						<tr>
-							<td><h4>Dimensions</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Weight</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h3>Display</h3></td>
-							<td colspan="4"></td>
-						</tr>
-						<tr>
-							<td><h4>Weight</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Weight</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Weight</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
+						<tr ng-repeat="filter in group.groups_filters">
+							<td class="td-name">@{{filter.filters_name}}</td>
+							<td class="td-header" ng-repeat="i in [0, 1, 2, 3]">
+								<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
+									<div class="compare-price text-danger">
+										$@{{prod.filters[filter.filters_id].filters_value | checkmark}}
+									</div>
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
