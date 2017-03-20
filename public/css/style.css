@@ -253,6 +253,11 @@
 	vertical-align: top;
 }
 
+.features-img img {
+	width: 40px;
+	
+}
+
 .features-head {
 	width: 35%;
 }

@@ -21,58 +21,22 @@
 			<div class="row">
 				<div class="col-md-9">
 					<div class="products-spec">
-						<div class="products-spec-head text-success">
+						<div class="products-spec-head text-success" ng-if="prodsInfo.features.valid.length">
 							<h3>Advantages</h3>
 						</div>
 						<div class="table-responsive">
 							<table class="table table-striped">
 								<tbody>
-									<tr>
+									<tr ng-repeat="feat in prodsInfo.features.valid">
 										<td class="features-head">
-											<div class="features-img"><img src="" alt="#" /></div>
+											<div class="features-img"><img src="@{{feat.features_icon}}" alt="#" /></div>
 											<div class="features-desc">
-												<div class="features-name">Has Dual Sim</div>
-												<div class="features-value"></div>
+												<div class="features-name">@{{feat.features_name}}</div>
+												<div class="features-value">@{{feat.features_value}}<span> @{{feat.features_units}}</span></div>
 											</div>
 										</td>
 										<td class="features-comment">
-											Use multiple sims at the same time. It allows you to use two services without the need to carry two mobile phones at the same time.
-										</td>
-									</tr>
-									<tr>
-										<td class="features-head">
-											<div class="features-img"><img src="" alt="#" /></div>
-											<div class="features-desc">
-												<div class="features-name">Slim</div>
-												<div class="features-value">8.5 mm</div>
-											</div>
-										</td>
-										<td class="features-comment">
-											Use multiple sims at the same time. It allows you to use two services without the need to carry two mobile phones at the same time.
-										</td>
-									</tr>
-									<tr>
-										<td class="features-head">
-											<div class="features-img"><img src="" alt="#" /></div>
-											<div class="features-desc">
-												<div class="features-name">Has A Responsive Touch Screen</div>
-												<div class="features-value">Capacitive, MultiTouch</div>
-											</div>
-										</td>
-										<td class="features-comment">
-											Use multiple sims at the same time. It allows you to use two services without the need to carry two mobile phones at the same time.
-										</td>
-									</tr>
-									<tr>
-										<td class="features-head">
-											<div class="features-img"><img src="" alt="#" /></div>
-											<div class="features-desc">
-												<div class="features-name">Quite Big Screen</div>
-												<div class="features-value">5 inches</div>
-											</div>
-										</td>
-										<td class="features-comment">
-											Use multiple sims at the same time. It allows you to use two services without the need to carry two mobile phones at the same time.
+											@{{feat.features_desc}}
 										</td>
 									</tr>
 								</tbody>
@@ -84,40 +48,16 @@
 						<div class="table-responsive">
 							<table class="table table-striped">
 								<tbody>
-									<tr>
+									<tr ng-repeat="feat in prodsInfo.features.notvalid">
 										<td class="features-head">
-											<div class="features-img"><img src="" alt="#" /></div>
+											<div class="features-img"><img src="@{{feat.features_icon}}" alt="#" /></div>
 											<div class="features-desc">
-												<div class="features-name">Has A Hybrid SIM Slot</div>
-												<div class="features-value"></div>
+												<div class="features-name">@{{feat.features_name}}</div>
+												<div class="features-value">@{{feat.features_value}}<span> @{{feat.features_units}}</span></div>
 											</div>
 										</td>
 										<td class="features-comment">
-											Use multiple sims at the same time. It allows you to use two services without the need to carry two mobile phones at the same time.
-										</td>
-									</tr>
-									<tr>
-										<td class="features-head">
-											<div class="features-img"><img src="" alt="#" /></div>
-											<div class="features-desc">
-												<div class="features-name">Can't Output To TV</div>
-												<div class="features-value"></div>
-											</div>
-										</td>
-										<td class="features-comment">
-											Use multiple sims at the same time. It allows you to use two services without the need to carry two mobile phones at the same time.
-										</td>
-									</tr>
-									<tr>
-										<td class="features-head">
-											<div class="features-img"><img src="" alt="#" /></div>
-											<div class="features-desc">
-												<div class="features-name">Non-Removable Battery</div>
-												<div class="features-value"></div>
-											</div>
-										</td>
-										<td class="features-comment">
-											Use multiple sims at the same time. It allows you to use two services without the need to carry two mobile phones at the same time.
+											@{{feat.features_desc}}
 										</td>
 									</tr>
 								</tbody>
