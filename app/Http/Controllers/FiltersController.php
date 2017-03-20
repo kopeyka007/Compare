@@ -111,12 +111,10 @@ class FiltersController extends Controller
     $filters = Filters::with('prods')->where('filters_filter',1)->get();
     foreach ($filters as $filter) {
       $arr = array();
-      foreach ($filter->prods as $prod) {
-        //$arr[$prod->prods_id]['filter_value'] = $prod->pivot->filters_value;
+      foreach ($filter->prods as $prod) {        
         $arr[] = $prod->pivot->filters_value;
       }      
-      unset($filter->prods);      
-      //$filter['prods'] = $arr;      
+      unset($filter->prods);
       $filter['filter_values'] = array_unique($arr);
     }    
     $response['data'] = $filters;
