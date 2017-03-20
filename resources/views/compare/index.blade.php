@@ -4,14 +4,20 @@
 			<div class="col-md-3">
 				<div class="filter-section">
 					<h2>Filter</h2>
+					<div ng-repeat="cat in cats">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="cats_filters">@{{cat.cats_name}}
+							</label>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-9">
-				<div class="content-section" ng-repeat="cat in cats" ng-if="cat.prods.length">
+				<div class="content-section" ng-repeat="cat in cats | filter:cats_filters" ng-if="cat.prods.length">
 					<div class="wrap-categories">	
 						<div class="categories">
 							<h2>@{{cat.cats_name}}</h2>
-							
 						</div>
 						<div class="row">
 							<div ng-repeat="prod in cat.prods">
