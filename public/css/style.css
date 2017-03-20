@@ -263,6 +263,10 @@
 	font-weight: 600;
 }
 
+.spec-head {
+	width: 350px;
+}
+
 .compare-head img,
 .compare-price {
 	display: inline-block;
@@ -271,6 +275,11 @@
 
 .compare-head img {
 	max-width: 50%;
+}
+
+.td-id img,
+.td-photo img {
+	width: 50px;
 }
 
 .compare-head {
@@ -388,7 +397,7 @@
 }
 
 .features-head img {
-	max-width: 20px;
+	max-width: 50px;
 }
 
 .error-msg {

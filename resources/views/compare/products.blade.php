@@ -85,7 +85,7 @@
 										RS 9.999
 									</div>
 									<div class="related-btn">
-										<a href="compare.da" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Add To Compare</a>
+										<a href="http://compare.da/compare/@{{prodsInfo.prods_alias}}-vs-@{{}}" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Add To Compare</a>
 									</div>
 								</div>
 							</div>
@@ -145,7 +145,7 @@
 									<tr>
 										<td>
 											<div class="spec-group">
-												<h3><strong>@{{group.groups_name}}</strong></h3>
+												<h3>@{{group.groups_name}}</h3>
 											</div>
 										</td>
 									</tr>
