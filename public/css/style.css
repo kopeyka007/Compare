@@ -46,6 +46,10 @@
 	width: 50px;
 }
 
+.td-name {
+	width: 250px;
+}
+
 .td-id img,
 .td-photo img {
 	max-width: 100%;
