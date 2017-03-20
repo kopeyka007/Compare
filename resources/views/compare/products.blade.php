@@ -4,14 +4,14 @@
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3">
 					<div class="products-img">
-						<img src="http://comparewear.com/images/products/apple-watch-series-2.jpg" alt="#" />
+						<img src="@{{prodsInfo.prods_foto}}" alt="#" />
 					</div>
 					<div class="products-name">
 						<div class="products-brand">
-							Casio
+							@{{prodsInfo.brands_id.brands_name}}
 						</div>
 						<div class="products-model">
-							WSD-F10
+							@{{prodsInfo.prods_name}}
 						</div>
 					</div>
 				</div>
