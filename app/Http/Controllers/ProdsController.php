@@ -170,6 +170,10 @@ class ProdsController extends Controller
     return $response;
   }
 
+  public function get_prods_detail(Request $request){
+    //$url = $request->input('url');
+
+  }
 
 
 }
