@@ -4,10 +4,18 @@
 			<div class="col-md-3">
 				<div class="filter-section">
 					<h2>Filter</h2>
-					<div ng-repeat="cat in cats">
+					
+					<div ng-repeat="prod in cat.prods">
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" ng-model="cats_filters">@{{cat.cats_name}}
+								<input type="checkbox">@{{prod.brands_id.brands_name}}
+							</label>
+						</div>
+					</div>
+					<div ng-repeat="filter in list_filters">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox">@{{filter.filters_name}}
 							</label>
 						</div>
 					</div>
