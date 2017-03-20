@@ -198,173 +198,22 @@
 					<h3>Full specifications</h3>
 				</div>
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-6"  ng-repeat="group in prodsInfo.groups">
 						<div class="table-responsive">
 							<table class="table table-striped">
 								<thead>
 									<tr>
 										<td>
 											<div class="spec-group">
-												<h4>General</h4>
+												<h4>@{{group.groups_name}}</h4>
 											</div>
 										</td>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<tr ng-repeat="filter in group.groups_filters">
 										<td class="spec-head">
-											<div class="features-name">Sim Type:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Dual Sim:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Sim Size:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Device Type:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Release Date:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<td>
-											<div class="spec-group">
-												<h4>Design</h4>
-											</div>
-										</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Sim Type:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Dual Sim:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<td>
-											<div class="spec-group">
-												<h4>Camera</h4>
-											</div>
-										</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Sim Type:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Sim Type:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Sim Type:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Sim Type:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Sim Type:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<td>
-											<div class="spec-group">
-												<h4>Technical</h4>
-											</div>
-										</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Sim Type:</div>	
-										</td>
-										<td class="spec-comment">
-											GSM+GSM (Hybrid Slot)
-										</td>
-									</tr>
-									<tr>
-										<td class="spec-head">
-											<div class="features-name">Sim Type:</div>	
+											<div class="features-name">@{{filter.filters_name}}</div>	
 										</td>
 										<td class="spec-comment">
 											GSM+GSM (Hybrid Slot)
