@@ -184,6 +184,20 @@ class ProdsController extends Controller
     }
     $prod['groups'] = $groups;
     unset($prod->filters_id);
+
+    $features = array();
+    foreach ($prod->features_id as $feature) {
+      $feature['features_value'] = $feature->pivot->features_value;
+      if ($feature['features_value'] >= $feature->features_norm){
+        $features['valid'][] = $feature;
+      }
+      else {
+        $features['notvalid'][] = $feature;        
+      }
+    }
+    $prod['features'] = $features;
+    unset($prod->features_id);
+
     $response['data'] = $prod;
     return $response;
   }
