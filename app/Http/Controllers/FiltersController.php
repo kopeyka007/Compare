@@ -83,6 +83,7 @@ class FiltersController extends Controller
     if ($filter && $filter->delete()){
       //delete relations       
       $filter->prods()->detach();
+      $filter->cats_id()->detach();
       $response['data']['type'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'Filter deleted'];      
     }
