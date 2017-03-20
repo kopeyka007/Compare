@@ -104,7 +104,7 @@ class FiltersController extends Controller
 
   //Front
   
-  public function filtersfilter(){
+  public function get_filtersfilter(){
     $filters = Filters::where('filters_filter',1)->get();
     $response['data'] = $filters;
     return $response;

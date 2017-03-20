@@ -107,7 +107,7 @@ Route::delete('api/features/delete/{id}','FeaturesController@delete');
 //-------------------------
 //Front
 Route::get('api/cats/front/shortlist','CatsController@shortlist');
-Route::get('api/filters/front/filtersfilters','FiltersController@filtersfilter');
+Route::get('api/filters/front/filtersfilter','FiltersController@get_filtersfilter');
 Route::post('api/compare/list','ProdsController@get_compare_prods');
 Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
 
@@ -119,6 +119,6 @@ Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
 
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
-Route::get('test','FiltersController@filtersfilter');
+Route::get('test','FiltersController@get_filtersfilter');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
