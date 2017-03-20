@@ -36,9 +36,7 @@ class FeaturesController extends Controller
     return $response;
   }
   
-  public function save(Request $request){         
-    //var_dump($request->file);
-    //exit();
+  public function save(Request $request){             
     $feature = new Features;
     $features_id = $request->input('features_id');
     //update
@@ -96,6 +94,8 @@ class FeaturesController extends Controller
     if ($feature && $feature->delete()){
       if ($feature->features_icon !== 0)
         Storage::delete(stristr($feature->features_icon, 'features'));
+      //delete relations       
+      $feature->prods()->detach();
       $response['data']['type'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'Feature deleted'];      
     }
