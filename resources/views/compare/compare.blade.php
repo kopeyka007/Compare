@@ -101,12 +101,12 @@
 						<tr ng-repeat="filter in group.groups_filters">
 							<td class="td-name">@{{filter.filters_name}}</td>
 							<td class="td-header" ng-repeat="i in [0, 1, 2, 3]">
-							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
-								<div class="compare-price text-danger">
-									$@{{prod.prods_price}}
+								<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
+									<div class="compare-price text-danger">
+										$@{{prod.filters[0].filters_name}}
+									</div>
 								</div>
-							</div>
-						</td>
+							</td>
 						</tr>
 					</tbody>
 				</table>
