@@ -44,6 +44,9 @@ Route::get('/pages/index/', function () {
 Route::get('/pages/{list}', function () {
     return view('compare.compare');
 });
+Route::get('/pages/products/', function () {
+    return view('compare.products');
+});
 
 Route::get('/panel', function () {
     return view('panel.template');
@@ -120,3 +123,6 @@ Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
 Route::get('test','FiltersController@get_filtersfilter');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
+Route::get('/{category}/{product}', function () {
+    return view('template');
+});
