@@ -170,6 +170,23 @@ class ProdsController extends Controller
     return $response;
   }
 
+  public function get_prods_detail(Request $request){
+    $url = $request->input('url');
+    $aliases = explode('/', $url);        
+    $prods_alias  = $aliases[2];
+    $prod = Prods::with('brands_id', 'cats_id', 'filters_id.groups', 'features_id')->where('prods_alias', $prods_alias)->first();    
+    $groups = array();
+    foreach ($prod->filters_id as $filter) {
+      $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
+      $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;      
+      $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
+      unset($filter->groups);
+    }
+    $prod['groups'] = $groups;
+    unset($prod->filters_id);
+    $response['data'] = $prod;
+    return $response;
+  }
 
 
 }

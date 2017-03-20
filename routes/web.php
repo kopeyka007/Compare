@@ -112,6 +112,7 @@ Route::get('api/cats/front/shortlist','CatsController@shortlist');
 Route::get('api/filters/front/filtersfilter','FiltersController@get_filtersfilter');
 Route::post('api/compare/list','ProdsController@get_compare_prods');
 Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
+Route::post('api/prods/detail','ProdsController@get_prods_detail');
 
 
 
