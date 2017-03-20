@@ -104,7 +104,7 @@
 			}
 			if (aliases.length > 1)
 			{
-				$scope.preLink = 'compare/';
+				$scope.preLink = '/compare/';
 				$scope.compareAlias = $scope.preLink + aliases.join('-vs-');
 			}
 			else

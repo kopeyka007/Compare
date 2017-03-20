@@ -12,8 +12,23 @@
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
 			$scope.filterList = response.data.data;
-			console.log($scope.filterList);
-			console.log($scope.filterList[0].groups[1].groups_filters[0].filters_name);
 		});
+		
+		$scope.closeLink = function(prods_id, alias) {
+			var aliases = [];
+			for (var id in $scope.compareList)
+			{
+				var prod = $scope.compareList[id];
+				if (prod.prods_id != prods_id)
+				{
+					aliases.push(prod.prods_alias);
+					$scope.selectedCount++;
+				}
+			}
+console.log(prods_id);
+			$scope.preLink = '/compare/';
+			return $scope.preLink + aliases.join('-vs-');
+			
+		};
 	}
 })();

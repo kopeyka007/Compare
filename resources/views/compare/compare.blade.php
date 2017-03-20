@@ -4,8 +4,10 @@
 			<table class="table table-striped compare-table">
 				<thead>
 					<tr>
-						<th><h4>Features</h4></th>
-						<th ng-repeat="prod in compareList"><h4>@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</h4></th>
+						<th></th>
+						<th ng-repeat="i in [0, 1, 2, 3]">
+							<h4 ng-if="compareList[i]">@{{compareList[i].brands_id.brands_name}} @{{compareList[i].prods_name}}</h4>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -25,13 +27,27 @@
 								</label>
 							</div>
 						</td>
-						<td class="td-header" ng-repeat="photo in compareList">
-							<div class="compare-head" ng-class="{'inactive': ! photo}">
+						<td class="td-header" ng-repeat="i in [0, 1, 2, 3]">
+							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
 								<div class="compare-img text-center">
-									<img src="@{{photo.prods_foto}}" alt="#" />
+									<img src="@{{prod.prods_foto}}" alt="#" />
 								</div>
 								<div class="compare-price text-danger">
-									$@{{photo.prods_price}}
+									$@{{prod.prods_price}}
+								</div>
+								<a href="@{{closeLink(prod.prods_id)}}" class="compare-close">
+									<i class="fa fa-times-circle" aria-hidden="true"></i>
+								</a>
+								<div class="wrap-add-btn">
+									<button class="btn btn-info add-btn">Add Another Products</button>
+								</div>
+							</div>
+							<div ng-if="! compareList[i]" class="compare-head inactive">
+								<div class="compare-img text-center">
+									<img src="http://comparewear.com/images/products/apple-watch.jpg" alt="#" />
+								</div>
+								<div class="compare-price text-danger">
+									$9.999
 								</div>
 								<div class="compare-close">
 									<i class="fa fa-times-circle" aria-hidden="true" ng-click=""></i>
@@ -78,7 +94,7 @@
 				</tbody>
 			</table>
 			
-			<div class="groups-box" ng-repeat="">
+			<div class="groups-box">
 				<h3>@{{}}</h3>
 				<table>
 					<tbody>
