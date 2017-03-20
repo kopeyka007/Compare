@@ -85,7 +85,7 @@
 										RS 9.999
 									</div>
 									<div class="related-btn">
-										<button class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Add To Compare</button>
+										<a href="compare.da" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Add To Compare</a>
 									</div>
 								</div>
 							</div>
@@ -156,7 +156,9 @@
 											<div class="features-name">@{{filter.filters_name}}</div>	
 										</td>
 										<td class="spec-comment">
-											@{{filter.filters_value}}
+											<i class="fa fa-check-circle text-success" ng-show="filter.filters_type == 'check' && filter.filters_value"></i>
+											<i class="fa fa-times-circle text-danger" ng-show="filter.filters_type == 'check' && ! filter.filters_value"></i>
+											<span ng-show="filter.filters_type != 'check'">@{{filter.filters_value}}</span>
 										</td>
 									</tr>
 								</tbody>
