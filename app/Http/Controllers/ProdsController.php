@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Prods;
+//use App\Filte;
 use Illuminate\Http\Request;
 use Storage;
 
@@ -105,8 +106,12 @@ class ProdsController extends Controller
   public function delete($id){
     $prod = Prods::find($id);    
     if ($prod && $prod->delete()){
+      //delete image
       if ($prod->prods_foto !== 0)
         Storage::delete(stristr($prod->prods_foto, 'prods'));
+      //delete relations       
+      $prod->filters_id()->detach();
+      $prod->features_id()->detach();
       $response['data']['type'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'Product deleted'];      
     }

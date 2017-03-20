@@ -20,13 +20,11 @@ Route::get('/migratefull', function () {
     Artisan::call('db:seed', array('--class' => 'UsersTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'UsersTypesTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'GroupsTableSeeder'));
-    //Artisan::call('db:seed storage:link');
+    //Artisan::call('storage:link');
     return 'All migrates and seed run';
 });
-Route::get('/migrate', function () {
-    //Artisan::call('migrate:rollback');
-    Artisan::call('migrate');
-    Artisan::call('db:seed storage:link');
+Route::get('/migrate', function () {    
+    Artisan::call('migrate');   
     return 'New artisan run';
 });
 
@@ -45,6 +43,9 @@ Route::get('/pages/index/', function () {
 });
 Route::get('/pages/{list}', function () {
     return view('compare.compare');
+});
+Route::get('/pages/products/', function () {
+    return view('compare.products');
 });
 
 Route::get('/panel', function () {
@@ -122,3 +123,6 @@ Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
 Route::get('test','FiltersController@get_filtersfilter');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
+Route::get('/{category}/{product}', function () {
+    return view('template');
+});

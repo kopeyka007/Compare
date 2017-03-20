@@ -1,34 +1,37 @@
-<div ng-controller="mainCtrl">
+<div ng-controller="indexCtrl">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<div class="sidebar-nav-fixed affix">
-					<div class="filter-section">
-						<h2>Filter</h2>
-						<div>
-							<div class="checkbox">
-								<h3>Category</h3>
-								<select>
-									<option ng-repeat="cat in cats">@{{cat.cats_name}}</option>
-								</select>
-							</div>
+				<div class="filter-section">
+					<h2 class="title-line">Filter</h2>
+					
+					<div ng-repeat="prod in products.prods">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox">@{{prod.brands_id.brands_name}}
+							</label>
 						</div>
-						<div ng-repeat="filter in list_filters">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox">@{{filter.filters_name}}
-								</label>
-							</div>
+					</div>
+
+					<div ng-repeat="filter in filters">
+						<div class="filters-box">
+							<h4>@{{filter.filters_name}}</h4>
+							<select class="form-control">
+								<option value="">Select a value...</option>
+								<option value="@{{id}}" ng-repeat="(id, option) in filter.prods">@{{option.filter_value}}</option>
+							</select>
 						</div>
 					</div>
 				</div>
 			</div>
+			
 			<div class="col-md-9">
-				<div class="content-section" ng-repeat="cat in cats" ng-if="cat.prods.length">
+				<div class="content-section" ng-repeat="cat in products | filter:cats_filters" ng-if="cat.prods.length">
 					<div class="wrap-categories">	
 						<div class="categories">
-							<h2>@{{cat.cats_name}}</h2>
+							<h2 class="title-line">@{{cat.cats_name}}</h2>
 						</div>
+
 						<div class="row">
 							<div ng-repeat="prod in cat.prods">
 								<div class="col-md-3">

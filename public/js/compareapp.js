@@ -19,19 +19,20 @@
 			config = {
 				templateUrl: function(params)
 				{
+					console.log(params);
 					if (params.alias)
 					{
 						return '/pages/' + params.alias;
 					}
 					else
 					{
-						if (params.cat && param.prod)
+						if (params.cat && params.prod)
 						{
-							return '/pages/personal';
+							return '/pages/products';
 						}
 						else
 						{
-							return  '/pages/index';
+							return '/pages/index';
 						}
 					}
 				}
@@ -55,21 +56,9 @@
 	
 	function mainCtrl($scope, $rootScope, $http, $window) {
 		$scope.selectedMax = 4;
-		$scope.cats = [];
 		
-		$scope.list_products = function() {
-			$http.get('/api/cats/front/shortlist').then(function(response) {
-				$scope.cats = response.data;
-			});
-		};
 		
-		$scope.list_filters = function() {
-			$http.get('/api/filters/front/filtersfilter').then(function(response) {
-				$scope.list_filters = response.data.data;
-			});
-		};
-		$scope.list_products();
-		$scope.list_filters();
+		
 		
 		$scope.selectedProds = {};
 		

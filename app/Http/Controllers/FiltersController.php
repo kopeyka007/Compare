@@ -81,6 +81,9 @@ class FiltersController extends Controller
   public function delete($id){
     $filter = Filters::find($id);    
     if ($filter && $filter->delete()){
+      //delete relations       
+      $filter->prods()->detach();
+      $filter->cats_id()->detach();
       $response['data']['type'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'Filter deleted'];      
     }
@@ -103,9 +106,17 @@ class FiltersController extends Controller
   }
 
   //Front
-  
+
   public function get_filtersfilter(){
-    $filters = Filters::where('filters_filter',1)->get();
+    $filters = Filters::with('prods')->where('filters_filter',1)->get();
+    foreach ($filters as $filter) {
+      $arr = array();
+      foreach ($filter->prods as $prod) {
+        $arr[$prod->prods_id]['filter_value'] = $prod->pivot->filters_value;
+      }      
+      unset($filter->prods);      
+      $filter['prods'] = $arr;      
+    }    
     $response['data'] = $filters;
     return $response;
   }

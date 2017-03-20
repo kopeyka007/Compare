@@ -73,6 +73,9 @@ class CatsController extends Controller
   public function delete($id){
     $cat = Cats::find($id);    
     if ($cat && $cat->delete()){
+      //delete relations       
+      $cat->filters()->detach();
+      $cat->features()->detach();
       $response['data'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'Category deleted'];      
     }

@@ -21,4 +21,7 @@ class Filters extends Model
     {      
       return $this->hasOne('App\Groups', 'groups_id', 'groups_id');
     }
+    public function prods(){
+      return $this->belongsToMany('App\Prods', 'prods_filters', 'filters_id', 'prods_id')->withPivot('filters_value', 'filters_comment');
+    }
 }
