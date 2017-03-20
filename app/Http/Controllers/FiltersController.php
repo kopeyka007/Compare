@@ -112,10 +112,12 @@ class FiltersController extends Controller
     foreach ($filters as $filter) {
       $arr = array();
       foreach ($filter->prods as $prod) {
-        $arr[$prod->prods_id]['filter_value'] = $prod->pivot->filters_value;
+        //$arr[$prod->prods_id]['filter_value'] = $prod->pivot->filters_value;
+        $arr[] = $prod->pivot->filters_value;
       }      
       unset($filter->prods);      
-      $filter['prods'] = $arr;      
+      //$filter['prods'] = $arr;      
+      $filter['filter_values'] = array_unique($arr);
     }    
     $response['data'] = $filters;
     return $response;
