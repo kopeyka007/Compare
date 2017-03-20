@@ -4,7 +4,7 @@
 			<div class="col-md-3">
 				<div class="filter-section">
 					<div class="title-line">
-						<h2>F/ilter</h2>
+						<h2>Filter</h2>
 					</div>
 					
 					<div class="filters-box">
