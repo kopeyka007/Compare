@@ -96,6 +96,7 @@ class FeaturesController extends Controller
         Storage::delete(stristr($feature->features_icon, 'features'));
       //delete relations       
       $feature->prods()->detach();
+      $feature->cats_id()->detach();
       $response['data']['type'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'Feature deleted'];      
     }
