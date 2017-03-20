@@ -9,8 +9,8 @@
 		var routes, setRoutes;
 
 		routes = [
-			'compare/:alias/',
-			':cat/:prod'
+			//'compare/:alias/',
+			//':cat/:prod'
 		];
 
 		setRoutes = function(route) {
@@ -19,19 +19,20 @@
 			config = {
 				templateUrl: function(params)
 				{
+					console.log(params);
 					if (params.alias)
 					{
 						return '/pages/' + params.alias;
 					}
 					else
 					{
-						if (params.cat && param.prod)
+						if (params.cat && params.prod)
 						{
-							return '/pages/personal';
+							return '/pages/products';
 						}
 						else
 						{
-							return  '/pages/index';
+							return '/pages/index';
 						}
 					}
 				}
@@ -69,8 +70,8 @@
 				console.log($scope.list_filters);
 			});
 		};
-		$scope.list_products();
-		$scope.list_filters();
+		//$scope.list_products();
+		//$scope.list_filters();
 		
 		$scope.selectedProds = {};
 		

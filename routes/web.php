@@ -39,12 +39,18 @@ Route::get('/compare', function () {
 Route::get('/compare/{list}', function () {
     return view('template');
 });
+Route::get('/{category}/{product}', function () {
+    return view('template');
+});
 
 Route::get('/pages/index/', function () {
     return view('compare.index');
 });
 Route::get('/pages/{list}', function () {
     return view('compare.compare');
+});
+Route::get('/pages/products/', function () {
+    return view('compare.products');
 });
 
 Route::get('/panel', function () {
