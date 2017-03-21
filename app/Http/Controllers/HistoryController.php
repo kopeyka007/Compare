@@ -88,7 +88,7 @@ class HistoryController extends Controller
     ->get();
     $arr = array();
     foreach ($result as $item) {
-      $key = date('N', strtotime($item->created_at)); 
+      $key = date('d-m-Y', strtotime($item->created_at)); 
       if (!isset($arr[$key])){
         $arr[$key] = 0;
       } 
