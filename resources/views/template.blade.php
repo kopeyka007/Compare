@@ -9,7 +9,10 @@
 		<link href="/css/style.css" rel="stylesheet" />
 	</head>
 	
-    <body>
+    <body ng-class="loaderClass">
+		<div class="loader">
+			<i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
+		</div>
 		<section class="header">
 			<div class="container">
 				<a href="/" class="home-link">Compare</a>
