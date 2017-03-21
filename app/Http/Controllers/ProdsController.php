@@ -21,7 +21,10 @@ class ProdsController extends Controller
     with('features_id')->
     with('brands_id')->
     with('cats_id')
-    ->get();    
+    ->get();
+    foreach ($prods as $prod) {
+      $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):$prod->prods_foto;
+    }
     $response['data'] = $prods;
     return $response; 
   }
@@ -51,11 +54,14 @@ class ProdsController extends Controller
         $current->brands_id = $request->input('brands_id')['brands_id'];        
         $current->prods_name = $request->input('prods_name');        
         $current->prods_alias = $request->input('prods_alias');        
-        $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):0;
+        $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):$request->input('prods_foto');
         //delete file
+        if (empty($file)) Storage::delete(stristr($current->prods_foto, 'prods'));    
+        /*
         if ($current->prods_foto !== 0 && $current->prods_foto !== $file){
           Storage::delete(stristr($current->prods_foto, 'prods'));    
         }
+        */
         $current->prods_foto = $file;                
         $current->prods_amazon = $request->input('prods_amazon');
         $current->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');        
@@ -82,7 +88,7 @@ class ProdsController extends Controller
       $prod->brands_id = $request->input('brands_id')['brands_id'];        
       $prod->prods_name = $request->input('prods_name');        
       $prod->prods_alias = $request->input('prods_alias');        
-      $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):0;
+      $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):'';
       $prod->prods_foto = $file;
       $prod->prods_amazon = $request->input('prods_amazon');        
       $prod->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');
