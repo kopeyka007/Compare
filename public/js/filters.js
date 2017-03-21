@@ -9,6 +9,7 @@
 		$scope.groups = [];
 		$http.get('/api/filters/list_groups').then(function(response) {
 			$scope.groups = response.data.data;
+			console.log($scope.groups);
 		});
 		
 

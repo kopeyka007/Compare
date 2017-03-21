@@ -3,10 +3,15 @@
 	function prodsInfoCtrl($scope, $rootScope, $http, $window, $location) {
 
 		var url = $location.path();
-		
 		$http.post('/api/prods/detail', {url}).then(function(response){
 			$scope.prodsInfo = response.data.data;
-			console.log($scope.prodsInfo);
 		});
+		
+		var disurl = $location.absUrl();
+		$scope.disqusConfig = {
+			disqus_shortname: 'compare-da-1',
+			disqus_identifier: disurl,
+			disqus_url: disurl
+		};
 	}
 })();

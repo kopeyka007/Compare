@@ -1,5 +1,5 @@
 (function(){
-	angular.module('compareApp', ['ngRoute']);
+	angular.module('compareApp', ['ngRoute', 'angularUtils.directives.dirDisqus']);
 	angular.module('compareApp').config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
 		$locationProvider.html5Mode({
@@ -51,9 +51,9 @@
 })();
 
 (function(){
-	angular.module('compareApp').controller('mainCtrl', ['$scope', '$rootScope', '$http', '$window', mainCtrl]);
+	angular.module('compareApp').controller('mainCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', mainCtrl]);
 	
-	function mainCtrl($scope, $rootScope, $http, $window) {
+	function mainCtrl($scope, $rootScope, $http, $window, $location) {
 		$scope.products = [];
 		$scope.products_list = function() {
 			$http.get('/api/cats/front/shortlist').then(function(response) {
