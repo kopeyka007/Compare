@@ -1,5 +1,10 @@
 <div ng-controller="compareCtrl">
 	<div class="container">
+		<div class="recompare">
+			<a href="/" type="button" class="btn btn-info"><i class="fa fa-repeat fa-flip-horizontal" aria-hidden="true"></i> Compare Wearables</a>
+			<i class="fa fa-chevron-right" aria-hidden="true"></i>
+			<span>@{{}}</span>
+		</div>
 		<div class="table-responsive">
 			<table class="table compare-table">
 				<thead>
@@ -103,6 +108,21 @@
 									<i class="fa fa-check-circle text-success" ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value"></i>
 									<i class="fa fa-times-circle text-danger" ng-show="filter.filters_type == 'check' && ! prod.filters[filter.filters_id].filters_value"></i>
 									<span ng-show="filter.filters_type != 'check'">@{{prod.filters[filter.filters_id].filters_value}}</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="amazon-links">
+				<h3>Amazon Links</h3>
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<td></td>
+							<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+								<div class="btn-amazon">
+									<a class="btn btn-warning" href="@{{compareList[i].prods_amazon}}">Buy on Amazon</a>
 								</div>
 							</td>
 						</tr>

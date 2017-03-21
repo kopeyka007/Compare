@@ -1,5 +1,10 @@
 <div ng-controller="prodsInfoCtrl">
 	<div class="container">
+		<div class="recompare">
+			<a href="/" type="button" class="btn btn-info"><i class="fa fa-repeat fa-flip-horizontal" aria-hidden="true"></i> Compare Wearables</a>
+			<i class="fa fa-chevron-right" aria-hidden="true"></i>
+			<span>@{{prodsInfo.brands_id.brands_name}} @{{prodsInfo.prods_name}}</span>
+		</div>
 		<div class="products-preview">
 			<div class="row">
 				<div class="col-md-6 col-md-offset-4">
@@ -12,6 +17,9 @@
 						</div>
 						<div class="products-model">
 							@{{prodsInfo.prods_name}}
+						</div>
+						<div class="btn-amazon" ng-if="prodsInfo.prods_amazon">
+							<a class="btn btn-warning" href="@{{prodsInfo.prods_amazon}}">Amazon</a>
 						</div>
 					</div>
 				</div>

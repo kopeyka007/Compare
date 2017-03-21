@@ -31,6 +31,20 @@
 	display: none;
 }
 
+.recompare {
+	background: #eee;
+	padding: 10px;
+	border-radius: 6px;
+}
+
+.recompare > i {
+	color: #ccc;
+}
+
+.btn-amazon {
+	margin-top: 10px;
+}
+
 .header {
 	background: #444;
 	color: #fff;
