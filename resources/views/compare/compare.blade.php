@@ -31,7 +31,7 @@
 
 						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
 							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
-								<a href="/@{{ prod.cats_id }}/" class="compare-link">
+								<a href="@{{productsLink(prod)}}" class="compare-link">
 									<img src="@{{prod.prods_foto}}" alt="#" />
 
 									<span class="compare-price text-danger">
@@ -105,8 +105,8 @@
 							<td class="filters-cell">@{{filter.filters_name}}</td>
 							<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
 								<div ng-if="compareList[i]" ng-init="prod = compareList[i]">
-									<i class="fa fa-check-circle text-success" ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value"></i>
-									<i class="fa fa-times-circle text-danger" ng-show="filter.filters_type == 'check' && ! prod.filters[filter.filters_id].filters_value"></i>
+									<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ prod.filters[filter.filters_id].filters_value }}</span>
+									<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ prod.filters[filter.filters_id].filters_value }}&nbsp;</span>
 									<span ng-show="filter.filters_type != 'check'">@{{prod.filters[filter.filters_id].filters_value}}</span>
 								</div>
 							</td>
