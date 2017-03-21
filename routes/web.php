@@ -123,6 +123,7 @@ Route::post('api/prods/detail','ProdsController@get_prods_detail');
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
 Route::get('test','FiltersController@get_filtersfilter');
+Route::get('import','ImportController@import');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
 Route::get('/{category}/{product}', function () {

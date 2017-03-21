@@ -186,11 +186,12 @@ class ProdsController extends Controller
     $groups = array();
     foreach ($prod->filters_id as $filter) {
       $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
+      $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
       $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;      
       $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
       unset($filter->groups);
     }
-    $prod['groups'] = $groups;
+    $prod['groups'] = $groups;    
     unset($prod->filters_id);
 
     $features = array();
@@ -205,6 +206,14 @@ class ProdsController extends Controller
     }
     $prod['features'] = $features;
     unset($prod->features_id);
+
+    //get liked prods    
+    $liked = Prods::where('cats_id', $prod->cats_id)
+    ->where('prods_active',1)
+    ->with('brands_id')
+    ->take(3)
+    ->get();
+    $prod['liked'] = $liked;
 
     $response['data'] = $prod;
     return $response;
