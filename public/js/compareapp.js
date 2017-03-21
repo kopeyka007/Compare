@@ -19,7 +19,6 @@
 			config = {
 				templateUrl: function(params)
 				{
-					console.log(params);
 					if (params.alias)
 					{
 						return '/pages/' + params.alias;

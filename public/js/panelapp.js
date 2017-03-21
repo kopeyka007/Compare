@@ -88,6 +88,18 @@
 
 			return false;
 		};
+
+		$scope.activeMenu = function(segment) {
+			var path = $location.path().split('/');
+			if ( ! path[2] && segment == '')
+			{
+				return true;
+			}
+			else
+			{
+				return path[2] == segment;
+			}
+		};
 	}
 })();
 

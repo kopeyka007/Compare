@@ -55,5 +55,26 @@
 				return true;
 			}
 		};
+
+		$scope.checkFeatures = function(this_prod, features_id) {
+			var check = true;
+			var start = '';
+			for (var id in $scope.compareList)
+			{
+				var prod = $scope.compareList[id];
+				if (this_prod.prods_id != prod.prods_id)
+				{
+					if (prod.features[features_id] && prod.features[features_id].features_value && this_prod.features && this_prod.features[features_id].features_value)
+					{
+						if (prod.features[features_id].features_value * 1 >= this_prod.features[features_id].features_value * 1)
+						{
+							check = false;
+						}
+					}
+				}
+			}
+
+			return check;
+		};
 	}
 })();
