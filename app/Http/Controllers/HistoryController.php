@@ -9,6 +9,7 @@ use App\HistoryCompare;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Carbon;
 
 class HistoryController extends Controller
 {
@@ -70,7 +71,7 @@ class HistoryController extends Controller
   public function get_history_amazon_top10(){    
     $result = HistoryAmazon::selectRaw('count(prods_id) as prods_count, prods_id')
     ->groupBy('prods_id')
-    ->with('prods')
+    ->with('prods', 'prods.brands_id')    
     ->orderBy('prods_count', 'DECS')
     ->take(10)
     ->get();
@@ -80,17 +81,17 @@ class HistoryController extends Controller
   public function get_history_amazon_last10days(){    
     //10 days ego
     $time10days =  time() - (10 * 24 * 60 * 60);    
-    $result = HistoryAmazon::with('prods')
-    ->where('created_at', '>', $time10days)
+    $result = HistoryAmazon::with('prods', 'prods.brands_id')    
+    ->where('created_at', '>', $time10days)    
     ->orderBy('created_at', 'DECS')    
-    ->get();
+    ->get();    
     return $result;
   }
 
   public function get_single_compare_top10(){
     $result = HistorySingle::selectRaw('count(prods_id) as prods_count, prods_id')
     ->groupBy('prods_id')
-    ->with('prods')
+    ->with('prods', 'prods.brands_id')
     ->orderBy('prods_count', 'DECS')
     ->take(10)
     ->get();
@@ -98,6 +99,12 @@ class HistoryController extends Controller
   }
 
   public function get_pair_compare_top10(){
-    //$result  = HistoryPairs::
+    $result  = HistoryPairs::selectRaw('count(prods1_id) as prods1_count, count(prods2_id) as prods2_count, prods1_id, prods2_id')
+    ->groupBy('prods1_id','prods2_id')
+    //->with('prods')
+    //->orderBy('prods_count', 'DECS')
+    ->take(10)
+    ->get();
+    return $result;
   }
 }
