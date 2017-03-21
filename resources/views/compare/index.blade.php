@@ -52,7 +52,7 @@
 												<div class="content-img-check">
 													<i class="fa fa-check-square fa-2x" aria-hidden="true"></i>
 												</div>
-												<img src="@{{prod.prods_foto}}" alt="#" />
+												<span>&nbsp;<img src="@{{prod.prods_foto}}" alt="#" /></span>
 											</div>
 											<div class="row">
 												<div class="col-md-6">
