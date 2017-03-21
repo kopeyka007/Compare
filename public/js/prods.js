@@ -81,7 +81,7 @@
 				  	   'prods_alias': '',
 					   'prods_amazon': '',
 					   'prods_price': '',
-					   'prods_active': 0,
+					   'prods_active': false,
 					   'prods_foto': ''};
 		
 		if (items.prod && items.prod.prods_id)
@@ -97,7 +97,14 @@
 				}
 				else
 				{
-					$scope.prod[k] = items.prod[k];
+					if (k == 'filters_filter')
+					{
+						$scope.prod[k] = items.prod[k] == 1 ? true : false;
+					}
+					else
+					{
+						$scope.prod[k] = items.prod[k];
+					}
 				}
 			}
 		}

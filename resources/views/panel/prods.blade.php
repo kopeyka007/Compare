@@ -128,7 +128,7 @@
 						<label class="col-md-3 col-xs-12">@{{filter.filters_name}}</label>
 						<div class="col-md-9 col-xs-12">
 							<input type="text" class="form-control" ng-if="filter.filters_type == 'text'"  ng-model="prod.filters[filter.filters_id]" />
-							<select class="form-control" ng-if="filter.filters_type == 'check'" ng-model="prod.filters[filter.filters_id]" ng-init="prod.filters[filter.filters_id] = 'No'">
+							<select class="form-control" ng-if="filter.filters_type == 'check'" ng-model="prod.filters[filter.filters_id]" ng-init=" ! prod.filters[filter.filters_id] ? prod.filters[filter.filters_id] = 'No' : prod.filters[filter.filters_id]">
 								<option value="No">No</option>
 								<option value="Yes">Yes</option>
 							</select>
