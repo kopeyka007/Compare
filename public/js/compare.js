@@ -1,6 +1,6 @@
 (function() {
-	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', compareCtrl]);
-	function compareCtrl($scope, $rootScope, $http, $window, $location) {
+	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', '$uibModal', compareCtrl]);
+	function compareCtrl($scope, $rootScope, $http, $window, $location, $uibModal) {
 		$scope.mode = 'all';
 		$scope.filterList = [];
 		$scope.compareList = [];
@@ -14,6 +14,24 @@
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
 			$scope.filterList = response.data.data;
 		});
+		
+		$scope.statAmazon = function(prod){
+			$http.post('/api/amazon', {'prods_amazon': prod.prods_amazon, 'prods_id': prod.prods_id}).then(function(response){
+				$window.location.href = prod.prods_amazon;
+			});
+		};
+		
+		$scope.nameAllProds = function (){
+			var prodsName = [];
+			console.log($scope.compareList.length);
+			for (var id in $scope.compareList)
+			{
+				prodsName.push($scope.compareList[id].brands_id.brands_name + ' ' + $scope.compareList[id].prods_name);
+			}
+			return prodsName.join(' vs. ')
+		}
+		
+		$scope.nameAllProds();
 		
 		$scope.closeLink = function(prods_id) {
 			var aliases = [];
@@ -39,10 +57,10 @@
 					var prod = $scope.compareList[id];
 					if (start == '')
 					{
-						start = prod.filters[value.filters_id];
+						start = prod.filters[value.filters_id].filters_value;
 					}
 
-					if (start != prod.filters[value.filters_id])
+					if (start != prod.filters[value.filters_id].filters_value)
 					{
 						check = true;
 					}
@@ -75,6 +93,133 @@
 			}
 
 			return check;
+		};
+
+		$scope.closestProd = '';
+		$scope.percents = function(this_prod, features_id) {
+			var min_delta = false;
+			var closest = false;
+			for (var id in $scope.compareList)
+			{
+				var prod = $scope.compareList[id];
+				if (closest === false)
+				{
+					closest = prod;
+				}
+
+				if (this_prod.prods_id != prod.prods_id)
+				{
+					if (prod.features[features_id] && prod.features[features_id].features_value && this_prod.features && this_prod.features[features_id].features_value)
+					{
+						var delta = this_prod.features[features_id].features_value - prod.features[features_id].features_value;
+						if (delta && delta > 0)
+						{
+							if (min_delta === false)
+							{
+								min_delta = delta;
+								closest = prod;
+							}
+							else
+							{
+								if (delta < min_delta)
+								{
+									min_delta = delta;
+									closest = prod;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			if (closest && min_delta !== false)
+			{
+				$scope.closestProd = closest.brands_id.brands_name + ' ' + closest.prods_name;
+				var percent = Math.round(min_delta * 100 / this_prod.features[features_id].features_value);
+				return percent + '%';
+			}
+
+			$scope.closestProd = closest.brands_id.brands_name + ' ' + closest.prods_name;
+			return '100%';
+		};
+
+		$scope.closestProd = function(this_prod, features_id) {
+
+		};
+
+		$scope.productsLink = function(prod) {
+			var cats_alias = '';
+			for (var k in $scope.products)
+			{
+				if ($scope.products[k].cats_id == prod.cats_id)
+				{
+					cats_alias = $scope.products[k].cats_alias;
+				}
+			}
+
+			return '/' + cats_alias + '/' + prod.prods_alias;
+		};
+
+		$scope.addToCompare = function(cats_id) {
+			var prods = [];
+			for (var k in $scope.products)
+			{
+				if ($scope.products[k].cats_id == cats_id)
+				{
+					prods = $scope.products[k].prods;
+				}
+			}
+
+			var modalInstance;
+            modalInstance = $uibModal.open({
+                templateUrl: "ModalCompareContent.html",
+                controller: 'ModalCompareCtrl',
+				resolve: {
+					items: {'prods': prods, 'compares': $scope.compareList}
+				}
+			});	
+			
+			modalInstance.result.then(function (result) {
+
+			}, function() {
+
+			});
+		};
+	}
+})();
+
+(function() {
+	angular.module('compareApp').controller('ModalCompareCtrl', ['$scope', '$rootScope', '$uibModalInstance', 'items', ModalCompareCtrl]);
+	function ModalCompareCtrl($scope, $rootScope, $uibModalInstance, items) {
+		$scope.aliases = [];
+		for (var k in items.compares)
+		{
+			$scope.aliases.push(items.compares[k].prods_alias);
+		}
+		$scope.prods = [];
+		for (var k in items.prods)
+		{
+			var check = true;
+			for (var i in items.compares)
+			{
+				if (items.compares[i].prods_id == items.prods[k].prods_id)
+				{
+					check = false;
+				}
+			}
+
+			if (check)
+			{
+				$scope.prods.push(items.prods[k]);
+			}
+		}
+
+		$scope.compareLink = function(alias) {
+			return '/compare/' + $scope.aliases.join('-vs-') + '-vs-' + alias;
+		};
+
+		$scope.cancel = function () {
+			$uibModalInstance.dismiss('cancel');
 		};
 	}
 })();

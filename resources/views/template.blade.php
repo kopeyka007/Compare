@@ -41,6 +41,7 @@
 
 		<script src="/js/libs/angular.min.js"></script>
 		<script src="/js/libs/angular-route.min.js"></script>
+		<script src="/js/libs/ui-bootstrap-tpls-2.5.0.js"></script>
 		<script src="/js/compareapp.js"></script>
 		<script src="/js/index.js"></script>
 		<script src="/js/compare.js"></script>

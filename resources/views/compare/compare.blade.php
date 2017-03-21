@@ -1,5 +1,10 @@
 <div ng-controller="compareCtrl">
 	<div class="container">
+		<div class="recompare">
+			<a href="/" type="button" class="btn btn-info"><i class="fa fa-repeat fa-flip-horizontal" aria-hidden="true"></i> Compare Wearables</a>
+			<i class="fa fa-chevron-right" aria-hidden="true"></i>
+			<span>@{{nameAllProds()}}</span>
+		</div>
 		<div class="table-responsive">
 			<table class="table compare-table">
 				<thead>
@@ -26,14 +31,12 @@
 
 						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
 							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
-								<a href="/@{{ prod.cats_id }}/" class="compare-link">
+								<a href="@{{productsLink(prod)}}" class="compare-link">
 									<img src="@{{prod.prods_foto}}" alt="#" />
-
 									<span class="compare-price text-danger">
 										$@{{prod.prods_price}}
 									</span>
 								</a>
-
 								<a href="@{{closeLink(prod.prods_id)}}" class="compare-close">
 									<i class="fa fa-times-circle" aria-hidden="true"></i>
 								</a>
@@ -49,7 +52,7 @@
 								</div>
 
 								<div class="wrap-add-btn">
-									<button class="btn btn-info add-btn">Add Another Product</button>
+									<button class="btn btn-info add-btn" ng-click="addToCompare(compareList[0].cats_id)">Add Another Product</button>
 								</div>
 							</div>
 						</td>
@@ -82,13 +85,13 @@
 										</div>
 										
 										<div class="features-desc">
-											@{{feature.features_around}} @{{closestProd}}. @{{feature.features_desc}}
+											Around <b class="text-success">@{{percents(prod, feature.features_id)}} @{{feature.features_around}}</b> than @{{closestProd}}. @{{feature.features_desc}}
 										</div>
 									</div>
 								</div>
 							</div>
 						</td>
-					</tr-->
+					</tr>
 				</tbody>
 			</table>
 			
@@ -100,9 +103,24 @@
 							<td class="filters-cell">@{{filter.filters_name}}</td>
 							<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
 								<div ng-if="compareList[i]" ng-init="prod = compareList[i]">
-									<i class="fa fa-check-circle text-success" ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value"></i>
-									<i class="fa fa-times-circle text-danger" ng-show="filter.filters_type == 'check' && ! prod.filters[filter.filters_id].filters_value"></i>
+									<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ prod.filters[filter.filters_id].filters_value }}</span>
+									<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ prod.filters[filter.filters_id].filters_value }}&nbsp;</span>
 									<span ng-show="filter.filters_type != 'check'">@{{prod.filters[filter.filters_id].filters_value}}</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="amazon-links">
+				<h3>Amazon Links</h3>
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<td></td>
+							<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+								<div class="btn-amazon">
+									<button type="button" class="btn btn-warning" ng-click="statAmazon(compareList[i])">Buy on Amazon</button>
 								</div>
 							</td>
 						</tr>
@@ -112,3 +130,23 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/ng-template" id="ModalCompareContent.html">
+	<div class="modal-header">
+		<h3>Add Product to Compare</h3>
+	</div>
+
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-sm-6 col-xs-12" ng-repeat="prod in prods">
+				<div class="form-group">
+					<a href="@{{compareLink(prod.prods_alias)}}" ng-click="cancel()">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button class="btn btn-default" type="button" ng-click="cancel()">Close</button>
+	</div>
+</script>

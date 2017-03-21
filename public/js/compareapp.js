@@ -1,5 +1,5 @@
 (function(){
-	angular.module('compareApp', ['ngRoute', 'angularUtils.directives.dirDisqus']);
+	angular.module('compareApp', ['ngRoute', 'angularUtils.directives.dirDisqus', 'ui.bootstrap']);
 	angular.module('compareApp').config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		
 		$locationProvider.html5Mode({

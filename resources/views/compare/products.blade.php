@@ -1,5 +1,10 @@
 <div ng-controller="prodsInfoCtrl">
 	<div class="container">
+		<div class="recompare">
+			<a href="/" type="button" class="btn btn-info"><i class="fa fa-repeat fa-flip-horizontal" aria-hidden="true"></i> Compare Wearables</a>
+			<i class="fa fa-chevron-right" aria-hidden="true"></i>
+			<span>@{{prodsInfo.brands_id.brands_name}} @{{prodsInfo.prods_name}}</span>
+		</div>
 		<div class="products-preview">
 			<div class="row">
 				<div class="col-md-6 col-md-offset-4">
@@ -12,6 +17,9 @@
 						</div>
 						<div class="products-model">
 							@{{prodsInfo.prods_name}}
+						</div>
+						<div class="btn-amazon" ng-if="prodsInfo.prods_amazon">
+							<button type="button" class="btn btn-warning" ng-click="statAmazon(prodsInfo)">Amazon</button>
 						</div>
 					</div>
 				</div>
@@ -116,8 +124,8 @@
 											<div class="features-name">@{{filter.filters_name}}</div>	
 										</td>
 										<td class="spec-comment">
-											<i class="fa fa-check-circle text-success" ng-show="filter.filters_type == 'check' && filter.filters_value"></i>
-											<i class="fa fa-times-circle text-danger" ng-show="filter.filters_type == 'check' && ! filter.filters_value"></i>
+											<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ filter.filters_value }}</span>
+											<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ filter.filters_value }}&nbsp;</span>
 											<span ng-show="filter.filters_type != 'check'">@{{filter.filters_value}}</span>
 										</td>
 									</tr>
