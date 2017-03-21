@@ -18,7 +18,7 @@ class AuthController extends Controller
     if (Auth::attempt(['email' => $request->input('users_email'), 'password' => $request->input('users_password')]))
         {  
           $response['data'] = true;
-          $response['message'] = ['type'=>'success', 'text'=>'Authorization successful'];
+          //$response['message'] = ['type'=>'success', 'text'=>'Authorization successful'];
         }
         else{          
           $response['data'] = false;          
