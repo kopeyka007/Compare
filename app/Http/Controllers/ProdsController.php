@@ -184,8 +184,8 @@ class ProdsController extends Controller
   }
 
   public function get_compare_prods(Request $request){    
-    $url = $request->input('url');
-    $url = str_replace('compare/', '', $url);
+    $url_or = $request->input('url');
+    $url = str_replace('compare/', '', $url_or);
     $aliases = explode('-vs-', $url);    
     for ($i=0; $i < count($aliases) ; $i++) {
       $alias = str_replace('/', '', $aliases[$i]);
@@ -195,7 +195,7 @@ class ProdsController extends Controller
     $response['data'] = $this->get_prods_with_filters_group($ids);
     //write history
     $history = new HistoryController;
-    $history->set_history($ids);
+    $history->set_history($ids, $url_or);
     return $response;
 
   }

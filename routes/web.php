@@ -114,6 +114,7 @@ Route::post('api/compare/list','ProdsController@get_compare_prods');
 Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
 Route::post('api/prods/detail','ProdsController@get_prods_detail');
 Route::post('api/history/amazon','HistoryController@set_history_amazon');
+Route::get('api/history/get','HistoryController@get_history');
 
 
 
@@ -123,7 +124,7 @@ Route::post('api/history/amazon','HistoryController@set_history_amazon');
 
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
-Route::get('test','FiltersController@get_filtersfilter');
+Route::get('test','HistoryController@get_history_amazon_top10');
 Route::get('import','ImportController@import');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
