@@ -397,7 +397,8 @@
 	font-weight: 400;
 }
 
-.prods-cell .fa {
+.prods-cell .fa,
+.spec-comment .fa {
 	font-size: 20px;
 }
 

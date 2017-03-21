@@ -39,10 +39,10 @@
 					var prod = $scope.compareList[id];
 					if (start == '')
 					{
-						start = prod.filters[value.filters_id];
+						start = prod.filters[value.filters_id].filters_value;
 					}
 
-					if (start != prod.filters[value.filters_id])
+					if (start != prod.filters[value.filters_id].filters_value)
 					{
 						check = true;
 					}
@@ -75,6 +75,19 @@
 			}
 
 			return check;
+		};
+
+		$scope.productsLink = function(prod) {
+			var cats_alias = '';
+			for (var k in $scope.products)
+			{
+				if ($scope.products[k].cats_id == prod.cats_id)
+				{
+					cats_alias = $scope.products[k].cats_alias;
+				}
+			}
+
+			return '/' + cats_alias + '/' + prod.prods_alias;
 		};
 
 		$scope.addToCompare = function(cats_id) {

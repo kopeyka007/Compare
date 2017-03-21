@@ -116,8 +116,8 @@
 											<div class="features-name">@{{filter.filters_name}}</div>	
 										</td>
 										<td class="spec-comment">
-											<i class="fa fa-check-circle text-success" ng-show="filter.filters_type == 'check' && filter.filters_value"></i>
-											<i class="fa fa-times-circle text-danger" ng-show="filter.filters_type == 'check' && ! filter.filters_value"></i>
+											<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ filter.filters_value }}</span>
+											<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ filter.filters_value }}&nbsp;</span>
 											<span ng-show="filter.filters_type != 'check'">@{{filter.filters_value}}</span>
 										</td>
 									</tr>
