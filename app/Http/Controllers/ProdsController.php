@@ -24,6 +24,18 @@ class ProdsController extends Controller
     ->get();
     foreach ($prods as $prod) {
       $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):$prod->prods_foto;
+      $filters = array();
+      foreach ($prod->filters_id as $filter) {
+        $filters[$filter->filters_id] = $filter->pivot->filters_value;
+      }
+      $prod['filters'] = $filters;
+      unset($prod->filters_id);
+      $features = array();      
+      foreach ($prod->features_id as $feature) {
+        $features[$feature->features_id] = $feature->pivot->features_value;
+      }
+      $prod['features'] = $features;
+      unset($prod->features_id);
     }
     $response['data'] = $prods;
     return $response; 
