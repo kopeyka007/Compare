@@ -64,7 +64,7 @@ class HistoryController extends Controller
     $data['data']['amazon_top10'] = $this->get_history_amazon_top10();
     $data['data']['amazon_last10days'] = $this->get_history_amazon_last10days();
     $data['data']['single_compare_top10'] = $this->get_single_compare_top10();
-    //$data['data']['pair_compare_top10'] = $this->get_pair_compare_top10();
+    $data['data']['pair_compare_top10'] = $this->get_pair_compare_top10();
     return $data;
   }
   
@@ -99,10 +99,10 @@ class HistoryController extends Controller
   }
 
   public function get_pair_compare_top10(){
-    $result  = HistoryPairs::selectRaw('count(prods1_id) as prods1_count, count(prods2_id) as prods2_count, prods1_id, prods2_id')
+    $result  = HistoryPairs::selectRaw('count(prods1_id) as prods1_count, prods1_id, count(prods2_id) as prods2_count, prods2_id')
     ->groupBy('prods1_id','prods2_id')
-    //->with('prods')
-    //->orderBy('prods_count', 'DECS')
+    ->with('prods1_id.brands_id', 'prods2_id.brands_id')
+    ->orderBy('prods1_count', 'DECS')
     ->take(10)
     ->get();
     return $result;
