@@ -389,6 +389,14 @@
 	max-width: 50px;
 }
 
+.features-head-prod {
+	min-width: 250px;
+}
+
+.features-head-prod img {
+	max-width: 50px;
+}
+
 .related-img {
 	position: relative;
 }

@@ -35,10 +35,7 @@
 				</div>
 			</div>
 		</section>
-		
-		<script type="text/javascript">
-			var disqus_developer = 1;
-		</script>
+
 		<script src="/js/libs/angular.min.js"></script>
 		<script src="/js/libs/angular-route.min.js"></script>
 		<script src="/js/compareapp.js"></script>

@@ -28,7 +28,7 @@
 							<table class="table table-striped">
 								<tbody>
 									<tr ng-repeat="feat in prodsInfo.features.valid">
-										<td class="features-head">
+										<td class="features-head-prod">
 											<div class="features-img"><img src="@{{feat.features_icon}}" alt="#" /></div>
 											<div class="features-desc">
 												<div class="features-name">@{{feat.features_name}}</div>
@@ -49,7 +49,7 @@
 							<table class="table table-striped">
 								<tbody>
 									<tr ng-repeat="feat in prodsInfo.features.notvalid">
-										<td class="features-head">
+										<td class="features-head-prod">
 											<div class="features-img"><img src="@{{feat.features_icon}}" alt="#" /></div>
 											<div class="features-desc">
 												<div class="features-name">@{{feat.features_name}}</div>
