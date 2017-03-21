@@ -30,6 +30,7 @@
             modalInstance = $uibModal.open({
                 templateUrl: "ModalProdsContent.html",
                 controller: 'ModalProdsCtrl',
+                size: 'lg',
 				resolve: {
 					items: {'cats': $scope.cats, 'prod': prod, 'brands': $scope.brands, 'list': $scope.list}
 				}
@@ -72,25 +73,34 @@
 		$scope.cats = [{'cats_id': 0, 'cats_name': 'Choose Category'}].concat(items.cats);
 		$scope.brands = [{'brands_id': 0, 'brands_name': 'Choose Brand'}].concat(items.brands);
 		$scope.prod = {'prods_id': 0,
-						  'cats_id': {'cats_id': 0, 'cats_name': 'Choose Category'},
-						  'brands_id': {'brands_id': 0, 'brands_name': 'Choose Brand'},
-					  	  'filters_id': {'filters_id': 0, 'filters_name': 'Choose Filter'},
-						  'features_id': {'features_id': 0, 'features_name': 'Choose Feature'},
-						  'prods_name': '',
-					  	  'prods_alias': '',
-						  'prods_amazon': '',
-						  'prods_price': '',
-						  'prods_active': 0,
-						  'prods_photo': ''
-						  };
+					   'cats_id': {'cats_id': 0, 'cats_name': 'Choose Category'},
+					   'brands_id': {'brands_id': 0, 'brands_name': 'Choose Brand'},
+				  	   'filters_id': {'filters_id': 0, 'filters_name': 'Choose Filter'},
+					   'features_id': {'features_id': 0, 'features_name': 'Choose Feature'},
+					   'prods_name': '',
+				  	   'prods_alias': '',
+					   'prods_amazon': '',
+					   'prods_price': '',
+					   'prods_active': 0,
+					   'prods_foto': ''};
 		
 		if (items.prod && items.prod.prods_id)
 		{
 			for (var k in items.prod)
 			{
-				$scope.prod[k] = items.prod[k];
+				if (k == 'prods_foto')
+				{
+					if ( ! (items.prod[k].indexOf('nofoto') + 1))
+					{
+						$scope.prod[k] = items.prod[k];
+					}
+				}
+				else
+				{
+					$scope.prod[k] = items.prod[k];
+				}
 			}
-		}	
+		}
 		
 		$scope.slug = function() {
 			if ( ! $scope.prod.prods_id && $scope.form.slug.$pristine)
@@ -100,7 +110,6 @@
 		};
 		
 		$scope.initFilters = function() {
-			
 			$http.get('/api/cats/filters/' + $scope.prod.cats_id.cats_id).then(function(response) {
 				$scope.filters = response.data.data;
 			});
@@ -108,11 +117,18 @@
 			$http.get('/api/cats/features/' + $scope.prod.cats_id.cats_id).then(function(response) {
 				$scope.features = response.data.data;
 			});
+		};
+
+		if ($scope.prod.cats_id.cats_id > 0)
+		{
+			$scope.initFilters();
 		}
 		
 		$scope.save = function (file) {
 			$scope.errors = [];
 			var error = 1;
+			error *= validate.check($scope, $scope.form.cats_id, 'Category', 'cats_id');
+			error *= validate.check($scope, $scope.form.cats_id, 'Brand', 'brands_id');
 			error *= validate.check($scope, $scope.form.prods_name, 'Name');
 			error *= validate.check($scope, $scope.form.slug, 'Slug');
 			
@@ -127,17 +143,37 @@
 
 			if (error)
 			{
-				file.upload = Upload.upload({
-					url: '/api/prods/save',
-					file: file,
-					data: $scope.prod,
-			    }).then(function (response) {
-			    	if (response.data.data)
-					{
-						$uibModalInstance.close(response.data.message);
-					}
-			    });
+				if (file)
+				{
+					file.upload = Upload.upload({
+						url: '/api/prods/save',
+						file: file,
+						data: $scope.prod,
+				    }).then(function (response) {
+				    	if (response.data.data)
+						{
+							$uibModalInstance.close(response.data.message);
+						}
+				    });
+				}
+				else
+				{
+					$http.post('/api/prods/save', $scope.prod).then(function(response) {
+						if (response.data.data)
+						{
+							$uibModalInstance.close(response.data.message);
+						}
+					});
+				}
 			}
+		};
+
+		$scope.removeFile = function() {
+			$scope.prods_foto = false;
+		};
+
+		$scope.removePreview = function() {
+			$scope.prod.prods_foto = '';
 		};
 		
 		$scope.cancel = function () {
