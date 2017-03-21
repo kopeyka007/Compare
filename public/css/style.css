@@ -400,6 +400,16 @@
 	max-width: 50px;
 }
 
+.related-img {
+	position: relative;
+}
+
+.related-img img {
+	width: 120%;
+	position: absolute;
+	left: 0;
+}
+
 .error-msg {
 	margin-top: 20px;
 }

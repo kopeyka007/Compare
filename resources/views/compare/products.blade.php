@@ -70,62 +70,22 @@
 						<div class="related-head">
 							Related Products
 						</div>
-						<div class="related-inner">
+						<div class="related-inner" ng-repeat="related in prodsInfo.liked">
 							<div class="row">
 								<div class="col-md-4">
 									<div class="related-img">
-										<img src="https://img2.smartprix.com/mobiles/1101z581e0c/v-1/lenovo_k6_power.v2.jpg" alt="#" />
+										<img src="@{{related.prods_foto}}" alt="#" />
 									</div>
 								</div>
 								<div class="col-md-8">
 									<div class="related-name">
-										Lenovo K6 Power
+										@{{related.prods_name}}
 									</div>
 									<div class="related-price">
-										RS 9.999
+										$ @{{related.prods_price}}
 									</div>
 									<div class="related-btn">
 										<a href="http://compare.da/compare/@{{prodsInfo.prods_alias}}-vs-@{{}}" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Add To Compare</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="related-inner">
-							<div class="row">
-								<div class="col-md-4">
-									<div class="related-img">
-										<img src="https://img2.smartprix.com/mobiles/1101z581e0c/v-1/lenovo_k6_power.v2.jpg" alt="#" />
-									</div>
-								</div>
-								<div class="col-md-8">
-									<div class="related-name">
-										Lenovo K6 Power
-									</div>
-									<div class="related-price">
-										RS 9.999
-									</div>
-									<div class="related-btn">
-										<button class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Add To Compare</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="related-inner">
-							<div class="row">
-								<div class="col-md-4">
-									<div class="related-img">
-										<img src="https://img2.smartprix.com/mobiles/1101z581e0c/v-1/lenovo_k6_power.v2.jpg" alt="#" />
-									</div>
-								</div>
-								<div class="col-md-8">
-									<div class="related-name">
-										Lenovo K6 Power
-									</div>
-									<div class="related-price">
-										RS 9.999
-									</div>
-									<div class="related-btn">
-										<button class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Add To Compare</button>
 									</div>
 								</div>
 							</div>
