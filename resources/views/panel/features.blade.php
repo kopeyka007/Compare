@@ -9,11 +9,13 @@
 			<thead>
 				<tr>
 					<th class="td-id">ID</th>
-					<th class="td-icon">Icon</th>
+					<th class="td-preview-small">Icon</th>
+					<th>Category</th>
 					<th>Name</th>
 					<th>Description</th>
-					<th>Units</th>
 					<th>Optimal value</th>
+					<th>Units</th>
+					<th>Around</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -22,11 +24,13 @@
 			<tbody>
 				<tr ng-repeat="feature in list">
 					<td class="td-id">@{{feature.features_id}}</td>
-					<td class="td-id"><img src="@{{feature.features_icon}}" alt="#" /></td>
+					<td class="td-preview-small"><img src="@{{feature.features_icon}}" alt="#" /></td>
+					<td>@{{feature.cats_id[0].cats_name}}</td>
 					<td>@{{feature.features_name}}</td>
 					<td>@{{feature.features_desc}}</td>
-					<td>@{{feature.features_units}}</td>
 					<td>@{{feature.features_norm}}</td>
+					<td>@{{feature.features_units}}</td>
+					<td>@{{feature.features_around}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(feature.features_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(feature.features_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
@@ -70,7 +74,9 @@
 							<input type="file" accept="image/*" name="file" ng-model="features_icon" ngf-select />
 						</button>
 						<img ngf-thumbnail="features_icon" class="img-preview" ng-show="features_icon" alt="" />
-						<a href="javascript:void(0);" ng-show="features_icon" ng-click="remove_file()">Remove</a>
+						<a href="javascript:void(0);" ng-show="features_icon" ng-click="removeFile()">Remove</a>
+						<img src="@{{feature.features_icon}}" class="img-preview" ng-show="feature.features_icon && ! features_icon" alt="" />
+						<a href="javascript:void(0);" ng-show="feature.features_icon && ! features_icon" ng-click="removePreview()">Remove</a>
 					</div>
 				</div>
 			</div>

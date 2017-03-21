@@ -45,6 +45,13 @@
 	opacity: 0;
 }
 
+.img-preview {
+	max-width: 100px;
+	max-height: 100px;
+	margin: 0 15px;
+	vertical-align: middle;
+}
+
 .td-id {
 	width: 60px;
 	text-align: center;
@@ -53,4 +60,24 @@
 .td-icon {
 	width: 85px;
 	text-align: center;
+}
+
+.td-preview {
+	width: 100px;
+	text-align: center;
+}
+
+.td-preview img {
+	max-height: 100px;
+	max-width: 100%;
+}
+
+.td-preview-small {
+	width: 30px;
+	text-align: center;
+}
+
+.td-preview-small img {
+	max-height: 30px;
+	max-width: 30px;
 }
