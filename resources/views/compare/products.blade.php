@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="products-preview">
 			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
+				<div class="col-md-6 col-md-offset-4">
 					<div class="products-img">
 						<img src="@{{prodsInfo.prods_foto}}" alt="#" />
 					</div>
@@ -79,13 +79,13 @@
 								</div>
 								<div class="col-md-8">
 									<div class="related-name">
-										@{{related.prods_name}}
+										@{{related.brands_id.brands_name}} @{{related.prods_name}}
 									</div>
-									<div class="related-price">
+									<div class="related-price text-danger">
 										$ @{{related.prods_price}}
 									</div>
 									<div class="related-btn">
-										<a href="http://compare.da/compare/@{{prodsInfo.prods_alias}}-vs-@{{}}" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Add To Compare</a>
+										<a href="http://compare.da/compare/@{{prodsInfo.prods_alias}}-vs-@{{related.prods_alias}}" class="btn btn-info btn-block"><i class="fa fa-plus" aria-hidden="true"></i> <span class="span-hide">Add To</span> Compare</a>
 									</div>
 								</div>
 							</div>
@@ -128,5 +128,6 @@
 				</div>
 			</div>
 		</div>
+		<dir-disqus config="disqusConfig"></dir-disqus>
 	</div>
 </div>

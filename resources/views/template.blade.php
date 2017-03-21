@@ -15,10 +15,8 @@
 				<a href="/" class="home-link">Compare</a>
 			</div>
 		</section>
-			
 		<section class="content" ng-view>
 		</section>
-		
 		<section class="footer">
 			<div class="container">
 				<div class="row">
@@ -37,12 +35,16 @@
 				</div>
 			</div>
 		</section>
-
+		
+		<script type="text/javascript">
+			var disqus_developer = 1;
+		</script>
 		<script src="/js/libs/angular.min.js"></script>
 		<script src="/js/libs/angular-route.min.js"></script>
 		<script src="/js/compareapp.js"></script>
 		<script src="/js/index.js"></script>
 		<script src="/js/compare.js"></script>
+		<script src="/js/dirDisqus.js"></script>
 		<script src="/js/prods_info.js"></script>
     </body>
 </html>
