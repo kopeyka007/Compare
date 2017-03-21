@@ -7,12 +7,15 @@
 		<title>Compare.da</title>
 		<link href="/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/css/font-awesome.min.css" rel="stylesheet" />
-		<link href="/css/style.css" rel="stylesheet" />
+		<link href="/css/panel.css" rel="stylesheet" />
 		<script src="/js/libs/angular.min.js"></script>
 		<script src="/js/libs/angular-route.min.js"></script>
 	</head>
 	
-    <body>
+    <body ng-class="loaderClass">
+		<div class="loader">
+			<i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
+		</div>
 		<section>
 			<nav class="navbar navbar-default" ng-if="user != false">
 				<div class="container">
@@ -26,13 +29,13 @@
 
 					<div class="collapse navbar-collapse" id="menu">
 						<ul class="nav navbar-nav">
-							<li><a href="/panel/">Dashboard</a></li>
-							<li><a href="/panel/users/" ng-if="access('users')">Users</a></li>
-							<li><a href="/panel/cats/" ng-if="access('cats')">Categories</a></li>
-							<li><a href="/panel/brands/" ng-if="access('brands')">Brands</a></li>
-							<li><a href="/panel/features/" ng-if="access('features')">Features</a></li>
-							<li><a href="/panel/filters/" ng-if="access('filters')">Filters</a></li>
-							<li><a href="/panel/prods/" ng-if="access('prods')">Products</a></li>
+							<li ng-class="{'active': activeMenu('')}"><a href="/panel/">Dashboard</a></li>
+							<li ng-class="{'active': activeMenu('users')}"><a href="/panel/users/" ng-if="access('users')">Users</a></li>
+							<li ng-class="{'active': activeMenu('cats')}"><a href="/panel/cats/" ng-if="access('cats')">Categories</a></li>
+							<li ng-class="{'active': activeMenu('brands')}"><a href="/panel/brands/" ng-if="access('brands')">Brands</a></li>
+							<li ng-class="{'active': activeMenu('features')}"><a href="/panel/features/" ng-if="access('features')">Features</a></li>
+							<li ng-class="{'active': activeMenu('filters')}"><a href="/panel/filters/" ng-if="access('filters')">Filters</a></li>
+							<li ng-class="{'active': activeMenu('prods')}"><a href="/panel/prods/" ng-if="access('prods')">Products</a></li>
 						</ul>
 
 						<ul class="nav navbar-nav navbar-right">
@@ -65,6 +68,7 @@
 		<script src="/js/brands.js"></script>
 		<script src="/js/features.js"></script>
 		<script src="/js/filters.js"></script>
+		<script src="/js/dashboard.js"></script>
 		<script src="/js/prods.js"></script>
 		<script src="/js/validate.js"></script>
     </body>

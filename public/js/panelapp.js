@@ -49,9 +49,9 @@
 })();
 
 (function(){
-	angular.module('panelApp').controller('panelCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', panelCtrl]);
+	angular.module('panelApp').controller('panelCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', '$timeout', panelCtrl]);
 	
-	function panelCtrl($scope, $rootScope, $http, $window, $location) {
+	function panelCtrl($scope, $rootScope, $http, $window, $location, $timeout) {
 		$rootScope.token = '';
 		$rootScope.errors = [];
 
@@ -88,6 +88,31 @@
 
 			return false;
 		};
+
+		$scope.activeMenu = function(segment) {
+			var path = $location.path().split('/');
+			if ( ! path[2] && segment == '')
+			{
+				return true;
+			}
+			else
+			{
+				return path[2] == segment;
+			}
+		};
+		
+		$scope.loaderClass = 'loader-init';
+		$scope.$on('$routeChangeStart', function(next, current) {
+			$scope.loaderClass = 'loader-init';
+		});
+		$scope.$on('$viewContentLoaded', function(){
+			$timeout(function () {
+				$scope.loaderClass = 'loader-hide';
+				$timeout(function () {
+					$scope.loaderClass = 'loader-none';
+				}, 300);
+			}, 500);
+		});
 	}
 })();
 

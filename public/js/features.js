@@ -77,33 +77,69 @@
 		{
 			for (var k in items.feature)
 			{
-				$scope.feature[k] = items.feature[k];
+				if (k == 'cats_id')
+				{
+					if (items.feature[k][0])
+					{
+						$scope.feature[k] = items.feature[k][0];
+					}
+				}
+				else
+				{
+					if (k == 'features_icon')
+					{
+						if ( ! (items.feature[k].indexOf('nofoto') + 1))
+						{
+							$scope.feature[k] = items.feature[k];
+						}
+					}
+					else
+					{
+						$scope.feature[k] = items.feature[k];
+					}
+				}
 			}
 		}
-	
+
 		$scope.save = function (file) {
 			$scope.errors = [];
 			var error = 1;
 			error *= validate.check($scope, $scope.form.name, 'Name');
-			error *= validate.check($scope, $scope.form.cats_id, 'Category');
+			error *= validate.check($scope, $scope.form.cats_id, 'Category', 'cats_id');
 
 			if (error)
 			{
-				file.upload = Upload.upload({
-					url: '/api/features/save',
-					file: file,
-					data: $scope.feature,
-			    }).then(function (response) {
-			    	if (response.data.data)
-					{
-						$uibModalInstance.close(response.data.message);
-					}
-			    });
+				if (file)
+				{
+					file.upload = Upload.upload({
+						url: '/api/features/save',
+						file: file,
+						data: $scope.feature,
+				    }).then(function (response) {
+				    	if (response.data.data)
+						{
+							$uibModalInstance.close(response.data.message);
+						}
+				    });
+				}
+				else
+				{
+					$http.post('/api/features/save', $scope.feature).then(function(response) {
+						if (response.data.data)
+						{
+							$uibModalInstance.close(response.data.message);
+						}
+					});
+				}
 			}
 		};
 
-		$scope.remove_file = function() {
+		$scope.removeFile = function() {
 			$scope.features_icon = false;
+		};
+
+		$scope.removePreview = function() {
+			$scope.feature.features_icon = '';
 		};
 
 		$scope.cancel = function () {

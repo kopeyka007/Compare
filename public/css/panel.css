@@ -1,0 +1,130 @@
+.loader {
+	position: fixed;
+	z-index: 2;
+	background: #fff;
+	opacity: 1;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	transition: opacity 0.3s;
+}
+
+.loader i {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -45px;
+    margin-top: -35px;
+}
+
+.loader-init,
+.loader-hide {
+	overflow: hidden;
+}
+
+.loader-hide .loader {
+	opacity: 0;
+}
+
+.loader-none .loader {
+	display: none;
+}
+
+.relative {
+	position: relative;
+	z-index: 0;
+	height: 100%;
+}
+
+.signin-row {
+	position: absolute;
+	z-index: 0;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	margin: -145px 0 0 -200px;
+}
+
+.signin-row form {
+	margin: 0;
+}
+
+.td-counter {
+	text-align: right;
+}
+
+@media (max-width: 768px) {
+	.signin-row {
+		width: 280px;
+		margin-left: -140px;
+	}
+}
+
+.btn-file {
+	position: relative;
+	z-index: 0;
+	vertical-align: middle;
+	overflow: hidden;
+}
+
+.btn-file > span {
+	position: relative;
+	z-index: 0;
+}
+
+.btn-file > input[type=file] {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	font-size: 150px;
+	opacity: 0;
+}
+
+.img-preview {
+	max-width: 107px;
+	max-height: 107px;
+	margin: 0 15px;
+	vertical-align: middle;
+}
+
+.td-id {
+	width: 60px;
+	text-align: center;
+}
+
+.td-icon {
+	width: 85px;
+	text-align: center;
+}
+
+.td-preview {
+	width: 100px;
+	text-align: center;
+}
+
+.td-preview img {
+	max-height: 100px;
+	max-width: 100%;
+}
+
+.td-preview-small {
+	width: 30px;
+	text-align: center;
+}
+
+.td-preview-small img {
+	max-height: 30px;
+	max-width: 30px;
+}
+
+.help-icon {
+	font-size: 20px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.popover b {
+	color: #3c763d;
+}

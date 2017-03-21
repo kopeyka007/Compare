@@ -13,4 +13,7 @@ class Features extends Model
     public function cats_id(){      
       return $this->belongsToMany('App\Cats', 'cats_features', 'features_id', 'cats_id');
     }
+    public function prods(){
+      return $this->belongsToMany('App\Prods', 'prods_features', 'features_id', 'prods_id');
+    }
 }

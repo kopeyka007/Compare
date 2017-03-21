@@ -39,8 +39,17 @@ class FiltersController extends Controller
     //update
     if ($filters_id && $filters_id <> 0){
       $current = Filters::find($filters_id);
-      if ($current){
-        $current->groups_id = $request->input('groups_id')['groups_id'];        
+      if ($current){        
+        //if created new groups filters
+        if ($request->input('groups_id')['groups_id'] == 0 && $request->input('groups_name') !== ''){
+          $groups = new Groups;
+          $groups->groups_name = $request->input('groups_name');
+          $groups->save();
+          $current->groups_id = $groups->groups_id;
+        }
+        else{
+          $current->groups_id = $request->input('groups_id')['groups_id'];
+        }
         $current->filters_name = $request->input('filters_name');        
         $current->filters_alias = $request->input('filters_alias');        
         $current->filters_type = $request->input('filters_type');        
@@ -59,8 +68,17 @@ class FiltersController extends Controller
     }
     //create
     else
-    {      
-      $filter->groups_id = $request->input('groups_id')['groups_id'];        
+    { 
+      //if created new groups filters
+      if ($request->input('groups_id')['groups_id'] == 0 && $request->input('groups_name') !== ''){
+        $groups = new Groups;
+        $groups->groups_name = $request->input('groups_name');
+        $groups->save();
+        $filter->groups_id = $groups->groups_id;
+      }
+      else{
+        $filter->groups_id = $request->input('groups_id')['groups_id'];
+      }
       $filter->filters_name = $request->input('filters_name');        
       $filter->filters_alias = $request->input('filters_alias');        
       $filter->filters_type = $request->input('filters_type');        
@@ -81,6 +99,9 @@ class FiltersController extends Controller
   public function delete($id){
     $filter = Filters::find($id);    
     if ($filter && $filter->delete()){
+      //delete relations       
+      $filter->prods()->detach();
+      $filter->cats_id()->detach();
       $response['data']['type'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'Filter deleted'];      
     }
@@ -100,6 +121,22 @@ class FiltersController extends Controller
     $groups = Groups::all();    
     $response['data'] = $groups;
     return $response;   
+  }
+
+  //Front
+
+  public function get_filtersfilter(){
+    $filters = Filters::with('prods')->where('filters_filter',1)->get();
+    foreach ($filters as $filter) {
+      $arr = array();
+      foreach ($filter->prods as $prod) {        
+        $arr[] = $prod->pivot->filters_value;
+      }      
+      unset($filter->prods);
+      $filter['filter_values'] = array_unique($arr);
+    }    
+    $response['data'] = $filters;
+    return $response;
   }
 
 

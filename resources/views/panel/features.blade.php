@@ -9,11 +9,13 @@
 			<thead>
 				<tr>
 					<th class="td-id">ID</th>
-					<th class="td-icon">Icon</th>
+					<th class="td-preview-small">Icon</th>
+					<th>Category</th>
 					<th>Name</th>
 					<th>Description</th>
-					<th>Units</th>
 					<th>Optimal value</th>
+					<th>Units</th>
+					<th>Around</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -22,11 +24,13 @@
 			<tbody>
 				<tr ng-repeat="feature in list">
 					<td class="td-id">@{{feature.features_id}}</td>
-					<td class="td-id"><img src="@{{feature.features_icon}}" alt="#" /></td>
+					<td class="td-preview-small"><img src="@{{feature.features_icon}}" alt="#" /></td>
+					<td>@{{feature.cats_id[0].cats_name}}</td>
 					<td>@{{feature.features_name}}</td>
 					<td>@{{feature.features_desc}}</td>
-					<td>@{{feature.features_units}}</td>
 					<td>@{{feature.features_norm}}</td>
+					<td>@{{feature.features_units}}</td>
+					<td>@{{feature.features_around}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(feature.features_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(feature.features_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
@@ -65,12 +69,14 @@
 				<div class="form-group">
 					<label>Icon</label>
 					<div>
-						<button type="button" class="btn btn-info btn-file">
+						<a href="javascript:void(0);" type="button" class="btn btn-info btn-file">
 							<span>Browse file...</span>
 							<input type="file" accept="image/*" name="file" ng-model="features_icon" ngf-select />
-						</button>
+						</a>
 						<img ngf-thumbnail="features_icon" class="img-preview" ng-show="features_icon" alt="" />
-						<a href="javascript:void(0);" ng-show="features_icon" ng-click="remove_file()">Remove</a>
+						<a href="javascript:void(0);" ng-show="features_icon" ng-click="removeFile()">Remove</a>
+						<img src="@{{feature.features_icon}}" class="img-preview" ng-show="feature.features_icon && ! features_icon" alt="" />
+						<a href="javascript:void(0);" ng-show="feature.features_icon && ! features_icon" ng-click="removePreview()">Remove</a>
 					</div>
 				</div>
 			</div>
@@ -91,22 +97,22 @@
 
 			<div class="col-sm-12">
 				<div class="form-group">
-					<label>Units</label>
-					<input type="text" class="form-control" name="units" ng-model="feature.features_units" />
-				</div>
-			</div>
-
-			<div class="col-sm-12">
-				<div class="form-group">
-					<label>Optimal Value</label>
+					<label>Optimal Value <span class="help-icon text-info" uib-popover-html="'Here you should enter optimal value for this feature. So if the product has a lower value than optimal value for this feature then this feature will be Disadvantage, if product has higher value then feature will be Advantage.<br />For example: <b>5.5</b>, <b>800</b>'"><i class="fa fa-question-circle"></i></span></label>
 					<input type="text" class="form-control" name="norm" ng-model="feature.features_norm" />
 				</div>
 			</div>
 
 			<div class="col-sm-12">
 				<div class="form-group">
-					<label>Around...</label>
-					<input type="text" class="form-control" name="around" ng-model="feature.features_around" placeholder="Around XX% bigger size than" />
+					<label>Units <span class="help-icon text-info" uib-popover-html="'Just units for this feature. So when you will fill the value for this feature at the Products secion you should enter only value, for example is you have 5.5 inch display you should enter <b>inch</b> here and <b>5.5</b> at the Products section.<br />For example: <b>inch</b>, <b>Mhz</b>'"><i class="fa fa-question-circle"></i></span></label>
+					<input type="text" class="form-control" name="units" ng-model="feature.features_units" />
+				</div>
+			</div>
+
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Around... <span class="help-icon text-info" uib-popover-html="'This is special field to show in Feature Only section at the compare page. We have such sentence &laquo;Around 44% <b>more RAM</b> than Xiaomi Mi5s&raquo; - so you need to enter only green words in this field.<br />For example: <b>more RAM</b>, <b>faster CPU</b>'"><i class="fa fa-question-circle"></i></span></label>
+					<input type="text" class="form-control" name="around" ng-model="feature.features_around" />
 				</div>
 			</div>
 		</div>

@@ -54,7 +54,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12" ng-show="user.id == 0">
+			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Password</label>
 					<input type="password" class="form-control" name="password" ng-model="user.password" required="required" />

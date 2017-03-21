@@ -9,6 +9,7 @@
 		$scope.groups = [];
 		$http.get('/api/filters/list_groups').then(function(response) {
 			$scope.groups = response.data.data;
+			console.log($scope.groups);
 		});
 		
 
@@ -76,26 +77,43 @@
 						  'groups_name': '',
 					  	  'filters_name': '',
 					  	  'filters_type': 'check',
-					  	  'filters_filter': 0
-						  };
+					  	  'filters_filter': false};
 		
 		if (items.filter && items.filter.filters_id)
 		{
 			for (var k in items.filter)
 			{
-				$scope.filter[k] = items.filter[k];
+				if (k == 'cats_id')
+				{
+					if (items.filter[k][0])
+					{
+						$scope.filter[k] = items.filter[k][0];
+					}
+				}
+				else
+				{
+					if (k == 'filters_filter')
+					{
+						$scope.filter[k] = items.filter[k] == 1 ? true : false;
+					}
+					else
+					{
+						$scope.filter[k] = items.filter[k];
+					}
+				}
 			}
 		}	
-		
+
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;
 			error *= validate.check($scope, $scope.form.filters_name, 'Name');
-			error *= validate.check($scope, $scope.form.cats_id, 'Category');
-			error *= validate.check($scope, $scope.form.groups_name, 'Group Name');
+			error *= validate.check($scope, $scope.form.cats_id, 'Category', 'cats_id');
+			error *= validate.check($scope, $scope.form.groups_name, 'Group Name', 'groups_id');
 
 			if (error)
 			{
+				console.log($scope.filter);
 				$http.post('/api/filters/save', $scope.filter).then(function(response) {
 					if (response.data.data)
 					{

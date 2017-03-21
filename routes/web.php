@@ -20,14 +20,12 @@ Route::get('/migratefull', function () {
     Artisan::call('db:seed', array('--class' => 'UsersTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'UsersTypesTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'GroupsTableSeeder'));
-    //Artisan::call('db:seed storage:link');
+    //Artisan::call('storage:link');
     return 'All migrates and seed run';
 });
-Route::get('/migrate', function () {
-    //Artisan::call('migrate:rollback');
-    Artisan::call('migrate');
-    Artisan::call('db:seed storage:link');
-    return 'New artisan run';
+Route::get('/migrate', function () {    
+    Artisan::call('migrate');   
+    return 'New migrate run';
 });
 
 Route::get('/', function () {
@@ -43,9 +41,13 @@ Route::get('/compare/{list}', function () {
 Route::get('/pages/index/', function () {
     return view('compare.index');
 });
+Route::get('/pages/products/', function () {
+    return view('compare.products');
+});
 Route::get('/pages/{list}', function () {
     return view('compare.compare');
 });
+
 
 Route::get('/panel', function () {
     return view('panel.template');
@@ -92,6 +94,10 @@ Route::get('api/filters/list','FiltersController@get_all');
 Route::get('api/filters/list_groups','FiltersController@get_all_groups');
 Route::post('api/filters/save','FiltersController@save');
 Route::delete('api/filters/delete/{id}','FiltersController@delete');
+//groups
+Route::get('api/groups/list','GroupsController@get_all');
+Route::post('api/groups/save','GroupsController@save');
+Route::delete('api/groups/delete/{id}','GroupsController@delete');
 //prods
 Route::get('api/prods/list','ProdsController@get_all');
 Route::post('api/prods/save','ProdsController@save');
@@ -103,8 +109,12 @@ Route::delete('api/features/delete/{id}','FeaturesController@delete');
 //-------------------------
 //Front
 Route::get('api/cats/front/shortlist','CatsController@shortlist');
+Route::get('api/filters/front/filtersfilter','FiltersController@get_filtersfilter');
 Route::post('api/compare/list','ProdsController@get_compare_prods');
 Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
+Route::post('api/prods/detail','ProdsController@get_prods_detail');
+Route::post('api/history/amazon','HistoryController@set_history_amazon');
+Route::get('api/history/get','HistoryController@get_history');
 
 
 
@@ -114,6 +124,10 @@ Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
 
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
-Route::get('test','CatsController@get_compare_filters');
+Route::get('test','HistoryController@get_history_amazon_last10days');
+Route::get('import','ImportController@import');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
+Route::get('/{category}/{product}', function () {
+    return view('template');
+});

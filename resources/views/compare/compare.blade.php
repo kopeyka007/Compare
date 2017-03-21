@@ -1,184 +1,128 @@
 <div ng-controller="compareCtrl">
 	<div class="container">
+		<div class="recompare">
+			<a href="/" type="button" class="btn btn-info"><i class="fa fa-repeat fa-flip-horizontal" aria-hidden="true"></i> Compare Wearables</a>
+			<i class="fa fa-chevron-right" aria-hidden="true"></i>
+			<span>@{{nameAllProds()}}</span>
+		</div>
 		<div class="table-responsive">
-			<table class="table table-striped compare-table">
+			<table class="table compare-table">
 				<thead>
 					<tr>
-						<th></th>
-						<th ng-repeat="i in [0, 1, 2, 3]">
-							<h4 ng-if="compareList[i]">@{{compareList[i].brands_id.brands_name}} @{{compareList[i].prods_name}}</h4>
+						<th class="filters-cell"></th>
+						<th class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+							<h4 ng-if="compareList[i]">@{{compareList[i].prods_name}}</h4>
+							<p>@{{compareList[i].brands_id.brands_name}}</p>
 						</th>
 					</tr>
 				</thead>
+
 				<tbody>
 					<tr>
-						<td>
-							<h3>Show:</h3>
-							<div>
-								<label class="btn btn-success btn-block">
-									<input type="checkbox" />
-									<span>All Features</span>
-								</label>
-							</div>
-							<div>
-								<label class="btn btn-success btn-block">
-									<input type="checkbox" />
-									<span>Differences</span>
-								</label>
-							</div>
+						<td class="filters-cell">
+							<button type="button" class="btn btn-success btn-block" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
+								All Features
+							</button>
+
+							<button type="button" class="btn btn-success btn-block" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
+								Differences
+							</button>
 						</td>
-						<td class="td-header" ng-repeat="i in [0, 1, 2, 3]">
+
+						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
 							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
-								<div class="compare-img text-center">
+								<a href="@{{productsLink(prod)}}" class="compare-link">
 									<img src="@{{prod.prods_foto}}" alt="#" />
-								</div>
-								<div class="compare-price text-danger">
-									$@{{prod.prods_price}}
-								</div>
+									<span class="compare-price text-danger">
+										$@{{prod.prods_price}}
+									</span>
+								</a>
 								<a href="@{{closeLink(prod.prods_id)}}" class="compare-close">
 									<i class="fa fa-times-circle" aria-hidden="true"></i>
 								</a>
-								<div class="wrap-add-btn">
-									<button class="btn btn-info add-btn">Add Another Products</button>
-								</div>
 							</div>
+
 							<div ng-if="! compareList[i]" class="compare-head inactive">
-								<div class="compare-img text-center">
+								<div class="compare-link">
 									<img src="http://comparewear.com/images/products/apple-watch.jpg" alt="#" />
+
+									<span class="compare-price text-danger">
+										$9.999
+									</span>
 								</div>
-								<div class="compare-price text-danger">
-									$9.999
-								</div>
-								<div class="compare-close">
-									<i class="fa fa-times-circle" aria-hidden="true" ng-click=""></i>
-								</div>
+
 								<div class="wrap-add-btn">
-									<button class="btn btn-info add-btn">Add Another Products</button>
+									<button class="btn btn-info add-btn" ng-click="addToCompare(compareList[0].cats_id)">Add Another Product</button>
 								</div>
 							</div>
 						</td>
 					</tr>
+
 					<tr>
-						<td><h3>Overview</h3></td>
-						<td colspan="4"><h3>Advantages (Factors To Decide Which Device You Should Buy)</h3></td>
-					</tr>
-					<tr>
-						<td>Features Present In Only One Device(Unique Features)</td>
-						<td></td>
-						<td>
-							<div class="features-block">
-								<div class="features-head">
-									<img src="#" alt="#" />
-									<span>Light Weight</span>
-								</div>
-								<div class="features-content">
-									<div class="oponents">
-										<span>Xiaomi Redmi Note 4</span>
-										<span>165 grams</span>
+						<td class="filters-cell">
+							Features Present In Only One Device (Unique Features)
+						</td>
+
+						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+							<div class="features-cell" ng-if="compareList[i]" ng-init="prod = compareList[i]">
+								<div class="features-box" ng-repeat="feature in prod.features" ng-show="checkFeatures(prod, feature.features_id)">
+									<div class="features-head">
+										<img src="@{{feature.features_icon}}" ng-show="feature.features_icon != ''" alt="" />
+										<span>@{{feature.features_name}}</span>
 									</div>
-									<div class="oponents">
-										<span>Xiaomi Redmi Note 4</span>
-										<span>165 grams</span>
+
+									<div class="features-content">
+										<div class="features-prods" ng-repeat="p in compareList" ng-class="{'active': p.prods_id == prod.prods_id}">
+											<div class="row">
+												<div class="col-xs-7">
+													@{{p.prods_name}}
+												</div>
+
+												<div class="col-xs-5 text-right">
+													@{{p.features[feature.features_id].features_value}} @{{p.features[feature.features_id].features_units}}
+												</div>
+											</div>
+										</div>
+										
+										<div class="features-desc">
+											Around <b class="text-success">@{{percents(prod, feature.features_id)}} @{{feature.features_around}}</b> than @{{closestProd}}. @{{feature.features_desc}}
+										</div>
 									</div>
-									<div class="oponents">
-										<span>Xiaomi Redmi Note 4</span>
-										<span>165 grams</span>
-									</div>
-									<p>Around 12% lighter than Xiaomi Redmi Note 4. Light weight devices are easier to hold without tiring your arms.</p>
 								</div>
 							</div>
 						</td>
-						<td></td>
-						<td></td>
 					</tr>
 				</tbody>
 			</table>
 			
-			<div class="groups-box">
-				<h3>@{{}}</h3>
-				<table>
+			<div class="groups-box" ng-repeat="group in filterList">
+				<h3>@{{group.groups_name}}</h3>
+				<table class="table table-striped">
+					<tbody>
+						<tr ng-repeat="filter in group.groups_filters | filter:checkDifferences">
+							<td class="filters-cell">@{{filter.filters_name}}</td>
+							<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+								<div ng-if="compareList[i]" ng-init="prod = compareList[i]">
+									<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ prod.filters[filter.filters_id].filters_value }}</span>
+									<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ prod.filters[filter.filters_id].filters_value }}&nbsp;</span>
+									<span ng-show="filter.filters_type != 'check'">@{{prod.filters[filter.filters_id].filters_value}}</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="amazon-links">
+				<h3>Amazon Links</h3>
+				<table class="table table-striped">
 					<tbody>
 						<tr>
 							<td></td>
-							<td colspan="4"></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><h4>Dual Sim</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Sim Size</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Device Type</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Release Date</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h3>Design</h3></td>
-							<td colspan="4"></td>
-						</tr>
-						<tr>
-							<td><h4>Dimensions</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Weight</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h3>Display</h3></td>
-							<td colspan="4"></td>
-						</tr>
-						<tr>
-							<td><h4>Weight</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Weight</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-						</tr>
-						<tr>
-							<td><h4>Weight</h4></td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
-							<td>GSM+GSM (Hybrid Slot)</td>
+							<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+								<div class="btn-amazon" ng-if="compareList[i].prods_amazon">
+									<button type="button" class="btn btn-warning" ng-click="statAmazon(compareList[i])">Buy on Amazon</button>
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -186,3 +130,23 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/ng-template" id="ModalCompareContent.html">
+	<div class="modal-header">
+		<h3>Add Product to Compare</h3>
+	</div>
+
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-sm-6 col-xs-12" ng-repeat="prod in prods">
+				<div class="form-group">
+					<a href="@{{compareLink(prod.prods_alias)}}" ng-click="cancel()">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button class="btn btn-default" type="button" ng-click="cancel()">Close</button>
+	</div>
+</script>
