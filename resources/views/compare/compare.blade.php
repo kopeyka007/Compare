@@ -49,7 +49,7 @@
 								</div>
 
 								<div class="wrap-add-btn">
-									<button class="btn btn-info add-btn">Add Another Product</button>
+									<button class="btn btn-info add-btn" ng-click="addToCompare(compareList[0].cats_id)">Add Another Product</button>
 								</div>
 							</div>
 						</td>
@@ -112,3 +112,23 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/ng-template" id="ModalCompareContent.html">
+	<div class="modal-header">
+		<h3>Add Product to Compare</h3>
+	</div>
+
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-sm-6 col-xs-12" ng-repeat="prod in prods">
+				<div class="form-group">
+					<a href="@{{compareLink(prod.prods_alias)}}" ng-click="cancel()">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button class="btn btn-default" type="button" ng-click="cancel()">Close</button>
+	</div>
+</script>

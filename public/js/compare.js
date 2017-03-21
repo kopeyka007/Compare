@@ -1,6 +1,6 @@
 (function() {
-	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', compareCtrl]);
-	function compareCtrl($scope, $rootScope, $http, $window, $location) {
+	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', '$uibModal', compareCtrl]);
+	function compareCtrl($scope, $rootScope, $http, $window, $location, $uibModal) {
 		$scope.mode = 'all';
 		$scope.filterList = [];
 		$scope.compareList = [];
@@ -75,6 +75,68 @@
 			}
 
 			return check;
+		};
+
+		$scope.addToCompare = function(cats_id) {
+			var prods = [];
+			for (var k in $scope.products)
+			{
+				if ($scope.products[k].cats_id == cats_id)
+				{
+					prods = $scope.products[k].prods;
+				}
+			}
+
+			var modalInstance;
+            modalInstance = $uibModal.open({
+                templateUrl: "ModalCompareContent.html",
+                controller: 'ModalCompareCtrl',
+				resolve: {
+					items: {'prods': prods, 'compares': $scope.compareList}
+				}
+			});	
+			
+			modalInstance.result.then(function (result) {
+
+			}, function() {
+
+			});
+		};
+	}
+})();
+
+(function() {
+	angular.module('compareApp').controller('ModalCompareCtrl', ['$scope', '$rootScope', '$uibModalInstance', 'items', ModalCompareCtrl]);
+	function ModalCompareCtrl($scope, $rootScope, $uibModalInstance, items) {
+		$scope.aliases = [];
+		for (var k in items.compares)
+		{
+			$scope.aliases.push(items.compares[k].prods_alias);
+		}
+		$scope.prods = [];
+		for (var k in items.prods)
+		{
+			var check = true;
+			for (var i in items.compares)
+			{
+				if (items.compares[i].prods_id == items.prods[k].prods_id)
+				{
+					check = false;
+				}
+			}
+
+			if (check)
+			{
+				$scope.prods.push(items.prods[k]);
+			}
+		}
+
+		$scope.compareLink = function(alias) {
+			return '/compare/' + $scope.aliases.join('-vs-') + '-vs-' + alias;
+		};
+
+		$scope.cancel = function () {
+			$uibModalInstance.dismiss('cancel');
 		};
 	}
 })();
