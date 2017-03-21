@@ -15,7 +15,7 @@
 					<div class="panel-heading">Top 10 Most Compared products (Single)</div>
 					<div class="panel-body">
 						<ol>
-							<li</li>
+							<li ng-repeat="singleTop in statDashboard.single_compare_top10">@{{singleTop.prods.prods_name + ' ' + singleTop.prods_count}}</li>
 						</ol>
 					</div>
 				</div>
@@ -43,7 +43,7 @@
 					<div class="panel-heading">Top 10 Products with Most Amazon Clicks</div>
 					<div class="panel-body">
 						<ol>
-							<li></li>
+							<li ng-repeat="amazonTop in statDashboard.amazon_top10">@{{amazonTop.prods.prods_name + ' ' + amazonTop.prods_count}}</li>
 						</ol>
 					</div>
 				</div>

@@ -306,6 +306,11 @@
 	position: relative;
 }
 
+.compare-head img {
+	max-width: 50%;
+	height: 48%;
+}
+
 /* .compare-head img {
 	position: absolute;
 	z-index: 1;
