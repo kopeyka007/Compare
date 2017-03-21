@@ -79,7 +79,10 @@
 			{
 				if (k == 'cats_id')
 				{
-					$scope.feature[k] = items.feature[k][0];
+					if (items.feature[k][0])
+					{
+						$scope.feature[k] = items.feature[k][0];
+					}
 				}
 				else
 				{
@@ -97,25 +100,37 @@
 				}
 			}
 		}
-	console.log($scope.feature);
+
 		$scope.save = function (file) {
 			$scope.errors = [];
 			var error = 1;
 			error *= validate.check($scope, $scope.form.name, 'Name');
-			error *= validate.check($scope, $scope.form.cats_id, 'Category');
+			error *= validate.check($scope, $scope.form.cats_id, 'Category', 'cats_id');
 
 			if (error)
 			{
-				file.upload = Upload.upload({
-					url: '/api/features/save',
-					file: file,
-					data: $scope.feature,
-			    }).then(function (response) {
-			    	if (response.data.data)
-					{
-						$uibModalInstance.close(response.data.message);
-					}
-			    });
+				if (file)
+				{
+					file.upload = Upload.upload({
+						url: '/api/features/save',
+						file: file,
+						data: $scope.feature,
+				    }).then(function (response) {
+				    	if (response.data.data)
+						{
+							$uibModalInstance.close(response.data.message);
+						}
+				    });
+				}
+				else
+				{
+					$http.post('/api/features/save', $scope.feature).then(function(response) {
+						if (response.data.data)
+						{
+							$uibModalInstance.close(response.data.message);
+						}
+					});
+				}
 			}
 		};
 

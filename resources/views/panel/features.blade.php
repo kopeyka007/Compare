@@ -112,7 +112,7 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Around... <span class="help-icon text-info" uib-popover-html="'This is special field to show in Feature Only section at the compare page. We have such sentence &laquo;Around 44% <b>more RAM</b> than Xiaomi Mi5s&raquo; - so you need to enter only green words in this field.<br />For example: <b>more RAM</b>, <b>faster CPU</b>'"><i class="fa fa-question-circle"></i></span></label>
-					<input type="text" class="form-control" name="around" ng-model="feature.features_around" placeholder="Around XX% bigger size than" />
+					<input type="text" class="form-control" name="around" ng-model="feature.features_around" />
 				</div>
 			</div>
 		</div>
