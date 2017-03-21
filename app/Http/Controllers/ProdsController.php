@@ -141,24 +141,6 @@ class ProdsController extends Controller
       $prod->features_id()->sync($arr);      
     }
   }
-  //Import
-  public function import_csv(){
-    
-    //$csv_file = fopen('import_csv.csv','r');
-    //var_dump(fopen(public_path().'\import\import_csv.csv','r'));
-    //$handle = fopen(public_path().'\import\import_csv.csv','r');
-      /*
-      while (($data = fgetcsv($handle, 1000, ',')) !==FALSE){          
-          for ($i=0; $i < count($data); $i++) { 
-            echo $data[$i]."<br>";
-          }          
-        }
-        */
-    //fclose($handle);
-    
-  }
-  
-
 
   //Front
   private function get_prods_with_filters_group($ids){    
