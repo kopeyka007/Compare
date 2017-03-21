@@ -122,7 +122,7 @@
 							<td></td>
 							<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
 								<div class="btn-amazon">
-									<a class="btn btn-warning" href="@{{compareList[i].prods_amazon}}">Buy on Amazon</a>
+									<button type="button" class="btn btn-warning" ng-click="statAmazon(compareList[i])">Buy on Amazon</button>
 								</div>
 							</td>
 						</tr>

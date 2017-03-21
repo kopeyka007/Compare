@@ -19,7 +19,7 @@
 							@{{prodsInfo.prods_name}}
 						</div>
 						<div class="btn-amazon" ng-if="prodsInfo.prods_amazon">
-							<a class="btn btn-warning" href="@{{prodsInfo.prods_amazon}}">Amazon</a>
+							<button type="button" class="btn btn-warning" ng-click="statAmazon(prodsInfo)">Amazon</button>
 						</div>
 					</div>
 				</div>
