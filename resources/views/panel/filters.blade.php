@@ -96,7 +96,7 @@
 			<div class="col-sm-12">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" ng-model="filter.filters_filter" ng-checked="filter.filters_filter == 1" />
+						<input type="checkbox" ng-model="filter.filters_filter" />
 						Show as filter <span class="help-icon text-info" uib-popover-html="'When this option is active this filter will be display at the Filter section at the home page'"><i class="fa fa-question-circle"></i></span>
 					</label>
 				</div>

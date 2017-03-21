@@ -77,8 +77,7 @@
 						  'groups_name': '',
 					  	  'filters_name': '',
 					  	  'filters_type': 'check',
-					  	  'filters_filter': 0
-						  };
+					  	  'filters_filter': false};
 		
 		if (items.filter && items.filter.filters_id)
 		{
@@ -93,11 +92,18 @@
 				}
 				else
 				{
-					$scope.filter[k] = items.filter[k];
+					if (k == 'filters_filter')
+					{
+						$scope.filter[k] = items.filter[k] == 1 ? true : false;
+					}
+					else
+					{
+						$scope.filter[k] = items.filter[k];
+					}
 				}
 			}
 		}	
-		
+
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;
@@ -107,6 +113,7 @@
 
 			if (error)
 			{
+				console.log($scope.filter);
 				$http.post('/api/filters/save', $scope.filter).then(function(response) {
 					if (response.data.data)
 					{
