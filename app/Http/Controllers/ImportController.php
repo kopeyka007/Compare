@@ -62,7 +62,7 @@ class ImportController extends Controller
             case 'Price':                            
               break;
             default:
-              //$filter = $this->togleFilters($fields[$i], $item[$fields[$i]], $prod->prods_id, $cats_id, $groups_id);
+              $filter = $this->togleFilters($fields[$i], $item[$fields[$i]], $prod->prods_id, $cats_id, $groups_id);
               //print_r($filter->filters_id);
 
               break;
@@ -141,7 +141,7 @@ class ImportController extends Controller
       $filter->groups_id = $groups_id;
       $filter->save();
       $filter->cats_id()->sync([$cats_id]);
-      //$filter->prods()->sync()
+      $filter->prods()->sync([$prods_id=>['filters_value'=>'test']]);
       return $filter;
     }
   }
