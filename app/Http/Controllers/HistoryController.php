@@ -66,6 +66,8 @@ class HistoryController extends Controller
     $data['data']['single_compare_top10'] = $this->get_single_compare_top10();
     $data['data']['pair_compare_top10'] = $this->get_pair_compare_top10();
     $data['data']['count_all_compare_last10days'] = $this->count_all_compare_last10days();
+    $data['data']['count_all_compare_last10days_days'] = $this->count_all_compare_last10days_days();
+    $data['data']['count_all_compare_cats_top10'] = $this->count_all_compare_cats_top10();    
     return $data;
   }
   
@@ -88,7 +90,7 @@ class HistoryController extends Controller
     ->get();
     $arr = array();
     foreach ($result as $item) {
-      $key = date('N', strtotime($item->created_at)); 
+      $key = date('d-m-Y', strtotime($item->created_at)); 
       if (!isset($arr[$key])){
         $arr[$key] = 0;
       } 
@@ -102,6 +104,16 @@ class HistoryController extends Controller
     ->groupBy('prods_id')
     ->with('prods', 'prods.brands_id')
     ->orderBy('prods_count', 'DECS')
+    ->take(10)
+    ->get();
+    return $result;
+  }
+
+  public function count_all_compare_cats_top10(){
+    $result = HistoryCompare::selectRaw('count(cats_id) as cats_count, cats_id')
+    ->groupBy('cats_id')
+    ->with('cats_id')
+    ->orderBy('cats_count', 'DECS')
     ->take(10)
     ->get();
     return $result;
@@ -133,4 +145,22 @@ class HistoryController extends Controller
     }
     return $arr;
   }
+
+  public function count_all_compare_last10days_days(){
+    //10 days ego
+    $time10days =  time() - (10 * 24 * 60 * 60);    
+    $result = HistoryCompare::where('created_at', '>', $time10days)        
+    ->orderBy('created_at', 'DECS')    
+    ->get();
+    $arr = array();
+    foreach ($result as $item) {
+      $key = date('d-m-Y', strtotime($item->created_at)); 
+      if (!isset($arr[$key])){
+        $arr[$key] = 0;
+      } 
+      $arr[$key]++;
+    }
+    return $arr;
+  }
+
 }
