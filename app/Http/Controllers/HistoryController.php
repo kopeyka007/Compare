@@ -66,6 +66,7 @@ class HistoryController extends Controller
     $data['data']['single_compare_top10'] = $this->get_single_compare_top10();
     $data['data']['pair_compare_top10'] = $this->get_pair_compare_top10();
     $data['data']['count_all_compare_last10days'] = $this->count_all_compare_last10days();
+    $data['data']['count_all_compare_last10days_days'] = $this->count_all_compare_last10days_days();
     return $data;
   }
   
@@ -133,4 +134,22 @@ class HistoryController extends Controller
     }
     return $arr;
   }
+
+  public function count_all_compare_last10days_days(){
+    //10 days ego
+    $time10days =  time() - (10 * 24 * 60 * 60);    
+    $result = HistoryCompare::where('created_at', '>', $time10days)        
+    ->orderBy('created_at', 'DECS')    
+    ->get();
+    $arr = array();
+    foreach ($result as $item) {
+      $key = date('d-m-Y', strtotime($item->created_at)); 
+      if (!isset($arr[$key])){
+        $arr[$key] = 0;
+      } 
+      $arr[$key]++;
+    }
+    return $arr;
+  }
+
 }
