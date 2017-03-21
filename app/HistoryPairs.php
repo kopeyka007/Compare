@@ -17,4 +17,12 @@ class HistoryPairs extends Model
             $model->created_at = $model->freshTimestamp();
         });
     }
+    
+    public function prods1_id(){
+      return $this->belongsTo('App\Prods','prods1_id');
+    }
+
+    public function prods2_id(){
+      return $this->belongsTo('App\Prods','prods2_id');
+    }
 }
