@@ -25,7 +25,7 @@
 					<td>@{{filter.filters_name}}</td>
 					<td>@{{filter.cats_id[0].cats_name}}</td>
 					<td>@{{filter.groups_id.groups_name}}</td>
-					<td>@{{filter.filters_type}}</td>
+					<td>@{{filter.filters_type == 'check' ? 'Yes/No' : 'Text'}}</td>
 					<td>@{{filter.filters_filter | checkmark}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(filter.filters_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(filter.filters_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
@@ -85,9 +85,9 @@
 			
 			<div class="col-sm-12">
 				<div class="form-group">
-					<label>Filter Type</label>
+					<label>Filter Type <span class="help-icon text-info" uib-popover-html="'&laquo;Yes/No&raquo; - filters of this type will be shown as green/red icons. &laquo;Text&raquo; - filters of this type will be shown as text'"><i class="fa fa-question-circle"></i></span></label>
 					<select class="form-control" ng-model="filter.filters_type">
-						<option value="check">Check</option>
+						<option value="check">Yes/No</option>
 						<option value="text">Text</option>
 					</select>
 				</div>
@@ -97,7 +97,7 @@
 				<div class="checkbox">
 					<label>
 						<input type="checkbox" ng-model="filter.filters_filter" ng-checked="filter.filters_filter == 1" />
-						Show as filter
+						Show as filter <span class="help-icon text-info" uib-popover-html="'When this option is active this filter will be display at the Filter section at the home page'"><i class="fa fa-question-circle"></i></span>
 					</label>
 				</div>
 			</div>

@@ -84,7 +84,17 @@
 		{
 			for (var k in items.filter)
 			{
-				$scope.filter[k] = items.filter[k];
+				if (k == 'cats_id')
+				{
+					if (items.filter[k][0])
+					{
+						$scope.filter[k] = items.filter[k][0];
+					}
+				}
+				else
+				{
+					$scope.filter[k] = items.filter[k];
+				}
 			}
 		}	
 		
@@ -92,8 +102,8 @@
 			$scope.errors = [];
 			var error = 1;
 			error *= validate.check($scope, $scope.form.filters_name, 'Name');
-			error *= validate.check($scope, $scope.form.cats_id, 'Category');
-			error *= validate.check($scope, $scope.form.groups_name, 'Group Name');
+			error *= validate.check($scope, $scope.form.cats_id, 'Category', 'cats_id');
+			error *= validate.check($scope, $scope.form.groups_name, 'Group Name', 'groups_id');
 
 			if (error)
 			{
