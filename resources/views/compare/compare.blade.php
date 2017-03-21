@@ -82,13 +82,13 @@
 										</div>
 										
 										<div class="features-desc">
-											@{{feature.features_around}} @{{closestProd}}. @{{feature.features_desc}}
+											Around <b class="text-success">@{{percents(prod, feature.features_id)}} @{{feature.features_around}}</b> than @{{closestProd}}. @{{feature.features_desc}}
 										</div>
 									</div>
 								</div>
 							</div>
 						</td>
-					</tr-->
+					</tr>
 				</tbody>
 			</table>
 			
