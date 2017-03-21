@@ -95,6 +95,58 @@
 			return check;
 		};
 
+		$scope.closestProd = '';
+		$scope.percents = function(this_prod, features_id) {
+			var min_delta = false;
+			var closest = false;
+			for (var id in $scope.compareList)
+			{
+				var prod = $scope.compareList[id];
+				if (closest === false)
+				{
+					closest = prod;
+				}
+
+				if (this_prod.prods_id != prod.prods_id)
+				{
+					if (prod.features[features_id] && prod.features[features_id].features_value && this_prod.features && this_prod.features[features_id].features_value)
+					{
+						var delta = this_prod.features[features_id].features_value - prod.features[features_id].features_value;
+						if (delta && delta > 0)
+						{
+							if (min_delta === false)
+							{
+								min_delta = delta;
+								closest = prod;
+							}
+							else
+							{
+								if (delta < min_delta)
+								{
+									min_delta = delta;
+									closest = prod;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			if (closest && min_delta !== false)
+			{
+				$scope.closestProd = closest.brands_id.brands_name + ' ' + closest.prods_name;
+				var percent = Math.round(min_delta * 100 / this_prod.features[features_id].features_value);
+				return percent + '%';
+			}
+
+			$scope.closestProd = closest.brands_id.brands_name + ' ' + closest.prods_name;
+			return '100%';
+		};
+
+		$scope.closestProd = function(this_prod, features_id) {
+
+		};
+
 		$scope.productsLink = function(prod) {
 			var cats_alias = '';
 			for (var k in $scope.products)
