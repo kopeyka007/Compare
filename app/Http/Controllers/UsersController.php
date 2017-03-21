@@ -59,6 +59,7 @@ class UsersController extends Controller
       if ($current){
         $current->email = $request->input('email');
         $current->type_id = $request->input('type')['id'];
+        $current->password = ($request->input('password') == '')?$current->password:bcrypt($request->input('password'));        
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'User saved'];
