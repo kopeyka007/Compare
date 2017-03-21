@@ -83,7 +83,17 @@
 				}
 				else
 				{
-					$scope.feature[k] = items.feature[k];
+					if (k == 'features_icon')
+					{
+						if ( ! (items.feature[k].indexOf('nofoto') + 1))
+						{
+							$scope.feature[k] = items.feature[k];
+						}
+					}
+					else
+					{
+						$scope.feature[k] = items.feature[k];
+					}
 				}
 			}
 		}
