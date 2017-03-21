@@ -50,6 +50,10 @@
 	margin: 0;
 }
 
+.td-counter {
+	text-align: right;
+}
+
 @media (max-width: 768px) {
 	.signin-row {
 		width: 280px;
