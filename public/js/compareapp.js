@@ -51,9 +51,9 @@
 })();
 
 (function(){
-	angular.module('compareApp').controller('mainCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', mainCtrl]);
+	angular.module('compareApp').controller('mainCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', '$route', '$timeout', mainCtrl]);
 	
-	function mainCtrl($scope, $rootScope, $http, $window, $location) {
+	function mainCtrl($scope, $rootScope, $http, $window, $location, $route, $timeout) {
 		$scope.products = [];
 		$scope.products_list = function() {
 			$http.get('/api/cats/front/shortlist').then(function(response) {
@@ -61,6 +61,19 @@
 			});
 		};
 		$scope.products_list();
+		
+		$scope.loaderClass = 'loader-init';
+		$scope.$on('$routeChangeStart', function(next, current) {
+			$scope.loaderClass = 'loader-init';
+		});
+		$scope.$on('$viewContentLoaded', function(){
+			$timeout(function () {
+				$scope.loaderClass = 'loader-hide';
+				$timeout(function () {
+					$scope.loaderClass = 'loader-none';
+				}, 300);
+			}, 500);
+		});
 	}
 })();
 

@@ -12,7 +12,10 @@
 		<script src="/js/libs/angular-route.min.js"></script>
 	</head>
 	
-    <body>
+    <body ng-class="loaderClass">
+		<div class="loader">
+			<i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
+		</div>
 		<section>
 			<nav class="navbar navbar-default" ng-if="user != false">
 				<div class="container">
