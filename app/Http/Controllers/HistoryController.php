@@ -98,6 +98,6 @@ class HistoryController extends Controller
   }
 
   public function get_pair_compare_top10(){
-    $result 
+    //$result  = HistoryPairs::
   }
 }
