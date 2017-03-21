@@ -17,4 +17,8 @@ class HistoryAmazon extends Model
             $model->created_at = $model->freshTimestamp();
         });
     }
+
+    public function prods(){
+      return $this->belongsTo('App\Prods','prods_id');
+    }
 }

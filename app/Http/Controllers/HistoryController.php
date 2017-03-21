@@ -7,6 +7,7 @@ use App\HistoryPairs;
 use App\HistoryAmazon;
 use App\HistoryCompare;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class HistoryController extends Controller
@@ -15,25 +16,28 @@ class HistoryController extends Controller
   {    
   }
 
-  public function set_history($ids){
+  public function set_history($ids, $url){
     if (count($ids) > 1){
-      //$this->set_single_history($ids);
-      //$this->set_pairs_history($ids);
-      //$this->set_compare_history($ids[0]);
+      $this->set_single_history($ids);
+      $this->set_pairs_history($ids);
+      $this->set_compare_history($ids[0], $url);
     }
   }
 
   public function set_history_amazon(Request $request){
-    $url = $request->input('url');
+    $prods_amazon = empty($request->input('prods_amazon'))?'':$request->input('prods_amazon');
+    $prods_id = $request->input('prods_id');    
+    $history['prods_id'] = $prods_id;    
+    $history['prods_amazon'] = $prods_amazon;    
+    HistoryAmazon::insert($history);
   }
-  
-  private function set_single_history($ids){
-    foreach ($ids as $prods_id) {
-      $single = new HistorySingle;
-      $single->prods_id = $prods_id;
-      $single->save();
-    }
 
+  private function set_single_history($ids){
+    $history = array();
+    foreach ($ids as $prods_id) {
+      $history[] = ['prods_id' => $prods_id];      
+    }
+    HistorySingle::insert($history);
   }
 
   private function set_pairs_history($ids){    
@@ -47,14 +51,28 @@ class HistoryController extends Controller
     HistoryPairs::insert($history);
   }
 
-  private function set_compare_history($id){
+  private function set_compare_history($id, $url){    
     $cats_id = Prods::select('cats_id')->where('prods_id',$id)->first();
-    $history = new HistoryCompare;
-    $history->cats_id = $cats_id->cats_id;
-    $history->compare_link = 'temp_link';
-    $history->save();
+    $history['cats_id'] = $cats_id->cats_id;
+    $history['compare_link'] = url($url);
+    HistoryCompare::insert($history);
+  }
+
+  // Get history
+  public function get_history(){
+    $data['data']['top10'] = $this->get_history_amazon_top10();
+    return $data;
   }
   
+  public function get_history_amazon_top10(){    
+    $result = HistoryAmazon::selectRaw('count(prods_id) as prods_count, prods_id')
+    ->groupBy('prods_id')
+    ->with('prods')
+    ->orderBy('prods_count', 'DECS')
+    ->take(10)
+    ->get();
+    return $result;
+  }
 
 
 }
