@@ -17,13 +17,12 @@
 		
 		$scope.statAmazon = function(prod){
 			$http.post('/api/history/amazon', {'prods_amazon': prod.prods_amazon, 'prods_id': prod.prods_id}).then(function(response){
-				$window.location.href = prod.prods_amazon;
+				//$window.location.href = prod.prods_amazon;
 			});
 		};
 		
 		$scope.nameAllProds = function (){
 			var prodsName = [];
-			console.log($scope.compareList.length);
 			for (var id in $scope.compareList)
 			{
 				prodsName.push($scope.compareList[id].brands_id.brands_name + ' ' + $scope.compareList[id].prods_name);
