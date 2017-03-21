@@ -16,25 +16,25 @@ class CreateHistoryTables extends Migration
         Schema::create('history_single', function (Blueprint $table) {
             $table->increments('rows_id');                        
             $table->integer('prods_id');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         }); 
         Schema::create('history_pairs', function (Blueprint $table) {
             $table->increments('rows_id');                        
             $table->integer('prods1_id');
             $table->integer('prods2_id');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));;
         });
         Schema::create('history_amazon', function (Blueprint $table) {
             $table->increments('rows_id');                        
             $table->integer('prods_id');
             $table->string('prods_amazon');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));;
         }); 
         Schema::create('history_compare', function (Blueprint $table) {
             $table->increments('rows_id');                        
             $table->integer('cats_id');
             $table->string('compare_link');            
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));;
         }); 
     }
 

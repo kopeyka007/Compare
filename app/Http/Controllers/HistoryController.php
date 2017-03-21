@@ -84,7 +84,16 @@ class HistoryController extends Controller
     $result = HistoryAmazon::with('prods', 'prods.brands_id')    
     ->where('created_at', '>', $time10days)    
     ->orderBy('created_at', 'DECS')    
-    ->get();    
+    ->get();
+    $arr = array();
+    foreach ($result as $item) {
+      $key = date('d-m-Y', strtotime($item->created_at)); 
+      if (!isset($arr[$key])){
+        $arr[$key] = 0;
+      } 
+      $arr[$key]++; 
+      $item['day'] = $key;
+    }
     return $result;
   }
 
