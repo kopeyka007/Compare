@@ -88,14 +88,13 @@ class HistoryController extends Controller
     ->get();
     $arr = array();
     foreach ($result as $item) {
-      $key = date('d-m-Y', strtotime($item->created_at)); 
+      $key = date('N', strtotime($item->created_at)); 
       if (!isset($arr[$key])){
         $arr[$key] = 0;
       } 
-      $arr[$key]++; 
-      $item['day'] = $key;
+      $arr[$key]++;       
     }
-    return $result;
+    return $arr;
   }
 
   public function get_single_compare_top10(){
