@@ -33,12 +33,10 @@
 							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
 								<a href="@{{productsLink(prod)}}" class="compare-link">
 									<img src="@{{prod.prods_foto}}" alt="#" />
-
 									<span class="compare-price text-danger">
 										$@{{prod.prods_price}}
 									</span>
 								</a>
-
 								<a href="@{{closeLink(prod.prods_id)}}" class="compare-close">
 									<i class="fa fa-times-circle" aria-hidden="true"></i>
 								</a>
