@@ -75,7 +75,7 @@
 					<div class="panel-heading"><strong>Day wise comparison</strong></div>
 					<table class="table table-striped">
 						<tbody>
-							<tr ng-repeat="(i, count) in statDashboard.pair_compare_top10">
+							<tr ng-repeat="(i, count) in statDashboard.count_all_compare_last10days">
 								<td>@{{dayOfWeek(i)}}</td>
 								<td class="td-counter">@{{count}}</td>
 							</tr>
