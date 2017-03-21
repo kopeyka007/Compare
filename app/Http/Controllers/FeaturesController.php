@@ -19,7 +19,7 @@ class FeaturesController extends Controller
   public function get_all(){
     $features = Features::with('cats_id')->get();
     foreach ($features as $feature) {      
-      $feature->features_icon = empty($feature->features_icon)?asset('storage/nofoto.png'):$feature->features_icon;
+      $feature->features_icon = empty($feature->features_icon)?asset('images/nofoto.png'):$feature->features_icon;
     }
     $response['data'] = $features;
     return $response;    
