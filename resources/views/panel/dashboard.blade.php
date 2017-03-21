@@ -25,7 +25,7 @@
 					<div class="panel-heading">Top 10 Most Compared products (Pair)</div>
 					<div class="panel-body">
 						<ol>
-							<li</li>
+							<li></li>
 						</ol>
 					</div>
 				</div>

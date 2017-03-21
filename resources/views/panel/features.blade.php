@@ -69,10 +69,10 @@
 				<div class="form-group">
 					<label>Icon</label>
 					<div>
-						<button type="button" class="btn btn-info btn-file">
+						<a href="javascript:void(0);" type="button" class="btn btn-info btn-file">
 							<span>Browse file...</span>
 							<input type="file" accept="image/*" name="file" ng-model="features_icon" ngf-select />
-						</button>
+						</a>
 						<img ngf-thumbnail="features_icon" class="img-preview" ng-show="features_icon" alt="" />
 						<a href="javascript:void(0);" ng-show="features_icon" ng-click="removeFile()">Remove</a>
 						<img src="@{{feature.features_icon}}" class="img-preview" ng-show="feature.features_icon && ! features_icon" alt="" />

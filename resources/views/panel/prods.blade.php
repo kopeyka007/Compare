@@ -92,10 +92,10 @@
 				<div class="form-group">
 					<label>Photo</label>
 					<div>
-						<button type="button" class="btn btn-info btn-file">
+						<a href="javascript:void(0);" type="button" class="btn btn-info btn-file">
 							<span>Browse file...</span>
 							<input type="file" accept="image/*" name="file" ng-model="prods_foto" ngf-select />
-						</button>
+						</a>
 						<img ngf-thumbnail="prods_foto" class="img-preview" ng-show="prods_foto" alt="" />
 						<a href="javascript:void(0);" ng-show="prods_foto" ng-click="removeFile()">Remove</a>
 						<img src="@{{prod.prods_foto}}" class="img-preview" ng-show="prod.prods_foto && ! prods_foto" alt="" />
