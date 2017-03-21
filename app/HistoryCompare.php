@@ -17,4 +17,8 @@ class HistoryCompare extends Model
             $model->created_at = $model->freshTimestamp();
         });
     }
+
+    public function cats_id(){
+      return $this->belongsTo('App\Cats','cats_id');
+    }
 }
