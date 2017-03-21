@@ -67,6 +67,7 @@ class HistoryController extends Controller
     $data['data']['pair_compare_top10'] = $this->get_pair_compare_top10();
     $data['data']['count_all_compare_last10days'] = $this->count_all_compare_last10days();
     $data['data']['count_all_compare_last10days_days'] = $this->count_all_compare_last10days_days();
+    $data['data']['count_all_compare_cats_top10'] = $this->count_all_compare_cats_top10();    
     return $data;
   }
   
@@ -103,6 +104,16 @@ class HistoryController extends Controller
     ->groupBy('prods_id')
     ->with('prods', 'prods.brands_id')
     ->orderBy('prods_count', 'DECS')
+    ->take(10)
+    ->get();
+    return $result;
+  }
+
+  public function count_all_compare_cats_top10(){
+    $result = HistoryCompare::selectRaw('count(cats_id) as cats_count, cats_id')
+    ->groupBy('cats_id')
+    ->with('cats_id')
+    ->orderBy('cats_count', 'DECS')
     ->take(10)
     ->get();
     return $result;
