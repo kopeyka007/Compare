@@ -18,13 +18,13 @@ class HistoryController extends Controller
   public function set_history($ids){
     if (count($ids) > 1){
       //$this->set_single_history($ids);
-      $this->set_pairs_history($ids);
+      //$this->set_pairs_history($ids);
       //$this->set_compare_history($ids[0]);
     }
   }
 
   public function set_history_amazon(Request $request){
-
+    $url = $request->input('url');
   }
   
   private function set_single_history($ids){
@@ -37,12 +37,14 @@ class HistoryController extends Controller
   }
 
   private function set_pairs_history($ids){    
+    $history = array();
     for ($i=0; $i < count($ids); $i++)
       for ($j=0; $j < count($ids); $j++) { 
-        if ($ids[$i] <> $ids[$j] && $i < $j)
-          echo $ids[$i].$ids[$j].",";          
-      }      
-      
+        if ($ids[$i] <> $ids[$j] && $i < $j){          
+          $history[] = ['prods1_id'=>$ids[$i], 'prods2_id'=>$ids[$j]];
+        }
+    }    
+    HistoryPairs::insert($history);
   }
 
   private function set_compare_history($id){
