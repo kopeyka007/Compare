@@ -193,7 +193,11 @@ class ProdsController extends Controller
       $ids[] = $prod->prods_id;
     }    
     $response['data'] = $this->get_prods_with_filters_group($ids);
+    //write history
+    $history = new HistoryController;
+    $history->set_history($ids);
     return $response;
+
   }
 
   public function get_prods_detail(Request $request){

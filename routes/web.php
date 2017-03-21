@@ -25,7 +25,7 @@ Route::get('/migratefull', function () {
 });
 Route::get('/migrate', function () {    
     Artisan::call('migrate');   
-    return 'New artisan run';
+    return 'New migrate run';
 });
 
 Route::get('/', function () {
@@ -113,6 +113,7 @@ Route::get('api/filters/front/filtersfilter','FiltersController@get_filtersfilte
 Route::post('api/compare/list','ProdsController@get_compare_prods');
 Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
 Route::post('api/prods/detail','ProdsController@get_prods_detail');
+Route::post('api/history/amazon','HistoryController@set_history_amazon');
 
 
 
