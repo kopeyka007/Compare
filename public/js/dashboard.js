@@ -1,13 +1,10 @@
 (function() {
 	angular.module('panelApp').controller('dashboardCtrl', ['$scope', '$http', '$window', dashboardCtrl]);
 	function dashboardCtrl($scope, $http, $window) {
-		
-		$http.get('/api/history/get/amazon/last10day').then(function(response){
-			console.log(response.data);
-		});
-		
-		$http.get('/api/history/get/amazon/top10').then(function(response){
-			console.log(response.data);
+		$scope.statDashboard = [];
+		$http.get('/api/history/get').then(function(response){
+			$scope.statDashboard = response.data.data;
+			console.log($scope.statDashboard);
 		});
 	}
 })();
