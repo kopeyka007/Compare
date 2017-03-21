@@ -3,7 +3,7 @@
 	function dashboardCtrl($scope, $http, $window) {
 		
 		$http.get('/api/history/get').then(function(response){
-			console.log(response.data);
+			console.log(response.data.data);
 		});
 	}
 })();
