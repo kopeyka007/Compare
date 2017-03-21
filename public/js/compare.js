@@ -9,12 +9,24 @@
 		
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data;
-			console.log($scope.compareList);
 		});
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
 			$scope.filterList = response.data.data;
 		});
+		
+		
+		$scope.nameAllProds = function (){
+			var prodsName = [];
+			console.log($scope.compareList.length);
+			for (var id in $scope.compareList)
+			{
+				prodsName.push($scope.compareList[id].brands_id.brands_name + ' ' + $scope.compareList[id].prods_name);
+			}
+			return prodsName.join(' vs. ')
+		}
+		
+		$scope.nameAllProds();
 		
 		$scope.closeLink = function(prods_id) {
 			var aliases = [];

@@ -3,7 +3,7 @@
 		<div class="recompare">
 			<a href="/" type="button" class="btn btn-info"><i class="fa fa-repeat fa-flip-horizontal" aria-hidden="true"></i> Compare Wearables</a>
 			<i class="fa fa-chevron-right" aria-hidden="true"></i>
-			<span>@{{}}</span>
+			<span>@{{nameAllProds()}}</span>
 		</div>
 		<div class="table-responsive">
 			<table class="table compare-table">
