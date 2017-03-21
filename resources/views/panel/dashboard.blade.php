@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-md-6 col-xs-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Comparison count Timeline</div>
+					<div class="panel-heading"><strong>Comparison count Timeline</strong></div>
 					<div class="panel-body">
 						
 					</div>
@@ -26,15 +26,21 @@
 			</div>
 			<div class="col-md-6 col-xs-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Top 10 Most Compared products (Pair)</div>
-					<div class="panel-body">
-						
-					</div>
+					<div class="panel-heading"><strong>Top 10 Most Compared products (Pair)</strong></div>
+					<table class="table table-striped">
+						<tbody>
+							<tr ng-repeat="(i, pairTop) in statDashboard.pair_compare_top10">
+								<td class="td-number">@{{i + 1}}.</td>
+								<td>@{{pairTop.prods1_id.brands_id.brands_name}} @{{pairTop.prods2_id.prods_name}} <span>vs</span> @{{pairTop.prods2_id.brands_id.brands_name}} @{{pairTop.prods1_id.prods_name}}</td>
+								<td class="td-counter">@{{pairTop.prods1_count}}</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<div class="col-md-6 col-xs-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Amazon redirects timeline</div>
+					<div class="panel-heading"><strong>Amazon redirects timeline</strong></div>
 					<div class="panel-body">
 						
 					</div>
@@ -56,7 +62,7 @@
 			</div>
 			<div class="col-md-6 col-xs-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Total Products Count categorywise</div>
+					<div class="panel-heading"><strong>Total Products Count categorywise</strong></div>
 					<div class="panel-body">
 						
 					</div>
@@ -64,7 +70,7 @@
 			</div>
 			<div class="col-md-6 col-xs-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Day wise comparison</div>
+					<div class="panel-heading"><strong>Day wise comparison</strong></div>
 					<div class="panel-body">
 						
 					</div>
