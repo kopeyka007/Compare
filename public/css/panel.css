@@ -50,10 +50,6 @@
 	margin: 0;
 }
 
-.td-counter {
-	text-align: right;
-}
-
 @media (max-width: 768px) {
 	.signin-row {
 		width: 280px;
@@ -127,4 +123,17 @@
 
 .popover b {
 	color: #3c763d;
+}
+
+.td-number {
+	width: 30px;
+}
+
+.td-counter {
+	width: 50px;
+	text-align: right;
+}
+
+.panel-dashboard {
+	min-height: 434px;
 }
