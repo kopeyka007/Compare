@@ -16,7 +16,7 @@
 		});
 		
 		$scope.statAmazon = function(prod){
-			$http.post('/api/amazon', {'prods_amazon': prod.prods_amazon, 'prods_id': prod.prods_id}).then(function(response){
+			$http.post('/api/history/amazon', {'prods_amazon': prod.prods_amazon, 'prods_id': prod.prods_id}).then(function(response){
 				$window.location.href = prod.prods_amazon;
 			});
 		};
