@@ -18,8 +18,9 @@ class FeaturesController extends Controller
 
   public function get_all(){
     $features = Features::with('cats_id')->get();
-    //$features->features_icon = /($features->features_icon);
-    //print_r($fea);
+    foreach ($features as $feature) {      
+      $feature->features_icon = empty($feature->features_icon)?asset('storage/nofoto.png'):$feature->features_icon;
+    }
     $response['data'] = $features;
     return $response;    
   }
@@ -45,11 +46,12 @@ class FeaturesController extends Controller
       if ($current){        
         $current->features_id = $features_id;        
         $current->features_name = $request->input('features_name');        
-        $file = ($request->file) ? asset('storage/'.$request->file->store('features')):0;
+        $file = ($request->file) ? asset('storage/'.$request->file->store('features')):$request->input('features_icon');
         //delete file
-        if ($current->features_icon !== 0 && $current->features_icon !== $file){
+        if (empty($file)) Storage::delete(stristr($current->features_icon, 'features'));    
+        /*if ($current->features_icon !== 0 && $current->features_icon !== $file){
           Storage::delete(stristr($current->features_icon, 'features'));    
-        }        
+        }*/        
         $current->features_icon = $file;
         $current->features_desc = $request->input('features_desc');                
         $current->features_units = $request->input('features_units');        
@@ -70,7 +72,7 @@ class FeaturesController extends Controller
     else
     { 
       $feature->features_name = $request->input('features_name');
-      $file = ($request->file) ? asset('storage/'.$request->file->store('features')):0;
+      $file = ($request->file) ? asset('storage/'.$request->file->store('features')):'';
       $feature->features_icon = $file;
       $feature->features_desc = $request->input('features_desc');                
       $feature->features_units = $request->input('features_units');        
