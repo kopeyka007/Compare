@@ -1,12 +1,3 @@
-.signin-row {
-	margin-top: 100px;
-}
-
-.signin-body {
-	margin-top: 200px;
-	position: relative;
-}
-
 .header {
 	background: #444;
 	color: #fff;
@@ -31,34 +22,6 @@
 .footer a {
 	color: #fff;
 	text-decoration: none;
-}
-
-.btn-file {
-	position: relative;
-	z-index: 0;
-	vertical-align: middle;
-	overflow: hidden;
-}
-
-.btn-file > span {
-	position: relative;
-	z-index: 0;
-}
-
-.btn-file > input[type=file] {
-	position: absolute;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	font-size: 150px;
-	opacity: 0;
-}
-
-.img-preview {
-	max-width: 100px;
-	max-height: 100px;
-	margin: 0 15px;
-	vertical-align: middle;
 }
 
 .content-border {
@@ -245,10 +208,6 @@
 	vertical-align: top;
 }
 
-.features-head {
-	width: 35%;
-}
-
 .features-name {
 	font-weight: 600;
 }
@@ -415,6 +374,15 @@
 
 .features-box {
 	text-align: left;
+	background: #fbfbfb;
+	margin-bottom: 10px;
+}
+
+.features-head {
+	font-size: 16px;
+	border-left: solid #bbb 3px;
+	padding: 5px;
+	background: #eee;
 }
 
 .features-head img {
@@ -439,6 +407,22 @@
 	.products-related {
 		display: none;
 	}
+}
+
+.features-prods {
+	padding: 5px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.features-prods.active {
+	color: #fbfbfb;
+	background: #bbb;
+}
+
+.features-desc {
+	padding: 5px;
+	font-size: 13px;
 }
 
 .error-msg {

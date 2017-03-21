@@ -62,19 +62,28 @@
 
 						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
 							<div class="features-cell" ng-if="compareList[i]" ng-init="prod = compareList[i]">
-								<div class="features-box" ng-repeat="feature in prod.features">
+								<div class="features-box" ng-repeat="feature in prod.features" ng-show="checkFeatures(prod, feature.features_id)">
 									<div class="features-head">
 										<img src="@{{feature.features_icon}}" ng-show="feature.features_icon != ''" alt="" />
 										<span>@{{feature.features_name}}</span>
 									</div>
 
 									<div class="features-content">
-										<div class="oponents" ng-repeat="p in compareList">
-											<span>@{{p.prods_name}}</span>
-											<span>@{{p.features[feature.features_id].features_value}} @{{p.features[feature.features_id].features_units}}</span>
+										<div class="features-prods" ng-repeat="p in compareList" ng-class="{'active': p.prods_id == prod.prods_id}">
+											<div class="row">
+												<div class="col-xs-7">
+													@{{p.prods_name}}
+												</div>
+
+												<div class="col-xs-5 text-right">
+													@{{p.features[feature.features_id].features_value}} @{{p.features[feature.features_id].features_units}}
+												</div>
+											</div>
 										</div>
 										
-										<p>@{{feature.features_around}} @{{closestProd}}. @{{feature.features_desc}}</p>
+										<div class="features-desc">
+											@{{feature.features_around}} @{{closestProd}}. @{{feature.features_desc}}
+										</div>
 									</div>
 								</div>
 							</div>

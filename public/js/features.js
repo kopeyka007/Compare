@@ -77,10 +77,17 @@
 		{
 			for (var k in items.feature)
 			{
-				$scope.feature[k] = items.feature[k];
+				if (k == 'cats_id')
+				{
+					$scope.feature[k] = items.feature[k][0];
+				}
+				else
+				{
+					$scope.feature[k] = items.feature[k];
+				}
 			}
 		}
-	
+	console.log($scope.feature);
 		$scope.save = function (file) {
 			$scope.errors = [];
 			var error = 1;
@@ -102,8 +109,12 @@
 			}
 		};
 
-		$scope.remove_file = function() {
+		$scope.removeFile = function() {
 			$scope.features_icon = false;
+		};
+
+		$scope.removePreview = function() {
+			$scope.feature.features_icon = '';
 		};
 
 		$scope.cancel = function () {

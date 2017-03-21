@@ -210,7 +210,8 @@ class ProdsController extends Controller
     //get liked prods    
     $liked = Prods::where('cats_id', $prod->cats_id)
     ->where('prods_active',1)
-    ->with('brands_id')
+    ->where('prods_id','<>',$prod->prods_id)
+    ->with('brands_id')    
     ->take(3)
     ->get();
     $prod['liked'] = $liked;
