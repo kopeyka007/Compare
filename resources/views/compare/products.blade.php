@@ -93,7 +93,7 @@
 										$ @{{related.prods_price}}
 									</div>
 									<div class="related-btn">
-										<a href="http://compare.da/compare/@{{prodsInfo.prods_alias}}-vs-@{{related.prods_alias}}" class="btn btn-info btn-block"><i class="fa fa-plus" aria-hidden="true"></i> <span class="span-hide">Add To</span> Compare</a>
+										<a href="/compare/@{{prodsInfo.prods_alias}}-vs-@{{related.prods_alias}}" class="btn btn-info btn-block"><i class="fa fa-plus" aria-hidden="true"></i> <span class="span-hide">Add To</span> Compare</a>
 									</div>
 								</div>
 							</div>
