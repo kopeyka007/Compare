@@ -108,6 +108,7 @@
 				}
 			}
 		}
+
 		
 		$scope.slug = function() {
 			if ( ! $scope.prod.prods_id && $scope.form.slug.$pristine)
@@ -124,9 +125,18 @@
 			
 			$http.get('/api/cats/features/' + $scope.prod.cats_id.cats_id).then(function(response) {
 				$scope.features = response.data.data;
-				console.log($scope.features);
 			});
 		};
+		
+		$scope.countFilters = function(filter){
+			for (var i in filter)
+			{
+				return false;
+			}
+			return true;
+		}
+		
+		$scope.countFilters($scope.filters);
 
 		if ($scope.prod.cats_id.cats_id > 0)
 		{

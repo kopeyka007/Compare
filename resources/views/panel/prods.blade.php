@@ -142,11 +142,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="alert alert-info text-center" role="alert" ng-show=" ! filters && prod.cats_id.cats_id > 0">
+				<div class="alert alert-info text-center" role="alert" ng-show="countFilters() && prod.cats_id.cats_id > 0">
 					There are no filters in this category
 				</div>
 
-				<div class="alert alert-info text-center" role="alert" ng-show=" ! filters && prod.cats_id.cats_id == 0">
+				<div class="alert alert-info text-center" role="alert" ng-show="countFilters() && prod.cats_id.cats_id == 0">
 					Choose category first
 				</div>
 			</div>

@@ -3,8 +3,7 @@
 	<div class="form-horizontal">
 		<div class="form-group">
 			<div class="col-md-2">
-				<select class="form-control">
-					<option ng-repeat="cat in cats">@{{cat.cats_name}}</option>
+				<select class="form-control" required="required" ng-model="cats_id" ng-options="cat.cats_name for cat in cats track by cat.cats_id">
 				</select>
 			</div>
 			<a href="javascript:void(0);" type="button" class="btn btn-info btn-file">
