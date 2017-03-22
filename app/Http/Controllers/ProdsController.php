@@ -24,14 +24,17 @@ class ProdsController extends Controller
     ->get();
     foreach ($prods as $prod) {
       $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):$prod->prods_foto;
+      $filters = array();
       $groups = array();
-      foreach ($prod->filters_id as $filter) {        
+      foreach ($prod->filters_id as $filter) {
+        $filters[$filter->filters_id] = $filter->pivot->filters_value;        
         $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
         $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
         $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;      
         $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;
         unset($filter->groups);
       }
+      $prod['filters'] = $filters;
       $prod['groups'] = $groups;    
       unset($prod->filters_id);
       $features = array();      
