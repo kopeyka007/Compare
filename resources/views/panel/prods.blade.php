@@ -131,12 +131,15 @@
 						<div class="form-horizontal" ng-repeat="(filters_id, filter) in group.groups_filters">
 							<div class="form-group">
 								<label class="col-md-3 col-xs-12">@{{filter.filters_name}}</label>
-								<div class="col-md-9 col-xs-12">
+								<div class="col-md-7 col-xs-8">
 									<input type="text" class="form-control" ng-if="filter.filters_type == 'text'"  ng-model="prod.filters[filters_id]" />
 									<select class="form-control" ng-if="filter.filters_type == 'check'" ng-model="prod.filters[filters_id]" ng-init=" ! prod.filters[filters_id] ? prod.filters[filters_id] = 'No' : prod.filters[filters_id]">
 										<option value="No">No</option>
 										<option value="Yes">Yes</option>
 									</select>
+								</div>
+								<div class="col-md-2 col-xs-4">
+									@{{filter.filters_units}}
 								</div>
 							</div>
 						</div>

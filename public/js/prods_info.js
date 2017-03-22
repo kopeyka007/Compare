@@ -7,6 +7,7 @@
 		var url = $location.path();
 		$http.post('/api/prods/detail', {url}).then(function(response){
 			$scope.prodsInfo = response.data.data;
+			console.log($scope.prodsInfo);
 		});		
 		
 		var disurl = $location.absUrl();
