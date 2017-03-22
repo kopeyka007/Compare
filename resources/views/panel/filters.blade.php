@@ -94,6 +94,13 @@
 			</div>
 			
 			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Filter Units</label>
+					<input type="text" class="form-control" name="filters_units" ng-model="filter.filters_units" required="required" />
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
 				<div class="checkbox">
 					<label>
 						<input type="checkbox" ng-model="filter.filters_filter" />

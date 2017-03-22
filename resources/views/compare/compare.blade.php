@@ -57,7 +57,9 @@
 							</div>
 						</td>
 					</tr>
+				</tbody>
 
+				<tbody>
 					<tr>
 						<td class="filters-cell">
 							Features Present In Only One Device (Unique Features)

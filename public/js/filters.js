@@ -79,6 +79,7 @@
 						  'groups_name': '',
 					  	  'filters_name': '',
 					  	  'filters_type': 'check',
+						  'filters_units': '',
 					  	  'filters_filter': false};
 		
 		if (items.filter && items.filter.filters_id)
