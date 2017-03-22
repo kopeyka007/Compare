@@ -128,12 +128,12 @@
 						@{{group.groups_name}}
 					</div>
 					<div class="panel-body">
-						<div class="form-horizontal" ng-repeat="filter in group.groups_filters">
+						<div class="form-horizontal" ng-repeat="(filters_id, filter) in group.groups_filters">
 							<div class="form-group">
 								<label class="col-md-3 col-xs-12">@{{filter.filters_name}}</label>
 								<div class="col-md-9 col-xs-12">
-									<input type="text" class="form-control" ng-if="filter.filters_type == 'text'"  ng-model="prod.filters[filter.filters_id]" />
-									<select class="form-control" ng-if="filter.filters_type == 'check'" ng-model="prod.filters[filter.filters_id]" ng-init=" ! prod.filters[filter.filters_id] ? prod.filters[filter.filters_id] = 'No' : prod.filters[filter.filters_id]">
+									<input type="text" class="form-control" ng-if="filter.filters_type == 'text'"  ng-model="prod.filters[filters_id]" />
+									<select class="form-control" ng-if="filter.filters_type == 'check'" ng-model="prod.filters[filters_id]" ng-init=" ! prod.filters[filters_id] ? prod.filters[filters_id] = 'No' : prod.filters[filters_id]">
 										<option value="No">No</option>
 										<option value="Yes">Yes</option>
 									</select>
@@ -142,11 +142,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="alert alert-info text-center" role="alert" ng-show=" ! filters.length && prod.cats_id.cats_id > 0">
+				<div class="alert alert-info text-center" role="alert" ng-show=" ! filters && prod.cats_id.cats_id > 0">
 					There are no filters in this category
 				</div>
 
-				<div class="alert alert-info text-center" role="alert" ng-show=" ! filters.length && prod.cats_id.cats_id == 0">
+				<div class="alert alert-info text-center" role="alert" ng-show=" ! filters && prod.cats_id.cats_id == 0">
 					Choose category first
 				</div>
 			</div>

@@ -124,6 +124,7 @@
 			
 			$http.get('/api/cats/features/' + $scope.prod.cats_id.cats_id).then(function(response) {
 				$scope.features = response.data.data;
+				console.log($scope.features);
 			});
 		};
 
