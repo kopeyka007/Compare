@@ -9,6 +9,7 @@
 		
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data;
+			console.log($scope.compareList);
 		});
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
@@ -17,7 +18,7 @@
 		
 		$scope.statAmazon = function(prod){
 			$http.post('/api/history/amazon', {'prods_amazon': prod.prods_amazon, 'prods_id': prod.prods_id}).then(function(response){
-				$window.location.href = prod.prods_amazon;
+				
 			});
 		};
 		

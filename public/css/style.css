@@ -55,12 +55,19 @@
 .fixed {
 	position: fixed;
 	top: 0;
+	left: 0;
+	right: 0;
 	background: #fff;
 	z-index: 1;
+	height: 200px;
 }
 
 .fixed td.filters-cell button {
 	display: none;
+}
+
+.fixed img {
+	height: 130px;
 }
 
 .home-link,

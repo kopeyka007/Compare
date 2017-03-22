@@ -76,7 +76,7 @@
 						</div>
 
 						<div class="btn-compare">
-							<a href="@{{compareAlias[cat.cats_id]}}" type="button" class="btn btn-info btn-block btn-lg" ng-click="">COMPARE <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+							<a href="@{{compareAlias[cat.cats_id]}}" type="button" class="btn btn-info btn-block btn-lg" ng-click="goUp()">COMPARE <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
 						</div>
 					</div>
 
