@@ -218,6 +218,11 @@
 	display: inline-block;
 	vertical-align: middle;
 	padding: 5px;
+	max-width: 200px;
+}
+
+.products-img img {
+	max-width: 100%;
 }
 
 .products-name {

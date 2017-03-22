@@ -27,7 +27,7 @@
 		</div>
 		<div class="products-body">
 			<div class="row">
-				<div class="col-md-9">
+				<div ng-class="{'col-md-12': ! prodsInfo.liked.length, 'col-md-9': prodsInfo.liked.length}">
 					<div class="products-spec">
 						<div class="products-spec-head text-success" ng-if="prodsInfo.features.valid.length">
 							<h3>Advantages</h3>
@@ -73,7 +73,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" ng-if="prodsInfo.liked.length">
 					<div class="products-related">
 						<div class="related-head">
 							Related Products

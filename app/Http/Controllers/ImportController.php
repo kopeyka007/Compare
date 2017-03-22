@@ -38,7 +38,7 @@ class ImportController extends Controller
       }
       */
       $cats_id = 3;
-      $groups_id = 6;
+      $groups_id = 3;
       $csv_array = $this->csvToArray($filename);
       
       foreach ($csv_array as $item)
@@ -62,7 +62,7 @@ class ImportController extends Controller
             case 'Price':                            
               break;
             default:
-              //$filter = $this->togleFilters($fields[$i], $item[$fields[$i]], $prod->prods_id, $cats_id, $groups_id);
+              $filter = $this->togleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $groups_id);
               //print_r($filter->filters_id);
 
               break;
@@ -127,11 +127,14 @@ class ImportController extends Controller
     }
   }
 
-  private function togleFilters($filters_name, $filters_value, $prods_id, $cats_id, $groups_id){    
+  private function togleFilters($filters_name, $filters_value, $prod, $cats_id, $groups_id){    
     $current = Filters::whereRaw('LOWER(filters_name) = '."'".strtolower(trim($filters_name))."'")
     ->where('groups_id', $groups_id)
     ->first();        
     if ($current){
+      //$prod->filters_id()->toggle([$current->filters_id=>['filters_value'=>$filters_value]]);
+      $current->prods()->detach([$prod->prods_id]);
+      $current->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);
       return $current;
     }   
     else{
@@ -141,7 +144,9 @@ class ImportController extends Controller
       $filter->groups_id = $groups_id;
       $filter->save();
       $filter->cats_id()->sync([$cats_id]);
-      //$filter->prods()->sync()
+      //$prod->filters_id()->toggle([$filter->filters_id=>['filters_value'=>$filters_value]]);
+      $filter->prods()->detach([$prod->prods_id]);
+      $filter->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);
       return $filter;
     }
   }
