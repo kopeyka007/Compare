@@ -48,7 +48,12 @@ class FiltersController extends Controller
           $current->groups_id = $groups->groups_id;
         }
         else{
-          $current->groups_id = $request->input('groups_id')['groups_id'];
+          $current_group = Groups::find($request->input('groups_id')['groups_id']);
+          if ($current_group){
+            $current_group->groups_name = $request->input('groups_id')['groups_name'];
+            $current_group->save();
+            $current->groups_id = $current_group->groups_id;
+          }
         }
         $current->filters_name = $request->input('filters_name');        
         $current->filters_alias = $request->input('filters_alias');        
@@ -77,7 +82,12 @@ class FiltersController extends Controller
         $filter->groups_id = $groups->groups_id;
       }
       else{
-        $filter->groups_id = $request->input('groups_id')['groups_id'];
+        $current_group = Groups::find($request->input('groups_id')['groups_id']);
+        if ($current_group){
+          $current_group->groups_name = $request->input('groups_id')['groups_name'];
+          $current_group->save();
+          $filter->groups_id = $current_group->groups_id;
+        }
       }
       $filter->filters_name = $request->input('filters_name');        
       $filter->filters_alias = $request->input('filters_alias');        
