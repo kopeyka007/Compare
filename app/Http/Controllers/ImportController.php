@@ -60,7 +60,7 @@ class ImportController extends Controller
       }
       return $data;
   }
-  
+
   private function toggleBrands($brands_name){    
     $current = Brands::whereRaw('LOWER(brands_name) = '."'".strtolower(trim($brands_name))."'")->first();        
     if ($current){
@@ -96,22 +96,32 @@ class ImportController extends Controller
     }
   }
 
-  private function toggleFilters($filters_name, $filters_value, $prod, $cats_id, $groups_id){    
-    $current = Filters::whereRaw('LOWER(filters_name) = '."'".strtolower(trim($filters_name))."'")
-    /*->with(['cats_id'=>function ($query){
-      $query->where('cats_id', $cats_id);
+  private function toggleFilters($filters_name, $filters_value, $prod, $cats_id, $groups_id){
+    $filters = Filters::whereRaw('LOWER(filters_name) = '."'".strtolower(trim($filters_name))."'")    
+    ->with('cats_id')->get();
+    $current = false;
+    foreach ($filters as $filter)
+      foreach ($filter->cats_id as $cat) {
+        if ($cat->cats_id == $cats_id){
+          $current = $filter;
+          break;
+        } 
+    }
+    /*
+    $current = Filters::with(['cats_id'=>function ($query) use ($cats_id){
+      $query->where('cats.cats_id','=',$cats_id);
     }])
-    */
+    ->whereRaw('LOWER(filters_name) = '."'".strtolower(trim($filters_name))."'")
     ->first();
-    //->where('groups_id', $groups_id)
-            
+    */
     dd($current);
+    //var_dump($current);
     exit();
     if ($current){      
       $current->prods()->detach([$prod->prods_id]);
       $current->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);
       return $current;
-    }   
+    }
     else{
       $filter = new Filters;
       $filter->filters_name = trim($filters_name);
