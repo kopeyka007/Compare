@@ -94,7 +94,7 @@
 					<div>
 						<a href="javascript:void(0);" type="button" class="btn btn-info btn-file">
 							<span>Browse file...</span>
-							<input type="file" accept="image/*" name="file" ng-model="prods_foto" ngf-select />
+							<input type="file" accept="image/*" name="file" ngf-select />
 						</a>
 						<img ngf-thumbnail="prods_foto" class="img-preview" ng-show="prods_foto" alt="" />
 						<a href="javascript:void(0);" ng-show="prods_foto" ng-click="removeFile()">Remove</a>
@@ -123,12 +123,12 @@
 		<div class="row">
 			<div class="col-sm-6 col-xs-12">
 				<h4>Filters</h4>
-				<div class="filter-groups panel panel-default" ng-repeat="group in filters">
+				<div class="filter-groups panel panel-default" ng-repeat="group in filters.groups">
 					<div class="panel-heading">
-						@{{group.gruops_id.groups_name}}
+						@{{group.groups_name}}
 					</div>
 					<div class="panel-body">
-						<div class="form-horizontal" ng-repeat="filter in group.groups_id">
+						<div class="form-horizontal" ng-repeat="filter in group.groups_filters">
 							<div class="form-group">
 								<label class="col-md-3 col-xs-12">@{{filter.filters_name}}</label>
 								<div class="col-md-9 col-xs-12">

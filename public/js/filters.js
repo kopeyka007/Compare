@@ -102,7 +102,16 @@
 				}
 			}
 		}	
-
+		
+		$scope.list = [];
+		$scope.get_list = function() {
+			$http.get('/api/filters/list').then(function(response) {
+				$scope.list = response.data.data;
+			});
+		};
+		$scope.get_list();
+		
+		
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;

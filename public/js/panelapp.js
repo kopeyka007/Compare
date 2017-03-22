@@ -75,11 +75,13 @@
 
 		$scope.access = function(page) {
 			var rules = {'users': 1,
+						 'import': 1,
 					 	 'cats': 2,
 					 	 'brands': 2,
 						 'features': 2,
 					  	 'filters': 2,
-					  	 'prods': 3};
+					  	 'prods': 3
+						 };
 
 			if (rules[page])
 			{

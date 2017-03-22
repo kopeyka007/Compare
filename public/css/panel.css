@@ -50,6 +50,10 @@
 	margin: 0;
 }
 
+.import-btn {
+	margin-top: 8px;
+}
+
 @media (max-width: 768px) {
 	.signin-row {
 		width: 280px;
