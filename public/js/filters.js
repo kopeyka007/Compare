@@ -101,16 +101,7 @@
 					}
 				}
 			}
-		}	
-		
-		$scope.list = [];
-		$scope.get_list = function() {
-			$http.get('/api/filters/list').then(function(response) {
-				$scope.list = response.data.data;
-			});
-		};
-		$scope.get_list();
-		
+		}
 		
 		$scope.save = function () {
 			$scope.errors = [];
@@ -124,6 +115,12 @@
 				$http.post('/api/filters/save', $scope.filter).then(function(response) {
 					if (response.data.data)
 					{
+						$scope.groups = [];
+						$http.get('/api/filters/list_groups').then(function(response) {
+							$scope.groups = response.data.data;
+							items.groups.push($scope.groups);
+							console.log(items.groups);
+						});
 						$uibModalInstance.close(response.data.message);
 					}
 				});
