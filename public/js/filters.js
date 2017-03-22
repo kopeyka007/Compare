@@ -7,11 +7,13 @@
 		});
 		
 		$scope.groups = [];
-		$http.get('/api/filters/list_groups').then(function(response) {
-			$scope.groups = response.data.data;
-		});
+		$scope.get_groups = function() {
+			$http.get('/api/filters/list_groups').then(function(response) {
+				$scope.groups = response.data.data;
+			});
+		}
+		$scope.get_groups();
 		
-
 		$scope.add = function(id) {
 			id = id || false;
 
@@ -39,6 +41,7 @@
 			modalInstance.result.then(function (result) {
 				$rootScope.errors = [result];
 				$scope.get_list();
+				$scope.get_groups();
 			}, function() {
 
 			}); 
@@ -101,7 +104,21 @@
 					}
 				}
 			}
-		}
+		}	
+		
+		$scope.changeGroup = function(){
+			console.log('hello');
+			if ($scope.filter.groups_id.groups_name == 'New Group') 
+			{
+				$scope.filter.groups_name = '';
+			}
+			else
+			{
+				$scope.filter.groups_name = $scope.filter.groups_id.groups_name;
+				console.log($scope.filter.groups_id.groups_name);
+			}
+		};
+		$scope.changeGroup();
 		
 		$scope.save = function () {
 			$scope.errors = [];
@@ -112,6 +129,7 @@
 
 			if (error)
 			{
+				$scope.filter.groups_id.groups_name = $scope.filter.groups_name;
 				$http.post('/api/filters/save', $scope.filter).then(function(response) {
 					if (response.data.data)
 					{
