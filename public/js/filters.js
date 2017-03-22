@@ -112,7 +112,6 @@
 
 			if (error)
 			{
-				console.log($scope.filter);
 				$http.post('/api/filters/save', $scope.filter).then(function(response) {
 					if (response.data.data)
 					{
