@@ -59,6 +59,10 @@
 	z-index: 1;
 }
 
+.fixed td.filters-cell button {
+	display: none;
+}
+
 .home-link,
 .home-link:hover,
 .home-link:focus,

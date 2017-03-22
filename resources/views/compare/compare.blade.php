@@ -6,7 +6,7 @@
 			<span>@{{nameAllProds()}}</span>
 		</div>
 		<div class="table-responsive">
-			<table class="table compare-table">
+			<table class="table compare-table" scroll ng-class="{fixed: fixedClass}">
 				<thead>
 					<tr>
 						<th class="filters-cell"></th>
@@ -16,7 +16,7 @@
 						</th>
 					</tr>
 				</thead>
-
+				
 				<tbody>
 					<tr>
 						<td class="filters-cell">
@@ -30,7 +30,7 @@
 						</td>
 
 						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
-							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]" scroll ng-class="{fixed: fixedClass}">
+							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
 								<a href="@{{productsLink(prod)}}" class="compare-link">
 									<img src="@{{prod.prods_foto}}" alt="#" />
 									<span class="compare-price text-danger">
@@ -58,7 +58,9 @@
 						</td>
 					</tr>
 				</tbody>
-
+				
+			</table>
+			<table class="table">
 				<tbody>
 					<tr>
 						<td class="filters-cell">

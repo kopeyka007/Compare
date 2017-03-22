@@ -13,6 +13,7 @@
 					<th>Category</th>
 					<th>Group</th>
 					<th>Filter Type</th>
+					<th>Filter Units</th>
 					<th>Show as filter</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
@@ -26,6 +27,7 @@
 					<td>@{{filter.cats_id[0].cats_name}}</td>
 					<td>@{{filter.groups_id.groups_name}}</td>
 					<td>@{{filter.filters_type == 'check' ? 'Yes/No' : 'Text'}}</td>
+					<td>@{{filter.filters_units}}</td>
 					<td>@{{filter.filters_filter | checkmark}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(filter.filters_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(filter.filters_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
