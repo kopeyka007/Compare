@@ -106,6 +106,8 @@ Route::delete('api/prods/delete/{id}','ProdsController@delete');
 Route::get('api/features/list','FeaturesController@get_all');
 Route::post('api/features/save','FeaturesController@save');
 Route::delete('api/features/delete/{id}','FeaturesController@delete');
+//import
+Route::post('api/import/save','ImportController@save');
 //-------------------------
 //Front
 Route::get('api/cats/front/shortlist','CatsController@shortlist');
@@ -125,7 +127,7 @@ Route::get('api/history/get','HistoryController@get_history');
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
 Route::get('test','ProdsController@get_all');
-Route::get('import','ImportController@import');
+Route::get('import','ImportController@save');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
 Route::get('/{category}/{product}', function () {
