@@ -9,7 +9,6 @@
 		$scope.groups = [];
 		$http.get('/api/filters/list_groups').then(function(response) {
 			$scope.groups = response.data.data;
-			console.log($scope.groups);
 		});
 		
 
@@ -103,7 +102,16 @@
 				}
 			}
 		}	
-
+		
+		$scope.list = [];
+		$scope.get_list = function() {
+			$http.get('/api/filters/list').then(function(response) {
+				$scope.list = response.data.data;
+			});
+		};
+		$scope.get_list();
+		
+		
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;
@@ -113,7 +121,6 @@
 
 			if (error)
 			{
-				console.log($scope.filter);
 				$http.post('/api/filters/save', $scope.filter).then(function(response) {
 					if (response.data.data)
 					{
