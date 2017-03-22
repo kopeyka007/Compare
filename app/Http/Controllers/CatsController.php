@@ -86,10 +86,19 @@ class CatsController extends Controller
     return $response;
   }
 
-  public function get_filters($id){    
-    $cat = Cats::find($id)->filters;
-    //$cat = Cats::with('filters', 'filters.groups_id')->find($id);    
+  public function get_filters($id){
+    $cat = Cats::with('filters', 'filters.groups')->find($id);    
     if ($cat){
+      $groups = array();
+      foreach ($cat->filters as $filter) {        
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;      
+        $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;
+        unset($filter->groups);
+      }
+      unset($cat->filters);
+      $cat['groups'] = $groups;
       $response['data'] = $cat;
     }
     else{
