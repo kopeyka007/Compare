@@ -59,6 +59,7 @@ class FiltersController extends Controller
         $current->filters_alias = $request->input('filters_alias');        
         $current->filters_type = $request->input('filters_type');        
         $current->filters_filter = $request->input('filters_filter');        
+        $current->filters_units = $request->input('filters_units');        
         $cats_id = $request->input('cats_id')['cats_id'];
         if ($current->save() && $this->set_relation_category($cats_id, $filters_id)){
           $response['data'] = true;          
@@ -93,6 +94,7 @@ class FiltersController extends Controller
       $filter->filters_alias = $request->input('filters_alias');        
       $filter->filters_type = $request->input('filters_type');        
       $filter->filters_filter = $request->input('filters_filter');
+      $filter->filters_units = $request->input('filters_units');
       $cats_id = $request->input('cats_id')['cats_id'];    
       if ($filter->save() && $this->set_relation_category($cats_id, $filter->filters_id)){
         $response['data'] = true;          
