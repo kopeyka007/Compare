@@ -177,6 +177,7 @@ class ProdsController extends Controller
       foreach ($prod->filters_id as $filter) {
         $filters[$filter->filters_id]['filters_name'] = $filter->filters_name;
         $filters[$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
+        $filters[$filter->filters_id]['filters_units'] = $filter->filters_units;
       }
       foreach ($prod->features_id as $feature) {
         $features[$feature->features_id] = $feature;
