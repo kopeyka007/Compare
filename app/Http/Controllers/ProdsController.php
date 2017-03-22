@@ -31,7 +31,7 @@ class ProdsController extends Controller
         $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
         $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
         $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
-        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_units'] = $filter->filters_units;      
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_units'] = $filter->filters_units;
         $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;
         unset($filter->groups);
       }
@@ -177,6 +177,7 @@ class ProdsController extends Controller
       foreach ($prod->filters_id as $filter) {
         $filters[$filter->filters_id]['filters_name'] = $filter->filters_name;
         $filters[$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
+        $filters[$filter->filters_id]['filters_units'] = $filter->filters_units;
       }
       foreach ($prod->features_id as $feature) {
         $features[$feature->features_id] = $feature;
@@ -217,7 +218,8 @@ class ProdsController extends Controller
     foreach ($prod->filters_id as $filter) {
       $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
       $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
-      $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;      
+      $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
+      $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_units'] = $filter->filters_units;
       $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
       unset($filter->groups);
     }
