@@ -8,5 +8,9 @@ class Brands extends Model
 {
     public $timestamps = false;
     protected $table = 'brands';
-    protected $primaryKey ='brands_id';    
+    protected $primaryKey ='brands_id';
+
+    public function cats_id(){
+      return $this->belongsTo('App\Cats','cats_id');
+    }    
 }

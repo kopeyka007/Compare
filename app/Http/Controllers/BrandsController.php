@@ -15,7 +15,7 @@ class BrandsController extends Controller
   }
 
   public function get_all(){
-    $brands = Brands::all();    
+    $brands = Brands::with('cats_id')->get();    
     $response['data'] = $brands;
     return $response;    
   }
