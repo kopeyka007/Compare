@@ -17,18 +17,22 @@ class ProdsController extends Controller
   }
 
   public function get_all(){
-    $prods = Prods::with('filters_id')->
+    $prods = Prods::with('filters_id.groups')->
     with('features_id')->
     with('brands_id')->
     with('cats_id')
     ->get();
     foreach ($prods as $prod) {
       $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):$prod->prods_foto;
-      $filters = array();
-      foreach ($prod->filters_id as $filter) {
-        $filters[$filter->filters_id] = $filter->pivot->filters_value;
+      $groups = array();
+      foreach ($prod->filters_id as $filter) {        
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;      
+        $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;
+        unset($filter->groups);
       }
-      $prod['filters'] = $filters;
+      $prod['groups'] = $groups;    
       unset($prod->filters_id);
       $features = array();      
       foreach ($prod->features_id as $feature) {

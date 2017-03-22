@@ -124,8 +124,8 @@ Route::get('api/history/get','HistoryController@get_history');
 
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
-Route::get('test','HistoryController@count_all_compare_cats_top10');
-Route::get('import','ImportController@import');
+Route::get('test','ProdsController@get_all');
+//Route::get('import','ImportController@import');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
 Route::get('/{category}/{product}', function () {
