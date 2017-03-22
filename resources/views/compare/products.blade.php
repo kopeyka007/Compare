@@ -73,7 +73,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" ng-if="prodsInfo.liked.length">
 					<div class="products-related">
 						<div class="related-head">
 							Related Products
