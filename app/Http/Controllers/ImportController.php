@@ -13,64 +13,35 @@ class ImportController extends Controller
   public function __construct()
   {    
   }
-  
-  
-      //$csv_file = fopen('import_csv.csv','r');
-    //var_dump(fopen(public_path().'\import\import_csv.csv','r'));
-    //$handle = fopen(public_path().'\import\import_csv.csv','r');
-      /*
-      while (($data = fgetcsv($handle, 1000, ',')) !==FALSE){          
-          for ($i=0; $i < count($data); $i++) { 
-            echo $data[$i]."<br>";
-          }          
-        }
-        */
-    //fclose($handle);
-  
-  
+  public function show(){
+    return view('panel.import');
+  }
   public function import(){      
-      $filename = storage_path('app/public/import/import.csv');
-      /*
-      $handle = fopen($filename, 'r');      
-      $header = fgetcsv($handle, 1000, ',');
-      while ($data = fgetcsv($handle, 1000, ',')){
-          echo $data[0]."<br>";
-      }
-      */
-      $cats_id = 3;
-      $groups_id = 3;
-      $csv_array = $this->csvToArray($filename);
-      
-      foreach ($csv_array as $item)
-      {
-        //echo $item['Brand'];
-        //var_dump(array_keys($item));
-        //$brands = $this->togleBrands($item['Brand']);
-        //$prod = $this->togleProds($item['model name'], $item['price'], $brands->brands_id, $cats_id);
-        //var_dump(array_keys($item['Brand']));
-        $fields = array_keys($item);
-        for ($i=0; $i < count($fields) ; $i++) { 
-          switch ($fields[$i]) {
-            case 'Sr.no':              
-              break;
-            case 'Brand':
-              $brands = $this->togleBrands($item['Brand']);
-              break;
-            case 'Model Name':              
-              $prod = $this->togleProds($item['Model Name'], $item['Price'], $brands->brands_id, $cats_id);
-              break;
-            case 'Price':                            
-              break;
-            default:
-              $filter = $this->togleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $groups_id);
-              //print_r($filter->filters_id);
-
-              break;
-          }
+    $filename = storage_path('app/public/import/import.csv');
+    $cats_id = 3;
+    $groups_id = 6;
+    $csv_array = $this->csvToArray($filename);
+    foreach ($csv_array as $item)
+    {      
+      $fields = array_keys($item);
+      for ($i=0; $i < count($fields) ; $i++) { 
+        switch ($fields[$i]) {
+          case 'Sr.no':              
+            break;
+          case 'Brand':
+            $brands = $this->toggleBrands($item['Brand']);
+            break;
+          case 'Model Name':              
+            $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands->brands_id, $cats_id);
+            break;
+          case 'Price':                            
+            break;
+          default:
+            $filter = $this->toggleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $groups_id);
+            break;
         }
       }
-
-      
+    }
   }
   
   private function csvToArray($filename){
@@ -89,10 +60,8 @@ class ImportController extends Controller
       }
       return $data;
   }
-
-
-
-  private function togleBrands($brands_name){    
+  
+  private function toggleBrands($brands_name){    
     $current = Brands::whereRaw('LOWER(brands_name) = '."'".strtolower(trim($brands_name))."'")->first();        
     if ($current){
       return $current;
@@ -105,7 +74,7 @@ class ImportController extends Controller
     }
   }
 
-  private function togleProds($prods_name, $prods_price, $brands_id, $cats_id){
+  private function toggleProds($prods_name, $prods_price, $brands_id, $cats_id){
     $current = Prods::whereRaw('LOWER(prods_name) = '."'".strtolower(trim($prods_name))."'")
     ->where('cats_id', $cats_id)
     ->first();    
@@ -127,12 +96,18 @@ class ImportController extends Controller
     }
   }
 
-  private function togleFilters($filters_name, $filters_value, $prod, $cats_id, $groups_id){    
+  private function toggleFilters($filters_name, $filters_value, $prod, $cats_id, $groups_id){    
     $current = Filters::whereRaw('LOWER(filters_name) = '."'".strtolower(trim($filters_name))."'")
-    ->where('groups_id', $groups_id)
-    ->first();        
-    if ($current){
-      //$prod->filters_id()->toggle([$current->filters_id=>['filters_value'=>$filters_value]]);
+    /*->with(['cats_id'=>function ($query){
+      $query->where('cats_id', $cats_id);
+    }])
+    */
+    ->first();
+    //->where('groups_id', $groups_id)
+            
+    dd($current);
+    exit();
+    if ($current){      
       $current->prods()->detach([$prod->prods_id]);
       $current->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);
       return $current;
@@ -143,8 +118,7 @@ class ImportController extends Controller
       $filter->filters_type = 'text';
       $filter->groups_id = $groups_id;
       $filter->save();
-      $filter->cats_id()->sync([$cats_id]);
-      //$prod->filters_id()->toggle([$filter->filters_id=>['filters_value'=>$filters_value]]);
+      $filter->cats_id()->sync([$cats_id]);      
       $filter->prods()->detach([$prod->prods_id]);
       $filter->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);
       return $filter;
