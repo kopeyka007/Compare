@@ -119,6 +119,7 @@
 		$scope.initFilters = function() {
 			$http.get('/api/cats/filters/' + $scope.prod.cats_id.cats_id).then(function(response) {
 				$scope.filters = response.data.data;
+				console.log($scope.filters);
 			});
 			
 			$http.get('/api/cats/features/' + $scope.prod.cats_id.cats_id).then(function(response) {
