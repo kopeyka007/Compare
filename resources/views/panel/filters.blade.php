@@ -64,15 +64,15 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Group</label>
-					<select class="form-control" name="groups_id" ng-model="filter.groups_id" required="required" ng-options="group.groups_name for group in groups track by group.groups_id">
+					<select class="form-control" name="groups_id" ng-model="filter.groups_id" ng-change="changeGroup();" required="required" ng-options="group.groups_name for group in groups track by group.groups_id">
 					</select>
 				</div>
 			</div>
 			
-			<div class="col-sm-12" ng-show="filter.groups_id.groups_id == 0">
+			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Group Name</label>
-					<input type="text" class="form-control" name="groups_name" ng-model="filter.groups_name" ng-required="filter.groups_id.groups_id == 0" />
+					<input type="text" class="form-control" name="groups_name" ng-model="filter.groups_name" ng-required="required" />
 				</div>
 			</div>
 
