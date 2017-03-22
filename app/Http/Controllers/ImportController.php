@@ -12,7 +12,7 @@ use DB;
 
 class ImportController extends Controller
 {
-  public $message = array();
+  public $message = ['brands_new' => 0, 'prods_new'=>0, 'filters_new'=>0, 'filters_set'=>0];
 
   public function __construct()
   {    
@@ -21,44 +21,61 @@ class ImportController extends Controller
     return view('panel.import');
   }
 
-  public function save(Request $request){      
-    //$file = ($request->file) ? asset('storage/'.$request->file->store('import')):'';
-    $filename = storage_path('app/public/import/import.csv');
-    //$cats_id = 3;    
-    $cats_id = $request->input('cats_id');
-    exit();
-    $groups_name = 'import';
-    $group = $this->toggleGroups($groups_name);
-    $csv_array = $this->csvToArray($filename);
-    $this->message = ['brands_new' => 0, 'prods_new'=>0, 'filters_new'=>0, 'filters_set'=>0];
-    DB::beginTransaction();
-    foreach ($csv_array as $item)
-    {      
-      $fields = array_keys($item);
-      for ($i=0; $i < count($fields) ; $i++) { 
-        switch ($fields[$i]) {
-          case 'Sr.no':              
-            break;
-          case 'Brand':
-            $brands = $this->toggleBrands($item['Brand']);
-            break;
-          case 'Model Name':              
-            $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands->brands_id, $cats_id);
-            break;
-          case 'Price':                            
-            break;
-          default:
-            $filter = $this->toggleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $group->groups_id);
-            break;
+  public function save(Request $request){
+    $cats_id = $request->input('cats_id')['cats_id'];    
+    if ($cats_id && $cats_id !== 0){
+      if ($request->file){
+        $or_ext = $request->file->getClientOriginalExtension();        
+        if ($or_ext == 'csv'){
+          $request->file->storeAs('import','import.csv');
+          $filename = storage_path('app/public/import/import.csv');
+          $groups_name = 'import';
+          $group = $this->toggleGroups($groups_name);
+          $csv_array = $this->csvToArray($filename);
+          DB::beginTransaction();
+          foreach ($csv_array as $item)
+          {      
+            $fields = array_keys($item);
+            for ($i=0; $i < count($fields) ; $i++) { 
+              switch ($fields[$i]) {
+                case 'Sr.no':              
+                  break;
+                case 'Brand':
+                  $brands = $this->toggleBrands($item['Brand'], $cats_id);
+                  break;
+                case 'Model Name':              
+                  $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands->brands_id, $cats_id);
+                  break;
+                case 'Price':                            
+                  break;
+                default:
+                  $filter = $this->toggleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $group->groups_id);
+                  break;
+              }
+            }
+          }
+          DB::commit();    
+          //Storage::delete('import.csv', 'import');
+          $message = 'New brands - '. $this->message['brands_new'].','.'New prods - '. $this->message['prods_new'].','.'New filters - '. $this->message['filters_new'].','.'Set filters - '. $this->message['filters_set'];
+          $response['data'] = true;          
+          $response['message'] = ['type'=>'success', 'text'=>$message];    
+        }
+        else{
+          $response['data'] = false;          
+          $response['message'] = ['type'=>'danger', 'text'=>'Chose CSV file'];    
         }
       }
+      else{
+        $response['data'] = false;          
+        $response['message'] = ['type'=>'danger', 'text'=>'Chose file'];
+      }
     }
-    DB::commit();    
-    $message = 'New brands - '. $this->message['brands_new'].','.'New prods - '. $this->message['prods_new'].','.'New filters - '. $this->message['filters_new'].','.'Set filters - '. $this->message['filters_set'];
-    $response['data'] = true;          
-    $response['message'] = ['type'=>'success', 'text'=>$message];    
-    
-    //Storage::delete(stristr($current->prods_foto, 'prods'));
+    else{
+      $response['data'] = false;          
+      $response['message'] = ['type'=>'danger', 'text'=>'Chose category'];
+    }
+    //return $response;
+    //exit();
     return $response;
   }
   
@@ -92,7 +109,7 @@ class ImportController extends Controller
     }
   }
 
-  private function toggleBrands($brands_name){    
+  private function toggleBrands($brands_name, $cats_id){    
     $current = Brands::whereRaw('LOWER(brands_name) = '."'".strtolower(trim($brands_name))."'")->first();        
     if ($current){      
       return $current;
@@ -100,6 +117,7 @@ class ImportController extends Controller
     else{      
       $brand = new Brands;
       $brand->brands_name = trim($brands_name);
+      $brand->cats_id = $cats_id;
       $brand->save();
       $this->message['brands_new']++;
       return $brand;
