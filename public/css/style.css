@@ -52,6 +52,13 @@
 	padding: 10px 0;
 }
 
+.fixed {
+	position: fixed;
+	top: 0;
+	background: #fff;
+	z-index: 1;
+}
+
 .home-link,
 .home-link:hover,
 .home-link:focus,
@@ -309,11 +316,6 @@
 	vertical-align: middle;
 }
 
-.compare-head {
-	height: 230px;
-	position: relative;
-}
-
 .compare-head img {
 	max-width: 50%;
 	max-height: 100%;
@@ -340,11 +342,6 @@
 .td-id img,
 .td-photo img {
 	width: 50px;
-}
-
-.compare-head {
-	position: relative;
-	z-index: 0;
 }
 
 .compare-close {

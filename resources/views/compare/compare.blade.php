@@ -30,7 +30,7 @@
 						</td>
 
 						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
-							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
+							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]" scroll ng-class="{fixed: fixedClass}">
 								<a href="@{{productsLink(prod)}}" class="compare-link">
 									<img src="@{{prod.prods_foto}}" alt="#" />
 									<span class="compare-price text-danger">

@@ -108,7 +108,6 @@
 		}	
 		
 		$scope.changeGroup = function(){
-			console.log('hello');
 			if ($scope.filter.groups_id.groups_name == 'New Group') 
 			{
 				$scope.filter.groups_name = '';
@@ -116,7 +115,6 @@
 			else
 			{
 				$scope.filter.groups_name = $scope.filter.groups_id.groups_name;
-				console.log($scope.filter.groups_id.groups_name);
 			}
 		};
 		$scope.changeGroup();
