@@ -163,20 +163,27 @@ class CatsController extends Controller
   }
 
   public function get_compare_filters(Request $request){
-    $url = $request->input('url');    
-    $url = str_replace('compare/', '', $url);
+    $url_or = $request->input('url');
+    $url = str_replace('compare/', '', $url_or);
     $aliases = explode('-vs-', $url);    
     for ($i=0; $i < count($aliases) ; $i++) {
       $alias = str_replace('/', '', $aliases[$i]);
-      $prod = Prods::where('prods_alias', $alias)->first();
-      $ids[] = $prod->cats_id;
+      $prod = Prods::where('prods_full_alias', $alias)->first();
+      if ($prod){
+        $ids[] = $prod->cats_id;
+      }
+    }    
+    if (count($ids)){
+      $response['data'] = $this->get_all_cats_filters($ids);
     }
-    $response['data'] = $this->get_all_cats_filters($ids);
+    else{
+      $response['data'] = false;      
+    }
     return $response;
   }
 
   private function get_all_cats_filters($ids){
-    $cats = Cats::with('filters.groups')->find($ids);    
+    $cats = Cats::with('filters.groups')->find($ids);        
     foreach ($cats as $cat) {      
       foreach ($cat->filters as $filter) {
         $groups[$filter->groups->groups_id]['groups_filters'][] = $filter;
