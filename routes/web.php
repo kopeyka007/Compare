@@ -137,6 +137,10 @@ Route::get('test','ProdsController@get_all');
 Route::get('import','ImportController@save');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
+
 Route::get('/{category}/{product}', function () {
+    return view('template');
+});
+Route::get('/{category}/', function () {
     return view('template');
 });
