@@ -30,7 +30,7 @@
 					</div>
 					<div class="collapse navbar-collapse" id="menu">
 						<ul class="nav navbar-nav">
-							<li ng-repeat="cat in products"><a href="">@{{cat.cats_name}}</a></li>
+							<li ng-repeat="cat in products"><a href="/@{{cat.cats_alias}}">@{{cat.cats_name}}</a></li>
 						</ul>
 					</div>
 				</div>
