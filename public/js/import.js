@@ -21,7 +21,7 @@
 						file: file,
 						data: $scope.importData
 				    }).then(function (response){
-						console.log('good');
+						
 					})
 		}
 	}
