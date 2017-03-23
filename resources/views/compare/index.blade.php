@@ -20,7 +20,7 @@
 						<h4>Brands</h4>
 						<select class="form-control" ng-model="filters_brand">
 							<option value="">Select a value...</option>
-							<option value="@{{brand.brands_id.brands_id}}" ng-repeat="brand in products_list.cats.prods">@{{brand.brands_id.brands_name}}</option>
+							<option value="@{{id}}" ng-repeat="(id, name) in allBrands">@{{name}}</option>
 						</select>
 					</div>
 				</div>
