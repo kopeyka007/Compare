@@ -94,7 +94,7 @@
 					<div>
 						<a href="javascript:void(0);" type="button" class="btn btn-info btn-file">
 							<span>Browse file...</span>
-							<input type="file" accept="image/*" name="file" ngf-select />
+							<input type="file" accept="image/*" name="file" ng-model="prods_foto" ngf-select />
 						</a>
 						<img ngf-thumbnail="prods_foto" class="img-preview" ng-show="prods_foto" alt="" />
 						<a href="javascript:void(0);" ng-show="prods_foto" ng-click="removeFile()">Remove</a>
@@ -150,7 +150,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="alert alert-info text-center" role="alert" ng-show="countFilters() && prod.cats_id.cats_id > 0">
+				<div class="alert alert-info text-center" role="alert" ng-show="! countFilters() && prod.cats_id.cats_id > 0">
 					There are no filters in this category
 				</div>
 

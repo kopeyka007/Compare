@@ -16,7 +16,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="filter-section">
-					<div class="filters-box" ng-repeat="filter in filters">
+					<div class="filters-box" ng-repeat="filter in products_list.filters">
 						<h4>@{{filter.filters_name}}</h4>
 						<select class="form-control" ng-change="changeFilter(filter.filters_id)" ng-model="filters_model[filter.filters_id]">
 							<option value="">Select a value...</option>
