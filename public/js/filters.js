@@ -12,7 +12,6 @@
 				$scope.groups = response.data.data;
 			});
 		}
-		
 		$scope.get_groups();
 		
 		$scope.add = function(id) {
@@ -80,6 +79,7 @@
 						  'groups_name': '',
 					  	  'filters_name': '',
 					  	  'filters_type': 'check',
+						  'filters_units': '',
 					  	  'filters_filter': false};
 		
 		if (items.filter && items.filter.filters_id)
@@ -106,7 +106,19 @@
 				}
 			}
 		}	
-
+		
+		$scope.changeGroup = function(){
+			if ($scope.filter.groups_id.groups_name == 'New Group') 
+			{
+				$scope.filter.groups_name = '';
+			}
+			else
+			{
+				$scope.filter.groups_name = $scope.filter.groups_id.groups_name;
+			}
+		};
+		$scope.changeGroup();
+		
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;
@@ -116,10 +128,16 @@
 
 			if (error)
 			{
-				console.log($scope.filter);
+				$scope.filter.groups_id.groups_name = $scope.filter.groups_name;
 				$http.post('/api/filters/save', $scope.filter).then(function(response) {
 					if (response.data.data)
 					{
+						$scope.groups = [];
+						$http.get('/api/filters/list_groups').then(function(response) {
+							$scope.groups = response.data.data;
+							items.groups.push($scope.groups);
+							console.log(items.groups);
+						});
 						$uibModalInstance.close(response.data.message);
 					}
 				});

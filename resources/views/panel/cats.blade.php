@@ -11,6 +11,7 @@
 					<th class="td-id">ID</th>
 					<th>Name</th>
 					<th class="td-type">Slug</th>
+					<th class="td-type">Default</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -21,6 +22,7 @@
 					<td class="td-id">@{{cat.cats_id}}</td>
 					<td>@{{cat.cats_name}}</td>
 					<td class="td-type">@{{cat.cats_alias}}</td>
+					<td class="td-type">@{{cat.cats_default | checkmark}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(cat.cats_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(cat.cats_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
@@ -59,6 +61,11 @@
 					<label>Slug</label>
 					<input type="text" class="form-control" name="slug" ng-model="cat.cats_alias" required="required" />
 				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<input type="checkbox" ng-model="cat.cats_default" ng-init="cat.cats_default == true" />
+				<label>Default Category</label>
 			</div>
 		</div>
 	</form>

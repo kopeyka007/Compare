@@ -10,7 +10,7 @@
 		$http.get('/api/brands/list').then(function(response) {
 			$scope.brands = response.data.data;
 		});
-		
+				
 		$scope.add = function(id) {
 			id = id || false;
 
@@ -108,6 +108,7 @@
 				}
 			}
 		}
+
 		
 		$scope.slug = function() {
 			if ( ! $scope.prod.prods_id && $scope.form.slug.$pristine)
@@ -119,12 +120,23 @@
 		$scope.initFilters = function() {
 			$http.get('/api/cats/filters/' + $scope.prod.cats_id.cats_id).then(function(response) {
 				$scope.filters = response.data.data;
+				console.log($scope.filters);
 			});
 			
 			$http.get('/api/cats/features/' + $scope.prod.cats_id.cats_id).then(function(response) {
 				$scope.features = response.data.data;
 			});
 		};
+		
+		$scope.countFilters = function(filter){
+			for (var i in filter)
+			{
+				return false;
+			}
+			return true;
+		}
+		
+		$scope.countFilters($scope.filters);
 
 		if ($scope.prod.cats_id.cats_id > 0)
 		{

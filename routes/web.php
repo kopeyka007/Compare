@@ -106,15 +106,24 @@ Route::delete('api/prods/delete/{id}','ProdsController@delete');
 Route::get('api/features/list','FeaturesController@get_all');
 Route::post('api/features/save','FeaturesController@save');
 Route::delete('api/features/delete/{id}','FeaturesController@delete');
+//currencies
+Route::get('api/currencies/list','CurrenciesController@get_all');
+Route::post('api/currencies/save','CurrenciesController@save');
+Route::delete('api/currencies/delete/{id}','CurrenciesController@delete');
+//import
+Route::post('api/import/save','ImportController@save');
+//history
+Route::get('api/history/get','HistoryController@get_history');
 //-------------------------
 //Front
 Route::get('api/cats/front/shortlist','CatsController@shortlist');
+Route::post('api/cats/front/list','CatsController@catslist');
 Route::get('api/filters/front/filtersfilter','FiltersController@get_filtersfilter');
 Route::post('api/compare/list','ProdsController@get_compare_prods');
 Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
 Route::post('api/prods/detail','ProdsController@get_prods_detail');
 Route::post('api/history/amazon','HistoryController@set_history_amazon');
-Route::get('api/history/get','HistoryController@get_history');
+
 
 
 
@@ -124,10 +133,14 @@ Route::get('api/history/get','HistoryController@get_history');
 
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
-Route::get('test','HistoryController@count_all_compare_cats_top10');
-Route::get('import','ImportController@import');
+Route::get('test','ProdsController@get_all');
+Route::get('import','ImportController@save');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
+
 Route::get('/{category}/{product}', function () {
+    return view('template');
+});
+Route::get('/{category}/', function () {
     return view('template');
 });

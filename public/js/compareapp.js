@@ -10,7 +10,8 @@
 
 		routes = [
 			'compare/:alias/',
-			':cat/:prod'
+			':cat/:prod',
+			':cat'
 		];
 
 		setRoutes = function(route) {
@@ -74,6 +75,25 @@
 				}, 300);
 			}, 500);
 		});
+		
+		$scope.goUp = function(){
+			$location.hash('.header');
+		};
+
+		$scope.activeCat = function(cat) {
+			var segments = $location.path().split('/');
+			if (cat.cats_default == '1' && segments[1] == '')
+			{
+				return true;
+			}
+
+			if (cat.cats_alias == segments[1] && ! segments[2])
+			{
+				return true;
+			}
+
+			return false;
+		};
 	}
 })();
 
@@ -81,6 +101,14 @@
 	angular.module('compareApp').filter('checkmark', function() {
     return function(input) {
 		return input ? '\u2713' : '\u2718';
+    };
+  });
+})();
+
+(function(){
+	angular.module('compareApp').filter('checkdefault', function() {
+    return function(input) {
+		return input ? '\u2713' : ' ';
     };
   });
 })();

@@ -6,7 +6,6 @@
 		$scope.compareList = [];
 		$scope.closestProd = '';
 		var url = $location.path();
-		
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data;
 		});
@@ -17,7 +16,7 @@
 		
 		$scope.statAmazon = function(prod){
 			$http.post('/api/history/amazon', {'prods_amazon': prod.prods_amazon, 'prods_id': prod.prods_id}).then(function(response){
-				$window.location.href = prod.prods_amazon;
+				
 			});
 		};
 		
@@ -39,7 +38,7 @@
 				var prod = $scope.compareList[id];
 				if (prod.prods_id != prods_id)
 				{
-					aliases.push(prod.prods_alias);
+					aliases.push(prod.prods_full_alias);
 					$scope.selectedCount++;
 				}
 			}
@@ -83,7 +82,7 @@
 				{
 					if (prod.features[features_id] && prod.features[features_id].features_value && this_prod.features && this_prod.features[features_id].features_value)
 					{
-						if (prod.features[features_id].features_value * 1 >= this_prod.features[features_id].features_value * 1)
+						if ((prod.features[features_id].features_rate == '1' && prod.features[features_id].features_value * 1 >= this_prod.features[features_id].features_value * 1) || (prod.features[features_id].features_rate == '0' && prod.features[features_id].features_value * 1 <= this_prod.features[features_id].features_value * 1))
 						{
 							check = false;
 						}
@@ -111,20 +110,17 @@
 					if (prod.features[features_id] && prod.features[features_id].features_value && this_prod.features && this_prod.features[features_id].features_value)
 					{
 						var delta = this_prod.features[features_id].features_value - prod.features[features_id].features_value;
-						if (delta && delta > 0)
+						if (min_delta === false)
 						{
-							if (min_delta === false)
+							min_delta = delta;
+							closest = prod;
+						}
+						else
+						{
+							if ((prod.features[features_id].features_rate == '1' && delta < min_delta) || (prod.features[features_id].features_rate == '0' && delta > min_delta))
 							{
 								min_delta = delta;
 								closest = prod;
-							}
-							else
-							{
-								if (delta < min_delta)
-								{
-									min_delta = delta;
-									closest = prod;
-								}
 							}
 						}
 					}
@@ -156,7 +152,7 @@
 				}
 			}
 
-			return '/' + cats_alias + '/' + prod.prods_alias;
+			return '/' + cats_alias + '/' + prod.prods_full_alias;
 		};
 
 		$scope.addToCompare = function(cats_id) {
@@ -193,7 +189,7 @@
 		$scope.aliases = [];
 		for (var k in items.compares)
 		{
-			$scope.aliases.push(items.compares[k].prods_alias);
+			$scope.aliases.push(items.compares[k].prods_full_alias);
 		}
 		$scope.prods = [];
 		for (var k in items.prods)
@@ -221,4 +217,19 @@
 			$uibModalInstance.dismiss('cancel');
 		};
 	}
+})();
+
+(function() {
+	angular.module('compareApp').directive('scroll', function ($window) {
+    return function(scope, element, attrs) {
+        angular.element($window).bind("scroll", function() {
+            if (this.pageYOffset >= 180) {
+                 scope.fixedClass = true;
+            } else {
+                 scope.fixedClass = false;
+            }
+            scope.$apply();
+        });
+    };
+});
 })();

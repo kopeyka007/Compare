@@ -17,7 +17,7 @@ class ProdsController extends Controller
   }
 
   public function get_all(){
-    $prods = Prods::with('filters_id')->
+    $prods = Prods::with('filters_id.groups')->
     with('features_id')->
     with('brands_id')->
     with('cats_id')
@@ -25,10 +25,18 @@ class ProdsController extends Controller
     foreach ($prods as $prod) {
       $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):$prod->prods_foto;
       $filters = array();
+      $groups = array();
       foreach ($prod->filters_id as $filter) {
-        $filters[$filter->filters_id] = $filter->pivot->filters_value;
+        $filters[$filter->filters_id] = $filter->pivot->filters_value;        
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_units'] = $filter->filters_units;
+        $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;
+        unset($filter->groups);
       }
       $prod['filters'] = $filters;
+      $prod['groups'] = $groups;    
       unset($prod->filters_id);
       $features = array();      
       foreach ($prod->features_id as $feature) {
@@ -66,6 +74,7 @@ class ProdsController extends Controller
         $current->brands_id = $request->input('brands_id')['brands_id'];        
         $current->prods_name = $request->input('prods_name');        
         $current->prods_alias = $request->input('prods_alias');        
+        $current->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
         $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):$request->input('prods_foto');
         //delete file
         if (empty($file)) Storage::delete(stristr($current->prods_foto, 'prods'));    
@@ -100,6 +109,7 @@ class ProdsController extends Controller
       $prod->brands_id = $request->input('brands_id')['brands_id'];        
       $prod->prods_name = $request->input('prods_name');        
       $prod->prods_alias = $request->input('prods_alias');        
+      $pros->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
       $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):'';
       $prod->prods_foto = $file;
       $prod->prods_amazon = $request->input('prods_amazon');        
@@ -169,6 +179,7 @@ class ProdsController extends Controller
       foreach ($prod->filters_id as $filter) {
         $filters[$filter->filters_id]['filters_name'] = $filter->filters_name;
         $filters[$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
+        $filters[$filter->filters_id]['filters_units'] = $filter->filters_units;
       }
       foreach ($prod->features_id as $feature) {
         $features[$feature->features_id] = $feature;
@@ -186,59 +197,76 @@ class ProdsController extends Controller
   public function get_compare_prods(Request $request){    
     $url_or = $request->input('url');
     $url = str_replace('compare/', '', $url_or);
-    $aliases = explode('-vs-', $url);    
+    $aliases = explode('-vs-', $url);        
     for ($i=0; $i < count($aliases) ; $i++) {
       $alias = str_replace('/', '', $aliases[$i]);
-      $prod = Prods::where('prods_alias', $alias)->first();
-      $ids[] = $prod->prods_id;
-    }    
-    $response['data'] = $this->get_prods_with_filters_group($ids);
-    //write history
-    $history = new HistoryController;
-    $history->set_history($ids, $url_or);
+      $prod = Prods::where('prods_full_alias', $alias)->first();
+      if ($prod){
+        $ids[] = $prod->prods_id;
+      }
+    }
+    if (isset($ids) && count($ids)){
+      $response['data'] = $this->get_prods_with_filters_group($ids);
+      //write history
+      $history = new HistoryController;
+      $history->set_history($ids, $url_or);
+    }
+    else{
+      $response['data'] = false;      
+    }
     return $response;
 
   }
 
   public function get_prods_detail(Request $request){
     $url = $request->input('url');
-    $aliases = explode('/', $url);        
-    $prods_alias  = $aliases[2];
-    $prod = Prods::with('brands_id', 'cats_id', 'filters_id.groups', 'features_id')->where('prods_alias', $prods_alias)->first();    
-    $groups = array();
-    foreach ($prod->filters_id as $filter) {
-      $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
-      $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
-      $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;      
-      $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
-      unset($filter->groups);
-    }
-    $prod['groups'] = $groups;    
-    unset($prod->filters_id);
-
-    $features = array();
-    foreach ($prod->features_id as $feature) {
-      $feature['features_value'] = $feature->pivot->features_value;
-      if ($feature['features_value'] >= $feature->features_norm){
-        $features['valid'][] = $feature;
+    $aliases = explode('/', $url);    
+    //$category_alias = $aliases[2];
+    $prods_full_alias  = $aliases[2];
+    $prod = Prods::with('brands_id', 'cats_id', 'filters_id.groups', 'features_id')
+    ->where('prods_full_alias', $prods_full_alias)    
+    ->first();
+    if ($prod){
+      $groups = array();
+      foreach ($prod->filters_id as $filter) {
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
+        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_units'] = $filter->filters_units;
+        $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
+        unset($filter->groups);
       }
-      else {
-        $features['notvalid'][] = $feature;        
+      $prod['groups'] = $groups;    
+      unset($prod->filters_id);
+
+      $features = array();
+      foreach ($prod->features_id as $feature) {
+        $feature['features_value'] = $feature->pivot->features_value;
+        if ($feature['features_value'] >= $feature->features_norm){
+          $features['valid'][] = $feature;
+        }
+        else {
+          $features['notvalid'][] = $feature;        
+        }
       }
+      $prod['features'] = $features;
+      unset($prod->features_id);
+
+      //get liked prods    
+      $liked = Prods::where('cats_id', $prod->cats_id)
+      ->where('prods_active',1)
+      ->where('prods_id','<>',$prod->prods_id)
+      ->with('brands_id')    
+      ->take(3)
+      ->get();
+      $prod['liked'] = $liked;
+      
+      $response['data'] = $prod;
     }
-    $prod['features'] = $features;
-    unset($prod->features_id);
-
-    //get liked prods    
-    $liked = Prods::where('cats_id', $prod->cats_id)
-    ->where('prods_active',1)
-    ->where('prods_id','<>',$prod->prods_id)
-    ->with('brands_id')    
-    ->take(3)
-    ->get();
-    $prod['liked'] = $liked;
-
-    $response['data'] = $prod;
+    else{
+      $response['data'] = false;      
+    }
+    
     return $response;
   }
 

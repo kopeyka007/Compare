@@ -19,7 +19,7 @@
 							@{{prodsInfo.prods_name}}
 						</div>
 						<div class="btn-amazon" ng-if="prodsInfo.prods_amazon">
-							<button type="button" class="btn btn-warning" ng-click="statAmazon(prodsInfo)">Buy on Amazon</button>
+							<a href="@{{prodsInfo.prods_amazon}}" target="_blank" type="button" class="btn btn-warning" ng-click="statAmazon(prodsInfo)">Buy on Amazon</a>
 						</div>
 					</div>
 				</div>
@@ -93,7 +93,7 @@
 										$ @{{related.prods_price}}
 									</div>
 									<div class="related-btn">
-										<a href="/compare/@{{prodsInfo.prods_alias}}-vs-@{{related.prods_alias}}" class="btn btn-info btn-block"><i class="fa fa-plus" aria-hidden="true"></i> <span class="span-hide">Add To</span> Compare</a>
+										<a href="/compare/@{{prodsInfo.prods_full_alias}}-vs-@{{related.prods_full_alias}}" ng-click="goUp()" class="btn btn-info btn-block"><i class="fa fa-plus" aria-hidden="true"></i> <span class="span-hide">Add To</span> Compare</a>
 									</div>
 								</div>
 							</div>
@@ -126,7 +126,7 @@
 										<td class="spec-comment">
 											<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ filter.filters_value }}</span>
 											<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ filter.filters_value }}&nbsp;</span>
-											<span ng-show="filter.filters_type != 'check'">@{{filter.filters_value}}</span>
+											<span ng-show="filter.filters_type != 'check'">@{{filter.filters_value}} @{{filter.filters_units}}</span>
 										</td>
 									</tr>
 								</tbody>

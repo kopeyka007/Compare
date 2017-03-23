@@ -13,6 +13,7 @@
 					<th>Category</th>
 					<th>Group</th>
 					<th>Filter Type</th>
+					<th>Filter Units</th>
 					<th>Show as filter</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
@@ -26,6 +27,7 @@
 					<td>@{{filter.cats_id[0].cats_name}}</td>
 					<td>@{{filter.groups_id.groups_name}}</td>
 					<td>@{{filter.filters_type == 'check' ? 'Yes/No' : 'Text'}}</td>
+					<td>@{{filter.filters_units}}</td>
 					<td>@{{filter.filters_filter | checkmark}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(filter.filters_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(filter.filters_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
@@ -64,15 +66,15 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Group</label>
-					<select class="form-control" name="groups_id" ng-model="filter.groups_id" required="required" ng-options="group.groups_name for group in groups track by group.groups_id">
+					<select class="form-control" name="groups_id" ng-model="filter.groups_id" ng-change="changeGroup();" required="required" ng-options="group.groups_name for group in groups track by group.groups_id">
 					</select>
 				</div>
 			</div>
 			
-			<div class="col-sm-12" ng-show="filter.groups_id.groups_id == 0">
+			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Group Name</label>
-					<input type="text" class="form-control" name="groups_name" ng-model="filter.groups_name" ng-required="filter.groups_id.groups_id == 0" />
+					<input type="text" class="form-control" name="groups_name" ng-model="filter.groups_name" ng-required="required" />
 				</div>
 			</div>
 
@@ -90,6 +92,13 @@
 						<option value="check">Yes/No</option>
 						<option value="text">Text</option>
 					</select>
+				</div>
+			</div>
+			
+			<div class="col-sm-12" ng-show="filter.filters_type == 'text'">
+				<div class="form-group">
+					<label>Filter Units</label>
+					<input type="text" class="form-control" name="filters_units" ng-model="filter.filters_units" required="required" />
 				</div>
 			</div>
 			

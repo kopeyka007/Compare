@@ -98,7 +98,17 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Optimal Value <span class="help-icon text-info" uib-popover-html="'Here you should enter optimal value for this feature. So if the product has a lower value than optimal value for this feature then this feature will be Disadvantage, if product has higher value then feature will be Advantage.<br />For example: <b>5.5</b>, <b>800</b>'"><i class="fa fa-question-circle"></i></span></label>
-					<input type="text" class="form-control" name="norm" ng-model="feature.features_norm" />
+					<div class="row">
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="norm" ng-model="feature.features_norm" />
+						</div>
+						<div class="col-md-4">
+							<select class="form-control" ng-model="feature.features_rate">
+								<option value="1">High better</option>
+								<option value="0">Low better</option>
+							</select>
+						</div>
+					</div>
 				</div>
 			</div>
 

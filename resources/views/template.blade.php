@@ -18,6 +18,24 @@
 				<a href="/" class="home-link">Compare</a>
 			</div>
 		</section>
+		<section class="cats-menu">
+			<div class="navbar navbar-default">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="menu">
+						<ul class="nav navbar-nav">
+							<li ng-repeat="cat in products" ng-class="{'active': activeCat(cat)}"><a href="/@{{cat.cats_default == '1' ? '' : cat.cats_alias}}">@{{cat.cats_name}}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
 		<section class="content" ng-view>
 		</section>
 		<section class="footer">
@@ -32,7 +50,7 @@
 					<div class="groups-footer col-md-6" ng-repeat="cat in products">
 						<h3 ng-if="cat.prods.length"><i class="fa fa-folder-open-o" aria-hidden="true"></i> @{{cat.cats_name}}</h3>
 						<div ng-repeat="prod in cat.prods">
-							<p><a href="/@{{cat.cats_alias}}/@{{prod.prods_alias}}">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a></p>
+							<p><a href="/@{{cat.cats_alias}}/@{{prod.prods_full_alias}}" ng-click="goUp()">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a></p>
 						</div>
 					</div>
 				</div>

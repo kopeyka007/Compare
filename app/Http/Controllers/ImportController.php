@@ -2,75 +2,81 @@
 
 namespace App\Http\Controllers;
 use App\Brands;
+use App\Groups;
 use App\Prods;
 use App\Filters;
 use Illuminate\Http\Request;
 use Storage;
+use DB;
 
 
 class ImportController extends Controller
 {
+  public $message = ['brands_new' => 0, 'prods_new'=>0, 'filters_new'=>0, 'filters_set'=>0];
+
   public function __construct()
   {    
   }
-  
-  
-      //$csv_file = fopen('import_csv.csv','r');
-    //var_dump(fopen(public_path().'\import\import_csv.csv','r'));
-    //$handle = fopen(public_path().'\import\import_csv.csv','r');
-      /*
-      while (($data = fgetcsv($handle, 1000, ',')) !==FALSE){          
-          for ($i=0; $i < count($data); $i++) { 
-            echo $data[$i]."<br>";
-          }          
-        }
-        */
-    //fclose($handle);
-  
-  
-  public function import(){      
-      $filename = storage_path('app/public/import/import.csv');
-      /*
-      $handle = fopen($filename, 'r');      
-      $header = fgetcsv($handle, 1000, ',');
-      while ($data = fgetcsv($handle, 1000, ',')){
-          echo $data[0]."<br>";
-      }
-      */
-      $cats_id = 3;
-      $groups_id = 3;
-      $csv_array = $this->csvToArray($filename);
-      
-      foreach ($csv_array as $item)
-      {
-        //echo $item['Brand'];
-        //var_dump(array_keys($item));
-        //$brands = $this->togleBrands($item['Brand']);
-        //$prod = $this->togleProds($item['model name'], $item['price'], $brands->brands_id, $cats_id);
-        //var_dump(array_keys($item['Brand']));
-        $fields = array_keys($item);
-        for ($i=0; $i < count($fields) ; $i++) { 
-          switch ($fields[$i]) {
-            case 'Sr.no':              
-              break;
-            case 'Brand':
-              $brands = $this->togleBrands($item['Brand']);
-              break;
-            case 'Model Name':              
-              $prod = $this->togleProds($item['Model Name'], $item['Price'], $brands->brands_id, $cats_id);
-              break;
-            case 'Price':                            
-              break;
-            default:
-              $filter = $this->togleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $groups_id);
-              //print_r($filter->filters_id);
+  public function show(){
+    return view('panel.import');
+  }
 
-              break;
+  public function save(Request $request){
+    $cats_id = $request->input('cats_id')['cats_id'];    
+    if ($cats_id && $cats_id !== 0){
+      if ($request->file){
+        $or_ext = $request->file->getClientOriginalExtension();        
+        if ($or_ext == 'csv'){
+          $request->file->storeAs('import','import.csv');
+          $filename = storage_path('app/public/import/import.csv');
+          $groups_name = 'import';
+          $group = $this->toggleGroups($groups_name);
+          $csv_array = $this->csvToArray($filename);
+          DB::beginTransaction();
+          foreach ($csv_array as $item)
+          {      
+            $fields = array_keys($item);
+            for ($i=0; $i < count($fields) ; $i++) { 
+              switch ($fields[$i]) {
+                case 'Sr.no':              
+                  break;
+                case 'Brand':
+                  $brands = $this->toggleBrands($item['Brand'], $cats_id);
+                  break;
+                case 'Model Name':              
+                  $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands, $cats_id);
+                  break;
+                case 'Price':                            
+                  break;
+                default:
+                  $filter = $this->toggleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $group->groups_id);
+                  break;
+              }
+            }
           }
+          DB::commit();    
+          //Storage::delete('import.csv', 'import');
+          $message = 'New brands - '. $this->message['brands_new'].','.'New prods - '. $this->message['prods_new'].','.'New filters - '. $this->message['filters_new'].','.'Set filters - '. $this->message['filters_set'];
+          $response['data'] = true;          
+          $response['message'] = ['type'=>'success', 'text'=>$message];    
+        }
+        else{
+          $response['data'] = false;          
+          $response['message'] = ['type'=>'danger', 'text'=>'Chose CSV file'];    
         }
       }
-
-      
+      else{
+        $response['data'] = false;          
+        $response['message'] = ['type'=>'danger', 'text'=>'Chose file'];
+      }
+    }
+    else{
+      $response['data'] = false;          
+      $response['message'] = ['type'=>'danger', 'text'=>'Chose category'];
+    }
+    //return $response;
+    //exit();
+    return $response;
   }
   
   private function csvToArray($filename){
@@ -90,24 +96,41 @@ class ImportController extends Controller
       return $data;
   }
 
-
-
-  private function togleBrands($brands_name){    
-    $current = Brands::whereRaw('LOWER(brands_name) = '."'".strtolower(trim($brands_name))."'")->first();        
+  private function toggleGroups($groups_name){    
+    $current = Groups::where('groups_name', $groups_name)->first();        
     if ($current){
       return $current;
     }   
     else{
+      $group = new Groups;
+      $group->groups_name = trim($groups_name);
+      $group->save();
+      return $group;
+    }
+  }
+
+  private function toggleBrands($brands_name, $cats_id){    
+    $current = Brands::whereRaw('LOWER(brands_name) = '."'".strtolower(trim($brands_name))."'")
+    ->where('cats_id', $cats_id)
+    ->first();        
+    if ($current){      
+      return $current;
+    }   
+    else{      
       $brand = new Brands;
       $brand->brands_name = trim($brands_name);
+      $brand->brands_alias = $this->generate_alias(trim($brands_name));
+      $brand->cats_id = $cats_id;
       $brand->save();
+      $this->message['brands_new']++;
       return $brand;
     }
   }
 
-  private function togleProds($prods_name, $prods_price, $brands_id, $cats_id){
+  private function toggleProds($prods_name, $prods_price, $brands, $cats_id){
     $current = Prods::whereRaw('LOWER(prods_name) = '."'".strtolower(trim($prods_name))."'")
     ->where('cats_id', $cats_id)
+    ->where('brands_id', $brands->brands_id)
     ->first();    
     if ($current){
       $current->prods_price = trim($prods_price);
@@ -118,35 +141,44 @@ class ImportController extends Controller
       $prod = new Prods;    
       $prod->cats_id = ($cats_id);
       $prod->prods_name = trim($prods_name);
-      $prod->brands_id = $brands_id;
+      $prod->brands_id = $brands->brands_id;
       $prod->prods_alias = $this->generate_alias(trim($prods_name));
+      $prod->prods_full_alias = $brands->brands_alias.'-'.$this->generate_alias(trim($prods_name));
       $prod->prods_price = trim($prods_price);
       $prod->prods_active = 1;
       $prod->save();
+      $this->message['prods_new']++;
       return $prod;
     }
   }
 
-  private function togleFilters($filters_name, $filters_value, $prod, $cats_id, $groups_id){    
-    $current = Filters::whereRaw('LOWER(filters_name) = '."'".strtolower(trim($filters_name))."'")
-    ->where('groups_id', $groups_id)
-    ->first();        
-    if ($current){
-      //$prod->filters_id()->toggle([$current->filters_id=>['filters_value'=>$filters_value]]);
+  private function toggleFilters($filters_name, $filters_value, $prod, $cats_id, $groups_id){    
+    $filters = Filters::whereRaw('LOWER(filters_name) = '."'".strtolower(trim($filters_name))."'")    
+    ->with('cats_id')->get();
+    $current = false;
+    foreach ($filters as $filter)
+      foreach ($filter->cats_id as $cat) {
+        if ($cat->cats_id == $cats_id){
+          $current = $filter;
+          break;
+        } 
+    }    
+    if ($current){      
       $current->prods()->detach([$prod->prods_id]);
       $current->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);
+      $this->message['filters_set']++;      
       return $current;
-    }   
+    }
     else{
       $filter = new Filters;
       $filter->filters_name = trim($filters_name);
       $filter->filters_type = 'text';
       $filter->groups_id = $groups_id;
       $filter->save();
-      $filter->cats_id()->sync([$cats_id]);
-      //$prod->filters_id()->toggle([$filter->filters_id=>['filters_value'=>$filters_value]]);
+      $filter->cats_id()->sync([$cats_id]);      
       $filter->prods()->detach([$prod->prods_id]);
       $filter->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);
+      $this->message['filters_new']++;      
       return $filter;
     }
   }

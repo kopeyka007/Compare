@@ -58,7 +58,7 @@
 		$scope.token = function(token) {
 			$rootScope.token = token;
 		};
-
+		
 		$rootScope.user = false;
 		$scope.info = function() {
 			$http.get('/api/users/info').then(function(response) {
@@ -75,11 +75,14 @@
 
 		$scope.access = function(page) {
 			var rules = {'users': 1,
+						 'import': 1,
 					 	 'cats': 2,
 					 	 'brands': 2,
 						 'features': 2,
 					  	 'filters': 2,
-					  	 'prods': 3};
+					  	 'prods': 3,
+						 'currency': 3
+						 };
 
 			if (rules[page])
 			{
@@ -118,8 +121,8 @@
 
 (function(){
 	angular.module('panelApp').filter('checkmark', function() {
-    return function(input) {
-		return input ? '\u2713' : '\u2718';
-    };
-  });
+		return function(input) {
+			return input ? '\u2713' : '\u2718';
+		};
+	});
 })();

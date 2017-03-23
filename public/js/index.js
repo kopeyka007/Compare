@@ -1,18 +1,36 @@
 (function() {
-	angular.module('compareApp').controller('indexCtrl', ['$scope', '$rootScope', '$http', '$window', indexCtrl]);
+	angular.module('compareApp').controller('indexCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', indexCtrl]);
 	
-	function indexCtrl($scope, $rootScope, $http, $window) {
+	function indexCtrl($scope, $rootScope, $http, $window, $location) {
 		$scope.filters = [];
+		$scope.products_list = [];
+		var urlCat = $location.path();
+		
+		$http.post('/api/cats/front/list', {urlCat}).then(function(response){
+			$scope.products_list = response.data.data;
+			$scope.getBrands($scope.products_list.cats.prods);
+		});
+		
+		$scope.allBrands = {};
+		$scope.getBrands = function(prods) {
+			for (var k in prods)
+			{
+				$scope.allBrands[prods[k].brands_id.brands_id] = prods[k].brands_id.brands_name;
+			}
+		};
+		
 		$scope.filters_list = function() {
 			$http.get('/api/filters/front/filtersfilter').then(function(response) {
 				$scope.filters = response.data.data;
 			});
 		};
 		$scope.filters_list();
-
+		
 		$scope.sort = {};
 		$scope.filters_model = {};
 		$scope.slectedFilters = {};
+		$scope.slectedBrands = {};
+		
 		$scope.changeFilter = function(id) {
 			$scope.slectedFilters[id] = $scope.filters_model[id];
 		};
@@ -29,10 +47,24 @@
 					}
 				}
 			}
+			
+			if ($scope.filters_brand && $scope.filters_brand != value.brands_id.brands_id)
+			{
+				show = false;
+			}
 
 			return show ? value : false;
 		};
-
+		
+		$scope.goDetail = function(id){
+			$location.hash('.header');
+		}
+		
+		$scope.goUp = function(){
+			$location.hash('.header');
+		}
+		
+		
 		$scope.selectedCount = {};
 		$scope.selectedProds = {};
 		$scope.compareAlias = {};
@@ -66,7 +98,7 @@
 				var prod = $scope.selectedProds[cat.cats_id][id];
 				if (prod)
 				{
-					aliases.push(prod.prods_alias);
+					aliases.push(prod.prods_full_alias);
 					$scope.selectedCount[cat.cats_id]++;
 				}
 			}

@@ -48,12 +48,18 @@ class FiltersController extends Controller
           $current->groups_id = $groups->groups_id;
         }
         else{
-          $current->groups_id = $request->input('groups_id')['groups_id'];
+          $current_group = Groups::find($request->input('groups_id')['groups_id']);
+          if ($current_group){
+            $current_group->groups_name = $request->input('groups_id')['groups_name'];
+            $current_group->save();
+            $current->groups_id = $current_group->groups_id;
+          }
         }
         $current->filters_name = $request->input('filters_name');        
         $current->filters_alias = $request->input('filters_alias');        
         $current->filters_type = $request->input('filters_type');        
         $current->filters_filter = $request->input('filters_filter');        
+        $current->filters_units = $request->input('filters_units');        
         $cats_id = $request->input('cats_id')['cats_id'];
         if ($current->save() && $this->set_relation_category($cats_id, $filters_id)){
           $response['data'] = true;          
@@ -77,12 +83,18 @@ class FiltersController extends Controller
         $filter->groups_id = $groups->groups_id;
       }
       else{
-        $filter->groups_id = $request->input('groups_id')['groups_id'];
+        $current_group = Groups::find($request->input('groups_id')['groups_id']);
+        if ($current_group){
+          $current_group->groups_name = $request->input('groups_id')['groups_name'];
+          $current_group->save();
+          $filter->groups_id = $current_group->groups_id;
+        }
       }
       $filter->filters_name = $request->input('filters_name');        
       $filter->filters_alias = $request->input('filters_alias');        
       $filter->filters_type = $request->input('filters_type');        
       $filter->filters_filter = $request->input('filters_filter');
+      $filter->filters_units = $request->input('filters_units');
       $cats_id = $request->input('cats_id')['cats_id'];    
       if ($filter->save() && $this->set_relation_category($cats_id, $filter->filters_id)){
         $response['data'] = true;          
