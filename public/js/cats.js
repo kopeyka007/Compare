@@ -59,14 +59,21 @@
 		$scope.errors = [];
 		$scope.cat = {'cats_id': 0,
 					  'cats_alias': '',
-					  'cats_default': '',
+					  'cats_default': false,
 					  'cats_name': ''};
 		
 		if (items.cat && items.cat.cats_id)
 		{
 			for (var k in items.cat)
 			{
-				$scope.cat[k] = items.cat[k];
+				if (k == 'cats_default')
+				{
+					$scope.cat[k] = items.cat[k] == '1';
+				}
+				else
+				{
+					$scope.cat[k] = items.cat[k];
+				}
 			}
 		}
 

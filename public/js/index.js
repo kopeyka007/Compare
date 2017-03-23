@@ -3,10 +3,12 @@
 	
 	function indexCtrl($scope, $rootScope, $http, $window, $location) {
 		$scope.filters = [];
+		$scope.products_list = [];
 		var urlCat = $location.path();
 				
 		$http.post('/api/cats/front/list', {urlCat}).then(function(response){
-			console.log(response);
+			$scope.products_list = response.data.data;
+			console.log($scope.products_list);
 		});
 		
 		$scope.filters_list = function() {
