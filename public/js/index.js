@@ -23,10 +23,6 @@
 		$scope.slectedFilters = {};
 		$scope.slectedBrands = {};
 		
-		$scope.changeBrand = function(id) {
-			$scope.slectedBrands[id] = $scope.brands_model[id];
-		}
-		
 		$scope.changeFilter = function(id) {
 			$scope.slectedFilters[id] = $scope.filters_model[id];
 		};
@@ -43,17 +39,21 @@
 					}
 				}
 			}
+			
+			if ($scope.filters_brand && $scope.filters_brand != value.brands_id.brands_id)
+			{
+				show = false;
+			}
 
 			return show ? value : false;
 		};
 		
+		$scope.goDetail = function(id){
+			$location.hash('.header');
+		}
+		
 		$scope.goUp = function(){
 			$location.hash('.header');
-			var idList = [];
-			idList = $scope.selectedProds;
-			$http.post('/api/compare/list', {idList}).then(function(response){
-				console.log('ok');
-			});
 		}
 		
 		

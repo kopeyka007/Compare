@@ -18,9 +18,9 @@
 				<div class="brand-section">
 					<div class="filters-box">
 						<h4>Brands</h4>
-						<select class="form-control" ng-change="changeBrand(products_list.cats.prods[products_list.cats.prods.prods_id].brands_id.brands_id)" ng-model="brands_model[products_list.cats.prods[prods_id].brands_id.brands_id]">
+						<select class="form-control" ng-model="filters_brand">
 							<option value="">Select a value...</option>
-							<option value="@{{brand}}" ng-repeat="brand in products_list.cats.prods">@{{brand.brands_id.brands_name}}</option>
+							<option value="@{{brand.brands_id.brands_id}}" ng-repeat="brand in products_list.cats.prods">@{{brand.brands_id.brands_name}}</option>
 						</select>
 					</div>
 				</div>
@@ -62,7 +62,7 @@
 												</div>
 											</div>
 											<div class="content-name text-center">
-												<a href="@{{products_list.cats.cats_alias}}/@{{prod.brands_id.brands_alias}}-@{{prod.prods_alias}}">@{{prod.prods_name}}</a>
+												<a href="@{{products_list.cats.cats_alias}}/@{{prod.prods_full_alias}}" ng-click="goDetail(prod.prods_id)">@{{prod.prods_name}}</a>
 											</div>
 										</div>
 									</div>
