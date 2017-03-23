@@ -32,7 +32,7 @@
 						<div class="row">
 							<div ng-repeat="prod in products_list.cats.prods | filter:filterProds | orderBy: 'prods_price':(sort[products_list.cats.cats_id] == 'desc')">	
 								<div class="col-md-3 col-sm-6 col-xs-12">
-									<div class="content-border" ng-class="{'selected': prod.selected == 1, 'limit': limitClass}" ng-mousedown="selectedCount[cat.cats_id] == selectedMax ? limitClass = 'limit' : ''" ng-mouseup="limitClass = ''" ng-click="chooseProd(prod, cat)" ng-init="prod.selected = 0; limitClass = ''">
+									<div class="content-border" ng-class="{'selected': prod.selected == 1, 'limit': limitClass}" ng-mousedown="selectedCount[products_list.cats.cats_id] == selectedMax ? limitClass = 'limit' : ''" ng-mouseup="limitClass = ''" ng-click="chooseProd(prod, products_list.cats)" ng-init="prod.selected = 0; limitClass = ''">
 										<div class="content-inner">
 											<div class="content-img">
 												<div class="content-img-check">
