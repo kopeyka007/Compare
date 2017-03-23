@@ -43,7 +43,7 @@ class CatsController extends Controller
         $current->cats_name = $request->input('cats_name');
         $current->cats_alias = $request->input('cats_alias');
         $current->cats_default = $request->input('cats_default');
-        if (!empty($request->input('cats_default'))) $this->change_default;
+        if (!empty($request->input('cats_default'))) $this->change_default();
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Category saved'];
@@ -61,7 +61,7 @@ class CatsController extends Controller
       $cat->cats_name =  $request->input('cats_name');
       $cat->cats_alias = $request->input('cats_alias');      
       $cat->cats_default = $request->input('cats_default');
-      if (!empty($request->input('cats_default'))) $this->change_default;
+      if (!empty($request->input('cats_default'))) $this->change_default();
       if ($cat->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Category created'];
