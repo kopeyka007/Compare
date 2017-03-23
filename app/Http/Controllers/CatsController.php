@@ -216,7 +216,9 @@ class CatsController extends Controller
       ->with(['cats_id'=>function ($query) use($cats_id){
         $query->whereRaw('cats.cats_id = '.$cats_id);
       }])
-      ->with('prods')
+      ->with(['prods'=>function($query) use($cats_id){
+        $query->whereRaw('prods.cats_id = '. $cats_id);        
+      }])
       ->get();
       $filters_cats = array();
       foreach ($filters as $filter) {        
