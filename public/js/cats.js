@@ -59,6 +59,7 @@
 		$scope.errors = [];
 		$scope.cat = {'cats_id': 0,
 					  'cats_alias': '',
+					  'cats_default': '',
 					  'cats_name': ''};
 		
 		if (items.cat && items.cat.cats_id)
