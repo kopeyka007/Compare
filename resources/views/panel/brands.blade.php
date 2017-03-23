@@ -49,6 +49,14 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group">
+					<label>Category</label>
+					<select class="form-control" name="cats_id" ng-model="brand.cats_id" required="required" ng-options="cat.cats_name for cat in cats track by cat.cats_id">
+					</select>
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<div class="form-group">
 					<label>Name</label>
 					<input type="text" class="form-control" name="name" ng-model="brand.brands_name" ng-change="slug()" required="required" />
 				</div>

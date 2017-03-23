@@ -1,6 +1,11 @@
 (function() {
 	angular.module('panelApp').controller('brandsCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', brandsCtrl]);
 	function brandsCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
+		$scope.cats = [];
+		$http.get('/api/cats/list').then(function(response) {
+			$scope.cats = response.data.data;
+		});
+			
 		$scope.add = function(id) {
 			id = id || false;
 
@@ -15,13 +20,13 @@
 					}
 				}
 			}
-
+			
 			var modalInstance;
             modalInstance = $uibModal.open({
                 templateUrl: "ModalBrandsContent.html",
                 controller: 'ModalBrandsCtrl',
 				resolve: {
-					items: {'brand': brand, 'list': $scope.list}
+					items: {'brand': brand, 'list': $scope.list, 'cats': $scope.cats}
 				}
 			});	
 			
@@ -57,8 +62,10 @@
 	angular.module('panelApp').controller('ModalBrandsCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'validate', 'items', ModalBrandsCtrl]);
 	function ModalBrandsCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items) {
 		$scope.errors = [];
+		$scope.cats = [{'cats_id': 0, 'cats_name': 'Choose Category'}].concat(items.cats);
 		$scope.brand = {'brands_id': 0,
-					  	'brands_name': '',
+					  	'cats_id': {'cats_id': 0, 'cats_name': 'Choose Category'},
+						'brands_name': '',
 						'brands_alias': ''};
 		
 		if (items.brand && items.brand.brands_id)
