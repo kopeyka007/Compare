@@ -112,15 +112,18 @@ Route::post('api/currencies/save','CurrenciesController@save');
 Route::delete('api/currencies/delete/{id}','CurrenciesController@delete');
 //import
 Route::post('api/import/save','ImportController@save');
+//history
+Route::get('api/history/get','HistoryController@get_history');
 //-------------------------
 //Front
 Route::get('api/cats/front/shortlist','CatsController@shortlist');
+Route::post('api/cats/front/list','CatsController@frontlist');
 Route::get('api/filters/front/filtersfilter','FiltersController@get_filtersfilter');
 Route::post('api/compare/list','ProdsController@get_compare_prods');
 Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
 Route::post('api/prods/detail','ProdsController@get_prods_detail');
 Route::post('api/history/amazon','HistoryController@set_history_amazon');
-Route::get('api/history/get','HistoryController@get_history');
+
 
 
 

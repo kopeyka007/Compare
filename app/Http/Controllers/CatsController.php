@@ -184,4 +184,8 @@ class CatsController extends Controller
     }
     return $groups;    
   }
+
+  public function frontlist(){
+    
+  }
 }
