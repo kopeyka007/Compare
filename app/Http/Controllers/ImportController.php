@@ -44,7 +44,7 @@ class ImportController extends Controller
                   $brands = $this->toggleBrands($item['Brand'], $cats_id);
                   break;
                 case 'Model Name':              
-                  $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands->brands_id, $cats_id);
+                  $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands, $cats_id);
                   break;
                 case 'Price':                            
                   break;
@@ -127,10 +127,10 @@ class ImportController extends Controller
     }
   }
 
-  private function toggleProds($prods_name, $prods_price, $brands_id, $cats_id){
+  private function toggleProds($prods_name, $prods_price, $brands, $cats_id){
     $current = Prods::whereRaw('LOWER(prods_name) = '."'".strtolower(trim($prods_name))."'")
     ->where('cats_id', $cats_id)
-    ->where('brands_id', $brands_id)
+    ->where('brands_id', $brands->brands_id)
     ->first();    
     if ($current){
       $current->prods_price = trim($prods_price);
@@ -141,8 +141,9 @@ class ImportController extends Controller
       $prod = new Prods;    
       $prod->cats_id = ($cats_id);
       $prod->prods_name = trim($prods_name);
-      $prod->brands_id = $brands_id;
+      $prod->brands_id = $brands->brands_id;
       $prod->prods_alias = $this->generate_alias(trim($prods_name));
+      $prod->prods_full_alias = $brands->brands_alias.'-'.$this->generate_alias(trim($prods_name));
       $prod->prods_price = trim($prods_price);
       $prod->prods_active = 1;
       $prod->save();
