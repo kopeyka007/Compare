@@ -106,6 +106,10 @@ Route::delete('api/prods/delete/{id}','ProdsController@delete');
 Route::get('api/features/list','FeaturesController@get_all');
 Route::post('api/features/save','FeaturesController@save');
 Route::delete('api/features/delete/{id}','FeaturesController@delete');
+//currencies
+Route::get('api/currencies/list','CurrenciesController@get_all');
+Route::post('api/currencies/save','CurrenciesController@save');
+Route::delete('api/currencies/delete/{id}','CurrenciesController@delete');
 //import
 Route::post('api/import/save','ImportController@save');
 //-------------------------
