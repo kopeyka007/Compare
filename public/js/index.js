@@ -1,8 +1,14 @@
 (function() {
-	angular.module('compareApp').controller('indexCtrl', ['$scope', '$rootScope', '$http', '$window', indexCtrl]);
+	angular.module('compareApp').controller('indexCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', indexCtrl]);
 	
-	function indexCtrl($scope, $rootScope, $http, $window) {
+	function indexCtrl($scope, $rootScope, $http, $window, $location) {
 		$scope.filters = [];
+		var urlCat = $location.path();
+				
+		$http.post('/api/cats/front/list', {urlCat}).then(function(response){
+			console.log(response);
+		});
+		
 		$scope.filters_list = function() {
 			$http.get('/api/filters/front/filtersfilter').then(function(response) {
 				$scope.filters = response.data.data;

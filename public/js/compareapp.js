@@ -10,7 +10,8 @@
 
 		routes = [
 			'compare/:alias/',
-			':cat/:prod'
+			':cat/:prod',
+			':cat'
 		];
 
 		setRoutes = function(route) {
