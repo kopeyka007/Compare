@@ -74,6 +74,7 @@ class ProdsController extends Controller
         $current->brands_id = $request->input('brands_id')['brands_id'];        
         $current->prods_name = $request->input('prods_name');        
         $current->prods_alias = $request->input('prods_alias');        
+        $current->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
         $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):$request->input('prods_foto');
         //delete file
         if (empty($file)) Storage::delete(stristr($current->prods_foto, 'prods'));    
@@ -108,6 +109,7 @@ class ProdsController extends Controller
       $prod->brands_id = $request->input('brands_id')['brands_id'];        
       $prod->prods_name = $request->input('prods_name');        
       $prod->prods_alias = $request->input('prods_alias');        
+      $pros->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
       $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):'';
       $prod->prods_foto = $file;
       $prod->prods_amazon = $request->input('prods_amazon');        
