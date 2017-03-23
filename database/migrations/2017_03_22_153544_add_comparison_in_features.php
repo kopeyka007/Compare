@@ -14,7 +14,7 @@ class AddComparisonInFeatures extends Migration
     public function up()
     {
         Schema::table('features', function (Blueprint $table) {
-            $table->string('features_comparison')->default('')->nullable();
+            $table->string('features_rate')->default(1)->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddComparisonInFeatures extends Migration
     public function down()
     {
         Schema::table('features', function (Blueprint $table) {
-            $table->dropColumn('features_comparison');
+            $table->dropColumn('features_rate');
         });
     }
 }

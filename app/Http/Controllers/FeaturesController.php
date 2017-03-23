@@ -57,6 +57,7 @@ class FeaturesController extends Controller
         $current->features_units = $request->input('features_units');        
         $current->features_around = $request->input('features_around');        
         $current->features_norm = $request->input('features_norm');
+        $current->features_rate = $request->input('features_rate');
         $cats_id = $request->input('cats_id')['cats_id'];
         if ($current->save() && $this->set_relation_category($cats_id, $features_id)){
           $response['data'] = true;          
@@ -78,6 +79,7 @@ class FeaturesController extends Controller
       $feature->features_units = $request->input('features_units');        
       $feature->features_around = $request->input('features_around');        
       $feature->features_norm = $request->input('features_norm');
+      $feature->features_rate = $request->input('features_rate');
       $cats_id = $request->input('cats_id')['cats_id'];
       if ($feature->save() && $this->set_relation_category($cats_id, $feature->features_id)){
         $response['data'] = true;          

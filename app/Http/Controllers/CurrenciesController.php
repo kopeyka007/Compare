@@ -28,30 +28,24 @@ class CurrenciesController extends Controller
       if ($current){
         $current->currencies_name = $request->input('currencies_name');        
         $current->currencies_symbol = $request->input('currencies_symbol');        
-        if ($current->save() && $this->set_relation_category($cats_id, $features_id)){
+        if ($current->save()){
           $response['data'] = true;          
-          $response['message'] = ['type'=>'success', 'text'=>'Feature saved'];
+          $response['message'] = ['type'=>'success', 'text'=>'Currency saved'];
         }
       }
       else{
         $response['data'] = false;          
-        $response['message'] = ['type'=>'danger', 'text'=>'Feature not found'];
+        $response['message'] = ['type'=>'danger', 'text'=>'Currency not found'];
       } 
     }
     //create
     else
     { 
-      $feature->features_name = $request->input('features_name');
-      $file = ($request->file) ? asset('storage/'.$request->file->store('features')):'';
-      $feature->features_icon = $file;
-      $feature->features_desc = $request->input('features_desc');                
-      $feature->features_units = $request->input('features_units');        
-      $feature->features_around = $request->input('features_around');        
-      $feature->features_norm = $request->input('features_norm');
-      $cats_id = $request->input('cats_id')['cats_id'];
-      if ($feature->save() && $this->set_relation_category($cats_id, $feature->features_id)){
+      $currency->currencies_name = $request->input('currencies_name');
+      $currency->currencies_symbol = $request->input('currencies_symbol');
+      if ($currency->save()){
         $response['data'] = true;          
-        $response['message'] = ['type'=>'success', 'text'=>'Feature created'];
+        $response['message'] = ['type'=>'success', 'text'=>'Currency created'];
       }
       else{
         $response['data'] = false;          
@@ -62,19 +56,14 @@ class CurrenciesController extends Controller
   }
 
   public function delete($id){
-    $feature = Features::find($id);    
-    if ($feature && $feature->delete()){
-      if ($feature->features_icon !== 0)
-        Storage::delete(stristr($feature->features_icon, 'features'));
-      //delete relations       
-      $feature->prods()->detach();
-      $feature->cats_id()->detach();
+    $currency = Currencies::find($id);    
+    if ($currency && $currency->delete()){      
       $response['data']['type'] = true;      
-      $response['message'] = ['type'=>'success', 'text'=>'Feature deleted'];      
+      $response['message'] = ['type'=>'success', 'text'=>'Currency deleted'];      
     }
     else{
       $response['data'] = false;          
-      $response['message'] = ['type'=>'danger', 'text'=>'Feature not found'];
+      $response['message'] = ['type'=>'danger', 'text'=>'Currency not found'];
     }
     return $response;
   }
