@@ -40,6 +40,8 @@ class BrandsController extends Controller
       $current = Brands::find($brand_id);
       if ($current){
         $current->brands_name = $request->input('brands_name');        
+        $current->brands_alias = $request->input('brands_alias');                   
+        $current->cats_id = $request->input('cats_id')['cats_id'];                
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Brand saved'];
@@ -48,13 +50,14 @@ class BrandsController extends Controller
       else{
         $response['data'] = false;          
         $response['message'] = ['type'=>'danger', 'text'=>'Brand not found'];
-      }
-        
+      } 
     }
     //create
     else
     {
       $brand->brands_name =  $request->input('brands_name');
+      $brand->brands_alias =  $request->input('brands_alias');      
+      $brand->cats_id = $request->input('cats_id')['cats_id'];
       if ($brand->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Brand created'];
