@@ -58,7 +58,8 @@
 	function ModalBrandsCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items) {
 		$scope.errors = [];
 		$scope.brand = {'brands_id': 0,
-					  	'brands_name': ''};
+					  	'brands_name': '',
+						'brands_alias': ''};
 		
 		if (items.brand && items.brand.brands_id)
 		{
@@ -67,7 +68,14 @@
 				$scope.brand[k] = items.brand[k];
 			}
 		}
-													
+		
+		$scope.slug = function() {
+			if ( ! $scope.brand.brands_id && $scope.form.slug.$pristine)
+			{
+				$scope.brand.brands_alias = $scope.brand.brands_name.replace(/ /gi, '-').toLowerCase();
+			}
+		};
+		
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;

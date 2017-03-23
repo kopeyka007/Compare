@@ -10,6 +10,7 @@
 				<tr>
 					<th class="td-id">ID</th>
 					<th>Name</th>
+					<th>Alias</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -19,6 +20,7 @@
 				<tr ng-repeat="brand in list">
 					<td class="td-id">@{{brand.brands_id}}</td>
 					<td>@{{brand.brands_name}}</td>
+					<td>@{{brand.brands_alias}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(brand.brands_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(brand.brands_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
@@ -48,7 +50,14 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Name</label>
-					<input type="text" class="form-control" name="name" ng-model="brand.brands_name" required="required" />
+					<input type="text" class="form-control" name="name" ng-model="brand.brands_name" ng-change="slug()" required="required" />
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Slug</label>
+					<input type="text" class="form-control" name="slug" ng-model="brand.brands_alias" required="required" />
 				</div>
 			</div>
 		</div>

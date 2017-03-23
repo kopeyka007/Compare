@@ -62,6 +62,7 @@
 					<input type="text" class="form-control" name="slug" ng-model="cat.cats_alias" required="required" />
 				</div>
 			</div>
+			
 			<div class="col-sm-12">
 				<input type="checkbox" ng-model="cat.cats_default" ng-init="cat.cats_default == true" />
 				<label>Default Category</label>

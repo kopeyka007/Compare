@@ -20,7 +20,7 @@
 						<h4>@{{filter.filters_name}}</h4>
 						<select class="form-control" ng-change="changeFilter(filter.filters_id)" ng-model="filters_model[filter.filters_id]">
 							<option value="">Select a value...</option>
-							<option value="@{{option}}" ng-repeat="option in filter.filters_values">@{{option}}</option>
+							<option value="@{{option}}" ng-repeat="option in filter.filters_values">@{{option}} @{{filter.filters_units}}</option>
 						</select>
 					</div>
 				</div>
