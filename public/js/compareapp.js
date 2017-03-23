@@ -75,6 +75,10 @@
 				}, 300);
 			}, 500);
 		});
+		
+		$scope.goUp = function(){
+			$location.hash('.header');
+		}
 	}
 })();
 

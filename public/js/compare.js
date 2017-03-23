@@ -226,7 +226,7 @@
 	angular.module('compareApp').directive('scroll', function ($window) {
     return function(scope, element, attrs) {
         angular.element($window).bind("scroll", function() {
-            if (this.pageYOffset >= 120) {
+            if (this.pageYOffset >= 180) {
                  scope.fixedClass = true;
             } else {
                  scope.fixedClass = false;

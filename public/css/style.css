@@ -71,10 +71,6 @@
 	display: none;
 }
 
-.fixed img {
-	height: 130px;
-}
-
 .home-link,
 .home-link:hover,
 .home-link:focus,
@@ -368,8 +364,16 @@
 	position: relative;
 	z-index: 0;
 	width: 100%;
-	height: 200px;
 }
+
+.compare-head img {
+	height: 180px;
+}
+
+.fixed .compare-head img {
+	height: 130px;
+}
+
 
 .compare-head .compare-link {
 	display: block;

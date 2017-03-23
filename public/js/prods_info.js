@@ -3,7 +3,7 @@
 	function prodsInfoCtrl($scope, $rootScope, $http, $window, $location) {
 
 		$scope.prodUrl = $location.absUrl();
-		
+
 		var url = $location.path();
 		$http.post('/api/prods/detail', {url}).then(function(response){
 			$scope.prodsInfo = response.data.data;

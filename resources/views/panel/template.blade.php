@@ -73,6 +73,7 @@
 		<script src="/js/dashboard.js"></script>
 		<script src="/js/prods.js"></script>
 		<script src="/js/import.js"></script>
+		<script src="/js/currency.js"></script>
 		<script src="/js/validate.js"></script>
     </body>
 </html>

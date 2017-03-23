@@ -9,7 +9,6 @@
 		$http.post('/api/cats/front/list', {urlCat}).then(function(response){
 			$scope.products_list = response.data.data;
 			$scope.getBrands($scope.products_list.cats.prods);
-			console.log($scope.products_list);
 		});
 		
 		$scope.allBrands = {};
@@ -26,9 +25,6 @@
 			});
 		};
 		$scope.filters_list();
-		
-		
-		
 		
 		$scope.sort = {};
 		$scope.filters_model = {};

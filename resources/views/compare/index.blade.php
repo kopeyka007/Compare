@@ -62,7 +62,7 @@
 												</div>
 											</div>
 											<div class="content-name text-center">
-												<a href="@{{products_list.cats.cats_alias}}/@{{prod.prods_full_alias}}" ng-click="goDetail(prod.prods_id)">@{{prod.prods_name}}</a>
+												<a href="@{{products_list.cats.cats_alias}}/@{{prod.prods_full_alias}}" ng-click="goUp()">@{{prod.prods_name}}</a>
 											</div>
 										</div>
 									</div>

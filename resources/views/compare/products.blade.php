@@ -93,7 +93,7 @@
 										$ @{{related.prods_price}}
 									</div>
 									<div class="related-btn">
-										<a href="/compare/@{{prodsInfo.prods_full_alias}}-vs-@{{related.prods_full_alias}}" class="btn btn-info btn-block"><i class="fa fa-plus" aria-hidden="true"></i> <span class="span-hide">Add To</span> Compare</a>
+										<a href="/compare/@{{prodsInfo.prods_full_alias}}-vs-@{{related.prods_full_alias}}" ng-click="goUp()" class="btn btn-info btn-block"><i class="fa fa-plus" aria-hidden="true"></i> <span class="span-hide">Add To</span> Compare</a>
 									</div>
 								</div>
 							</div>
