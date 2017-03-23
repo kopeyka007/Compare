@@ -20,7 +20,7 @@
 						<h4>@{{filter.filters_name}}</h4>
 						<select class="form-control" ng-change="changeFilter(filter.filters_id)" ng-model="filters_model[filter.filters_id]">
 							<option value="">Select a value...</option>
-							<option value="@{{option}}" ng-repeat="option in filter.filter_values">@{{option}}</option>
+							<option value="@{{option}}" ng-repeat="option in filter.filters_values">@{{option}}</option>
 						</select>
 					</div>
 				</div>
@@ -53,7 +53,7 @@
 												</div>
 											</div>
 											<div class="content-name text-center">
-												<a href="@{{cat.cats_alias}}/@{{prod.prods_alias}}">@{{prod.prods_name}}</a>
+												<a href="@{{products_list.cats.cats_alias}}/@{{prod.prods_alias}}">@{{prod.prods_name}}</a>
 											</div>
 										</div>
 									</div>
@@ -62,7 +62,7 @@
 						</div>
 
 						<div class="btn-compare">
-							<a href="@{{compareAlias[cat.cats_id]}}" type="button" class="btn btn-info btn-block btn-lg" ng-click="goUp()">COMPARE <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+							<a href="@{{compareAlias[products_list.cats.cats_id]}}" type="button" class="btn btn-info btn-block btn-lg" ng-click="goUp()">COMPARE <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
 						</div>
 					</div>
 				</div>
