@@ -21,6 +21,12 @@
 		$scope.sort = {};
 		$scope.filters_model = {};
 		$scope.slectedFilters = {};
+		$scope.slectedBrands = {};
+		
+		$scope.changeBrand = function(id) {
+			$scope.slectedBrands[id] = $scope.brands_model[id];
+		}
+		
 		$scope.changeFilter = function(id) {
 			$scope.slectedFilters[id] = $scope.filters_model[id];
 		};
@@ -40,7 +46,17 @@
 
 			return show ? value : false;
 		};
-
+		
+		$scope.goUp = function(){
+			var idList = [];
+			idList = $scope.selectedProds[2];
+			$location.hash('.header');
+			$http.post('/api/compare/list', {idList}).then(function(response){
+				console.log('ok');
+			});
+		}
+		
+		
 		$scope.selectedCount = {};
 		$scope.selectedProds = {};
 		$scope.compareAlias = {};
@@ -74,7 +90,7 @@
 				var prod = $scope.selectedProds[cat.cats_id][id];
 				if (prod)
 				{
-					aliases.push(prod.prods_alias);
+					aliases.push(prod.brands_id.brands_alias + '-' + prod.prods_alias);
 					$scope.selectedCount[cat.cats_id]++;
 				}
 			}
