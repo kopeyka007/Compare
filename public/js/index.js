@@ -3,9 +3,9 @@
 	
 	function indexCtrl($scope, $rootScope, $http, $window, $location) {
 		$scope.filters = [];
-		$scope.urlCat = $location.path();
-		
-		$http.post('/api/cats/front/list', {$scope.urlCat}).then(function(response){
+		var urlCat = $location.path();
+				
+		$http.post('/api/cats/front/list', {urlCat}).then(function(response){
 			console.log(response);
 		});
 		
