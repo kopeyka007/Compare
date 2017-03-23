@@ -117,7 +117,7 @@ Route::get('api/history/get','HistoryController@get_history');
 //-------------------------
 //Front
 Route::get('api/cats/front/shortlist','CatsController@shortlist');
-Route::post('api/cats/front/list','CatsController@frontlist');
+Route::post('api/cats/front/list','CatsController@catslist');
 Route::get('api/filters/front/filtersfilter','FiltersController@get_filtersfilter');
 Route::post('api/compare/list','ProdsController@get_compare_prods');
 Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
