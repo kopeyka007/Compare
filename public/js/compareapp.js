@@ -78,7 +78,22 @@
 		
 		$scope.goUp = function(){
 			$location.hash('.header');
-		}
+		};
+
+		$scope.activeCat = function(cat) {
+			var segments = $location.path().split('/');
+			if (cat.cats_default == '1' && segments[1] == '')
+			{
+				return true;
+			}
+
+			if (cat.cats_alias == segments[1] && ! segments[2])
+			{
+				return true;
+			}
+
+			return false;
+		};
 	}
 })();
 

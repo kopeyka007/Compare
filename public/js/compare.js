@@ -82,7 +82,7 @@
 				{
 					if (prod.features[features_id] && prod.features[features_id].features_value && this_prod.features && this_prod.features[features_id].features_value)
 					{
-						if (prod.features[features_id].features_value * 1 >= this_prod.features[features_id].features_value * 1)
+						if ((prod.features[features_id].features_rate == '1' && prod.features[features_id].features_value * 1 >= this_prod.features[features_id].features_value * 1) || (prod.features[features_id].features_rate == '0' && prod.features[features_id].features_value * 1 <= this_prod.features[features_id].features_value * 1))
 						{
 							check = false;
 						}
@@ -110,20 +110,17 @@
 					if (prod.features[features_id] && prod.features[features_id].features_value && this_prod.features && this_prod.features[features_id].features_value)
 					{
 						var delta = this_prod.features[features_id].features_value - prod.features[features_id].features_value;
-						if (delta && delta > 0)
+						if (min_delta === false)
 						{
-							if (min_delta === false)
+							min_delta = delta;
+							closest = prod;
+						}
+						else
+						{
+							if ((prod.features[features_id].features_rate == '1' && delta < min_delta) || (prod.features[features_id].features_rate == '0' && delta > min_delta))
 							{
 								min_delta = delta;
 								closest = prod;
-							}
-							else
-							{
-								if (delta < min_delta)
-								{
-									min_delta = delta;
-									closest = prod;
-								}
 							}
 						}
 					}
