@@ -185,7 +185,36 @@ class CatsController extends Controller
     return $groups;    
   }
 
-  public function frontlist(){
-    
+  public function catslist(Request $request){
+    $url = $request->input('urlCat');
+    $aliases = explode('/', $url);  
+    $cats_alias = $aliases[1];
+    $cats = Cats::with('prods')
+      ->where('cats_alias', $cats_alias)
+      ->with('prods.brands_id')
+      ->with('prods.filters_id')    
+      ->first();
+    if (empty($cats)){     
+      $cats = Cats::with('prods')
+      ->where('cats_default', 1)
+      ->with('prods.brands_id')
+      ->with('prods.filters_id')    
+      ->first();
+    }
+    if ($cats){
+      foreach ($cats->prods as $prod) {
+        $filters = array();
+        foreach ($prod->filters_id as $filter) {
+            $filters[$filter->filters_id] = $filter->pivot->filters_value;
+        }
+        $prod['filters'] = $filters;
+        unset($prod->filters_id);
+      }
+      
+    }
+    $response['data'] = $cats;
+    return $response;
   }
+
+
 }
