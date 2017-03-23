@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Cats;
 use App\Prods;
+use App\Filters;
 use Illuminate\Http\Request;
 
 class CatsController extends Controller
@@ -210,7 +211,28 @@ class CatsController extends Controller
         $prod['filters'] = $filters;
         unset($prod->filters_id);
       }
+      $cats_id = $cats->cats_id;
+      $filters = Filters::where('filters_filter',1)
+      ->with(['cats_id'=>function ($query) use($cats_id){
+        $query->whereRaw('cats.cats_id = '.$cats_id);
+      }])
+      ->with('prods')
+      ->get();
+      $filters_cats = array();
+      foreach ($filters as $filter) {        
+        if (count($filter->cats_id)){
+          $filters_values = array();
+          foreach ($filter->prods as $prod) {
+             $filters_values[] = $prod->pivot->filters_value;
+          }
+          unset($filter->cats_id);
+          unset($filter->prods);
+          $filter['filters_values'] = array_unique($filters_values);
+          $filters_cats[] = $filter;          
+        } 
+      }
       $response['data']['cats'] = $cats;
+      $response['data']['filters'] = $filters_cats;
     }
     else{
       $response['data'] = false;
