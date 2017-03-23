@@ -155,7 +155,7 @@
 		<div class="row">
 			<div class="col-sm-6 col-xs-12" ng-repeat="prod in prods">
 				<div class="form-group">
-					<a href="@{{compareLink(prod.prods_alias)}}" ng-click="cancel()">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a>
+					<a href="@{{compareLink(prod.prods_full_alias)}}" ng-click="cancel()">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a>
 				</div>
 			</div>
 		</div>

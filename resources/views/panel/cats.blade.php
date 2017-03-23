@@ -22,7 +22,7 @@
 					<td class="td-id">@{{cat.cats_id}}</td>
 					<td>@{{cat.cats_name}}</td>
 					<td class="td-type">@{{cat.cats_alias}}</td>
-					<td class="td-type">@{{cat.cats_default}}</td>
+					<td class="td-type">@{{cat.cats_default | checkmark}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(cat.cats_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(cat.cats_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>

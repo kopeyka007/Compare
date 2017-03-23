@@ -5,11 +5,20 @@
 		$scope.filters = [];
 		$scope.products_list = [];
 		var urlCat = $location.path();
-				
+		
 		$http.post('/api/cats/front/list', {urlCat}).then(function(response){
 			$scope.products_list = response.data.data;
+			$scope.getBrands($scope.products_list.cats.prods);
 			console.log($scope.products_list);
 		});
+		
+		$scope.allBrands = {};
+		$scope.getBrands = function(prods) {
+			for (var k in prods)
+			{
+				$scope.allBrands[prods[k].brands_id.brands_id] = prods[k].brands_id.brands_name;
+			}
+		};
 		
 		$scope.filters_list = function() {
 			$http.get('/api/filters/front/filtersfilter').then(function(response) {
@@ -17,15 +26,14 @@
 			});
 		};
 		$scope.filters_list();
-
+		
+		
+		
+		
 		$scope.sort = {};
 		$scope.filters_model = {};
 		$scope.slectedFilters = {};
 		$scope.slectedBrands = {};
-		
-		$scope.changeBrand = function(id) {
-			$scope.slectedBrands[id] = $scope.brands_model[id];
-		}
 		
 		$scope.changeFilter = function(id) {
 			$scope.slectedFilters[id] = $scope.filters_model[id];
@@ -43,17 +51,21 @@
 					}
 				}
 			}
+			
+			if ($scope.filters_brand && $scope.filters_brand != value.brands_id.brands_id)
+			{
+				show = false;
+			}
 
 			return show ? value : false;
 		};
 		
+		$scope.goDetail = function(id){
+			$location.hash('.header');
+		}
+		
 		$scope.goUp = function(){
 			$location.hash('.header');
-			var idList = [];
-			idList = $scope.selectedProds;
-			$http.post('/api/compare/list', {idList}).then(function(response){
-				console.log('ok');
-			});
 		}
 		
 		
@@ -90,7 +102,7 @@
 				var prod = $scope.selectedProds[cat.cats_id][id];
 				if (prod)
 				{
-					aliases.push(prod.brands_id.brands_alias + '-' + prod.prods_alias);
+					aliases.push(prod.prods_full_alias);
 					$scope.selectedCount[cat.cats_id]++;
 				}
 			}

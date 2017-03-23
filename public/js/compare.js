@@ -6,7 +6,6 @@
 		$scope.compareList = [];
 		$scope.closestProd = '';
 		var url = $location.path();
-		
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data;
 		});
@@ -39,7 +38,7 @@
 				var prod = $scope.compareList[id];
 				if (prod.prods_id != prods_id)
 				{
-					aliases.push(prod.prods_alias);
+					aliases.push(prod.prods_full_alias);
 					$scope.selectedCount++;
 				}
 			}
@@ -156,7 +155,7 @@
 				}
 			}
 
-			return '/' + cats_alias + '/' + prod.prods_alias;
+			return '/' + cats_alias + '/' + prod.prods_full_alias;
 		};
 
 		$scope.addToCompare = function(cats_id) {
@@ -193,7 +192,7 @@
 		$scope.aliases = [];
 		for (var k in items.compares)
 		{
-			$scope.aliases.push(items.compares[k].prods_alias);
+			$scope.aliases.push(items.compares[k].prods_full_alias);
 		}
 		$scope.prods = [];
 		for (var k in items.prods)
