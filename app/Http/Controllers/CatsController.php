@@ -210,9 +210,11 @@ class CatsController extends Controller
         $prod['filters'] = $filters;
         unset($prod->filters_id);
       }
-      
+      $response['data']['cats'] = $cats;
     }
-    $response['data'] = $cats;
+    else{
+      $response['data'] = false;
+    }
     return $response;
   }
 
