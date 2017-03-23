@@ -48,9 +48,9 @@
 		};
 		
 		$scope.goUp = function(){
-			var idList = [];
-			idList = $scope.selectedProds[2];
 			$location.hash('.header');
+			var idList = [];
+			idList = $scope.selectedProds;
 			$http.post('/api/compare/list', {idList}).then(function(response){
 				console.log('ok');
 			});
