@@ -18,6 +18,24 @@
 				<a href="/" class="home-link">Compare</a>
 			</div>
 		</section>
+		<section class="cats-menu">
+			<div class="navbar navbar-default">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="menu">
+						<ul class="nav navbar-nav">
+							<li ng-repeat="cat in products"><a href="">@{{cat.cats_name}}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
 		<section class="content" ng-view>
 		</section>
 		<section class="footer">

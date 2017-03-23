@@ -58,7 +58,7 @@
 		$scope.token = function(token) {
 			$rootScope.token = token;
 		};
-
+		
 		$rootScope.user = false;
 		$scope.info = function() {
 			$http.get('/api/users/info').then(function(response) {
@@ -80,7 +80,8 @@
 					 	 'brands': 2,
 						 'features': 2,
 					  	 'filters': 2,
-					  	 'prods': 3
+					  	 'prods': 3,
+						 'currency': 3
 						 };
 
 			if (rules[page])

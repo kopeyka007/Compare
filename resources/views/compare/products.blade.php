@@ -126,7 +126,7 @@
 										<td class="spec-comment">
 											<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ filter.filters_value }}</span>
 											<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ filter.filters_value }}&nbsp;</span>
-											<span ng-show="filter.filters_type != 'check'">@{{filter.filters_value}}</span>
+											<span ng-show="filter.filters_type != 'check'">@{{filter.filters_value}} @{{filter.filters_units}}</span>
 										</td>
 									</tr>
 								</tbody>

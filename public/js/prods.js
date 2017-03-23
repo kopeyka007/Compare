@@ -10,7 +10,7 @@
 		$http.get('/api/brands/list').then(function(response) {
 			$scope.brands = response.data.data;
 		});
-		
+				
 		$scope.add = function(id) {
 			id = id || false;
 

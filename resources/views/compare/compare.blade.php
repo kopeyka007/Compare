@@ -5,62 +5,72 @@
 			<i class="fa fa-chevron-right" aria-hidden="true"></i>
 			<span>@{{nameAllProds()}}</span>
 		</div>
-		<div class="table-responsive">
-			<div scroll ng-class="{fixed: fixedClass}">
-			<table class="table compare-table">
-				<thead>
-					<tr>
-						<th class="filters-cell"></th>
-						<th class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
-							<h4 ng-if="compareList[i]">@{{compareList[i].prods_name}}</h4>
-							<p>@{{compareList[i].brands_id.brands_name}}</p>
-						</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<tr>
-						<td class="filters-cell">
-							<button type="button" class="btn btn-success btn-block" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
-								All Features
-							</button>
+	</div>
+	
+	<div class="fixed-wrap">
+		<div scroll ng-class="{fixed: fixedClass}">
+			<div class="container">
+				<div class="table-responsive">
+					<table class="table compare-table">
+						<thead>
+							<tr>
+								<th class="filters-cell"></th>
+								<th class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+									<h4 ng-if="compareList[i]">@{{compareList[i].prods_name}}</h4>
+									<p>@{{compareList[i].brands_id.brands_name}}</p>
+								</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<tr>
+								<td class="filters-cell">
+									<button type="button" class="btn btn-success btn-block" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
+										All Features
+									</button>
 
-							<button type="button" class="btn btn-success btn-block" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
-								Differences
-							</button>
-						</td>
+									<button type="button" class="btn btn-success btn-block" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
+										Differences
+									</button>
+								</td>
 
-						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
-							<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
-								<a href="@{{productsLink(prod)}}" class="compare-link">
-									<img src="@{{prod.prods_foto}}" alt="#" />
-									<span class="compare-price text-danger">
-										$@{{prod.prods_price}}
-									</span>
-								</a>
-								<a href="@{{closeLink(prod.prods_id)}}" class="compare-close">
-									<i class="fa fa-times-circle" aria-hidden="true"></i>
-								</a>
-							</div>
+								<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+									<div class="compare-head" ng-if="compareList[i]" ng-init="prod = compareList[i]">
+										<a href="@{{productsLink(prod)}}" class="compare-link">
+											<img src="@{{prod.prods_foto}}" alt="#" />
+											<span class="compare-price text-danger">
+												$@{{prod.prods_price}}
+											</span>
+										</a>
+										<a href="@{{closeLink(prod.prods_id)}}" class="compare-close">
+											<i class="fa fa-times-circle" aria-hidden="true"></i>
+										</a>
+									</div>
 
-							<div ng-if="! compareList[i]" class="compare-head inactive">
-								<div class="compare-link">
-									<img src="http://comparewear.com/images/products/apple-watch.jpg" alt="#" />
+									<div ng-if="! compareList[i]" class="compare-head inactive">
+										<div class="compare-link">
+											<img src="http://comparewear.com/images/products/apple-watch.jpg" alt="#" />
 
-									<span class="compare-price text-danger">
-										$9.999
-									</span>
-								</div>
+											<span class="compare-price text-danger">
+												$9.999
+											</span>
+										</div>
 
-								<div class="wrap-add-btn">
-									<button class="btn btn-info add-btn" ng-click="addToCompare(compareList[0].cats_id)">Add Another Product</button>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+										<div class="wrap-add-btn">
+											<button class="btn btn-info add-btn" ng-click="addToCompare(compareList[0].cats_id)">Add Another Product</button>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="table-responsive">
 			<table class="table">
 				<tbody>
 					<tr>
@@ -110,7 +120,7 @@
 								<div ng-if="compareList[i]" ng-init="prod = compareList[i]">
 									<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ prod.filters[filter.filters_id].filters_value }}</span>
 									<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ prod.filters[filter.filters_id].filters_value }}&nbsp;</span>
-									<span ng-show="filter.filters_type != 'check'">@{{prod.filters[filter.filters_id].filters_value}}</span>
+									<span ng-show="filter.filters_type != 'check'">@{{prod.filters[filter.filters_id].filters_value}} @{{prod.filters[filter.filters_id].filters_units}}</span>
 								</div>
 							</td>
 						</tr>

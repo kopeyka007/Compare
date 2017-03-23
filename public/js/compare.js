@@ -9,7 +9,6 @@
 		
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data;
-			console.log($scope.compareList);
 		});
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
@@ -228,7 +227,7 @@
 	angular.module('compareApp').directive('scroll', function ($window) {
     return function(scope, element, attrs) {
         angular.element($window).bind("scroll", function() {
-            if (this.pageYOffset >= 100) {
+            if (this.pageYOffset >= 120) {
                  scope.fixedClass = true;
             } else {
                  scope.fixedClass = false;

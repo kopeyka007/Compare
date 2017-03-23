@@ -36,6 +36,7 @@
 							<li ng-class="{'active': activeMenu('features')}"><a href="/panel/features/" ng-if="access('features')">Features</a></li>
 							<li ng-class="{'active': activeMenu('filters')}"><a href="/panel/filters/" ng-if="access('filters')">Filters</a></li>
 							<li ng-class="{'active': activeMenu('prods')}"><a href="/panel/prods/" ng-if="access('prods')">Products</a></li>
+							<li ng-class="{'active': activeMenu('currency')}"><a href="/panel/currencies/" ng-if="access('currency')">Currencies</a></li>
 							<li ng-class="{'active': activeMenu('import')}"><a href="/panel/import/" ng-if="access('import')">Import</a></li>
 						</ul>
 

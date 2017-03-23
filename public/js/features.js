@@ -71,6 +71,7 @@
 					  	  'features_units': '',
 					  	  'features_around': '',
 					  	  'features_norm': '',
+						  'features_rate': '1',
 					  	  '_token': $rootScope.token};
 		
 		if (items.feature && items.feature.features_id)
