@@ -205,7 +205,7 @@ class ProdsController extends Controller
         $ids[] = $prod->prods_id;
       }
     }
-    if (count($ids)){
+    if (isset($ids) && count($ids)){
       $response['data'] = $this->get_prods_with_filters_group($ids);
       //write history
       $history = new HistoryController;

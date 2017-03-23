@@ -173,7 +173,7 @@ class CatsController extends Controller
         $ids[] = $prod->cats_id;
       }
     }    
-    if (count($ids)){
+    if (isset($ids) && count($ids)){
       $response['data'] = $this->get_all_cats_filters($ids);
     }
     else{
