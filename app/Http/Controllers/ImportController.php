@@ -110,13 +110,16 @@ class ImportController extends Controller
   }
 
   private function toggleBrands($brands_name, $cats_id){    
-    $current = Brands::whereRaw('LOWER(brands_name) = '."'".strtolower(trim($brands_name))."'")->first();        
+    $current = Brands::whereRaw('LOWER(brands_name) = '."'".strtolower(trim($brands_name))."'")
+    ->where('cats_id', $cats_id)
+    ->first();        
     if ($current){      
       return $current;
     }   
     else{      
       $brand = new Brands;
       $brand->brands_name = trim($brands_name);
+      $brand->brands_alias = $this->generate_alias(trim($brands_name));
       $brand->cats_id = $cats_id;
       $brand->save();
       $this->message['brands_new']++;

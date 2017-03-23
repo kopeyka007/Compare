@@ -42,6 +42,8 @@ class CatsController extends Controller
       if ($current){
         $current->cats_name = $request->input('cats_name');
         $current->cats_alias = $request->input('cats_alias');
+        $current->cats_default = $request->input('cats_default');
+        if (!empty($request->input('cats_default'))) $this->change_default;
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Category saved'];
@@ -58,6 +60,8 @@ class CatsController extends Controller
     {
       $cat->cats_name =  $request->input('cats_name');
       $cat->cats_alias = $request->input('cats_alias');      
+      $cat->cats_default = $request->input('cats_default');
+      if (!empty($request->input('cats_default'))) $this->change_default;
       if ($cat->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Category created'];
@@ -109,18 +113,13 @@ class CatsController extends Controller
     return $response;
   }
 
-  public function get_filters_groups($id){    
-    //$cat = Cats::find($id);    
+  public function get_filters_groups($id){
     $cats = Cats::with('filters.groups')->find($id);
     $filters = $cats->filters;
     foreach ($cats->filters as $filter) {      
       $groups[$filter->groups->groups_name][] = $filter;
-    }
-    //return $cats->filters;
-    return $groups;
-    //return $filters;
-
-    //return $response;
+    }    
+    return $groups;    
   }
 
   public function get_features($id){
@@ -134,6 +133,15 @@ class CatsController extends Controller
     }
     return $response; 
   }
+
+  private function change_default(){
+    $default = Cats::where('cats_default', 1)->first();
+    if ($default){
+      $default->cats_default = 0;
+      $default->save();
+    }
+  }
+  
   //Front ---------------------
   public function shortlist(){    
     $cats = Cats::with('prods')
