@@ -115,7 +115,8 @@
 							<input type="text" class="form-control" name="prods_price" ng-model="prod.prods_price" required="required" />
 						</div>
 						<div class="col-md-4">
-							<select class="form-control" ng-model="currency" ng-options="x for (x, y) in currency">
+							<select class="form-control" ng-model="prod.currencies_id">
+								<option ng-repeat="item in currList">@{{item.currencies_symbol}}</option>
 							</select>
 						</div>
 					</div>
