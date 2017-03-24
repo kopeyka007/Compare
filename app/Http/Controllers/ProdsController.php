@@ -175,7 +175,7 @@ class ProdsController extends Controller
 
   //Front
   private function get_prods_with_filters_group($ids){    
-    $prods = Prods::with('brands_id', 'filters_id', 'features_id')->where('prods_active',1)->find($ids);
+    $prods = Prods::with('brands_id', 'filters_id', 'features_id', 'cats_id')->where('prods_active',1)->find($ids);
     foreach ($prods as $prod) {      
       $filters = array();
       $features = array();
