@@ -57,7 +57,7 @@
 }
 
 .fixed-wrap {
-	height: 295px;
+	height: 270px;
 }
 
 .fixed {
@@ -71,10 +71,6 @@
 
 .fixed .table-responsive {
 	border-bottom: 1px solid #ccc;
-}
-
-.fixed td.filters-cell button {
-	display: none;
 }
 
 .home-link,
@@ -343,7 +339,7 @@
 }
 
 .fixed .compare-head img {
-	max-height: 130px;
+	max-height: 80px;
 }
 
 /* .compare-head img {
