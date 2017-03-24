@@ -142,7 +142,7 @@
 			if (closest && min_delta !== false)
 			{
 				$scope.closestProd = closest.brands_id.brands_name + ' ' + closest.prods_name;
-				var percent = Math.round(min_delta * 100 / this_prod.features[features_id].features_value);
+				var percent = Math.abs(Math.round(this_prod.features[features_id].features_value * 100 / closest.features[features_id].features_value) - 100);
 				return percent + '%';
 			}
 
