@@ -145,7 +145,12 @@
 			});
 			
 			$http.get('/api/cats/brands/' + $scope.prod.cats_id.cats_id).then(function(response) {
-				$scope.brands = response.data.data;
+				$scope.brands = [{'brands_id': 0, 'brands_name': 'Choose Brand'}].concat(response.data.data);
+				if ($scope.prod.brands_id.brands_id == '0')
+				{
+					$scope.prod.brands_id = $scope.brands[0];
+				}
+				
 			});
 		};
 		
