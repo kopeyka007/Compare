@@ -28,6 +28,7 @@ class CurrenciesController extends Controller
       if ($current){
         $current->currencies_name = $request->input('currencies_name');        
         $current->currencies_symbol = $request->input('currencies_symbol');        
+        $current->currencies_default = $request->input('currencies_default');
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Currency saved'];
@@ -43,6 +44,7 @@ class CurrenciesController extends Controller
     { 
       $currency->currencies_name = $request->input('currencies_name');
       $currency->currencies_symbol = $request->input('currencies_symbol');
+      $currency->currencies_default = $request->input('currencies_default');
       if ($currency->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Currency created'];
