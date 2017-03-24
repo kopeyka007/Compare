@@ -8,7 +8,7 @@
 	</div>
 	
 	<div class="fixed-wrap">
-		<div ng-class="{fixed: fixedClass}">
+		<div scroll ng-class="{fixed: fixedClass}">
 			<div class="container">
 				<div class="table-responsive">
 					<table class="table compare-table">
@@ -16,8 +16,8 @@
 							<tr>
 								<th class="filters-cell"></th>
 								<th class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
-									<h4 ng-if="compareList[i]">@{{compareList[i].prods_name}}</h4>
-									<p>@{{compareList[i].brands_id.brands_name}}</p>
+									<span>@{{compareList[i].brands_id.brands_name}}</span>
+									<span ng-if="compareList[i]">@{{compareList[i].prods_name}}</span>
 								</th>
 							</tr>
 						</thead>
@@ -39,7 +39,7 @@
 										<a href="@{{productsLink(prod)}}" class="compare-link">
 											<img src="@{{prod.prods_foto}}" alt="#" />
 											<span class="compare-price text-danger">
-												$@{{prod.prods_price}}
+												@{{prod.prods_price_cur}}
 											</span>
 										</a>
 										<a href="@{{closeLink(prod.prods_id)}}" class="compare-close">

@@ -7,7 +7,7 @@
 		</div>
 		<div class="products-preview">
 			<div class="row">
-				<div class="col-md-6 col-md-offset-4">
+				<div class="col-md-8 col-md-offset-4">
 					<div class="products-img">
 						<img src="@{{prodsInfo.prods_foto}}" alt="#" />
 					</div>
@@ -90,7 +90,7 @@
 										@{{related.brands_id.brands_name}} @{{related.prods_name}}
 									</div>
 									<div class="related-price text-danger">
-										$ @{{related.prods_price}}
+										@{{related.prods_price_cur}}
 									</div>
 									<div class="related-btn">
 										<a href="/compare/@{{prodsInfo.prods_full_alias}}-vs-@{{related.prods_full_alias}}" ng-click="goUp()" class="btn btn-info btn-block"><i class="fa fa-plus" aria-hidden="true"></i> <span class="span-hide">Add To</span> Compare</a>

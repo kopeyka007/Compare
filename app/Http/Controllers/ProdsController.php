@@ -20,8 +20,9 @@ class ProdsController extends Controller
     $prods = Prods::with('filters_id.groups')->
     with('features_id')->
     with('brands_id')->
-    with('cats_id')
-    ->get();
+    with('cats_id')->
+    with('currencies_id')->
+    get();
     foreach ($prods as $prod) {
       $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):$prod->prods_foto;
       $filters = array();
@@ -87,6 +88,7 @@ class ProdsController extends Controller
         $current->prods_amazon = $request->input('prods_amazon');
         $current->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');        
         $current->prods_active = ($request->input('prods_active') == 'true')?1:0;
+        $current->currencies_id = $request->input('currencies_id')['currencies_id'];        
         $filters = $request->input('filters');
         $features = $request->input('features');
         if ($current->save()){          
@@ -108,12 +110,13 @@ class ProdsController extends Controller
       $prod->cats_id = $request->input('cats_id')['cats_id'];        
       $prod->brands_id = $request->input('brands_id')['brands_id'];        
       $prod->prods_name = $request->input('prods_name');        
-      $prod->prods_alias = $request->input('prods_alias');        
-      $pros->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
+      $prod->prods_alias = $request->input('prods_alias');      
+      $prod->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
       $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):'';
       $prod->prods_foto = $file;
       $prod->prods_amazon = $request->input('prods_amazon');        
       $prod->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');
+      $prod->currencies_id = $request->input('currencies_id')['currencies_id'];        
       $prod->prods_active = ($request->input('prods_active') == 'true')?1:0;    
       $filters = $request->input('filters');
       $features = $request->input('features');

@@ -6,7 +6,7 @@
 			</div>
 
 			<div class="col-md-3 col-sm-6 col-xs-12">
-				<select class="form-control pull-right" ng-model="sort[products_list.cats.cats_id]" ng-init="sort[products_list.cats.cats_id] = 'asc'">
+				<select class="form-control pull-right" ng-model="sort">
 					<option value="asc">Low to high price</option>
 					<option value="desc">High to low price</option>
 				</select>
@@ -39,7 +39,7 @@
 				<div class="content-section" ng-if="(products_list.cats.prods | filter:filterProds).length" ng-init="selectedCount[products_list.cats.cats_id] = 0; selectedProds[products_list.cats.cats_id] = {}">
 					<div class="wrap-categories">	
 						<div class="row">
-							<div ng-repeat="prod in products_list.cats.prods | filter:filterProds | orderBy: 'prods_price':(sort[products_list.cats.cats_id] == 'desc')">	
+							<div ng-repeat="prod in products_list.cats.prods | filter:filterProds | orderBy: 'prods_price':(sort == 'desc')">	
 								<div class="col-md-3 col-sm-6 col-xs-12">
 									<div class="content-border" ng-class="{'selected': prod.selected == 1, 'limit': limitClass}" ng-mousedown="selectedCount[products_list.cats.cats_id] == selectedMax ? limitClass = 'limit' : ''" ng-mouseup="limitClass = ''" ng-click="chooseProd(prod, products_list.cats)" ng-init="prod.selected = 0; limitClass = ''">
 										<div class="content-inner">
@@ -57,7 +57,7 @@
 												</div>
 												<div class="col-md-6">
 													<div class="content-price pull-right">
-														$@{{prod.prods_price}}
+														@{{prod.prods_price_cur}}
 													</div>
 												</div>
 											</div>

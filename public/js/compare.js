@@ -8,6 +8,7 @@
 		var url = $location.path();
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data;
+			console.log($scope.compareList);
 		});
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
@@ -33,6 +34,7 @@
 		
 		$scope.closeLink = function(prods_id) {
 			var aliases = [];
+			var cats_alias = '';
 			for (var id in $scope.compareList)
 			{
 				var prod = $scope.compareList[id];
@@ -41,8 +43,18 @@
 					aliases.push(prod.prods_full_alias);
 					$scope.selectedCount++;
 				}
+				else
+				{
+					for (var k in $scope.products)
+					{
+						if ($scope.products[k].cats_id == prod.cats_id && $scope.products[k].cats_default == '0')
+						{
+							cats_alias = $scope.products[k].cats_alias + '/';
+						}
+					}
+				}
 			}
-			return '/compare/' + aliases.join('-vs-');
+			return aliases.length ? ('/compare/' + aliases.join('-vs-')) : '/' + cats_alias;
 		};
 
 		$scope.checkDifferences = function(value, index, array) {
@@ -222,14 +234,14 @@
 (function() {
 	angular.module('compareApp').directive('scroll', function ($window) {
     return function(scope, element, attrs) {
-        angular.element($window).bind("scroll", function() {
-            if (this.pageYOffset >= 180) {
+        angular.element($window).bind('scroll', function() {
+            if (this.pageYOffset >= 190) {
                  scope.fixedClass = true;
             } else {
                  scope.fixedClass = false;
             }
             scope.$apply();
-        });
-    };
-});
+			});
+		};
+	});
 })();

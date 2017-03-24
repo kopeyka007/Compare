@@ -63,6 +63,9 @@
 	left: 0;
 	right: 0;
 	background: #fff;
+}
+
+.fixed .table-responsive {
 	border-bottom: 1px solid #ccc;
 }
 
@@ -100,6 +103,7 @@
 	background: #fff;
 	border-radius: 5px;
 	padding: 0px;
+	height: 285px;
 }
 
 .content-border:hover {
@@ -248,6 +252,7 @@
 
 .products-name {
 	line-height: 0.9;
+	max-width: 500px;
 }
 
 .products-brand {
@@ -329,7 +334,12 @@
 
 .compare-head img {
 	max-width: 50%;
-	max-height: 100%;
+	max-height: 180px;
+	transition: max-height 0.3s;
+}
+
+.fixed .compare-head img {
+	max-height: 130px;
 }
 
 /* .compare-head img {

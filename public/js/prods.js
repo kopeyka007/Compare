@@ -10,7 +10,12 @@
 		$http.get('/api/brands/list').then(function(response) {
 			$scope.brands = response.data.data;
 		});
-				
+		
+		$scope.currList = [];
+			$http.get('/api/currencies/list').then(function(response) {
+				$scope.currList = response.data.data;
+			});
+		
 		$scope.add = function(id) {
 			id = id || false;
 
@@ -32,7 +37,7 @@
                 controller: 'ModalProdsCtrl',
                 size: 'lg',
 				resolve: {
-					items: {'cats': $scope.cats, 'prod': prod, 'brands': $scope.brands, 'list': $scope.list}
+					items: {'cats': $scope.cats, 'prod': prod, 'brands': $scope.brands, 'currency': $scope.currList, 'list': $scope.list}
 				}
 			});	
 			
@@ -58,6 +63,7 @@
 		$scope.get_list = function() {
 			$http.get('/api/prods/list').then(function(response) {
 				$scope.list = response.data.data;
+				console.log($scope.list);
 			});
 		};
 		$scope.get_list();
@@ -70,6 +76,8 @@
 		$scope.errors = [];
 		$scope.filters = [];
 		$scope.features = [];
+		$scope.currList = [];
+		$scope.currList = [].concat(items.currency);
 		$scope.cats = [{'cats_id': 0, 'cats_name': 'Choose Category'}].concat(items.cats);
 		$scope.brands = [{'brands_id': 0, 'brands_name': 'Choose Brand'}].concat(items.brands);
 		$scope.prod = {'prods_id': 0,
@@ -77,6 +85,7 @@
 					   'brands_id': {'brands_id': 0, 'brands_name': 'Choose Brand'},
 				  	   'filters_id': {'filters_id': 0, 'filters_name': 'Choose Filter'},
 					   'features_id': {'features_id': 0, 'features_name': 'Choose Feature'},
+					   'currencies_id': {'currencies_id': 0, 'currencies_symbol': 'Choose currency'},
 					   'prods_name': '',
 				  	   'prods_alias': '',
 					   'prods_amazon': '',

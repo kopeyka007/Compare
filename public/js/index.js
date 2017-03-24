@@ -2,6 +2,7 @@
 	angular.module('compareApp').controller('indexCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', indexCtrl]);
 	
 	function indexCtrl($scope, $rootScope, $http, $window, $location) {
+		$scope.sort = 'asc';
 		$scope.filters = [];
 		$scope.products_list = [];
 		var urlCat = $location.path();
@@ -26,7 +27,6 @@
 		};
 		$scope.filters_list();
 		
-		$scope.sort = {};
 		$scope.filters_model = {};
 		$scope.slectedFilters = {};
 		$scope.slectedBrands = {};

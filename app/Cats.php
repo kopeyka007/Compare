@@ -21,4 +21,8 @@ class Cats extends Model
     public function prods(){
       return $this->hasMany('App\Prods','cats_id');
     }
+
+    public function brands(){
+      return $this->hasMany('App\Brands','cats_id');
+    }
 }

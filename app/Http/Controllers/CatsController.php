@@ -43,8 +43,7 @@ class CatsController extends Controller
       if ($current){
         $current->cats_name = $request->input('cats_name');
         $current->cats_alias = $request->input('cats_alias');
-        $current->cats_default = $request->input('cats_default');
-        if (!empty($request->input('cats_default'))) $this->change_default();
+        $current->cats_default = $this->set_default($request->input('cats_default'));        
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Category saved'];
@@ -61,8 +60,7 @@ class CatsController extends Controller
     {
       $cat->cats_name =  $request->input('cats_name');
       $cat->cats_alias = $request->input('cats_alias');      
-      $cat->cats_default = $request->input('cats_default');
-      if (!empty($request->input('cats_default'))) $this->change_default();
+      $cat->cats_default = $this->set_default($request->input('cats_default'));      
       if ($cat->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Category created'];
@@ -135,11 +133,29 @@ class CatsController extends Controller
     return $response; 
   }
 
-  private function change_default(){
-    $default = Cats::where('cats_default', 1)->first();
-    if ($default){
-      $default->cats_default = 0;
-      $default->save();
+  public function get_brands($id){
+    $cat = Cats::find($id);
+    if ($cat){
+      $response['data'] = $cat->brands;
+    }
+    else{
+      $response['data'] = false;          
+      $response['message'] = ['type'=>'danger', 'text'=>'Category not found'];
+    }
+    return $response;  
+  }
+
+  private function set_default($value){
+    $default = Cats::where('cats_default',1)->first();
+    if (!empty($value)){
+      if ($default){
+        $default->cats_default = 0;
+        $default->save();        
+      }
+      return true;
+    }
+    else{
+      return false;
     }
   }
   

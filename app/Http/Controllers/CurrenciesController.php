@@ -28,6 +28,7 @@ class CurrenciesController extends Controller
       if ($current){
         $current->currencies_name = $request->input('currencies_name');        
         $current->currencies_symbol = $request->input('currencies_symbol');        
+        $current->currencies_default = $this->set_default($request->input('currencies_default'));
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Currency saved'];
@@ -43,6 +44,7 @@ class CurrenciesController extends Controller
     { 
       $currency->currencies_name = $request->input('currencies_name');
       $currency->currencies_symbol = $request->input('currencies_symbol');
+      $currency->currencies_default = $this->set_default($request->input('currencies_default'));
       if ($currency->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Currency created'];
@@ -66,5 +68,19 @@ class CurrenciesController extends Controller
       $response['message'] = ['type'=>'danger', 'text'=>'Currency not found'];
     }
     return $response;
+  }
+
+  private function set_default($value){
+    $default = Currencies::where('currencies_default',1)->first();
+    if (!empty($value)){
+      if ($default){
+        $default->currencies_default = 0;
+        $default->save();        
+      }
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

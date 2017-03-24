@@ -85,6 +85,7 @@ Route::post('api/cats/save','CatsController@save');
 Route::delete('api/cats/delete/{id}','CatsController@delete');
 Route::get('api/cats/filters/{id}','CatsController@get_filters');
 Route::get('api/cats/features/{id}','CatsController@get_features');
+Route::get('api/cats/brands/{id}','CatsController@get_brands');
 //brands
 Route::get('api/brands/list','BrandsController@get_all');
 Route::post('api/brands/save','BrandsController@save');
@@ -133,7 +134,7 @@ Route::post('api/history/amazon','HistoryController@set_history_amazon');
 
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
-Route::get('test','ProdsController@get_all');
+Route::get('test/{id}','CatsController@get_brands');
 Route::get('import','ImportController@save');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
