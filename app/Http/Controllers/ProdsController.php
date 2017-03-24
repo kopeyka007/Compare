@@ -20,10 +20,10 @@ class ProdsController extends Controller
     $prods = Prods::with('filters_id.groups')->
     with('features_id')->
     with('brands_id')->
-    with('cats_id')
-    ->get();
+    with('cats_id')->
+    with('currencies_id')->
+    get();
     foreach ($prods as $prod) {
-      //var_dump($prod->test);
       $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):$prod->prods_foto;
       $filters = array();
       $groups = array();
