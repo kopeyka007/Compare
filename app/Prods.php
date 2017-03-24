@@ -22,18 +22,21 @@ class Prods extends Model
           return null;
         } 
     }
-
     /*
     public function getProdsFotoAttribute()
     {
-        if (empty($this->prods_foto)){
-          $cat = Cats::find($this->cats_id);
-          return $cat->attributes['cats_id'];
-          //return $cat;
+        if (empty($this->attributes['prods_foto'])){
+          $cat = Cats::find($this->attributes['cats_id']);
+          if (!empty($cat->attributes['cats_photo'])){
+            return $cat->attributes['cats_photo'];          
+          }
+          else{
+            return asset('images/nofoto.png');
+          }
         }
         else
         {
-          return $this->prods_foto;
+          return $this->attributes['prods_foto'];
         }
     }    
     */
@@ -52,8 +55,4 @@ class Prods extends Model
     public function currencies_id(){
       return $this->belongsTo('App\Currencies','currencies_id')->select(['currencies_id','currencies_symbol']);
     }
-    public function currencies_test(){
-      return $this->belongsTo('App\Currencies','currencies_id')->select(['currencies_id','currencies_symbol']);
-    }
-
 }
