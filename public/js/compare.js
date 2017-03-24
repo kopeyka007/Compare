@@ -222,14 +222,14 @@
 (function() {
 	angular.module('compareApp').directive('scroll', function ($window) {
     return function(scope, element, attrs) {
-        angular.element($window).bind("scroll", function() {
-            if (this.pageYOffset >= 180) {
+        angular.element($window).bind('scroll', function() {
+            if (this.pageYOffset >= 190) {
                  scope.fixedClass = true;
             } else {
                  scope.fixedClass = false;
             }
             scope.$apply();
-        });
-    };
-});
+			});
+		};
+	});
 })();

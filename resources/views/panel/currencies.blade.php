@@ -32,8 +32,8 @@
 
 <script type="text/ng-template" id="ModalCurrContent.html">
 	<div class="modal-header">
-		<h3 ng-show=" ! currencies.id">Create Carrency</h3>
-		<h3 ng-show="currencies.id">Edit Currency</h3>
+		<h3 ng-show=" ! currency.id">Create Carrency</h3>
+		<h3 ng-show="currency.id">Edit Currency</h3>
 	</div>
 
 	<form name="form" class="modal-body coverletter-modal" novalidate="novalidate">
@@ -47,14 +47,14 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Name</label>
-					<input type="text" class="form-control" ng-model="currencies.currencies_name" required="required" />
+					<input type="text" class="form-control" ng-model="currency.currencies_name" required="required" />
 				</div>
 			</div>
 			
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Symbol</label>
-					<input type="text" class="form-control" ng-model="currencies.currencies_symbol" required="required" />
+					<input type="text" class="form-control" ng-model="currency.currencies_symbol" required="required" />
 				</div>
 			</div>
 		</div>

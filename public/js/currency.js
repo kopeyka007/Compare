@@ -3,7 +3,7 @@
 	function currencyCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
 		$scope.currList = [];
 		$scope.get_list = function() {
-			$http.get('/api/').then(function(response) {
+			$http.get('/api/currencies/list').then(function(response) {
 				$scope.currList = response.data.data;
 			});
 		};
@@ -29,7 +29,7 @@
                 templateUrl: "ModalCurrContent.html",
                 controller: 'ModalCurrCtrl',
 				resolve: {
-					items: {'list': $scope.currList}
+					items: {'currency': currency, 'list': $scope.currList}
 				}
 			});	
 			
@@ -57,39 +57,25 @@
 	angular.module('panelApp').controller('ModalCurrCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'validate', 'items', ModalCurrCtrl]);
 	function ModalCurrCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items) {
 		$scope.errors = [];
-		$scope.currencies = {'id': 0,
+		$scope.currency = {'id': 0,
 							 'currencies_name': '',
 							 'currencies_symbol': ''};
 		
-		if (items.user && items.user.id)
+		if (items.currency && items.currency.id)
 		{
-			for (var k in items.user)
+			for (var k in items.currency)
 			{
-				$scope.user[k] = items.user[k];
+				$scope.currency[k] = items.currency[k];
 			}
 		}
 													
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;
-			error *= validate.check($scope, $scope.form.email, 'Email');
-			if ( ! $scope.user.id)
-			{
-				error *= validate.check($scope, $scope.form.password, 'Password');
-			}
-
-			for (var k in items.list)
-			{
-				if ($scope.user.email.toLowerCase() == items.list[k].email.toLowerCase() && $scope.user.id != items.list[k].id)
-				{
-					error *= 0;
-					$scope.errors.push({'text': ('The user with this emails is already in database'), 'type': 'danger'});
-				}
-			}
-
+			
 			if (error)
 			{
-				$http.post('/api/users/save', $scope.user).then(function(response) {
+				$http.post('/api/', $scope.user).then(function(response) {
 					if (response.data.data)
 					{
 						$uibModalInstance.close(response.data.message);

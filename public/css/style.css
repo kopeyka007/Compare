@@ -63,6 +63,9 @@
 	left: 0;
 	right: 0;
 	background: #fff;
+}
+
+.fixed .table-responsive {
 	border-bottom: 1px solid #ccc;
 }
 
@@ -329,7 +332,12 @@
 
 .compare-head img {
 	max-width: 50%;
-	max-height: 100%;
+	max-height: 180px;
+	transition: max-height 0.3s;
+}
+
+.fixed .compare-head img {
+	max-height: 130px;
 }
 
 /* .compare-head img {
