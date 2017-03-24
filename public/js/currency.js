@@ -43,7 +43,7 @@
 			$scope.remove = function(id) {
 			if (confirm('Do you realy want to remove this item?'))
 			{
-				$http.delete('/api' + id).then(function(response) {
+				$http.delete('/api/currencies/delete' + id).then(function(response) {
 					$rootScope.errors = [response.data.message];
 					$scope.get_list();
 				});
@@ -75,7 +75,7 @@
 			
 			if (error)
 			{
-				$http.post('/api/', $scope.user).then(function(response) {
+				$http.post('/api/currencies/save', $scope.currency).then(function(response) {
 					if (response.data.data)
 					{
 						$uibModalInstance.close(response.data.message);
