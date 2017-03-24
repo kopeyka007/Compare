@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Prods;
-//use App\Filte;
+use App\Cats;
 use Illuminate\Http\Request;
 use Storage;
 
@@ -175,7 +175,7 @@ class ProdsController extends Controller
 
   //Front
   private function get_prods_with_filters_group($ids){    
-    $prods = Prods::with('brands_id', 'filters_id', 'features_id', 'cats_id')->where('prods_active',1)->find($ids);
+    $prods = Prods::with('brands_id', 'filters_id', 'features_id')->where('prods_active',1)->find($ids);
     foreach ($prods as $prod) {      
       $filters = array();
       $features = array();
@@ -206,10 +206,13 @@ class ProdsController extends Controller
       $prod = Prods::where('prods_full_alias', $alias)->first();
       if ($prod){
         $ids[] = $prod->prods_id;
+        $cats_id = $prod->cats_id;
       }
     }
-    if (isset($ids) && count($ids)){
-      $response['data'] = $this->get_prods_with_filters_group($ids);
+    if (isset($ids) && count($ids)){      
+      $response['data']['prods'] = $this->get_prods_with_filters_group($ids);
+      $cat = Cats::select(['cats_id','cats_photo'])->find($cats_id);
+      $response['data']['cats'] = $cat;
       //write history
       $history = new HistoryController;
       $history->set_history($ids, $url_or);
