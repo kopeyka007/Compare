@@ -14,7 +14,6 @@
 		$scope.currList = [];
 			$http.get('/api/currencies/list').then(function(response) {
 				$scope.currList = response.data.data;
-				console.log($scope.currList[0].currencies_symbol);
 			});
 		
 		$scope.add = function(id) {
@@ -78,7 +77,7 @@
 		$scope.filters = [];
 		$scope.features = [];
 		$scope.currList = [];
-		$scope.currList = [{'currencies_id': 0, 'currencies_id': 'Choose currency'}].concat(items.currency);
+		$scope.currList = [{'currencies_id': 0, 'currencies_symbol': 'Choose currency'}].concat(items.currency);
 		$scope.cats = [{'cats_id': 0, 'cats_name': 'Choose Category'}].concat(items.cats);
 		$scope.brands = [{'brands_id': 0, 'brands_name': 'Choose Brand'}].concat(items.brands);
 		$scope.prod = {'prods_id': 0,
@@ -86,6 +85,7 @@
 					   'brands_id': {'brands_id': 0, 'brands_name': 'Choose Brand'},
 				  	   'filters_id': {'filters_id': 0, 'filters_name': 'Choose Filter'},
 					   'features_id': {'features_id': 0, 'features_name': 'Choose Feature'},
+					   'currencies_id': {'currencies_id': 0, 'currencies_symbol': 'Choose currency'},
 					   'prods_name': '',
 				  	   'prods_alias': '',
 					   'prods_amazon': '',
