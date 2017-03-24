@@ -65,12 +65,12 @@
 				for (var id in $scope.compareList)
 				{
 					var prod = $scope.compareList[id];
-					if (start == '')
+					if (start == '' && prod.filters[value.filters_id])
 					{
 						start = prod.filters[value.filters_id].filters_value;
 					}
 
-					if (start != prod.filters[value.filters_id].filters_value)
+					if ( ! prod.filters[value.filters_id] || (prod.filters[value.filters_id] && start != prod.filters[value.filters_id].filters_value))
 					{
 						check = true;
 					}
