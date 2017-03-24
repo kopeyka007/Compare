@@ -59,7 +59,8 @@
 		$scope.errors = [];
 		$scope.currency = {'currencies_id': 0,
 						   'currencies_name': '',
-						   'currencies_symbol': ''};
+						   'currencies_symbol': '',
+						   'currencies_default': ''};
 		
 		if (items.currency && items.currency.currencies_id)
 		{

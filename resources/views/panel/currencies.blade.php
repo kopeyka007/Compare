@@ -11,6 +11,7 @@
 					<th class="td-id">ID</th>
 					<th class="td-type">Name</th>
 					<th class="td-icon">Symbol</th>
+					<th class="td-icon">Default</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -21,6 +22,7 @@
 					<td>@{{currency.currencies_id}}</td>
 					<td>@{{currency.currencies_name}}</td>
 					<td>@{{currency.currencies_symbol}}</td>
+					<td>@{{currency.currencies_default | checkdefault}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(currency.currencies_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(currency.currencies_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
@@ -54,6 +56,13 @@
 				<div class="form-group">
 					<label>Symbol</label>
 					<input type="text" class="form-control" ng-model="currency.currencies_symbol" required="required" />
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<div class="form-group">
+					<input type="checkbox" ng-model="currency.currencies_default" required="required" />
+					<label>Default</label>
 				</div>
 			</div>
 		</div>

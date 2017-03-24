@@ -12,12 +12,10 @@
 		});
 		
 		$scope.currList = [];
-		$scope.get_list = function() {
 			$http.get('/api/currencies/list').then(function(response) {
 				$scope.currList = response.data.data;
 			});
-		};
-				
+		
 		$scope.add = function(id) {
 			id = id || false;
 
