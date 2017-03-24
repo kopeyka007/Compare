@@ -103,6 +103,7 @@
 	background: #fff;
 	border-radius: 5px;
 	padding: 0px;
+	height: 285px;
 }
 
 .content-border:hover {
@@ -251,6 +252,7 @@
 
 .products-name {
 	line-height: 0.9;
+	max-width: 500px;
 }
 
 .products-brand {

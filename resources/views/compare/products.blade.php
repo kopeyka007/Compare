@@ -7,7 +7,7 @@
 		</div>
 		<div class="products-preview">
 			<div class="row">
-				<div class="col-md-6 col-md-offset-4">
+				<div class="col-md-8 col-md-offset-4">
 					<div class="products-img">
 						<img src="@{{prodsInfo.prods_foto}}" alt="#" />
 					</div>
