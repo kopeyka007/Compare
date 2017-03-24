@@ -25,11 +25,19 @@
 						<tbody>
 							<tr>
 								<td class="filters-cell">
-									<button type="button" class="btn btn-success btn-block" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
+									<button type="button" class="btn btn-success btn-block large" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
 										All Features
 									</button>
 
-									<button type="button" class="btn btn-success btn-block" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
+									<button type="button" class="btn btn-success btn-block large" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
+										Differences
+									</button>
+									
+									<button type="button" class="btn btn-success btn-block small" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
+										All Features
+									</button>
+
+									<button type="button" class="btn btn-success btn-block small" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
 										Differences
 									</button>
 								</td>
@@ -49,7 +57,7 @@
 
 									<div ng-if="! compareList[i]" class="compare-head inactive">
 										<div class="compare-link">
-											<img src="http://comparewear.com/images/products/apple-watch.jpg" alt="#" />
+											<img src="@{{compareListCats.cats_photo}}" alt="" />
 
 											<span class="compare-price text-danger">
 												$9.999
@@ -57,7 +65,7 @@
 										</div>
 
 										<div class="wrap-add-btn">
-											<button class="btn btn-info add-btn" ng-click="addToCompare(compareList[0].cats_id)">Add Another Product</button>
+											<button class="btn btn-info add-btn" ng-click="addToCompare(compareList[0].cats_id)">Add <span>Another</span> Product</button>
 										</div>
 									</div>
 								</td>
@@ -70,7 +78,7 @@
 	</div>
 	
 	<div class="container">
-		<div class="table-responsive">
+		<div class="table-responsive" ng-show="count(compareList[0].features)">
 			<table class="table">
 				<tbody>
 					<tr>
@@ -109,9 +117,11 @@
 					</tr>
 				</tbody>
 			</table>
-			
-			<div class="groups-box" ng-repeat="group in filterList">
-				<h3>@{{group.groups_name}}</h3>
+		</div>
+		
+		<div class="groups-box" ng-repeat="group in filterList">
+			<h3>@{{group.groups_name}}</h3>
+			<div class="table-responsive">
 				<table class="table table-striped">
 					<tbody>
 						<tr ng-repeat="filter in group.groups_filters | filter:checkDifferences">
@@ -120,28 +130,28 @@
 								<div ng-if="compareList[i]" ng-init="prod = compareList[i]">
 									<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ prod.filters[filter.filters_id].filters_value }}</span>
 									<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ prod.filters[filter.filters_id].filters_value }}&nbsp;</span>
-									<span ng-show="filter.filters_type != 'check'">@{{prod.filters[filter.filters_id].filters_value}} @{{prod.filters[filter.filters_id].filters_units}}</span>
+									<span ng-show="filter.filters_type != 'check' && prod.filters[filter.filters_id].filters_value != ''">@{{prod.filters[filter.filters_id].filters_value}} @{{prod.filters[filter.filters_id].filters_units}}</span>
 								</div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<div class="amazon-links">
-				<h3>Amazon Links</h3>
-				<table class="table table-striped">
-					<tbody>
-						<tr>
-							<td></td>
-							<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
-								<div class="btn-amazon" ng-if="compareList[i].prods_amazon">
-									<a href="@{{compareList[i].prods_amazon}}" target="_blank" type="button" class="btn btn-warning" ng-click="statAmazon(compareList[i])">Buy on Amazon</a>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+		</div>
+		<div class="amazon-links">
+			<h3>Amazon Links</h3>
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+						<td></td>
+						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+							<div class="btn-amazon" ng-if="compareList[i].prods_amazon">
+								<a href="@{{compareList[i].prods_amazon}}" target="_blank" type="button" class="btn btn-warning" ng-click="statAmazon(compareList[i])">Buy on Amazon</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

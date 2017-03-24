@@ -73,8 +73,8 @@
 						</a>
 						<img ngf-thumbnail="cats_foto" class="img-preview" ng-show="cats_foto" alt="" />
 						<a href="javascript:void(0);" ng-show="cats_foto" ng-click="removeFile()">Remove</a>
-						<img src="@{{cat.cats_foto}}" class="img-preview" ng-show="cat.cats_foto && ! cats_foto" alt="" />
-						<a href="javascript:void(0);" ng-show="cat.cats_foto && ! cats_foto" ng-click="removePreview()">Remove</a>
+						<img src="@{{cat.cats_photo}}" class="img-preview" ng-show="cat.cats_photo && ! cats_foto" alt="" />
+						<a href="javascript:void(0);" ng-show="cat.cats_photo && ! cats_foto" ng-click="removePreview()">Remove</a>
 					</div>
 				</div>
 			</div>

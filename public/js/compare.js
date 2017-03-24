@@ -7,8 +7,8 @@
 		$scope.closestProd = '';
 		var url = $location.path();
 		$http.post('/api/compare/list', {url}).then(function(response){
-			$scope.compareList = response.data.data;
-			console.log($scope.compareList);
+			$scope.compareList = response.data.data.prods;
+			$scope.compareListCats = response.data.data.cats;
 		});
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
@@ -150,8 +150,13 @@
 			return '100%';
 		};
 
-		$scope.closestProd = function(this_prod, features_id) {
-
+		$scope.count = function(object) {
+			var i = 0;
+			for (var k in object)
+			{
+				i++;
+			}
+			return i;
 		};
 
 		$scope.productsLink = function(prod) {

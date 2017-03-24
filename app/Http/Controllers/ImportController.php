@@ -5,6 +5,7 @@ use App\Brands;
 use App\Groups;
 use App\Prods;
 use App\Filters;
+use App\Currencies;
 use Illuminate\Http\Request;
 use Storage;
 use DB;
@@ -133,11 +134,12 @@ class ImportController extends Controller
     ->where('brands_id', $brands->brands_id)
     ->first();    
     if ($current){
-      $current->prods_price = trim($prods_price);
+      $current->prods_price = trim($prods_price);      
       $current->save();
       return $current;
     }   
     else{
+      $currency_default = Currencies::where('currencies_default', 1)->first();    
       $prod = new Prods;    
       $prod->cats_id = ($cats_id);
       $prod->prods_name = trim($prods_name);
@@ -146,6 +148,7 @@ class ImportController extends Controller
       $prod->prods_full_alias = $brands->brands_alias.'-'.$this->generate_alias(trim($prods_name));
       $prod->prods_price = trim($prods_price);
       $prod->prods_active = 1;
+      $prod->currencies_id = $currency_default->currencies_id;      
       $prod->save();
       $this->message['prods_new']++;
       return $prod;
