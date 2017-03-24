@@ -65,7 +65,7 @@
 										</div>
 
 										<div class="wrap-add-btn">
-											<button class="btn btn-info add-btn" ng-click="addToCompare(compareList[0].cats_id)">Add Another Product</button>
+											<button class="btn btn-info add-btn" ng-click="addToCompare(compareList[0].cats_id)">Add <span>Another</span> Product</button>
 										</div>
 									</div>
 								</td>
