@@ -8,7 +8,7 @@ class Prods extends Model
 {
     public $timestamps = false;
     protected $table = 'prods';
-    protected $primaryKey ='prods_id';            
+    protected $primaryKey ='prods_id';
 
     public function filters_id(){      
       return $this->belongsToMany('App\Filters', 'prods_filters', 'prods_id', 'filters_id')->withPivot('filters_value', 'filters_comment');
