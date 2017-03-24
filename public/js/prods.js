@@ -12,12 +12,11 @@
 		});
 		
 		$scope.currList = [];
-		$scope.get_list = function() {
 			$http.get('/api/currencies/list').then(function(response) {
 				$scope.currList = response.data.data;
+				console.log($scope.currList);
 			});
-		};
-				
+		
 		$scope.add = function(id) {
 			id = id || false;
 
@@ -39,7 +38,7 @@
                 controller: 'ModalProdsCtrl',
                 size: 'lg',
 				resolve: {
-					items: {'cats': $scope.cats, 'prod': prod, 'brands': $scope.brands, 'list': $scope.list}
+					items: {'cats': $scope.cats, 'prod': prod, 'brands': $scope.brands, 'currency': $scope.currList, 'list': $scope.list}
 				}
 			});	
 			
@@ -77,6 +76,8 @@
 		$scope.errors = [];
 		$scope.filters = [];
 		$scope.features = [];
+		$scope.currList = [];
+		$scope.currList = [{'currencies_id': 0, 'currencies_id': 'Choose currency'}].concat(items.currency);
 		$scope.cats = [{'cats_id': 0, 'cats_name': 'Choose Category'}].concat(items.cats);
 		$scope.brands = [{'brands_id': 0, 'brands_name': 'Choose Brand'}].concat(items.brands);
 		$scope.prod = {'prods_id': 0,
