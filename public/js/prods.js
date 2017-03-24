@@ -63,7 +63,6 @@
 		$scope.get_list = function() {
 			$http.get('/api/prods/list').then(function(response) {
 				$scope.list = response.data.data;
-				console.log($scope.list);
 			});
 		};
 		$scope.get_list();
@@ -76,8 +75,7 @@
 		$scope.errors = [];
 		$scope.filters = [];
 		$scope.features = [];
-		$scope.currList = [];
-		$scope.currList = [].concat(items.currency);
+		$scope.currList = items.currency;
 		$scope.cats = [{'cats_id': 0, 'cats_name': 'Choose Category'}].concat(items.cats);
 		$scope.brands = [{'brands_id': 0, 'brands_name': 'Choose Brand'}].concat(items.brands);
 		$scope.prod = {'prods_id': 0,
@@ -85,7 +83,7 @@
 					   'brands_id': {'brands_id': 0, 'brands_name': 'Choose Brand'},
 				  	   'filters_id': {'filters_id': 0, 'filters_name': 'Choose Filter'},
 					   'features_id': {'features_id': 0, 'features_name': 'Choose Feature'},
-					   'currencies_id': {'currencies_id': 0, 'currencies_symbol': 'Choose currency'},
+					   'currencies_id': {},
 					   'prods_name': '',
 				  	   'prods_alias': '',
 					   'prods_amazon': '',
@@ -117,6 +115,16 @@
 				}
 			}
 		}
+		else
+		{
+			for (var k in $scope.currList)
+			{
+				if ($scope.currList[k].currencies_default == '1')
+				{
+					$scope.prod.currencies_id = $scope.currList[k];
+				}
+			}
+		}
 
 		
 		$scope.slug = function() {
@@ -129,7 +137,6 @@
 		$scope.initFilters = function() {
 			$http.get('/api/cats/filters/' + $scope.prod.cats_id.cats_id).then(function(response) {
 				$scope.filters = response.data.data;
-				console.log($scope.filters);
 			});
 			
 			$http.get('/api/cats/features/' + $scope.prod.cats_id.cats_id).then(function(response) {

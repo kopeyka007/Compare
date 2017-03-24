@@ -54,16 +54,17 @@
 })();
 
 (function() {
-	angular.module('panelApp').controller('ModalCatsCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'validate', 'items', ModalCatsCtrl]);
-	function ModalCatsCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items) {
+	angular.module('panelApp').controller('ModalCatsCtrl', ['$scope', '$rootScope', '$http', '$uibModalInstance', 'validate', 'items', 'Upload', ModalCatsCtrl]);
+	function ModalCatsCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items, Upload) {
 		$scope.errors = [];
 		$scope.cat = {'cats_id': 0,
 					  'cats_alias': '',
 					  'cats_default': false,
-					  'cats_name': ''};
+					  'cats_name': '',
+					  'cats_foto': ''};
 		
 		if (items.cat && items.cat.cats_id)
-		{
+		{	
 			for (var k in items.cat)
 			{
 				if (k == 'cats_default')
@@ -71,7 +72,7 @@
 					$scope.cat[k] = items.cat[k] == '1';
 				}
 				else
-				{
+				{	
 					$scope.cat[k] = items.cat[k];
 				}
 			}
@@ -84,7 +85,7 @@
 			}
 		};
 													
-		$scope.save = function () {
+		$scope.save = function (file) {
 			$scope.errors = [];
 			var error = 1;
 			error *= validate.check($scope, $scope.form.name, 'Name');
@@ -101,15 +102,39 @@
 
 			if (error)
 			{
-				$http.post('/api/cats/save', $scope.cat).then(function(response) {
-					if (response.data.data)
-					{
-						$uibModalInstance.close(response.data.message);
-					}
-				});
+				if (file)
+				{
+					file.upload = Upload.upload({
+						url: '/api/cats/save',
+						file: file,
+						data: $scope.cat,
+				    }).then(function (response) {
+				    	if (response.data.data)
+						{
+							$uibModalInstance.close(response.data.message);
+						}
+				    });
+				}
+				else
+				{
+					$http.post('/api/cats/save', $scope.cat).then(function(response) {
+						if (response.data.data)
+						{
+							$uibModalInstance.close(response.data.message);
+						}
+					});
+				}
 			}
 		};
 
+		$scope.removeFile = function() {
+			$scope.cats_foto = false;
+		};
+
+		$scope.removePreview = function() {
+			$scope.prod.cats_foto = '';
+		};
+		
 		$scope.cancel = function () {
 			$uibModalInstance.dismiss('cancel');
 		};

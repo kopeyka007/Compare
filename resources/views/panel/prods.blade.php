@@ -116,6 +116,7 @@
 						</div>
 						<div class="col-md-4">
 							<select class="form-control" ng-model="prod.currencies_id" ng-options="x.currencies_symbol for x in currList track by x.currencies_id">
+								<option>@{{currList[0].currencies_id.currencies_default}}</option>
 							</select>
 						</div>
 					</div>
