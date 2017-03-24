@@ -41,6 +41,10 @@
 	color: #ccc;
 }
 
+.fixed .compare-table {
+	margin-bottom: 0;
+}
+
 .btn-amazon {
 	margin-top: 10px;
 }

@@ -66,7 +66,7 @@
 
 				<div class="form-group">
 					<label>Brand</label>
-					<select class="form-control" name="brands_id" ng-model="prod.brands_id" required="required" ng-options="brand.brands_name for brand in brands track by brand.brands_id">
+					<select class="form-control" name="brands_id" ng-model="prod.brands_id" required="required" ng-options="brand.brands_name for brand in brands track by brand.brands_id" ng-init="prod.brands_id = brands[0]">
 					</select>
 				</div>
 

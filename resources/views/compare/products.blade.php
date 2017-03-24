@@ -72,7 +72,42 @@
 							</table>
 						</div>
 					</div>
+					<div class="products-full-spec">
+						<div class="products-spec-head">
+							<h3>Full specifications</h3>
+						</div>
+						<div class="row">
+							<div class="col-md-6"  ng-repeat="group in prodsInfo.groups">
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<td>
+													<div class="spec-group">
+														<h3>@{{group.groups_name}}</h3>
+													</div>
+												</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="filter in group.groups_filters">
+												<td class="spec-head">
+													<div class="features-name">@{{filter.filters_name}}</div>	
+												</td>
+												<td class="spec-comment">
+													<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ filter.filters_value }}</span>
+													<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ filter.filters_value }}&nbsp;</span>
+													<span ng-show="filter.filters_type != 'check'">@{{filter.filters_value}} @{{filter.filters_units}}</span>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
+				
 				<div class="col-md-3" ng-if="prodsInfo.liked.length">
 					<div class="products-related">
 						<div class="related-head">
@@ -101,40 +136,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="products-full-spec">
-				<div class="products-spec-head">
-					<h3>Full specifications</h3>
-				</div>
-				<div class="row">
-					<div class="col-md-6"  ng-repeat="group in prodsInfo.groups">
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<td>
-											<div class="spec-group">
-												<h3>@{{group.groups_name}}</h3>
-											</div>
-										</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="filter in group.groups_filters">
-										<td class="spec-head">
-											<div class="features-name">@{{filter.filters_name}}</div>	
-										</td>
-										<td class="spec-comment">
-											<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ filter.filters_value }}</span>
-											<span ng-show="filter.filters_type == 'check' && filter.filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ filter.filters_value }}&nbsp;</span>
-											<span ng-show="filter.filters_type != 'check'">@{{filter.filters_value}} @{{filter.filters_units}}</span>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 		</div>
 		<dir-disqus config="disqusConfig"></dir-disqus>
 	</div>
