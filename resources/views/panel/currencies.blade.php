@@ -21,8 +21,8 @@
 					<td>@{{currency.currencies_id}}</td>
 					<td>@{{currency.currencies_name}}</td>
 					<td>@{{currency.currencies_symbol}}</td>
-					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(currency.id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
-					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(currency.id)"><i class="fa fa-trash-o text-danger"></i></button></td>
+					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(currency.currencies_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
+					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(currency.currencies_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
 			</tbody>
 		</table>
