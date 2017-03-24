@@ -55,6 +55,9 @@
 	angular.module('compareApp').controller('mainCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', '$route', '$timeout', mainCtrl]);
 	
 	function mainCtrl($scope, $rootScope, $http, $window, $location, $route, $timeout) {
+		$scope.isNavCollapsed = true;
+		$scope.isCollapsed = false;
+		
 		$scope.products = [];
 		$scope.products_list = function() {
 			$http.get('/api/cats/front/shortlist').then(function(response) {

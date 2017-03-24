@@ -19,16 +19,16 @@
 			</div>
 		</section>
 		<section class="cats-menu">
-			<div class="navbar navbar-default">
+			<div class="navbar navbar-default" role="navigation">
 				<div class="container">
 					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+						<button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
 					</div>
-					<div class="collapse navbar-collapse" id="menu">
+					<div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
 						<ul class="nav navbar-nav">
 							<li ng-repeat="cat in products" ng-class="{'active': activeCat(cat)}"><a href="/@{{cat.cats_default == '1' ? '' : cat.cats_alias}}">@{{cat.cats_name}}</a></li>
 						</ul>

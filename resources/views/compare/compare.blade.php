@@ -39,7 +39,7 @@
 										<a href="@{{productsLink(prod)}}" class="compare-link">
 											<img src="@{{prod.prods_foto}}" alt="#" />
 											<span class="compare-price text-danger">
-												$@{{prod.prods_price}}
+												@{{prod.prods_price_cur}}
 											</span>
 										</a>
 										<a href="@{{closeLink(prod.prods_id)}}" class="compare-close">

@@ -77,7 +77,7 @@
 		$scope.filters = [];
 		$scope.features = [];
 		$scope.currList = [];
-		$scope.currList = [{'currencies_id': 0, 'currencies_symbol': 'Choose currency'}].concat(items.currency);
+		$scope.currList = [].concat(items.currency);
 		$scope.cats = [{'cats_id': 0, 'cats_name': 'Choose Category'}].concat(items.cats);
 		$scope.brands = [{'brands_id': 0, 'brands_name': 'Choose Brand'}].concat(items.brands);
 		$scope.prod = {'prods_id': 0,
