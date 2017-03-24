@@ -25,11 +25,19 @@
 						<tbody>
 							<tr>
 								<td class="filters-cell">
-									<button type="button" class="btn btn-success btn-block" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
+									<button type="button" class="btn btn-success btn-block large" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
 										All Features
 									</button>
 
-									<button type="button" class="btn btn-success btn-block" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
+									<button type="button" class="btn btn-success btn-block large" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
+										Differences
+									</button>
+									
+									<button type="button" class="btn btn-success btn-block small" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
+										All Features
+									</button>
+
+									<button type="button" class="btn btn-success btn-block small" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
 										Differences
 									</button>
 								</td>
