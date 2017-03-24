@@ -5,7 +5,7 @@
 	</div>
 	
 	<div class="table-responsive">
-		<table class="table table-striped table-hover" ng-show="list.length">
+		<table class="table table-striped table-hover" ng-show="currList.length">
 			<thead>
 				<tr>
 					<th class="td-id">ID</th>
@@ -17,13 +17,12 @@
 			</thead>
 			
 			<tbody>
-				<tr ng-repeat="user in list">
-					<td>@{{}}</td>
-					<td>@{{}}</td>
-					<td>@{{}}</td>
-					<td>@{{}}</td>
-					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(currencies.id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
-					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(currencies.id)"><i class="fa fa-trash-o text-danger"></i></button></td>
+				<tr ng-repeat="currency in currList">
+					<td>@{{currency.currencies_id}}</td>
+					<td>@{{currency.currencies_name}}</td>
+					<td>@{{currency.currencies_symbol}}</td>
+					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(currency.id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
+					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(currency.id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
 			</tbody>
 		</table>

@@ -5,6 +5,7 @@
 		$scope.get_list = function() {
 			$http.get('/api/currencies/list').then(function(response) {
 				$scope.currList = response.data.data;
+				console.log($scope.currList);
 			});
 		};
 		$scope.get_list();
@@ -58,14 +59,15 @@
 	function ModalCurrCtrl($scope, $rootScope, $http, $uibModalInstance, validate, items) {
 		$scope.errors = [];
 		$scope.currency = {'id': 0,
-							 'currencies_name': '',
-							 'currencies_symbol': ''};
+						   'currencies_name': '',
+						   'currencies_symbol': ''};
 		
 		if (items.currency && items.currency.id)
 		{
 			for (var k in items.currency)
 			{
 				$scope.currency[k] = items.currency[k];
+				console.log($scope.currency);
 			}
 		}
 													
