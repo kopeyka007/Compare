@@ -126,3 +126,11 @@
 		};
 	});
 })();
+
+(function(){
+	angular.module('panelApp').filter('checkdefault', function() {
+		return function(input) {
+			return input ? '\u2713' : ' ';
+		};
+	});
+})();

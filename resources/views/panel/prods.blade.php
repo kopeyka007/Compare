@@ -110,12 +110,12 @@
 
 				<div class="form-group">
 					<label>Price</label>
-					<div class="input-group">
+					<div class="row">
 						<div class="col-md-8">
 							<input type="text" class="form-control" name="prods_price" ng-model="prod.prods_price" required="required" />
 						</div>
 						<div class="col-md-4">
-							<select ng-model="currency" ng-options="x for (x, y) in currency">
+							<select class="form-control" ng-model="currency" ng-options="x for (x, y) in currency">
 							</select>
 						</div>
 					</div>

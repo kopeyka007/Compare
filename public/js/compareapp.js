@@ -96,19 +96,3 @@
 		};
 	}
 })();
-
-(function(){
-	angular.module('compareApp').filter('checkmark', function() {
-    return function(input) {
-		return input ? '\u2713' : '\u2718';
-    };
-  });
-})();
-
-(function(){
-	angular.module('compareApp').filter('checkdefault', function() {
-    return function(input) {
-		return input ? '\u2713' : ' ';
-    };
-  });
-})();
