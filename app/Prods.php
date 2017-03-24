@@ -10,6 +10,21 @@ class Prods extends Model
     protected $table = 'prods';
     protected $primaryKey ='prods_id';
 
+    public $test;
+    protected $attributes = ['test'=>'test_value'];
+
+
+    public function getTestAttribute($value)
+    {
+        return $this->prods_price+1;
+    }
+
+    public function setTestAttribute()
+    {
+        //return ucfirst($value);
+        return 'test';
+    }
+
     public function filters_id(){      
       return $this->belongsToMany('App\Filters', 'prods_filters', 'prods_id', 'filters_id')->withPivot('filters_value', 'filters_comment');
     }
