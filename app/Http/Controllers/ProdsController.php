@@ -88,6 +88,7 @@ class ProdsController extends Controller
         $current->prods_amazon = $request->input('prods_amazon');
         $current->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');        
         $current->prods_active = ($request->input('prods_active') == 'true')?1:0;
+        $current->currencies_id = $request->input('currencies_id')['currencies_id'];        
         $filters = $request->input('filters');
         $features = $request->input('features');
         if ($current->save()){          
@@ -115,6 +116,7 @@ class ProdsController extends Controller
       $prod->prods_foto = $file;
       $prod->prods_amazon = $request->input('prods_amazon');        
       $prod->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');
+      $prod->currencies_id = $request->input('currencies_id')['currencies_id'];        
       $prod->prods_active = ($request->input('prods_active') == 'true')?1:0;    
       $filters = $request->input('filters');
       $features = $request->input('features');
