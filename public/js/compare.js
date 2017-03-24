@@ -7,8 +7,8 @@
 		$scope.closestProd = '';
 		var url = $location.path();
 		$http.post('/api/compare/list', {url}).then(function(response){
-			$scope.compareList = response.data.data;
-			console.log($scope.compareList);
+			$scope.compareList = response.data.data.prods;
+			$scope.compareListCats = response.data.data.cats;
 		});
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
@@ -65,12 +65,12 @@
 				for (var id in $scope.compareList)
 				{
 					var prod = $scope.compareList[id];
-					if (start == '')
+					if (start == '' && prod.filters[value.filters_id])
 					{
 						start = prod.filters[value.filters_id].filters_value;
 					}
 
-					if (start != prod.filters[value.filters_id].filters_value)
+					if ( ! prod.filters[value.filters_id] || (prod.filters[value.filters_id] && start != prod.filters[value.filters_id].filters_value))
 					{
 						check = true;
 					}
@@ -142,7 +142,7 @@
 			if (closest && min_delta !== false)
 			{
 				$scope.closestProd = closest.brands_id.brands_name + ' ' + closest.prods_name;
-				var percent = Math.round(min_delta * 100 / this_prod.features[features_id].features_value);
+				var percent = Math.abs(Math.round(this_prod.features[features_id].features_value * 100 / closest.features[features_id].features_value) - 100);
 				return percent + '%';
 			}
 
@@ -150,8 +150,13 @@
 			return '100%';
 		};
 
-		$scope.closestProd = function(this_prod, features_id) {
-
+		$scope.count = function(object) {
+			var i = 0;
+			for (var k in object)
+			{
+				i++;
+			}
+			return i;
 		};
 
 		$scope.productsLink = function(prod) {

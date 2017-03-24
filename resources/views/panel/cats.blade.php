@@ -64,6 +64,22 @@
 			</div>
 			
 			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Photo</label>
+					<div>
+						<a href="javascript:void(0);" type="button" class="btn btn-info btn-file">
+							<span>Browse file...</span>
+							<input type="file" accept="image/*" name="file" ng-model="cats_foto" ngf-select />
+						</a>
+						<img ngf-thumbnail="cats_foto" class="img-preview" ng-show="cats_foto" alt="" />
+						<a href="javascript:void(0);" ng-show="cats_foto" ng-click="removeFile()">Remove</a>
+						<img src="@{{cat.cats_photo}}" class="img-preview" ng-show="cat.cats_photo && ! cats_foto" alt="" />
+						<a href="javascript:void(0);" ng-show="cat.cats_photo && ! cats_foto" ng-click="removePreview()">Remove</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
 				<input type="checkbox" ng-model="cat.cats_default" ng-init="cat.cats_default == true" />
 				<label>Default Category</label>
 			</div>
@@ -71,7 +87,7 @@
 	</form>
 
 	<div class="modal-footer">
-		<button class="btn btn-primary" type="button" ng-click="save()">Save</button>
+		<button class="btn btn-primary" type="button" ng-click="save(cats_foto)">Save</button>
 		<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
 	</div>
 </script>

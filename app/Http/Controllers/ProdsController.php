@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Prods;
-//use App\Filte;
+use App\Cats;
 use Illuminate\Http\Request;
 use Storage;
 
@@ -206,10 +206,13 @@ class ProdsController extends Controller
       $prod = Prods::where('prods_full_alias', $alias)->first();
       if ($prod){
         $ids[] = $prod->prods_id;
+        $cats_id = $prod->cats_id;
       }
     }
-    if (isset($ids) && count($ids)){
-      $response['data'] = $this->get_prods_with_filters_group($ids);
+    if (isset($ids) && count($ids)){      
+      $response['data']['prods'] = $this->get_prods_with_filters_group($ids);
+      $cat = Cats::select(['cats_photo'])->find($cats_id);
+      $response['data']['cats'] = $cat;
       //write history
       $history = new HistoryController;
       $history->set_history($ids, $url_or);
@@ -260,7 +263,7 @@ class ProdsController extends Controller
       ->where('prods_active',1)
       ->where('prods_id','<>',$prod->prods_id)
       ->with('brands_id')    
-      ->take(3)
+      ->take(7)
       ->get();
       $prod['liked'] = $liked;
       

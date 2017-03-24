@@ -66,7 +66,7 @@
 
 				<div class="form-group">
 					<label>Brand</label>
-					<select class="form-control" name="brands_id" ng-model="prod.brands_id" required="required" ng-options="brand.brands_name for brand in brands track by brand.brands_id">
+					<select class="form-control" name="brands_id" ng-model="prod.brands_id" required="required" ng-options="brand.brands_name for brand in brands track by brand.brands_id" ng-init="prod.brands_id">
 					</select>
 				</div>
 
@@ -116,6 +116,7 @@
 						</div>
 						<div class="col-md-4">
 							<select class="form-control" ng-model="prod.currencies_id" ng-options="x.currencies_symbol for x in currList track by x.currencies_id">
+								<option>@{{currList[0].currencies_id.currencies_default}}</option>
 							</select>
 						</div>
 					</div>

@@ -5,6 +5,7 @@ use App\Cats;
 use App\Prods;
 use App\Filters;
 use Illuminate\Http\Request;
+use Storage;
 
 class CatsController extends Controller
 {
@@ -43,7 +44,11 @@ class CatsController extends Controller
       if ($current){
         $current->cats_name = $request->input('cats_name');
         $current->cats_alias = $request->input('cats_alias');
-        $current->cats_default = $this->set_default($request->input('cats_default'));        
+        $current->cats_default = $this->set_default($request->input('cats_default'), $current->cats_id);
+        $file = ($request->file) ? asset('storage/'.$request->file->store('cats')):$request->input('cats_photo');
+        //delete file
+        if (empty($file)) Storage::delete(stristr($current->cats_photo, 'cats'));
+        $current->cats_photo = $file;                
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Category saved'];
@@ -61,6 +66,8 @@ class CatsController extends Controller
       $cat->cats_name =  $request->input('cats_name');
       $cat->cats_alias = $request->input('cats_alias');      
       $cat->cats_default = $this->set_default($request->input('cats_default'));      
+      $file = ($request->file) ? asset('storage/'.$request->file->store('cats')):'';
+      $cat->cats_photo = $file;
       if ($cat->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Category created'];
@@ -75,12 +82,22 @@ class CatsController extends Controller
 
   public function delete($id){
     $cat = Cats::find($id);    
-    if ($cat && $cat->delete()){
-      //delete relations       
-      $cat->filters()->detach();
-      $cat->features()->detach();
-      $response['data'] = true;      
-      $response['message'] = ['type'=>'success', 'text'=>'Category deleted'];      
+    if ($cat){
+      if ($cat->cats_default == 0){
+        $cat->delete();
+        //delete image
+        if ($cat->cats_photo !== 0)
+        Storage::delete(stristr($cat->cats_photo, 'cats'));
+        //delete relations       
+        $cat->filters()->detach();
+        $cat->features()->detach();
+        $response['data'] = true;      
+        $response['message'] = ['type'=>'success', 'text'=>'Category deleted'];      
+      }
+      else{
+        $response['data'] = false;          
+        $response['message'] = ['type'=>'danger', 'text'=>'Can not delete default category'];
+      }
     }
     else{
       $response['data'] = false;          
@@ -145,8 +162,8 @@ class CatsController extends Controller
     return $response;  
   }
 
-  private function set_default($value){
-    $default = Cats::where('cats_default',1)->first();
+  private function set_default($value, $id=0){
+    $default = Cats::where('cats_default',1)->first();    
     if (!empty($value)){
       if ($default){
         $default->cats_default = 0;
@@ -155,7 +172,10 @@ class CatsController extends Controller
       return true;
     }
     else{
-      return false;
+      if ($default && $default->cats_id <> $id){        
+        return false;
+      } 
+      else return true;
     }
   }
   
