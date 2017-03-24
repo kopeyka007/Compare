@@ -75,9 +75,10 @@
 		$scope.errors = [];
 		$scope.filters = [];
 		$scope.features = [];
+		$scope.brands = [];
 		$scope.currList = items.currency;
 		$scope.cats = [{'cats_id': 0, 'cats_name': 'Choose Category'}].concat(items.cats);
-		$scope.brands = [{'brands_id': 0, 'brands_name': 'Choose Brand'}].concat(items.brands);
+		$scope.brands = [{'brands_id': 0, 'brands_name': 'Choose category first'}];
 		$scope.prod = {'prods_id': 0,
 					   'cats_id': {'cats_id': 0, 'cats_name': 'Choose Category'},
 					   'brands_id': {'brands_id': 0, 'brands_name': 'Choose Brand'},
@@ -141,6 +142,10 @@
 			
 			$http.get('/api/cats/features/' + $scope.prod.cats_id.cats_id).then(function(response) {
 				$scope.features = response.data.data;
+			});
+			
+			$http.get('/api/cats/brands/' + $scope.prod.cats_id.cats_id).then(function(response) {
+				$scope.brands = response.data.data;
 			});
 		};
 		
