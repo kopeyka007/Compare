@@ -135,6 +135,18 @@ class CatsController extends Controller
     return $response; 
   }
 
+  public function get_brands($id){
+    $cat = Cats::find($id);
+    if ($cat){
+      $response['data'] = $cat->brands;
+    }
+    else{
+      $response['data'] = false;          
+      $response['message'] = ['type'=>'danger', 'text'=>'Category not found'];
+    }
+    return $response;  
+  }
+
   private function change_default(){
     $default = Cats::where('cats_default', 1)->first();
     if ($default){
