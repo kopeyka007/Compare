@@ -28,7 +28,7 @@ class CurrenciesController extends Controller
       if ($current){
         $current->currencies_name = $request->input('currencies_name');        
         $current->currencies_symbol = $request->input('currencies_symbol');        
-        $current->currencies_default = $this->set_default($request->input('currencies_default'));
+        $current->currencies_default = $this->set_default($request->input('currencies_default'), $currencies_id);
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Currency saved'];
@@ -59,9 +59,17 @@ class CurrenciesController extends Controller
 
   public function delete($id){
     $currency = Currencies::find($id);    
-    if ($currency && $currency->delete()){      
-      $response['data']['type'] = true;      
-      $response['message'] = ['type'=>'success', 'text'=>'Currency deleted'];      
+    if ($currency)
+    {      
+      if ($currency->currencies_default == 0){
+        $currency->delete();
+        $response['data']['type'] = true;      
+        $response['message'] = ['type'=>'success', 'text'=>'Currency deleted'];      
+      }
+      else{
+        $response['data'] = false;          
+        $response['message'] = ['type'=>'danger', 'text'=>'Can not delete default currency'];
+      }
     }
     else{
       $response['data'] = false;          
@@ -70,8 +78,8 @@ class CurrenciesController extends Controller
     return $response;
   }
 
-  private function set_default($value){
-    $default = Currencies::where('currencies_default',1)->first();
+  private function set_default($value, $id=0){
+    $default = Currencies::where('currencies_default',1)->first();    
     if (!empty($value)){
       if ($default){
         $default->currencies_default = 0;
@@ -80,7 +88,10 @@ class CurrenciesController extends Controller
       return true;
     }
     else{
-      return false;
+      if ($default && $default->currencies_id <> $id){        
+        return false;
+      } 
+      else return true;
     }
   }
 }
