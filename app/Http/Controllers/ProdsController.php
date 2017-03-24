@@ -206,13 +206,13 @@ class ProdsController extends Controller
       $prod = Prods::where('prods_full_alias', $alias)->first();
       if ($prod){
         $ids[] = $prod->prods_id;
-        $cats_id = $prod->cats_id;
+        //$cats_id = $prod->cats_id;
       }
     }
     if (isset($ids) && count($ids)){      
       $response['data'] = $this->get_prods_with_filters_group($ids);
-      $cat = Cats::select(['cats_photo'])->find($cats_id);
-      $response['data']['cats_photo'] = $cat->cats_photo;
+      //$cat = Cats::select(['cats_photo'])->find($cats_id);
+      //$response['data']['cats_photo'] = $cat->cats_photo;
       //write history
       $history = new HistoryController;
       $history->set_history($ids, $url_or);
