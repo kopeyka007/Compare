@@ -14,7 +14,7 @@
 		$scope.currList = [];
 			$http.get('/api/currencies/list').then(function(response) {
 				$scope.currList = response.data.data;
-				console.log($scope.currList);
+				console.log($scope.currList[0].currencies_symbol);
 			});
 		
 		$scope.add = function(id) {
@@ -64,6 +64,7 @@
 		$scope.get_list = function() {
 			$http.get('/api/prods/list').then(function(response) {
 				$scope.list = response.data.data;
+				console.log($scope.list);
 			});
 		};
 		$scope.get_list();
