@@ -110,8 +110,8 @@ class ProdsController extends Controller
       $prod->cats_id = $request->input('cats_id')['cats_id'];        
       $prod->brands_id = $request->input('brands_id')['brands_id'];        
       $prod->prods_name = $request->input('prods_name');        
-      $prod->prods_alias = $request->input('prods_alias');        
-      $pros->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
+      $prod->prods_alias = $request->input('prods_alias');      
+      $prod->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
       $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):'';
       $prod->prods_foto = $file;
       $prod->prods_amazon = $request->input('prods_amazon');        
