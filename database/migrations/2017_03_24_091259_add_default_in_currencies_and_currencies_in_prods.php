@@ -14,7 +14,7 @@ class AddDefaultInCurrenciesAndCurrenciesInProds extends Migration
     public function up()
     {
         Schema::table('currencies', function (Blueprint $table) {
-            $table->boolean('currencies_dafault')->default(0)->nullable();
+            $table->boolean('currencies_default')->default(0)->nullable();
         });
         Schema::table('prods', function (Blueprint $table) {
             $table->integer('currencies_id')->default(0)->nullable();
@@ -32,7 +32,7 @@ class AddDefaultInCurrenciesAndCurrenciesInProds extends Migration
             $table->dropColumn('currencies_id');
         });
         Schema::table('currencies', function (Blueprint $table) {
-            $table->dropColumn('currencies_dafault');
+            $table->dropColumn('currencies_default');
         });
     }
 }
