@@ -21,8 +21,22 @@ class Prods extends Model
         else{
           return null;
         } 
-    }    
+    }
 
+    /*
+    public function getProdsFotoAttribute()
+    {
+        if (empty($this->prods_foto)){
+          $cat = Cats::find($this->cats_id);
+          return $cat->attributes['cats_id'];
+          //return $cat;
+        }
+        else
+        {
+          return $this->prods_foto;
+        }
+    }    
+    */
     public function filters_id(){      
       return $this->belongsToMany('App\Filters', 'prods_filters', 'prods_id', 'filters_id')->withPivot('filters_value', 'filters_comment');
     }
