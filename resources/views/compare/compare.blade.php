@@ -49,7 +49,7 @@
 
 									<div ng-if="! compareList[i]" class="compare-head inactive">
 										<div class="compare-link">
-											<img src="@{{compareList.cats_id.cats_photo}}" alt="" />
+											<img src="@{{compareList.cats_photo}}" alt="" />
 
 											<span class="compare-price text-danger">
 												$9.999
@@ -78,7 +78,7 @@
 							Features Present In Only One Device (Unique Features)
 						</td>
 
-						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]" ng-show="compareList[i].features">
+						<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
 							<div class="features-cell" ng-if="compareList[i]" ng-init="prod = compareList[i]">
 								<div class="features-box" ng-repeat="feature in prod.features" ng-show="checkFeatures(prod, feature.features_id)">
 									<div class="features-head">
@@ -153,7 +153,7 @@
 
 	<div class="modal-body">
 		<div class="row">
-			<div class="col-sm-6 col-xs-12" ng-repeat="prod in compareList">
+			<div class="col-sm-6 col-xs-12" ng-repeat="prod in prods">
 				<div class="form-group">
 					<a href="@{{compareLink(prod.prods_full_alias)}}" ng-click="cancel()">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a>
 				</div>
