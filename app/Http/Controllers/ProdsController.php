@@ -210,9 +210,9 @@ class ProdsController extends Controller
       }
     }
     if (isset($ids) && count($ids)){      
-      $response['data']['prods'] = $this->get_prods_with_filters_group($ids);
-      $cat = Cats::select(['cats_id','cats_photo'])->find($cats_id);
-      $response['data']['cats'] = $cat;
+      $response['data'] = $this->get_prods_with_filters_group($ids);
+      $cat = Cats::select(['cats_photo'])->find($cats_id);
+      $response['data']['cats_photo'] = $cat->cats_photo;
       //write history
       $history = new HistoryController;
       $history->set_history($ids, $url_or);
