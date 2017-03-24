@@ -8,7 +8,7 @@
 	</div>
 	
 	<div class="fixed-wrap">
-		<div scroll ng-class="{fixed: fixedClass}">
+		<div ng-class="{fixed: fixedClass}">
 			<div class="container">
 				<div class="table-responsive">
 					<table class="table compare-table">

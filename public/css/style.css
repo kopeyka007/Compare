@@ -64,7 +64,6 @@
 	right: 0;
 	background: #fff;
 	border-bottom: 1px solid #ccc;
-	height: 210px;
 }
 
 .fixed td.filters-cell button {
@@ -365,15 +364,6 @@
 	z-index: 0;
 	width: 100%;
 }
-
-.compare-head img {
-	height: 180px;
-}
-
-.fixed .compare-head img {
-	height: 130px;
-}
-
 
 .compare-head .compare-link {
 	display: block;
