@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Prods;
+use App\Cats;
 use App\HistorySingle;
 use App\HistoryPairs;
 use App\HistoryAmazon;
@@ -67,7 +68,7 @@ class HistoryController extends Controller
     $data['data']['pair_compare_top10'] = $this->get_pair_compare_top10();
     $data['data']['count_all_compare_last10days'] = $this->count_all_compare_last10days();
     $data['data']['count_all_compare_last10days_days'] = $this->count_all_compare_last10days_days();
-    $data['data']['count_all_compare_cats_top10'] = $this->count_all_compare_cats_top10();    
+    $data['data']['count_all_compare_cats_top10'] = $this->count_all_compare_cats_top10();        
     return $data;
   }
   
@@ -110,13 +111,26 @@ class HistoryController extends Controller
   }
 
   public function count_all_compare_cats_top10(){
-    $result = HistoryCompare::selectRaw('count(cats_id) as cats_count, cats_id')
+
+    /*  $result = HistoryCompare::selectRaw('count(cats_id) as cats_count, cats_id')
     ->groupBy('cats_id')
     ->with('cats_id')
     ->orderBy('cats_count', 'DECS')
     ->take(10)
     ->get();
-    return $result;
+    return $result;*/
+    $result = Cats::withCount('prods')
+    ->orderBy('prods_count', 'DECS')    
+    ->get();  
+    $k=0;  
+    foreach ($result as $cat){
+      if ($cat->prods_count > 0){
+        $arr[$k]['cats_count'] = $cat->prods_count;
+        $arr[$k]['cats_id'] = $cat;
+        $k++;
+      }
+    }    
+    return $arr;
   }
 
   public function get_pair_compare_top10(){
