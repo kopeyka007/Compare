@@ -57,7 +57,7 @@
 
 									<div ng-if="! compareList[i]" class="compare-head inactive">
 										<div class="compare-link">
-											<img src="@{{compareListCats.cats_photo}}" alt="" />
+											<img src="@{{compareListCats.cats_photo || '/images/nofoto.png'}}" alt="" />
 
 											<span class="compare-price text-danger">
 												$9.999
