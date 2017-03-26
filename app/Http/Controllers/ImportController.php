@@ -37,22 +37,17 @@ class ImportController extends Controller
           foreach ($csv_array as $item)
           {      
             $fields = array_keys($item);
-            for ($i=0; $i < count($fields) ; $i++) { 
-              switch ($fields[$i]) {
-                case 'Sr.no':              
-                  break;
-                case 'Brand':
-                  $brands = $this->toggleBrands($item['Brand'], $cats_id);
-                  break;
-                case 'Model Name':              
-                  $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands, $cats_id);
-                  break;
-                case 'Price':                            
-                  break;
-                default:
-                  $filter = $this->toggleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $group->groups_id);
-                  break;
-              }
+            $not_filters = ['Sr.no','Brand','Slug','Model Name','Name', 'Price', 'Link to Amazon'];            
+            $filters = array();            
+            $brands = $this->toggleBrands($item['Brand'], $cats_id);
+            $link_to_amazon = (isset($item['Link to Amazon']))?$item['Link to Amazon']:null;
+            $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands, $cats_id, $link_to_amazon);
+            for ($i = 0; $i < count($fields); $i++){
+                if(!in_array($fields[$i], $not_filters)){
+                    //$filters[$i]['filters_name'] = $fields[$i];
+                    //$filters[$i]['filters_value'] = $item[$fields[$i]];
+                    $filter = $this->toggleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $group->groups_id);
+                }
             }
           }
           DB::commit();    
@@ -89,8 +84,11 @@ class ImportController extends Controller
           $header[$key] = trim($value);
         }
         while ( ($row = fgetcsv($handle, 1000, ',')) !== false)
-        {            
-          $data[] = array_combine($header, $row);
+        {
+         $row_np = array_map(function($value){
+             return $this->handle_string($value);
+         }, $row);
+         $data[] = array_combine($header, $row_np);
         }
         fclose($handle);
       }
@@ -128,7 +126,7 @@ class ImportController extends Controller
     }
   }
 
-  private function toggleProds($prods_name, $prods_price, $brands, $cats_id){
+  private function toggleProds($prods_name, $prods_price, $brands, $cats_id, $prods_amazon){   
     $current = Prods::whereRaw('LOWER(prods_name) = '."'".strtolower(trim($prods_name))."'")
     ->where('cats_id', $cats_id)
     ->where('brands_id', $brands->brands_id)
@@ -147,6 +145,7 @@ class ImportController extends Controller
       $prod->prods_alias = $this->generate_alias(trim($prods_name));
       $prod->prods_full_alias = $brands->brands_alias.'-'.$this->generate_alias(trim($prods_name));
       $prod->prods_price = trim($prods_price);
+      $prod->prods_amazon = trim($prods_amazon);
       $prod->prods_active = 1;
       $prod->currencies_id = $currency_default->currencies_id;      
       $prod->save();
@@ -189,6 +188,8 @@ class ImportController extends Controller
   private function generate_alias($name){
     return str_replace([' '], '-', $name);
   }
-
+  private function handle_string($string){
+    return preg_replace( '/[^[:print:]]/', '',$string);
+  }
 
 }
