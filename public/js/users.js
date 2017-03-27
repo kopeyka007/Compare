@@ -90,7 +90,6 @@
 				$scope.user[k] = items.user[k];
 			}
 		}
-		
 		$http.get('/api/cats/list').then(function(response) {
 			$scope.cats = response.data.data;
 		});
