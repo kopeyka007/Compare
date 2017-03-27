@@ -41,12 +41,17 @@ class User extends Authenticatable
 
     public function scopeAccessUsers($query){
       if (Auth::user()){
-        $user = User::find(Auth::user()->id);
-        if ($user->role->name == 'Super Admin'){
-          return $query;
-        }
-        else{
-          $query->where('users_id',0);
+        $user = User::find(Auth::user()->id);        
+        switch ($user->role->name) {
+            case 'Super Admin':
+                return $query;
+            break;
+            case 'Category Admin':
+                return $query->where('author_id', $user->id);
+            break;
+            case 'Product Uploader':
+                return $query->where('id', 0);
+            break;
         }
       }
     }

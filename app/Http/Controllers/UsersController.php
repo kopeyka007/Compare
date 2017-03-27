@@ -26,6 +26,7 @@ class UsersController extends Controller
     ->accessUsers()
     ->get();
     $i=0;
+    $response = array();
     foreach ($users as $user) {
       $cats = array();
       foreach ($user->cats as $cat) {
@@ -87,7 +88,7 @@ class UsersController extends Controller
       $user->email =  $request->input('email');
       $user->password = bcrypt($request->input('password'));
       $user->type_id = $request->input('type')['id'];            
-
+      $user->author_id = Auth::user()->id;
       if ($user->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'User created'];
@@ -103,6 +104,7 @@ class UsersController extends Controller
   public function delete($id){
     $user = User::find($id);    
     if ($user && $user->delete()){
+      $user->cats()->detach();
       $response['data']['type'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'User deleted'];      
     }
