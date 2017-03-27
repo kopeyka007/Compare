@@ -68,6 +68,16 @@
 					</select>
 				</div>
 			</div>
+			
+			<div class="col-sm-12">
+				<div class="form-group">
+					<div class="user-cats-box" ng-repeat="item in cats">
+						<input type="checkbox" ng-model="user.cats.cats_id" />
+						<label>@{{item.cats_name}}</label>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 	</form>
 
