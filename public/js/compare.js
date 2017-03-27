@@ -84,8 +84,13 @@
 			}
 		};
 
+		$scope.isNumeric = function(n) {
+		  return ! isNaN(parseFloat(n)) && isFinite(n);
+		};
+
 		$scope.checkFeatures = function(this_prod, features_id) {
 			var check = true;
+			var duplicate = false;
 			var start = '';
 			for (var id in $scope.compareList)
 			{
@@ -94,24 +99,29 @@
 				{
 					if (prod.features[features_id] && prod.features[features_id].features_value && this_prod.features && this_prod.features[features_id].features_value)
 					{
-						if ((prod.features[features_id].features_rate == '1' && prod.features[features_id].features_value * 1 >= this_prod.features[features_id].features_value * 1) || (prod.features[features_id].features_rate == '0' && prod.features[features_id].features_value * 1 <= this_prod.features[features_id].features_value * 1))
+						if (this_prod.features[features_id].features_value == prod.features[features_id].features_value)
 						{
-							check = false;
+							duplicate = true;
+						}
+
+						if ($scope.isNumeric(prod.features[features_id].features_value) && this_prod.features[features_id].features_value)
+						{
+							if ((prod.features[features_id].features_rate == '1' && prod.features[features_id].features_value * 1 >= this_prod.features[features_id].features_value * 1) || (prod.features[features_id].features_rate == '0' && prod.features[features_id].features_value * 1 <= this_prod.features[features_id].features_value * 1))
+							{
+								check = false;
+							}
+						}
+						else
+						{
+							check = this_prod.features[features_id].features_value.toLowerCase() == 'yes'; 
 						}
 					}
 				}
 			}
 
-			return check;
+			return ! duplicate ? check : false;
 		};
-		
-/* 		$scope.textFeature = function(this_prod) {
-			if (this_prod.features_units = 'Yes' || this_prod.features_units = 'No') {
-				
-			}
-			return true;
-		}
- */
+
 		$scope.closestProd = '';
 		$scope.percents = function(this_prod, features_id) {
 			var min_delta = false;
