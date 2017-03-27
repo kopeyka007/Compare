@@ -75,7 +75,10 @@ class HistoryController extends Controller
   public function get_history_amazon_top10(){    
     $result = HistoryAmazon::selectRaw('count(prods_id) as prods_count, prods_id')
     ->groupBy('prods_id')
-    ->with('prods', 'prods.brands_id')    
+    ->with('prods', 'prods.brands_id', 'prods.cats_id')
+    ->whereHas('prods.cats_id',function($q){
+      $q->access();
+    })
     ->orderBy('prods_count', 'DECS')
     ->take(10)
     ->get();
@@ -85,7 +88,10 @@ class HistoryController extends Controller
   public function get_history_amazon_last10days(){    
     //10 days ego
     $time10days =  time() - (10 * 24 * 60 * 60);    
-    $result = HistoryAmazon::with('prods', 'prods.brands_id')    
+    $result = HistoryAmazon::with('prods', 'prods.brands_id', 'prods.cats_id')
+    ->whereHas('prods.cats_id',function($q){
+      $q->access();
+    })
     ->where('created_at', '>', $time10days)    
     ->orderBy('created_at', 'DECS')    
     ->get();
@@ -102,8 +108,11 @@ class HistoryController extends Controller
 
   public function get_single_compare_top10(){
     $result = HistorySingle::selectRaw('count(prods_id) as prods_count, prods_id')
-    ->groupBy('prods_id')
-    ->with('prods', 'prods.brands_id')
+    ->groupBy('prods_id')    
+    ->with('prods', 'prods.brands_id', 'prods.cats_id')    
+    ->whereHas('prods.cats_id',function($q){
+      $q->access();
+    })
     ->orderBy('prods_count', 'DECS')
     ->take(10)
     ->get();
@@ -111,16 +120,9 @@ class HistoryController extends Controller
   }
 
   public function count_all_compare_cats_top10(){
-
-    /*  $result = HistoryCompare::selectRaw('count(cats_id) as cats_count, cats_id')
-    ->groupBy('cats_id')
-    ->with('cats_id')
-    ->orderBy('cats_count', 'DECS')
-    ->take(10)
-    ->get();
-    return $result;*/
     $result = Cats::withCount('prods')
-    ->orderBy('prods_count', 'DECS')    
+    ->orderBy('prods_count', 'DECS')
+    ->access()      
     ->get();  
     $k=0;  
     foreach ($result as $cat){
@@ -136,7 +138,10 @@ class HistoryController extends Controller
   public function get_pair_compare_top10(){
     $result  = HistoryPairs::selectRaw('count(prods1_id) as prods1_count, prods1_id, count(prods2_id) as prods2_count, prods2_id')
     ->groupBy('prods1_id','prods2_id')
-    ->with('prods1_id.brands_id', 'prods2_id.brands_id')
+    ->with('prods1_id.brands_id', 'prods2_id.brands_id', 'prods1_id.cats_id', 'prods2_id.cats_id')
+    ->whereHas('prods1_id.cats_id',function($q){
+      $q->access();
+    })
     ->orderBy('prods1_count', 'DECS')
     ->take(10)
     ->get();
