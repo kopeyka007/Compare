@@ -110,6 +110,7 @@ Route::post('api/features/save','FeaturesController@save');
 Route::delete('api/features/delete/{id}','FeaturesController@delete');
 //currencies
 Route::get('api/currencies/list','CurrenciesController@get_all');
+Route::get('api/currencies/showlist','CurrenciesController@get_show_list');
 Route::post('api/currencies/save','CurrenciesController@save');
 Route::delete('api/currencies/delete/{id}','CurrenciesController@delete');
 //import
