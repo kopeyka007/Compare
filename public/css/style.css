@@ -342,24 +342,37 @@
 	max-height: 50px;
 }
 
-.small {
-	display: none;
-}
-
-.fixed .small {
-	display: block;
-}
-
-.fixed .large {
-	display: none;
-}
-
-.fixed .table > tbody > tr > td.prods-cell {
+.fixed .table > tbody > tr > td.prods-cell,
+.fixed .table > tbody > tr > td.filters-cell {
 	vertical-align: middle;
 }
 
 .fixed .add-btn {
 	top: 4px;
+}
+
+.fixed .prods-cell {
+	text-align: left;
+}
+
+.fixed .inactive .compare-link {
+	display: none;
+}
+
+.fixed .inactive .add-btn {
+	top: -20px;
+}
+
+.fixed .brand-name {
+	display: none;
+}
+
+.fixed .brand-name-bottom {
+	display: inline-block;
+}
+
+.brand-name-bottom {
+	display: none;
 }
 
 .td-id img,

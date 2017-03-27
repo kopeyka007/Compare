@@ -14,8 +14,8 @@
 					<table class="table compare-table">
 						<thead>
 							<tr>
-								<th class="filters-cell"></th>
-								<th class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+								<th class="filters-cell brand-name"></th>
+								<th class="prods-cell brand-name" ng-repeat="i in [0, 1, 2, 3]">
 									<span>@{{compareList[i].brands_id.brands_name}}</span>
 									<span ng-if="compareList[i]">@{{compareList[i].prods_name}}</span>
 								</th>
@@ -25,20 +25,10 @@
 						<tbody>
 							<tr>
 								<td class="filters-cell">
-									<button type="button" class="btn btn-success btn-block large" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
-										All Features
-									</button>
-
-									<button type="button" class="btn btn-success btn-block large" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
-										Differences
-									</button>
-									
-									<button type="button" class="btn btn-success btn-block small" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
-										All Features
-									</button>
-
-									<button type="button" class="btn btn-success btn-block small" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
-										Differences
+									<button type="button" class="btn btn-success btn-block large" ng-class="{'active': mode == 1}" ng-click="mode = 1- mode">
+										<i class="fa fa-square-o" aria-hidden="true" ng-show="mode == 0"></i> 
+										<i class="fa fa-check-square-o" aria-hidden="true" ng-show="mode == 1"></i>
+										<span>Differences</span>
 									</button>
 								</td>
 
@@ -48,7 +38,9 @@
 											<img src="@{{prod.prods_foto}}" alt="#" />
 											<span class="compare-price text-danger">
 												@{{prod.prods_price_cur}}
-											</span>
+											</span><br />
+											<span class="brand-name-bottom">@{{compareList[i].brands_id.brands_name}}</span>
+											<span class="brand-name-bottom" ng-if="compareList[i]">@{{compareList[i].prods_name}}</span>
 										</a>
 										<a href="@{{closeLink(prod.prods_id)}}" class="compare-close">
 											<i class="fa fa-times-circle" aria-hidden="true"></i>
