@@ -74,14 +74,14 @@
 		};
 
 		$scope.access = function(page) {
-			var rules = {'users': 1,
-						 'import': 1,
-					 	 'cats': 2,
+			var rules = {'users': 2,
+						 'import': 3,
+					 	 'cats': 1,
 					 	 'brands': 2,
 						 'features': 2,
 					  	 'filters': 2,
 					  	 'prods': 3,
-						 'currency': 3
+						 'currency': 1
 						 };
 
 			if (rules[page])

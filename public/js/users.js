@@ -3,8 +3,17 @@
 	
 	function usersCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
 		$scope.types = [];
+		$scope.typesList = [];
 		$http.get('/api/users/types').then(function(response) {
 			$scope.types = response.data.data;
+			for (var t in $scope.types)
+			{
+				if ($rootScope.user.type.id < $scope.types[t].id || $rootScope.user.type.id == 1)
+				{
+					$scope.typesList.push($scope.types[t]);
+				}
+			}
+			
 		});
 		
 		$scope.add = function(id) {
@@ -27,7 +36,7 @@
                 templateUrl: "ModalUsersContent.html",
                 controller: 'ModalUsersCtrl',
 				resolve: {
-					items: {'types': $scope.types, 'user': user, 'list': $scope.list}
+					items: {'types': $scope.typesList, 'user': user, 'list': $scope.list}
 				}
 			});	
 			
