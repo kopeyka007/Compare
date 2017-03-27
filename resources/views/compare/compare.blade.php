@@ -14,8 +14,8 @@
 					<table class="table compare-table">
 						<thead>
 							<tr>
-								<th class="filters-cell"></th>
-								<th class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+								<th class="filters-cell brand-name"></th>
+								<th class="prods-cell brand-name" ng-repeat="i in [0, 1, 2, 3]">
 									<span>@{{compareList[i].brands_id.brands_name}}</span>
 									<span ng-if="compareList[i]">@{{compareList[i].prods_name}}</span>
 								</th>
@@ -25,20 +25,10 @@
 						<tbody>
 							<tr>
 								<td class="filters-cell">
-									<button type="button" class="btn btn-success btn-block large" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
-										All Features
-									</button>
-
-									<button type="button" class="btn btn-success btn-block large" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
-										Differences
-									</button>
-									
-									<button type="button" class="btn btn-success btn-block small" ng-class="{'active': mode == 'all'}" ng-click="mode = 'all'">
-										All Features
-									</button>
-
-									<button type="button" class="btn btn-success btn-block small" ng-class="{'active': mode == 'diff'}" ng-click="mode = 'diff'">
-										Differences
+									<button type="button" class="btn btn-success btn-block large" ng-class="{'active': mode == 1}" ng-click="mode = 1- mode">
+										<i class="fa fa-square-o" aria-hidden="true" ng-show="mode == 0"></i> 
+										<i class="fa fa-check-square-o" aria-hidden="true" ng-show="mode == 1"></i>
+										<span>Differences</span>
 									</button>
 								</td>
 
@@ -48,7 +38,9 @@
 											<img src="@{{prod.prods_foto}}" alt="#" />
 											<span class="compare-price text-danger">
 												@{{prod.prods_price_cur}}
-											</span>
+											</span><br />
+											<span class="brand-name-bottom">@{{compareList[i].brands_id.brands_name}}</span>
+											<span class="brand-name-bottom" ng-if="compareList[i]">@{{compareList[i].prods_name}}</span>
 										</a>
 										<a href="@{{closeLink(prod.prods_id)}}" class="compare-close">
 											<i class="fa fa-times-circle" aria-hidden="true"></i>
@@ -95,7 +87,7 @@
 									</div>
 
 									<div class="features-content">
-										<div class="features-prods" ng-repeat="p in compareList" ng-class="{'active': p.prods_id == prod.prods_id}">
+										<div class="features-prods" ng-repeat="p in compareList"  ng-show="p.features[feature.features_id].features_value != '' && p.features[feature.features_id].features_value != null" ng-class="{'active': p.prods_id == prod.prods_id}">
 											<div class="row">
 												<div class="col-xs-7">
 													@{{p.prods_name}}
@@ -108,7 +100,7 @@
 										</div>
 										
 										<div class="features-desc">
-											Around <b class="text-success">@{{percents(prod, feature.features_id)}} @{{feature.features_around}}</b> than @{{closestProd}}. @{{feature.features_desc}}
+											<span>Around <b class="text-success">@{{percents(prod, feature.features_id)}} @{{feature.features_around}}</b> than @{{closestProd}}.</span> @{{feature.features_desc}}
 										</div>
 									</div>
 								</div>

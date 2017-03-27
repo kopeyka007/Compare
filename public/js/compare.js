@@ -1,7 +1,7 @@
 (function() {
 	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', '$uibModal', compareCtrl]);
 	function compareCtrl($scope, $rootScope, $http, $window, $location, $uibModal) {
-		$scope.mode = 'all';
+		$scope.mode = 0;
 		$scope.filterList = [];
 		$scope.compareList = [];
 		$scope.closestProd = '';
@@ -104,7 +104,14 @@
 
 			return check;
 		};
-
+		
+/* 		$scope.textFeature = function(this_prod) {
+			if (this_prod.features_units = 'Yes' || this_prod.features_units = 'No') {
+				
+			}
+			return true;
+		}
+ */
 		$scope.closestProd = '';
 		$scope.percents = function(this_prod, features_id) {
 			var min_delta = false;

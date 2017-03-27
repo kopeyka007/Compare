@@ -80,7 +80,7 @@
 		$scope.user = {'id': 0,
 					   'email': '',
 					   'password': '',
-					   'cats': '',
+					   'cats': [],
 					   'type': items.types[0]};
 		
 		if (items.user && items.user.id)
@@ -90,11 +90,10 @@
 				$scope.user[k] = items.user[k];
 			}
 		}
-
 		$http.get('/api/cats/list').then(function(response) {
 			$scope.cats = response.data.data;
 		});
-		
+
 		$scope.save = function () {
 			$scope.errors = [];
 			var error = 1;

@@ -3,7 +3,7 @@
 	function currencyCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
 		$scope.currList = [];
 		$scope.get_list = function() {
-			$http.get('/api/currencies/list').then(function(response) {
+			$http.get('/api/currencies/showlist').then(function(response) {
 				$scope.currList = response.data.data;
 			});
 		};

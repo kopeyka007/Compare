@@ -18,6 +18,12 @@ class CurrenciesController extends Controller
     $response['data'] = $currencies;
     return $response;    
   }
+
+  public function get_show_list(){
+    $currencies = Currencies::accessCurrencies()->get();    
+    $response['data'] = $currencies;
+    return $response;    
+  }
   
   public function save(Request $request){             
     $currency = new Currencies;
