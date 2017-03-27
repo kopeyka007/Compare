@@ -14,12 +14,12 @@ class BrandsController extends Controller
     return view('panel.brands');
   }
 
-  public function get_all(){
-    $brands = Brands::with('cats_id')->get();    
-    /*$brands = Brands::with(['cats_id'=>function ($q){
-      $q->access();      
-    }])->has('cats_id')->get();    
-    */
+  public function get_all(){    
+    $brands = Brands::with('cats_id')
+    ->whereHas('cats_id',function($q){
+      $q->access();
+    })
+    ->get();
     $response['data'] = $brands;
     return $response;    
   }
