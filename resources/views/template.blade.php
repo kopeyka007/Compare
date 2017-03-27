@@ -41,12 +41,6 @@
 		<section class="footer">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6 col-xs-12">
-						<h3><i class="fa fa-home" aria-hidden="true"></i> Compare Wearables</h3>
-						<p><a href="/">Home</a></p>
-						<p><a href="/">About the developer</a></p>
-					</div>
-
 					<div class="groups-footer col-md-6" ng-repeat="cat in products">
 						<h3 ng-if="cat.prods.length"><i class="fa fa-folder-open-o" aria-hidden="true"></i> @{{cat.cats_name}}</h3>
 						<div ng-repeat="prod in cat.prods">
