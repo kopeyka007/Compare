@@ -63,6 +63,10 @@
 		$scope.info = function() {
 			$http.get('/api/users/info').then(function(response) {
 				$rootScope.user = response.data.data;
+				if ( ! $scope.access($location.path().replace('/panel', '').replace(/\//gi, '')))
+				{
+					$location.path('/panel/prods');
+				}
 			});
 		};
 		$scope.info();
@@ -74,12 +78,13 @@
 		};
 
 		$scope.access = function(page) {
-			var rules = {'users': 2,
+			var rules = {'dashboard': 2,
+						 'users': 2,
 						 'import': 3,
 					 	 'cats': 1,
-					 	 'brands': 2,
-						 'features': 2,
-					  	 'filters': 2,
+					 	 'brands': 3,
+						 'features': 3,
+					  	 'filters': 3,
 					  	 'prods': 3,
 						 'currency': 1
 						 };

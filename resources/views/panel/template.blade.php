@@ -29,7 +29,7 @@
 
 					<div class="collapse navbar-collapse" id="menu">
 						<ul class="nav navbar-nav">
-							<li ng-class="{'active': activeMenu('')}"><a href="/panel/">Dashboard</a></li>
+							<li ng-class="{'active': activeMenu('')}"><a href="/panel/" ng-if="access('dashboard')">Dashboard</a></li>
 							<li ng-class="{'active': activeMenu('users')}"><a href="/panel/users/" ng-if="access('users')">Users</a></li>
 							<li ng-class="{'active': activeMenu('cats')}"><a href="/panel/cats/" ng-if="access('cats')">Categories</a></li>
 							<li ng-class="{'active': activeMenu('brands')}"><a href="/panel/brands/" ng-if="access('brands')">Brands</a></li>
