@@ -21,6 +21,9 @@ class ProdsController extends Controller
     with('features_id')->
     with('brands_id')->
     with('cats_id')->
+    whereHas('cats_id',function($q){
+      $q->access();
+    })->
     with('currencies_id')->
     get();
     foreach ($prods as $prod) {

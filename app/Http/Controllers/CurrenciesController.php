@@ -14,7 +14,7 @@ class CurrenciesController extends Controller
   }
 
   public function get_all(){
-    $currencies = Currencies::all();    
+    $currencies = Currencies::accessCurrencies()->get();    
     $response['data'] = $currencies;
     return $response;    
   }

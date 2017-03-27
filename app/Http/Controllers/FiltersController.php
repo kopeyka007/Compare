@@ -16,7 +16,12 @@ class FiltersController extends Controller
   }
 
   public function get_all(){
-    $filters = Filters::with('groups_id')->with('cats_id')->get();    
+    $filters = Filters::with('groups_id')
+    ->with('cats_id')
+    ->whereHas('cats_id',function($q){
+      $q->access();
+    })
+    ->get();    
     $response['data'] = $filters;
     return $response;    
   }

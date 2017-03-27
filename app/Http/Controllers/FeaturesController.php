@@ -16,8 +16,12 @@ class FeaturesController extends Controller
     return view('panel.features');
   }
 
-  public function get_all(){
-    $features = Features::with('cats_id')->get();
+  public function get_all(){    
+    $features = Features::with('cats_id')
+    ->whereHas('cats_id',function($q){
+      $q->access();
+    })
+    ->get();
     foreach ($features as $feature) {      
       $feature->features_icon = empty($feature->features_icon)?asset('images/nofoto.png'):$feature->features_icon;
     }

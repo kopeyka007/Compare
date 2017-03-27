@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -32,6 +33,22 @@ class User extends Authenticatable
     public function role()
     {      
       return $this->belongsTo('App\UsersTypes', 'type_id', 'id');
+    }
+
+    public function cats(){      
+      return $this->belongsToMany('App\Cats', 'cats_users', 'users_id', 'cats_id');
+    }
+
+    public function scopeAccessUsers($query){
+      if (Auth::user()){
+        $user = User::find(Auth::user()->id);
+        if ($user->role->name == 'Super Admin'){
+          return $query;
+        }
+        else{
+          $query->where('users_id',0);
+        }
+      }
     }
 
 

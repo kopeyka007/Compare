@@ -43,10 +43,23 @@ class Cats extends Model
             return $query->with('users')->has('users');
             break;
           case 'Product Uploader':
-            return $query->where('cats_id',0);            
-            //return null;
+            return $query->with('users')->has('users');            
             break;
         }
       }
     }
+
+    
+    public function scopeAccessCats($query){
+      if (Auth::user()){
+        $user = User::find(Auth::user()->id);
+        if ($user->role->name == 'Super Admin'){
+          return $query;
+        }
+        else{
+          $query->where('cats_id',0);
+        }
+      }
+    }
+    
 }
