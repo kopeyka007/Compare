@@ -68,6 +68,17 @@
 					</select>
 				</div>
 			</div>
+
+			<div class="col-sm-12" ng-show="user.type.id == 2 || user.type.id == 3">
+				<strong>Available Categories</strong>
+				<div class="user-cats-box checkbox" ng-repeat="cat in cats">
+					<label>
+						<input type="checkbox" ng-model="user.cats[cat.cats_id]" />
+						@{{cat.cats_name}}
+					</label>
+				</div>
+			</div>
+
 		</div>
 	</form>
 

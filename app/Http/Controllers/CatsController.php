@@ -17,8 +17,15 @@ class CatsController extends Controller
     return view('panel.cats');
   }
 
-  public function get_all(){
-    $cats = Cats::with('features')->get();    
+  public function get_show_list(){
+    $cats = Cats::with('features')->accessCats()->get();    
+    $response['data'] = $cats;
+    return $response;    
+  }
+
+  public function get_access_list(){
+    $cats = Cats::with('features')->access()->get();    
+    //$cats = Cats::with('users')->get();    
     $response['data'] = $cats;
     return $response;    
   }

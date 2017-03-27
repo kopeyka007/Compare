@@ -20,13 +20,22 @@ class UsersController extends Controller
     return view('panel.users');
   }
 
-  public function get_all(){
-    $users = User::with('role')->get();
+  public function get_show_list(){
+    $users = User::with('role')
+    ->with('cats')
+    ->accessUsers()
+    ->get();
     $i=0;
+    $response = array();
     foreach ($users as $user) {
+      $cats = array();
+      foreach ($user->cats as $cat) {
+        $cats[$cat->cats_id] = true;
+      }
       $response['data'][$i]['id'] = $user->id;      
       $response['data'][$i]['email'] = $user->email;
       $response['data'][$i]['type'] = ['id'=>$user->role->id, 'name'=>$user->role->name];
+      $response['data'][$i]['cats'] = $cats;      
       $i++;
     }
     return $response;
@@ -59,8 +68,10 @@ class UsersController extends Controller
       if ($current){
         $current->email = $request->input('email');
         $current->type_id = $request->input('type')['id'];
-        $current->password = ($request->input('password') == '')?$current->password:bcrypt($request->input('password'));        
+        $current->password = ($request->input('password') == '')?$current->password:bcrypt($request->input('password'));
+        $cats = $request->input('cats');
         if ($current->save()){
+          $this->set_relation_cats($user_id, $cats);
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'User saved'];
         }
@@ -77,8 +88,10 @@ class UsersController extends Controller
       $user->email =  $request->input('email');
       $user->password = bcrypt($request->input('password'));
       $user->type_id = $request->input('type')['id'];            
-
+      $user->author_id = Auth::user()->id;
+      $cats = $request->input('cats');
       if ($user->save()){
+        $this->set_relation_cats($user->id, $cats);
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'User created'];
       }
@@ -93,6 +106,7 @@ class UsersController extends Controller
   public function delete($id){
     $user = User::find($id);    
     if ($user && $user->delete()){
+      $user->cats()->detach();
       $response['data']['type'] = true;      
       $response['message'] = ['type'=>'success', 'text'=>'User deleted'];      
     }
@@ -101,6 +115,15 @@ class UsersController extends Controller
       $response['message'] = ['type'=>'danger', 'text'=>'User not found'];
     }
     return $response;
+  }
+
+  private function set_relation_cats($user_id, $cats){    
+    $cats = array_filter($cats, function ($value){
+      return !empty($value);
+    });
+    $cats = array_keys($cats);    
+    $user = User::find($user_id);
+    $user->cats()->sync($cats);    
   }
 }
 ?>

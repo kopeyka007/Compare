@@ -1,7 +1,7 @@
 (function() {
 	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', '$uibModal', compareCtrl]);
 	function compareCtrl($scope, $rootScope, $http, $window, $location, $uibModal) {
-		$scope.mode = 'all';
+		$scope.mode = 0;
 		$scope.filterList = [];
 		$scope.compareList = [];
 		$scope.closestProd = '';
@@ -84,8 +84,13 @@
 			}
 		};
 
+		$scope.isNumeric = function(n) {
+		  return ! isNaN(parseFloat(n)) && isFinite(n);
+		};
+
 		$scope.checkFeatures = function(this_prod, features_id) {
 			var check = true;
+			var duplicate = false;
 			var start = '';
 			for (var id in $scope.compareList)
 			{
@@ -94,15 +99,27 @@
 				{
 					if (prod.features[features_id] && prod.features[features_id].features_value && this_prod.features && this_prod.features[features_id].features_value)
 					{
-						if ((prod.features[features_id].features_rate == '1' && prod.features[features_id].features_value * 1 >= this_prod.features[features_id].features_value * 1) || (prod.features[features_id].features_rate == '0' && prod.features[features_id].features_value * 1 <= this_prod.features[features_id].features_value * 1))
+						if (this_prod.features[features_id].features_value == prod.features[features_id].features_value)
 						{
-							check = false;
+							duplicate = true;
+						}
+
+						if ($scope.isNumeric(prod.features[features_id].features_value) && this_prod.features[features_id].features_value)
+						{
+							if ((prod.features[features_id].features_rate == '1' && prod.features[features_id].features_value * 1 >= this_prod.features[features_id].features_value * 1) || (prod.features[features_id].features_rate == '0' && prod.features[features_id].features_value * 1 <= this_prod.features[features_id].features_value * 1))
+							{
+								check = false;
+							}
+						}
+						else
+						{
+							check = this_prod.features[features_id].features_value.toLowerCase() == 'yes'; 
 						}
 					}
 				}
 			}
 
-			return check;
+			return ! duplicate ? check : false;
 		};
 
 		$scope.closestProd = '';

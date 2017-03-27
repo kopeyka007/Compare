@@ -67,9 +67,6 @@
 	left: 0;
 	right: 0;
 	background: #fff;
-}
-
-.fixed .table-responsive {
 	border-bottom: 1px solid #ccc;
 }
 
@@ -330,6 +327,7 @@
 .compare-price {
 	display: inline-block;
 	vertical-align: middle;
+	font-size: 13px;
 }
 
 .compare-head img {
@@ -340,26 +338,33 @@
 
 .fixed .compare-head img {
 	max-height: 50px;
-}
-
-.small {
-	display: none;
-}
-
-.fixed .small {
 	display: block;
+	float: left;
+	margin-right: 5px;
+}
+.fixed .filters-cell button {
+	margin-top: 8px;
 }
 
-.fixed .large {
+.fixed .prods-cell {
+	text-align: left;
+}
+
+.fixed .inactive .compare-link {
 	display: none;
 }
 
-.fixed .table > tbody > tr > td.prods-cell {
-	vertical-align: middle;
+.fixed .brand-name {
+	display: none;
 }
 
-.fixed .add-btn {
-	top: 4px;
+.fixed .brand-name-bottom {
+	display: inline-block;
+	font-size: 13px;
+}
+
+.brand-name-bottom {
+	display: none;
 }
 
 .td-id img,

@@ -1,7 +1,7 @@
 <div ng-controller="catsCtrl">
 	<h1>Categories</h1>
 	<div class="form-group">
-		<button type="button" class="btn btn-primary" ng-click="add()">Create Category</button>
+		<button type="button" class="btn btn-primary" ng-click="add()" ng-if="access('cats')">Create Category</button>
 	</div>
 	
 	<div class="table-responsive">

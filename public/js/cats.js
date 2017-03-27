@@ -45,7 +45,7 @@
 		
 		$scope.list = [];
 		$scope.get_list = function() {
-			$http.get('/api/cats/list').then(function(response) {
+			$http.get('/api/cats/showlist').then(function(response) {
 				$scope.list = response.data.data;
 			});
 		};
