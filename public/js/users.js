@@ -80,7 +80,7 @@
 		$scope.user = {'id': 0,
 					   'email': '',
 					   'password': '',
-					   'cats': '',
+					   'cats': [],
 					   'type': items.types[0]};
 		
 		if (items.user && items.user.id)
