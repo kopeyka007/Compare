@@ -1,7 +1,7 @@
 (function() {
 	angular.module('compareApp').controller('compareCtrl', ['$scope', '$rootScope', '$http', '$window', '$location', '$uibModal', compareCtrl]);
 	function compareCtrl($scope, $rootScope, $http, $window, $location, $uibModal) {
-		$scope.mode = 'all';
+		$scope.mode = 0;
 		$scope.filterList = [];
 		$scope.compareList = [];
 		$scope.closestProd = '';

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Cats extends Model
 {
@@ -25,4 +26,40 @@ class Cats extends Model
     public function brands(){
       return $this->hasMany('App\Brands','cats_id');
     }
+
+    public function users(){      
+      return $this->belongsToMany('App\User', 'cats_users', 'cats_id', 'users_id');
+    }
+
+    public function scopeAccess($query)
+    {
+      if (Auth::user()){
+        $user = User::find(Auth::user()->id);
+        switch ($user->role->name) {          
+          case 'Super Admin':
+            return $query;
+            break;
+          case 'Category Admin':
+            return $query->with('users')->has('users');
+            break;
+          case 'Product Uploader':
+            return $query->with('users')->has('users');            
+            break;
+        }
+      }
+    }
+
+    
+    public function scopeAccessCats($query){
+      if (Auth::user()){
+        $user = User::find(Auth::user()->id);
+        if ($user->role->name == 'Super Admin'){
+          return $query;
+        }
+        else{
+          $query->where('cats_id',0);
+        }
+      }
+    }
+    
 }

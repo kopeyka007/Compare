@@ -75,12 +75,13 @@ Route::post('api/signout','AuthController@signout');
 Route::get('api/users/info','AuthController@info');
 //users
 Route::get('api/users/types','UsersController@get_users_types');
-Route::get('api/users/list','UsersController@get_all');
+Route::get('api/users/list','UsersController@get_show_list');
 Route::post('api/users/save','UsersController@save');
 Route::get('api/users/view/{id}','UsersController@view');
 Route::delete('api/users/delete/{id}','UsersController@delete');
 //cats
-Route::get('api/cats/list','CatsController@get_all');
+Route::get('api/cats/list','CatsController@get_access_list');
+Route::get('api/cats/showlist','CatsController@get_show_list');
 Route::post('api/cats/save','CatsController@save');
 Route::delete('api/cats/delete/{id}','CatsController@delete');
 Route::get('api/cats/filters/{id}','CatsController@get_filters');
@@ -109,6 +110,7 @@ Route::post('api/features/save','FeaturesController@save');
 Route::delete('api/features/delete/{id}','FeaturesController@delete');
 //currencies
 Route::get('api/currencies/list','CurrenciesController@get_all');
+Route::get('api/currencies/showlist','CurrenciesController@get_show_list');
 Route::post('api/currencies/save','CurrenciesController@save');
 Route::delete('api/currencies/delete/{id}','CurrenciesController@delete');
 //import
