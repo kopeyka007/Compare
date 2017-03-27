@@ -136,8 +136,8 @@ Route::post('api/history/amazon','HistoryController@set_history_amazon');
 
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
-Route::get('test/{id}','CatsController@get_brands');
-Route::get('import','ImportController@save');
+//Route::get('test','CatsController@get_access_list');
+//Route::get('import','ImportController@save');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
 
