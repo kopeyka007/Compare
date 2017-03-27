@@ -71,7 +71,7 @@
 			
 			<div class="col-sm-12" ng-show="user.type.id == 2 || user.type.id == 3">
 				<div class="user-cats-box" ng-repeat="cat in cats">
-					<input type="checkbox" ng-model="user[cat.cats_id].cats.cats_id" />
+					<input type="checkbox" ng-model="user.cats[cat.cats_id]" />
 					<label>@{{cat.cats_name}}</label>
 				</div>
 			</div>
