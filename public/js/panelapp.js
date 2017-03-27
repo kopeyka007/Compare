@@ -63,8 +63,11 @@
 		$scope.info = function() {
 			$http.get('/api/users/info').then(function(response) {
 				$rootScope.user = response.data.data;
-				if ( ! $scope.access($location.path().replace('/panel', '').replace(/\//gi, '')))
+				var path = $location.path().replace('/panel', '').replace(/\//gi, '');
+				path = path == '' ? 'dashboard' : path;
+				if ($rootScope.user && ! $scope.access(path))
 				{
+					console.log($location.path());
 					$location.path('/panel/prods');
 				}
 			});
