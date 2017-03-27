@@ -16,10 +16,13 @@
 				};
 			
 				$http.post('/api/signin', post_mas).then(function(response) {
-					$rootScope.errors = [response.data.message];
 					if (response.data.data)
 					{
 						$window.location.reload(true);
+					}
+					else
+					{
+						$rootScope.errors = [response.data.message];
 					}
 				});
 			}
