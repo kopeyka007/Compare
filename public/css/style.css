@@ -67,9 +67,6 @@
 	left: 0;
 	right: 0;
 	background: #fff;
-}
-
-.fixed .table-responsive {
 	border-bottom: 1px solid #ccc;
 }
 
@@ -330,6 +327,7 @@
 .compare-price {
 	display: inline-block;
 	vertical-align: middle;
+	font-size: 13px;
 }
 
 .compare-head img {
@@ -340,15 +338,12 @@
 
 .fixed .compare-head img {
 	max-height: 50px;
+	display: block;
+	float: left;
+	margin-right: 5px;
 }
-
-.fixed .table > tbody > tr > td.prods-cell,
-.fixed .table > tbody > tr > td.filters-cell {
-	vertical-align: middle;
-}
-
-.fixed .add-btn {
-	top: 4px;
+.fixed .filters-cell button {
+	margin-top: 8px;
 }
 
 .fixed .prods-cell {
@@ -359,16 +354,13 @@
 	display: none;
 }
 
-.fixed .inactive .add-btn {
-	top: -20px;
-}
-
 .fixed .brand-name {
 	display: none;
 }
 
 .fixed .brand-name-bottom {
 	display: inline-block;
+	font-size: 13px;
 }
 
 .brand-name-bottom {
