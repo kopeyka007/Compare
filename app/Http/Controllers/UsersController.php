@@ -89,7 +89,9 @@ class UsersController extends Controller
       $user->password = bcrypt($request->input('password'));
       $user->type_id = $request->input('type')['id'];            
       $user->author_id = Auth::user()->id;
+      $cats = $request->input('cats');
       if ($user->save()){
+        $this->set_relation_cats($user->id, $cats);
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'User created'];
       }
