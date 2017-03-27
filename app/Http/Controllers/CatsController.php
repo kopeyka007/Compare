@@ -18,7 +18,7 @@ class CatsController extends Controller
   }
 
   public function get_all(){
-    $cats = Cats::with('features')->get();    
+    $cats = Cats::with('features')->access()->get();    
     $response['data'] = $cats;
     return $response;    
   }
