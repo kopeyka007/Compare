@@ -104,7 +104,14 @@
 
 			return check;
 		};
-
+		
+/* 		$scope.textFeature = function(this_prod) {
+			if (this_prod.features_units = 'Yes' || this_prod.features_units = 'No') {
+				
+			}
+			return true;
+		}
+ */
 		$scope.closestProd = '';
 		$scope.percents = function(this_prod, features_id) {
 			var min_delta = false;
