@@ -151,7 +151,11 @@ class HistoryController extends Controller
   public function count_all_compare_last10days(){
     //10 days ego
     $time10days =  time() - (10 * 24 * 60 * 60);    
-    $result = HistoryCompare::where('created_at', '>', $time10days)        
+    $result = HistoryCompare::where('created_at', '>', $time10days)
+    ->with('cats_id')
+    ->whereHas('cats_id',function($q){
+      $q->access();
+    })
     ->orderBy('created_at', 'DECS')    
     ->get();
     $arr = array();
@@ -168,7 +172,11 @@ class HistoryController extends Controller
   public function count_all_compare_last10days_days(){
     //10 days ego
     $time10days =  time() - (10 * 24 * 60 * 60);    
-    $result = HistoryCompare::where('created_at', '>', $time10days)        
+    $result = HistoryCompare::where('created_at', '>', $time10days)
+    ->with('cats_id')
+    ->whereHas('cats_id',function($q){
+      $q->access();
+    })
     ->orderBy('created_at', 'DECS')    
     ->get();
     $arr = array();
