@@ -87,20 +87,24 @@
 									</div>
 
 									<div class="features-content">
-										<div class="features-prods" ng-repeat="p in compareList" ng-show="p.features[feature.features_id].features_value != '' && p.features[feature.features_id].features_value != null" ng-class="{'active': p.prods_id == prod.prods_id}">
+										<div class="features-prods" ng-repeat="p in compareList" ng-class="{'active': p.prods_id == prod.prods_id}">
 											<div class="row">
 												<div class="col-xs-7">
 													@{{p.prods_name}}
 												</div>
 
-												<div class="col-xs-5 text-right">
+												<div class="col-xs-5 text-right" ng-show="p.features[feature.features_id].features_value != '' && p.features[feature.features_id].features_value != null" >
 													@{{p.features[feature.features_id].features_value}} @{{p.features[feature.features_id].features_units}}
+												</div>
+
+												<div class="col-xs-5 text-right" ng-show="p.features[feature.features_id].features_value == '' || p.features[feature.features_id].features_value == null" >
+													No
 												</div>
 											</div>
 										</div>
 										
 										<div class="features-desc">
-											<span ng-show="isNumeric(p.features[feature.features_id].features_value)">Around <b class="text-success">@{{percents(prod, feature.features_id)}} @{{feature.features_around}}</b> than @{{closestProd}}.</span> @{{feature.features_desc}}
+											<span ng-show="isNumeric(prod.features[feature.features_id].features_value)">Around <b class="text-success">@{{percents(prod, feature.features_id)}} @{{feature.features_around}}</b> than @{{closestProd}}.</span> @{{feature.features_desc}}
 										</div>
 									</div>
 								</div>
@@ -111,7 +115,7 @@
 			</table>
 		</div>
 		
-		<div class="groups-box" ng-repeat="group in filterList">
+		<div class="groups-box" ng-repeat="group in filterList" ng-show="(group.groups_filters | filter:checkDifferences).length">
 			<h3>@{{group.groups_name}}</h3>
 			<div class="table-responsive">
 				<table class="table table-striped">

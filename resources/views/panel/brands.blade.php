@@ -9,6 +9,7 @@
 			<thead>
 				<tr>
 					<th class="td-id">ID</th>
+					<th>Category</th>
 					<th>Name</th>
 					<th>Alias</th>
 					<th class="td-icon">Edit</th>
@@ -19,6 +20,7 @@
 			<tbody>
 				<tr ng-repeat="brand in list">
 					<td class="td-id">@{{brand.brands_id}}</td>
+					<td>@{{brand.cats_id.cats_name}}</td>
 					<td>@{{brand.brands_name}}</td>
 					<td>@{{brand.brands_alias}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(brand.brands_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>

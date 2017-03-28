@@ -118,7 +118,7 @@ class ImportController extends Controller
     else{      
       $brand = new Brands;
       $brand->brands_name = trim($brands_name);
-      $brand->brands_alias = $this->generate_alias(trim($brands_name));
+      $brand->brands_alias = $this->generate_alias_brands(trim($brands_name));
       $brand->cats_id = $cats_id;
       $brand->save();
       $this->message['brands_new']++;
@@ -142,8 +142,8 @@ class ImportController extends Controller
       $prod->cats_id = ($cats_id);
       $prod->prods_name = trim($prods_name);
       $prod->brands_id = $brands->brands_id;
-      $prod->prods_alias = $this->generate_alias(trim($prods_name));
-      $prod->prods_full_alias = $brands->brands_alias.'-'.$this->generate_alias(trim($prods_name));
+      $prod->prods_alias = $this->generate_alias_prods(trim($prods_name));
+      $prod->prods_full_alias = $brands->brands_alias.'-'.$prod->prods_alias;
       $prod->prods_price = trim($prods_price);
       $prod->prods_amazon = trim($prods_amazon);
       $prod->prods_active = 1;
@@ -185,8 +185,23 @@ class ImportController extends Controller
     }
   }
 
-  private function generate_alias($name){
-    return str_replace([' '], '-', $name);
+  private function generate_alias_brands($name){    
+    $name = str_replace([' '], '-', $name);
+    $exist = Brands::where('brands_alias', $name)->first();
+    if ($exist){
+      $name .= rand(100, 999);
+      return $name;
+    }
+    else return $name;
+  }
+  private function generate_alias_prods($name){
+    $name = str_replace([' '], '-', $name);
+    $exist = Prods::where('prods_alias', $name)->first();
+    if ($exist){
+      $name .= rand(100, 999);
+      return $name;
+    }
+    else return $name;
   }
   private function handle_string($string){
     return preg_replace( '/[^[:print:]]/', '',$string);
