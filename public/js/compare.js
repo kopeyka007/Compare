@@ -58,7 +58,7 @@
 		};
 
 		$scope.checkDifferences = function(value, index, array) {
-			if ($scope.mode == 'diff')
+			if ($scope.mode == 1)
 			{
 				var check = false;
 				var start = '';
@@ -85,7 +85,7 @@
 		};
 
 		$scope.isNumeric = function(n) {
-		  return ! isNaN(parseFloat(n)) && isFinite(n);
+			return ! isNaN(parseFloat(n)) && isFinite(n);
 		};
 
 		$scope.checkFeatures = function(this_prod, features_id) {
@@ -114,6 +114,13 @@
 						else
 						{
 							check = this_prod.features[features_id].features_value.toLowerCase() == 'yes'; 
+						}
+					}
+					else
+					{
+						if (this_prod.features && (this_prod.features[features_id].features_value == '' || this_prod.features[features_id].features_value == null))
+						{
+							check = false;
 						}
 					}
 				}
