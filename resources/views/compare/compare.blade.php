@@ -69,7 +69,7 @@
 				</div>
 			</div>
 			
-			<div ng-show="count">
+			<div ng-show="count > 0">
 				<table class="table">
 					<tbody>
 						<tr>

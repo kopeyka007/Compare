@@ -88,6 +88,8 @@
 		$scope.isNumeric = function(n) {
 			return ! isNaN(parseFloat(n)) && isFinite(n);
 		};
+		
+		$scope.count = 0;
 
 		$scope.checkFeatures = function(this_prod, features_id) {
 			var check = true;
@@ -126,17 +128,14 @@
 					}
 				}
 			}
-
-			return ! duplicate ? check : false;
+			var result = ! duplicate ? check : false;
+			if (result)
+			{
+				$scope.count++;
+			}
+			return result;
+			
 		};
-		
-		console.log($scope.checkFeatures());
-		
-		$scope.count = 0;
-		if ($scope.checkFeatures())
-		{
-			$scope.count++;
-		}
 
 		$scope.closestProd = '';
 		$scope.percents = function(this_prod, features_id) {
