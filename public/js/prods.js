@@ -154,15 +154,14 @@
 			});
 		};
 		
-		$scope.countFilters = function(filter){
-			for (var i in filter)
+		$scope.countFilters = function(filter) {
+			var i = 0;
+			for (var k in filter)
 			{
-				return false;
+				i++;
 			}
-			return true;
-		}
-		
-		$scope.countFilters($scope.filters);
+			return i;
+		};
 
 		if ($scope.prod.cats_id.cats_id > 0)
 		{
@@ -176,6 +175,7 @@
 			error *= validate.check($scope, $scope.form.cats_id, 'Brand', 'brands_id');
 			error *= validate.check($scope, $scope.form.prods_name, 'Name');
 			error *= validate.check($scope, $scope.form.slug, 'Slug');
+			error *= validate.check($scope, $scope.form.prods_price, 'Price')
 			
 			for (var k in items.list)
 			{
