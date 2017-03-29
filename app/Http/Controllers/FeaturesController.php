@@ -22,8 +22,10 @@ class FeaturesController extends Controller
       $q->access();
     })
     ->get();
-    foreach ($features as $feature) {      
-      $feature->features_icon = empty($feature->features_icon)?asset('images/nofoto.png'):$feature->features_icon;
+    SettingsController::set_config_s3();
+    foreach ($features as $feature) {
+      $feature->short_foto = $feature->features_icon;
+      $feature->features_icon = empty($feature->features_icon)?asset('images/nofoto.png'):Storage::disk('s3')->url($feature->features_icon);
     }
     $response['data'] = $features;
     return $response;    
@@ -50,13 +52,12 @@ class FeaturesController extends Controller
       if ($current){        
         $current->features_id = $features_id;        
         $current->features_name = $request->input('features_name');        
-        $file = ($request->file) ? asset('storage/'.$request->file->store('features')):$request->input('features_icon');
-        //delete file
-        if (empty($file)) Storage::delete(stristr($current->features_icon, 'features'));    
-        /*if ($current->features_icon !== 0 && $current->features_icon !== $file){
-          Storage::delete(stristr($current->features_icon, 'features'));    
-        }*/        
-        $current->features_icon = $file;
+        if ($request->file){
+           $current->features_icon = $this->upload_s3($request->file, $current);
+        }
+        else{
+           $current->features_icon = $request->input('short_foto');
+        }
         $current->features_desc = $request->input('features_desc');                
         $current->features_units = $request->input('features_units');        
         $current->features_around = $request->input('features_around');        
@@ -77,8 +78,7 @@ class FeaturesController extends Controller
     else
     { 
       $feature->features_name = $request->input('features_name');
-      $file = ($request->file) ? asset('storage/'.$request->file->store('features')):'';
-      $feature->features_icon = $file;
+      $feature->features_icon = ($request->file) ? $this->upload_s3($request->file):'';
       $feature->features_desc = $request->input('features_desc');                
       $feature->features_units = $request->input('features_units');        
       $feature->features_around = $request->input('features_around');        
@@ -100,8 +100,10 @@ class FeaturesController extends Controller
   public function delete($id){
     $feature = Features::find($id);    
     if ($feature && $feature->delete()){
-      if ($feature->features_icon !== 0)
-        Storage::delete(stristr($feature->features_icon, 'features'));
+      if (!empty($feature->features_icon)){
+          SettingsController::set_config_s3();
+          Storage::disk('s3')->delete($feature->features_icon);
+      }
       //delete relations       
       $feature->prods()->detach();
       $feature->cats_id()->detach();
@@ -118,6 +120,20 @@ class FeaturesController extends Controller
   public function set_relation_category($cats_id, $features_id){
     $features = Features::find($features_id);
     if ($features->cats_id()->sync([$cats_id])) return true;    
+  }
+  
+  private function upload_s3($file, $current = false){
+    SettingsController::set_config_s3();
+    $s3 = Storage::disk('s3');        
+    if (!empty($current->features_icon)){
+      if ($s3->exists($current->features_icon)){          
+        $s3->delete($current->features_icon);
+      }  
+    }    
+    $filename = rand(100000, 999999).'_'.time().'.'.$file->getClientOriginalExtension();    
+    $filepath = 'features/'.$filename;
+    $s3->put('/'.$filepath, file_get_contents($file), 'public');    
+    return $filepath;
   }
 
 
