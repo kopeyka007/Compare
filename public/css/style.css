@@ -35,6 +35,10 @@
 	margin-bottom: 0px;
 }
 
+.table-width {
+	min-width: 768px;
+}
+
 .recompare {
 	background: #eee;
 	padding: 10px;
@@ -538,7 +542,14 @@
 
 @media screen and (max-width: 767px) {
 	.fixed {
-		position: inherit;
+		position: static;
+		width: 768px;
+	}
+	
+	.fixed .compare-head img {
+		max-height: 180px;
+		float: none;
+		display: inline-block;
 	}
 }
 
