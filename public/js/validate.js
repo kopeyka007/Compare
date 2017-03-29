@@ -23,15 +23,23 @@
 					}
 					else
 					{
-						if (field.$viewValue == "" || field.$viewValue)
+						if (field.$$attr.type == 'number') 
 						{
-							scope.errors.push({'text': (name + ' is required'), 'type': 'danger'});
-						}
-						else
-						{
+							console.log(field);
 							scope.errors.push({'text': (name + ' is incorrect'), 'type': 'danger'});
 						}
-						return false;
+						else 
+						{
+							if (field.$viewValue == '' || field.$viewValue)
+							{
+								scope.errors.push({'text': (name + ' is required'), 'type': 'danger'});
+							}
+							else
+							{
+								scope.errors.push({'text': (name + ' is incorrect'), 'type': 'danger'});
+							}
+							return false;
+						}
 					}
 				}
 			};

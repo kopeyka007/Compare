@@ -136,7 +136,6 @@
 						$http.get('/api/filters/list_groups').then(function(response) {
 							$scope.groups = response.data.data;
 							items.groups.push($scope.groups);
-							console.log(items.groups);
 						});
 						$uibModalInstance.close(response.data.message);
 					}

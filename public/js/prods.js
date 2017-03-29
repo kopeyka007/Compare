@@ -175,6 +175,7 @@
 			error *= validate.check($scope, $scope.form.cats_id, 'Brand', 'brands_id');
 			error *= validate.check($scope, $scope.form.prods_name, 'Name');
 			error *= validate.check($scope, $scope.form.slug, 'Slug');
+			error *= validate.check($scope, $scope.form.prods_price, 'Price')
 			
 			for (var k in items.list)
 			{

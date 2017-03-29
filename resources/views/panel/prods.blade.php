@@ -112,7 +112,7 @@
 					<label>Price</label>
 					<div class="row">
 						<div class="col-md-8">
-							<input type="text" class="form-control" name="prods_price" ng-model="prod.prods_price" required="required" />
+							<input type="number" class="form-control" name="prods_price" ng-model="prod.prods_price" />
 						</div>
 						<div class="col-md-4">
 							<select class="form-control" ng-model="prod.currencies_id" ng-options="x.currencies_symbol for x in currList track by x.currencies_id">
