@@ -9,6 +9,7 @@
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data.prods;
 			$scope.compareListCats = response.data.data.cats;
+			$scope.compareListCurr = response.data.data.currencies_default;
 		});
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
@@ -128,6 +129,14 @@
 
 			return ! duplicate ? check : false;
 		};
+		
+		console.log($scope.checkFeatures());
+		
+		$scope.count = 0;
+		if ($scope.checkFeatures())
+		{
+			$scope.count++;
+		}
 
 		$scope.closestProd = '';
 		$scope.percents = function(this_prod, features_id) {

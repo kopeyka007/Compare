@@ -53,7 +53,7 @@
 												<img src="@{{compareListCats.cats_photo || '/images/nofoto.png'}}" alt="" />
 
 												<span class="compare-price text-danger">
-													$9.999
+													@{{compareListCurr.currencies_symbol}}9.999
 												</span>
 											</div>
 
@@ -69,7 +69,7 @@
 				</div>
 			</div>
 			
-			<div ng-show="count(compareList[0].features)">
+			<div ng-show="count">
 				<table class="table">
 					<tbody>
 						<tr>
