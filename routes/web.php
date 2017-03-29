@@ -20,11 +20,13 @@ Route::get('/migratefull', function () {
     Artisan::call('db:seed', array('--class' => 'UsersTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'UsersTypesTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'GroupsTableSeeder'));
+    Artisan::call('db:seed', array('--class' => 'SettingsTableSeeder'));
     //Artisan::call('storage:link');
     return 'All migrates and seed run';
 });
 Route::get('/migrate', function () {    
-    Artisan::call('migrate');   
+    Artisan::call('migrate');
+    Artisan::call('db:seed', array('--class' => 'SettingsTableSeeder'));
     return 'New migrate run';
 });
 
@@ -117,6 +119,9 @@ Route::delete('api/currencies/delete/{id}','CurrenciesController@delete');
 Route::post('api/import/save','ImportController@save');
 //history
 Route::get('api/history/get','HistoryController@get_history');
+//settings
+Route::get('api/settings/list','SettingsController@get_all');
+Route::post('api/settings/save','SettingsController@save');
 //-------------------------
 //Front
 Route::get('api/cats/front/shortlist','CatsController@shortlist');
@@ -136,7 +141,7 @@ Route::post('api/history/amazon','HistoryController@set_history_amazon');
 
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
-//Route::get('test','CatsController@get_access_list');
+//Route::get('test','SettingsController@get_all');
 //Route::get('import','ImportController@save');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 

@@ -89,7 +89,8 @@
 						 'features': 3,
 					  	 'filters': 3,
 					  	 'prods': 3,
-						 'currency': 1
+						 'currency': 1,
+						 'settings': 3
 						 };
 
 			if (rules[page])
