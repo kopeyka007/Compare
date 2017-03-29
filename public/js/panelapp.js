@@ -67,7 +67,6 @@
 				path = path == '' ? 'dashboard' : path;
 				if ($rootScope.user && ! $scope.access(path))
 				{
-					console.log($location.path());
 					$location.path('/panel/prods');
 				}
 			});

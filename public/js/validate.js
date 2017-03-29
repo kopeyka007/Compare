@@ -25,7 +25,6 @@
 					{
 						if (field.$$attr.type == 'number') 
 						{
-							console.log(field);
 							scope.errors.push({'text': (name + ' is incorrect'), 'type': 'danger'});
 						}
 						else 

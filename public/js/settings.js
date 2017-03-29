@@ -6,7 +6,6 @@
 		$rootScope.errors = [];
 		$http.get('/api/settings/list').then(function(response) {
 			$scope.settingList = response.data.data;
-			console.log($scope.settingList);
 		});
 		
 		$scope.save = function () {
