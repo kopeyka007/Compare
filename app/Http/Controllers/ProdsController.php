@@ -323,6 +323,9 @@ class ProdsController extends Controller
       ->with('brands_id')    
       ->take(7)
       ->get();
+      foreach ($liked as $item){
+        $item->prods_foto = empty($item->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$item->prods_foto);      
+      }
       $prod['liked'] = $liked;
       
       $response['data'] = $prod;
