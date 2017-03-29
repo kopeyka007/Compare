@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Prods;
 use App\Cats;
+use App\Currencies;
 use Illuminate\Http\Request;
 use Storage;
 
@@ -215,7 +216,9 @@ class ProdsController extends Controller
     if (isset($ids) && count($ids)){      
       $response['data']['prods'] = $this->get_prods_with_filters_group($ids);
       $cat = Cats::select(['cats_photo'])->find($cats_id);
+      $currency = Currencies::where('currencies_default',1)->first();
       $response['data']['cats'] = $cat;
+      $response['data']['currencies_default'] = $currency;
       //write history
       $history = new HistoryController;
       $history->set_history($ids, $url_or);
