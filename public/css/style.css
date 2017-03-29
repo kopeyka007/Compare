@@ -536,6 +536,12 @@
 	}
 }
 
+@media screen and (max-width: 767px) {
+	.fixed {
+		position: inherit;
+	}
+}
+
 .features-prods {
 	padding: 5px;
 	font-size: 12px;

@@ -154,15 +154,14 @@
 			});
 		};
 		
-		$scope.countFilters = function(filter){
-			for (var i in filter)
+		$scope.countFilters = function(filter) {
+			var i = 0;
+			for (var k in filter)
 			{
-				return false;
+				i++;
 			}
-			return true;
-		}
-		
-		$scope.countFilters($scope.filters);
+			return i;
+		};
 
 		if ($scope.prod.cats_id.cats_id > 0)
 		{
