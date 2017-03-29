@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Features;
 use App\Cats;
 use App\CatsFeatures;
+use App\Settings;
 use Illuminate\Http\Request;
 use Storage;
 class FeaturesController extends Controller
@@ -25,7 +26,7 @@ class FeaturesController extends Controller
     SettingsController::set_config_s3();
     foreach ($features as $feature) {
       $feature->short_foto = $feature->features_icon;
-      $feature->features_icon = empty($feature->features_icon)?asset('images/nofoto.png'):Storage::disk('s3')->url($feature->features_icon);
+      $feature->features_icon = empty($feature->features_icon)?asset('images/nofoto.png'):Storage::disk('s3')->url('features/'.$feature->features_icon);
     }
     $response['data'] = $features;
     return $response;    
@@ -65,7 +66,7 @@ class FeaturesController extends Controller
         else{          
             if (empty($request->input('features_icon'))){
                 SettingsController::set_config_s3();
-                Storage::disk('s3')->delete($current->features_icon);
+                Storage::disk('s3')->delete('features/'.$current->features_icon);
                 $current->features_icon = '';
             }
             else{
@@ -128,7 +129,7 @@ class FeaturesController extends Controller
     if ($feature && $feature->delete()){
       if (!empty($feature->features_icon)){
           SettingsController::set_config_s3();
-          Storage::disk('s3')->delete($feature->features_icon);
+          Storage::disk('s3')->delete('features/'.$feature->features_icon);
       }
       //delete relations       
       $feature->prods()->detach();
@@ -159,7 +160,7 @@ class FeaturesController extends Controller
     $filename = rand(100000, 999999).'_'.time().'.'.$file->getClientOriginalExtension();    
     $filepath = 'features/'.$filename;
     $s3->put('/'.$filepath, file_get_contents($file), 'public');    
-    return $filepath;
+    return $filename;
   }
 
 

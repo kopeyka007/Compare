@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Cats;
 use App\Prods;
 use App\Filters;
+use App\Settings;
 use Illuminate\Http\Request;
 use Storage;
 
@@ -22,7 +23,7 @@ class CatsController extends Controller
     SettingsController::set_config_s3();
     foreach ($cats as $cat){
       $cat->short_foto = $cat->cats_photo;
-      $cat->cats_photo = empty($cat->cats_photo)?asset('images/nofoto.png'):Storage::disk('s3')->url($cat->cats_photo);      
+      $cat->cats_photo = empty($cat->cats_photo)?asset('images/nofoto.png'):Storage::disk('s3')->url('cats/'.$cat->cats_photo);      
     }
     $response['data'] = $cats;
     return $response;    
@@ -33,7 +34,7 @@ class CatsController extends Controller
     SettingsController::set_config_s3();
     foreach ($cats as $cat){
       $cat->short_foto = $cat->cats_photo;
-      $cat->cats_photo = empty($cat->cats_photo)?asset('images/nofoto.png'):Storage::disk('s3')->url($cat->cats_photo);      
+      $cat->cats_photo = empty($cat->cats_photo)?asset('images/nofoto.png'):Storage::disk('s3')->url('cats/'.$cat->cats_photo);      
     }
     $response['data'] = $cats;
     return $response;    
@@ -73,7 +74,7 @@ class CatsController extends Controller
         else{            
             if (empty($request->input('cats_photo'))){
                 SettingsController::set_config_s3();
-                Storage::disk('s3')->delete($current->cats_photo);
+                Storage::disk('s3')->delete('cats/'.$current->cats_photo);
                 $current->cats_photo = '';
             }
             else{
@@ -129,7 +130,7 @@ class CatsController extends Controller
         //delete image
         if (!empty($cat->cats_photo)){
             SettingsController::set_config_s3();
-            Storage::disk('s3')->delete($cat->cats_photo);
+            Storage::disk('s3')->delete('cats/'.$cat->cats_photo);
         }
         //delete relations       
         $cat->filters()->detach();
@@ -233,7 +234,7 @@ class CatsController extends Controller
     $filename = rand(100000, 999999).'_'.time().'.'.$file->getClientOriginalExtension();    
     $filepath = 'cats/'.$filename;
     $s3->put('/'.$filepath, file_get_contents($file), 'public');    
-    return $filepath;
+    return $filename;
   }
   
   //Front ---------------------
@@ -304,8 +305,9 @@ class CatsController extends Controller
     }
     if ($cats){
       SettingsController::set_config_s3();
+      $folder = Settings::select('s3_prods_folder')->first();
       foreach ($cats->prods as $prod) {
-        $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($prod->prods_foto);      
+        $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
         $filters = array();
         foreach ($prod->filters_id as $filter) {
             $filters[$filter->filters_id] = $filter->pivot->filters_value;
