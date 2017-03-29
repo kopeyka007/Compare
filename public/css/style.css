@@ -31,6 +31,14 @@
 	display: none;
 }
 
+.cats-menu .navbar {
+	margin-bottom: 0px;
+}
+
+.table-width {
+	min-width: 768px;
+}
+
 .recompare {
 	background: #eee;
 	padding: 10px;
@@ -529,6 +537,19 @@
 	
 	.add-btn {
 		left: 0;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.fixed {
+		position: static;
+		width: 768px;
+	}
+	
+	.fixed .compare-head img {
+		max-height: 180px;
+		float: none;
+		display: inline-block;
 	}
 }
 

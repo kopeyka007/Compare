@@ -9,6 +9,7 @@
 		$http.post('/api/compare/list', {url}).then(function(response){
 			$scope.compareList = response.data.data.prods;
 			$scope.compareListCats = response.data.data.cats;
+			$scope.compareListCurr = response.data.data.currencies_default;
 		});
 		
 		$http.post('/api/compare/catsfilters', {url}).then(function(response){
@@ -87,6 +88,8 @@
 		$scope.isNumeric = function(n) {
 			return ! isNaN(parseFloat(n)) && isFinite(n);
 		};
+		
+		$scope.count = 0;
 
 		$scope.checkFeatures = function(this_prod, features_id) {
 			var check = true;
@@ -125,8 +128,13 @@
 					}
 				}
 			}
-
-			return ! duplicate ? check : false;
+			var result = ! duplicate ? check : false;
+			if (result)
+			{
+				$scope.count++;
+			}
+			return result;
+			
 		};
 
 		$scope.closestProd = '';
@@ -172,15 +180,6 @@
 
 			$scope.closestProd = closest.brands_id.brands_name + ' ' + closest.prods_name;
 			return '100%';
-		};
-
-		$scope.count = function(object) {
-			var i = 0;
-			for (var k in object)
-			{
-				i++;
-			}
-			return i;
 		};
 
 		$scope.productsLink = function(prod) {

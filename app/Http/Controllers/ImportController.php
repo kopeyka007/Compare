@@ -6,6 +6,7 @@ use App\Groups;
 use App\Prods;
 use App\Filters;
 use App\Currencies;
+use App\Settings;
 use Illuminate\Http\Request;
 use Storage;
 use DB;
@@ -37,11 +38,12 @@ class ImportController extends Controller
           foreach ($csv_array as $item)
           {      
             $fields = array_keys($item);
-            $not_filters = ['Sr.no','Brand','Slug','Model Name','Name', 'Price', 'Link to Amazon'];            
+            $not_filters = ['Sr.no','Brand','Slug','Model Name','Name', 'Price', 'Link to Amazon', 'Photo'];            
             $filters = array();            
             $brands = $this->toggleBrands($item['Brand'], $cats_id);
             $link_to_amazon = (isset($item['Link to Amazon']))?$item['Link to Amazon']:null;
-            $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands, $cats_id, $link_to_amazon);
+            $prods_foto = (isset($item['Photo']))?$item['Photo']:null;
+            $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands, $cats_id, $link_to_amazon, $prods_foto);
             for ($i = 0; $i < count($fields); $i++){
                 if(!in_array($fields[$i], $not_filters)){
                     //$filters[$i]['filters_name'] = $fields[$i];
@@ -126,7 +128,7 @@ class ImportController extends Controller
     }
   }
 
-  private function toggleProds($prods_name, $prods_price, $brands, $cats_id, $prods_amazon){   
+  private function toggleProds($prods_name, $prods_price, $brands, $cats_id, $prods_amazon, $prods_foto){   
     $current = Prods::whereRaw('LOWER(prods_name) = '."'".strtolower(trim($prods_name))."'")
     ->where('cats_id', $cats_id)
     ->where('brands_id', $brands->brands_id)
@@ -146,6 +148,9 @@ class ImportController extends Controller
       $prod->prods_full_alias = $brands->brands_alias.'-'.$prod->prods_alias;
       $prod->prods_price = trim($prods_price);
       $prod->prods_amazon = trim($prods_amazon);
+      $prods_folder = Settings::select(['s3_prods_folder'])->find(1);
+      $prod->prods_foto = $prods_folder->s3_prods_folder.'/'.trim($prods_foto);
+      //$prod->prods_foto = trim($prods_foto);
       $prod->prods_active = 1;
       $prod->currencies_id = $currency_default->currencies_id;      
       $prod->save();
