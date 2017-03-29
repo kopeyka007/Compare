@@ -28,7 +28,8 @@ class SettingsController extends Controller
       $current->s3_key = $request->input('s3_key');        
       $current->s3_secret = $request->input('s3_secret');                   
       $current->s3_region = $request->input('s3_region');      
-      $current->s3_bucket = $request->input('s3_bucket');                
+      $current->s3_bucket = $request->input('s3_bucket');
+      $current->s3_prods_folder = $request->input('s3_prods_folder');
       if ($current->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Settings saved'];

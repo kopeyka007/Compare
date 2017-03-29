@@ -16,6 +16,7 @@ class SettingsTableSeeder extends Seeder
             's3_secret' => '',
             's3_region' => '',
             's3_bucket' => '',
+            's3_prods_folder' =>'',
         ]);
     }
 }
