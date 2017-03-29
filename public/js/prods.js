@@ -89,7 +89,7 @@
 				  	   'prods_alias': '',
 					   'prods_amazon': '',
 					   'prods_price': '',
-					   'prods_active': false,
+					   'prods_active': 1,
 					   'prods_foto': ''};
 		
 		if (items.prod && items.prod.prods_id)

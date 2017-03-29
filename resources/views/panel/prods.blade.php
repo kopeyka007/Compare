@@ -82,7 +82,7 @@
 
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" ng-model="prod.prods_active" ng-init="prod.prods_active = true" ng-checked="prod.prods_active == 1" />
+						<input type="checkbox" ng-model="prod.prods_active" ng-checked="prod.prods_active == 1" />
 						Show on website
 					</label>
 				</div>
