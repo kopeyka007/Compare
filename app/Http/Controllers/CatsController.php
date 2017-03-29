@@ -293,14 +293,16 @@ class CatsController extends Controller
     $cats_alias = $aliases[1];
     $cats = Cats::with('prods')
       ->where('cats_alias', $cats_alias)
-      ->with('prods.brands_id')
-      ->with('prods.filters_id')    
+      ->with(['prods'=>function($q){
+          $q->where('prods_active',1);
+      },'prods.brands_id', 'prods.filters_id'])      
       ->first();
     if (empty($cats)){     
       $cats = Cats::with('prods')
       ->where('cats_default', 1)
-      ->with('prods.brands_id')
-      ->with('prods.filters_id')    
+      ->with(['prods'=>function($q){
+          $q->where('prods_active',1);
+      },'prods.brands_id', 'prods.filters_id'])      
       ->first();
     }
     if ($cats){

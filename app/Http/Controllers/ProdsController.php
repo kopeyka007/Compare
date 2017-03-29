@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Prods;
 use App\Cats;
 use App\Settings;
+use App\Currencies;
 use Illuminate\Http\Request;
 use Storage;
 
@@ -263,7 +264,9 @@ class ProdsController extends Controller
       $response['data']['prods'] = $this->get_prods_with_filters_group($ids);
       $cat = Cats::select(['cats_photo'])->find($cats_id);
       $cat->cats_photo = empty($cat->cats_photo)?asset('images/nofoto.png'):Storage::disk('s3')->url('cats/'.$cat->cats_photo);      
+      $currency = Currencies::where('currencies_default',1)->first();
       $response['data']['cats'] = $cat;
+      $response['data']['currencies_default'] = $currency;
       //write history
       $history = new HistoryController;
       $history->set_history($ids, $url_or);
