@@ -25,11 +25,11 @@ class SettingsController extends Controller
   public function save(Request $request){    
     $current = Settings::find(1);
     if ($current){
-      $current->s3_key = $request->input('s3_key');        
-      $current->s3_secret = $request->input('s3_secret');                   
-      $current->s3_region = $request->input('s3_region');      
-      $current->s3_bucket = $request->input('s3_bucket');
-      $current->s3_prods_folder = $request->input('s3_prods_folder');
+      $current->s3_key = empty($request->input('s3_key')) ? '' : $request->input('s3_key');
+      $current->s3_secret = empty($request->input('s3_secret')) ? '' : $request->input('s3_secret');
+      $current->s3_region = empty($request->input('s3_region')) ? '' : $request->input('s3_region');
+      $current->s3_bucket = empty($request->input('s3_bucket')) ? '' : $request->input('s3_bucket');
+      $current->s3_prods_folder = empty($request->input('s3_prods_folder')) ? '' : $request->input('s3_prods_folder');
       if ($current->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Settings saved'];

@@ -51,12 +51,26 @@ class FeaturesController extends Controller
       $current = Features::find($features_id);
       if ($current){        
         $current->features_id = $features_id;        
-        $current->features_name = $request->input('features_name');        
+        $current->features_name = $request->input('features_name');               
         if ($request->file){
-           $current->features_icon = $this->upload_s3($request->file, $current);
+            try {
+                $current->features_icon = $this->upload_s3($request->file);
+            } 
+            catch(S3 $e) {                           
+                $response['data'] = false;          
+                $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()]; 
+                return $response;
+            }
         }
-        else{
-           $current->features_icon = $request->input('short_foto');
+        else{          
+            if (empty($request->input('features_icon'))){
+                SettingsController::set_config_s3();
+                Storage::disk('s3')->delete($current->features_icon);
+                $current->features_icon = '';
+            }
+            else{
+              $current->features_icon = $request->input('short_foto');  
+            }
         }
         $current->features_desc = $request->input('features_desc');                
         $current->features_units = $request->input('features_units');        
@@ -77,13 +91,25 @@ class FeaturesController extends Controller
     //create
     else
     { 
-      $feature->features_name = $request->input('features_name');
-      $feature->features_icon = ($request->file) ? $this->upload_s3($request->file):'';
+      $feature->features_name = $request->input('features_name');      
       $feature->features_desc = $request->input('features_desc');                
       $feature->features_units = $request->input('features_units');        
       $feature->features_around = $request->input('features_around');        
       $feature->features_norm = $request->input('features_norm');
       $feature->features_rate = $request->input('features_rate');
+      if ($request->file){
+            try {
+                $feature->features_icon = $this->upload_s3($request->file);
+            } 
+            catch(S3 $e) {                           
+                $response['data'] = false;          
+                $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()]; 
+                return $response;
+            }
+        }
+        else{
+          $feature->features_icon = $request->input('short_foto');
+        }
       $cats_id = $request->input('cats_id')['cats_id'];
       if ($feature->save() && $this->set_relation_category($cats_id, $feature->features_id)){
         $response['data'] = true;          

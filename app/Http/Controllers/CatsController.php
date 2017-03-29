@@ -62,15 +62,24 @@ class CatsController extends Controller
         $current->cats_alias = $request->input('cats_alias');
         $current->cats_default = $this->set_default($request->input('cats_default'), $current->cats_id);
         if ($request->file){
-           $current->cats_photo = $this->upload_s3($request->file, $current);
+            try {
+                $current->cats_photo = $this->upload_s3($request->file, $current);
+            } catch(S3 $e) {                           
+                $response['data'] = false;          
+                $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()]; 
+                return $response;
+            }
         }
-        else{
-            $current->cats_photo = $request->input('short_foto');
+        else{            
+            if (empty($request->input('cats_photo'))){
+                SettingsController::set_config_s3();
+                Storage::disk('s3')->delete($current->cats_photo);
+                $current->cats_photo = '';
+            }
+            else{
+              $current->cats_photo = $request->input('short_foto');  
+            }
         }
-        //$file = ($request->file) ? asset('storage/'.$request->file->store('cats')):$request->input('cats_photo');
-        //delete file
-        //if (empty($file)) Storage::delete(stristr($current->cats_photo, 'cats'));
-        //$current->cats_photo = $file;                
         if ($current->save()){
           $response['data'] = true;          
           $response['message'] = ['type'=>'success', 'text'=>'Category saved'];
@@ -87,10 +96,19 @@ class CatsController extends Controller
     {
       $cat->cats_name =  $request->input('cats_name');
       $cat->cats_alias = $request->input('cats_alias');      
-      $cat->cats_default = $this->set_default($request->input('cats_default'));      
-      //$file = ($request->file) ? asset('storage/'.$request->file->store('cats')):'';
-      //$cat->cats_photo = $file;
-      $cat->cats_photo = ($request->file) ? $this->upload_s3($request->file):'';
+      $cat->cats_default = $this->set_default($request->input('cats_default'));                  
+      if ($request->file){
+            try {
+                $cat->cats_photo = $this->upload_s3($request->file);
+            } catch(S3 $e) {                           
+                $response['data'] = false;          
+                $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()]; 
+                return $response;
+            }
+        }
+        else{
+            $cat->cats_photo = $request->input('short_foto');
+        }
       if ($cat->save()){
         $response['data'] = true;          
         $response['message'] = ['type'=>'success', 'text'=>'Category created'];

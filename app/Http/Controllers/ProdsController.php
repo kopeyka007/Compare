@@ -7,6 +7,7 @@ use App\Settings;
 use Illuminate\Http\Request;
 use Storage;
 
+use Aws\S3\Exception\S3Exception as S3;
 class ProdsController extends Controller
 {
   public function __construct()
@@ -81,14 +82,24 @@ class ProdsController extends Controller
         $current->prods_alias = $request->input('prods_alias');        
         $current->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
         if ($request->file){
-           $current->prods_foto = $this->upload_s3($request->file, $current);
+            try {
+                $current->prods_foto = $this->upload_s3($request->file, $current);
+            } catch(S3 $e) {                           
+                $response['data'] = false;          
+                $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()]; 
+                return $response;
+            }
         }
-        else{
-            $current->prods_foto = $request->input('short_foto');
-        }
-        //$file = ($request->file) ? asset('storage/'.$request->file->store('prods')):$request->input('prods_foto');
-        //delete file
-        //if (empty($file)) Storage::delete(stristr($current->prods_foto, 'prods'));
+        else{            
+            if (empty($request->input('prods_foto'))){
+                SettingsController::set_config_s3();
+                Storage::disk('s3')->delete($current->prods_foto);
+                $current->prods_foto = '';
+            }
+            else{
+              $current->prods_foto = $request->input('short_foto');  
+            }
+        }        
         $current->prods_amazon = $request->input('prods_amazon');
         $current->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');        
         $current->prods_active = ($request->input('prods_active') == 'true')?1:0;
@@ -116,9 +127,19 @@ class ProdsController extends Controller
       $prod->prods_name = $request->input('prods_name');        
       $prod->prods_alias = $request->input('prods_alias');      
       $prod->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
-      //$file = ($request->file) ? asset('storage/'.$request->file->store('prods')):'';
-        //$prod->prods_foto = $file;
-      $prod->prods_foto = ($request->file) ? $this->upload_s3($request->file):'';
+      if ($request->file){
+        try {
+            $prod->prods_foto = $this->upload_s3($request->file);
+        } 
+        catch(S3 $e) {                           
+            $response['data'] = false;          
+            $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()]; 
+            return $response;
+        }
+      }
+      else{
+        $prod->prods_foto = $request->input('short_foto');
+      }  
       $prod->prods_amazon = $request->input('prods_amazon');        
       $prod->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');
       $prod->currencies_id = $request->input('currencies_id')['currencies_id'];        
@@ -182,9 +203,7 @@ class ProdsController extends Controller
   
   private function upload_s3($file, $current = false){
     SettingsController::set_config_s3();
-    $s3 = Storage::disk('s3');
-    //var_dump($s3);
-    //exit();
+    $s3 = Storage::disk('s3');    
     $prods_folder = Settings::select(['s3_prods_folder'])->find(1);
     if (!empty($current->prods_foto)){
       if ($s3->exists($current->prods_foto)){          
