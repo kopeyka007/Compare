@@ -151,11 +151,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="alert alert-info text-center" role="alert" ng-show="countFilters(initFilters.groups) && prod.cats_id.cats_id > 0">
+				<div class="alert alert-info text-center" role="alert" ng-show="! countFilters(filters.groups) && prod.cats_id.cats_id > 0">
 					There are no filters in this category
 				</div>
 
-				<div class="alert alert-info text-center" role="alert" ng-show="! countFilters(initFilters.groups) && prod.cats_id.cats_id == 0">
+				<div class="alert alert-info text-center" role="alert" ng-show="! countFilters(filters.groups) && prod.cats_id.cats_id == 0">
 					Choose category first
 				</div>
 			</div>

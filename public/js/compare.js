@@ -182,15 +182,6 @@
 			return '100%';
 		};
 
-		$scope.count = function(object) {
-			var i = 0;
-			for (var k in object)
-			{
-				i++;
-			}
-			return i;
-		};
-
 		$scope.productsLink = function(prod) {
 			var cats_alias = '';
 			for (var k in $scope.products)
