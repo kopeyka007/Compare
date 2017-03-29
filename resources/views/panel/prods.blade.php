@@ -28,7 +28,7 @@
 					<td>@{{prod.cats_id.cats_name}}</td>
 					<td>@{{prod.brands_id.brands_name}}</td>
 					<td>@{{prod.prods_name}}</td>
-					<td><a href="/@{{prod.cats_id.cats_alias + '/' + prod.prods_alias}}" target="_blank">@{{prod.prods_alias}}</a></td>
+					<td><a href="/@{{prod.cats_id.cats_alias + '/' + prod.prods_full_alias}}" target="_blank">@{{prod.prods_full_alias}}</a></td>
 					<td>@{{prod.currencies_id.currencies_symbol}} @{{prod.prods_price}}</td>
 					<td>@{{prod.prods_active | checkmark}}</td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(prod.prods_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
@@ -112,7 +112,7 @@
 					<label>Price</label>
 					<div class="row">
 						<div class="col-md-8">
-							<input type="text" class="form-control" name="prods_price" ng-model="prod.prods_price" required="required" />
+							<input type="number" class="form-control" name="prods_price" ng-model="prod.prods_price" />
 						</div>
 						<div class="col-md-4">
 							<select class="form-control" ng-model="prod.currencies_id" ng-options="x.currencies_symbol for x in currList track by x.currencies_id">
@@ -151,11 +151,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="alert alert-info text-center" role="alert" ng-show="! countFilters() && prod.cats_id.cats_id > 0">
+				<div class="alert alert-info text-center" role="alert" ng-show="! countFilters(filters.groups) && prod.cats_id.cats_id > 0">
 					There are no filters in this category
 				</div>
 
-				<div class="alert alert-info text-center" role="alert" ng-show="countFilters() && prod.cats_id.cats_id == 0">
+				<div class="alert alert-info text-center" role="alert" ng-show="! countFilters(filters.groups) && prod.cats_id.cats_id == 0">
 					Choose category first
 				</div>
 			</div>

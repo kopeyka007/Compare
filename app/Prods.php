@@ -21,7 +21,7 @@ class Prods extends Model
         else{
           return null;
         } 
-    }
+    }  
     /*
     public function getProdsFotoAttribute()
     {

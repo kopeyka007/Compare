@@ -67,7 +67,6 @@
 				path = path == '' ? 'dashboard' : path;
 				if ($rootScope.user && ! $scope.access(path))
 				{
-					console.log($location.path());
 					$location.path('/panel/prods');
 				}
 			});
@@ -89,7 +88,8 @@
 						 'features': 3,
 					  	 'filters': 3,
 					  	 'prods': 3,
-						 'currency': 1
+						 'currency': 1,
+						 'settings': 3
 						 };
 
 			if (rules[page])
