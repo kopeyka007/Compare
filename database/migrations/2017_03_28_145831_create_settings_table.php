@@ -18,7 +18,8 @@ class CreateSettingsTable extends Migration
             $table->string('s3_key');
             $table->string('s3_secret');
             $table->string('s3_region');
-            $table->string('s3_bucket');            
+            $table->string('s3_bucket');
+            $table->string('s3_prods_folder');
         }); 
     }
 

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 use App\Prods;
 use App\Cats;
+use App\Settings;
 use App\Currencies;
 use Illuminate\Http\Request;
 use Storage;
 
+use Aws\S3\Exception\S3Exception as S3;
 class ProdsController extends Controller
 {
   public function __construct()
@@ -27,8 +29,11 @@ class ProdsController extends Controller
     })->
     with('currencies_id')->
     get();
+    SettingsController::set_config_s3();    
+    $folder = Settings::select('s3_prods_folder')->first();    
     foreach ($prods as $prod) {
-      $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):$prod->prods_foto;
+      $prod->short_foto = $prod->prods_foto;      
+      $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
       $filters = array();
       $groups = array();
       foreach ($prod->filters_id as $filter) {
@@ -66,9 +71,7 @@ class ProdsController extends Controller
     return $response;
   }
   
-  public function save(Request $request){
-    //var_dump($request->input('prods_price'));
-    //exit();
+  public function save(Request $request){    
     $prod = new Prods;
     $prods_id = $request->input('prods_id');
     //update
@@ -80,15 +83,26 @@ class ProdsController extends Controller
         $current->prods_name = $request->input('prods_name');        
         $current->prods_alias = $request->input('prods_alias');        
         $current->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
-        $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):$request->input('prods_foto');
-        //delete file
-        if (empty($file)) Storage::delete(stristr($current->prods_foto, 'prods'));    
-        /*
-        if ($current->prods_foto !== 0 && $current->prods_foto !== $file){
-          Storage::delete(stristr($current->prods_foto, 'prods'));    
+        if ($request->file){
+            try {
+                $current->prods_foto = $this->upload_s3($request->file, $current);
+            } catch(S3 $e) {                           
+                $response['data'] = false;          
+                $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()]; 
+                return $response;
+            }
         }
-        */
-        $current->prods_foto = $file;                
+        else{            
+            if (empty($request->input('prods_foto'))){
+                SettingsController::set_config_s3();
+                $folder = Settings::select('s3_prods_folder')->first();
+                Storage::disk('s3')->delete($folder->s3_prods_folder.'/'.$current->prods_foto);
+                $current->prods_foto = '';
+            }
+            else{
+              $current->prods_foto = $request->input('short_foto');  
+            }
+        }        
         $current->prods_amazon = $request->input('prods_amazon');
         $current->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');        
         $current->prods_active = ($request->input('prods_active') == 'true')?1:0;
@@ -116,8 +130,19 @@ class ProdsController extends Controller
       $prod->prods_name = $request->input('prods_name');        
       $prod->prods_alias = $request->input('prods_alias');      
       $prod->prods_full_alias = $request->input('brands_id')['brands_alias'].'-'.$request->input('prods_alias');
-      $file = ($request->file) ? asset('storage/'.$request->file->store('prods')):'';
-      $prod->prods_foto = $file;
+      if ($request->file){
+        try {
+            $prod->prods_foto = $this->upload_s3($request->file);
+        } 
+        catch(S3 $e) {                           
+            $response['data'] = false;          
+            $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()]; 
+            return $response;
+        }
+      }
+      else{
+        $prod->prods_foto = $request->input('short_foto');
+      }  
       $prod->prods_amazon = $request->input('prods_amazon');        
       $prod->prods_price = ($request->input('prods_price') == 'null')?null:$request->input('prods_price');
       $prod->currencies_id = $request->input('currencies_id')['currencies_id'];        
@@ -142,8 +167,11 @@ class ProdsController extends Controller
     $prod = Prods::find($id);    
     if ($prod && $prod->delete()){
       //delete image
-      if ($prod->prods_foto !== 0)
-        Storage::delete(stristr($prod->prods_foto, 'prods'));
+      if (!empty($prod->prods_foto)){
+        SettingsController::set_config_s3();
+        $folder = Settings::select('s3_prods_folder')->first();
+        Storage::disk('s3')->delete($folder->s3_prods_folder.'/'.$prod->prods_foto);
+      }
       //delete relations       
       $prod->filters_id()->detach();
       $prod->features_id()->detach();
@@ -176,11 +204,29 @@ class ProdsController extends Controller
       $prod->features_id()->sync($arr);      
     }
   }
+  
+  private function upload_s3($file, $current = false){
+    SettingsController::set_config_s3();
+    $s3 = Storage::disk('s3');    
+    $prods_folder = Settings::select(['s3_prods_folder'])->find(1);
+    if (!empty($current->prods_foto)){
+      if ($s3->exists($current->prods_foto)){          
+        $s3->delete($current->prods_foto);
+      }  
+    }    
+    $filename = rand(100000, 999999).'_'.time().'.'.$file->getClientOriginalExtension();    
+    $filepath = $prods_folder->s3_prods_folder.'/'.$filename;
+    $s3->put('/'.$filepath, file_get_contents($file), 'public');    
+    return $filename;
+  }
 
   //Front
   private function get_prods_with_filters_group($ids){    
     $prods = Prods::with('brands_id', 'filters_id', 'features_id')->where('prods_active',1)->find($ids);
+    SettingsController::set_config_s3();
+    $folder = Settings::select('s3_prods_folder')->first();  
     foreach ($prods as $prod) {      
+      $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
       $filters = array();
       $features = array();
       foreach ($prod->filters_id as $filter) {
@@ -189,6 +235,7 @@ class ProdsController extends Controller
         $filters[$filter->filters_id]['filters_units'] = $filter->filters_units;
       }
       foreach ($prod->features_id as $feature) {
+        $feature->features_icon = !empty($feature->features_icon)?Storage::disk('s3')->url('features/'.$feature->features_icon):'';
         $features[$feature->features_id] = $feature;
         $features[$feature->features_id]['features_value'] = $feature->pivot->features_value;
         unset($feature->pivot);
@@ -216,6 +263,7 @@ class ProdsController extends Controller
     if (isset($ids) && count($ids)){      
       $response['data']['prods'] = $this->get_prods_with_filters_group($ids);
       $cat = Cats::select(['cats_photo'])->find($cats_id);
+      $cat->cats_photo = empty($cat->cats_photo)?asset('images/nofoto.png'):Storage::disk('s3')->url('cats/'.$cat->cats_photo);      
       $currency = Currencies::where('currencies_default',1)->first();
       $response['data']['cats'] = $cat;
       $response['data']['currencies_default'] = $currency;
@@ -239,6 +287,9 @@ class ProdsController extends Controller
     ->where('prods_full_alias', $prods_full_alias)    
     ->first();
     if ($prod){
+      SettingsController::set_config_s3();
+      $folder = Settings::select('s3_prods_folder')->first();
+      $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
       $groups = array();
       foreach ($prod->filters_id as $filter) {
         $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
@@ -253,6 +304,7 @@ class ProdsController extends Controller
 
       $features = array();
       foreach ($prod->features_id as $feature) {
+        $feature->features_icon = !empty($feature->features_icon)?Storage::disk('s3')->url('features/'.$feature->features_icon):'';
         $feature['features_value'] = $feature->pivot->features_value;
         if ($feature['features_value'] >= $feature->features_norm){
           $features['valid'][] = $feature;
