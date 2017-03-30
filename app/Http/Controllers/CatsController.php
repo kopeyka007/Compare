@@ -240,8 +240,9 @@ class CatsController extends Controller
   //Front ---------------------
   public function shortlist(){    
     $cats = Cats::with('prods')
-    ->with('prods.brands_id')
-    ->with('prods.filters_id')    
+    ->with(['prods'=>function($q){
+        $q->where('prods_active',1);
+    }, 'prods.brands_id', 'prods.filters_id'])    
     ->get();
     foreach ($cats as $cat) {
       foreach ($cat->prods as $prod) {
