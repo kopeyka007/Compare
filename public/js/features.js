@@ -1,6 +1,7 @@
 (function() {
 	angular.module('panelApp').controller('featuresCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'Upload', 'validate', featuresCtrl]);
 	function featuresCtrl($scope, $rootScope, $http, $window, $uibModal, Upload, validate) {
+		$rootScope.errors = [];
 		$scope.cats = [];
 		$http.get('/api/cats/list').then(function(response) {
 			$scope.cats = response.data.data;

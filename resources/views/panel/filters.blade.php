@@ -74,7 +74,7 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Group Name</label>
-					<input type="text" class="form-control" name="groups_name" ng-model="filter.groups_name" ng-required="required" />
+					<input type="text" class="form-control" name="groups_name" ng-model="filter.groups_name" required="required" />
 				</div>
 			</div>
 

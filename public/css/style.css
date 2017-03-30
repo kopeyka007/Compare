@@ -39,6 +39,10 @@
 	min-width: 768px;
 }
 
+.footer-content {
+	margin-left: 5px;
+}
+
 .recompare {
 	background: #eee;
 	padding: 10px;
@@ -47,6 +51,10 @@
 
 .recompare > i {
 	color: #ccc;
+}
+
+.groups-footer {
+	padding-bottom: 10px;
 }
 
 .fixed .compare-table {

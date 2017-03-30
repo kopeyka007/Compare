@@ -115,6 +115,7 @@
 		$scope.loaderClass = 'loader-init';
 		$scope.$on('$routeChangeStart', function(next, current) {
 			$scope.loaderClass = 'loader-init';
+			$rootScope.errors = [];
 		});
 		$scope.$on('$viewContentLoaded', function(){
 			$timeout(function () {

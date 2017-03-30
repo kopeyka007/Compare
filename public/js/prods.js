@@ -1,6 +1,7 @@
 (function() {
 	angular.module('panelApp').controller('prodsCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', 'Upload', prodsCtrl]);
 	function prodsCtrl($scope, $rootScope, $http, $window, $uibModal, validate, Upload) {
+		$rootScope.errors = [];
 		$scope.cats = [];
 		$http.get('/api/cats/list').then(function(response) {
 			$scope.cats = response.data.data;
@@ -172,7 +173,7 @@
 			$scope.errors = [];
 			var error = 1;
 			error *= validate.check($scope, $scope.form.cats_id, 'Category', 'cats_id');
-			error *= validate.check($scope, $scope.form.cats_id, 'Brand', 'brands_id');
+			error *= validate.check($scope, $scope.form.brands_id, 'Brand', 'brands_id');
 			error *= validate.check($scope, $scope.form.prods_name, 'Name');
 			error *= validate.check($scope, $scope.form.slug, 'Slug');
 			error *= validate.check($scope, $scope.form.prods_price, 'Price')

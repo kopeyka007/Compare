@@ -15,15 +15,15 @@
 			});
 		};
 		$scope.get_list();
-							 
+
 		$scope.save = function(file){
 			file.upload = Upload.upload({
-						url: '/api/import/save',
-						file: file,
-						data: $scope.importData
-				    }).then(function (response){
-						$rootScope.errors = [response.data.message];
-					})
-		}
+				url: '/api/import/save',
+				file: file,
+				data: $scope.importData
+			}).then(function (response){
+				$rootScope.errors = [response.data.message];
+			})
+}
 	}
 })();

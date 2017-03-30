@@ -1,7 +1,7 @@
 (function() {
 	angular.module('panelApp').controller('usersCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', usersCtrl]);
-	
 	function usersCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
+		$rootScope.errors = [];
 		$scope.types = [];
 		$scope.typesList = [];
 		$http.get('/api/users/types').then(function(response) {

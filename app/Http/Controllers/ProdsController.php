@@ -268,68 +268,87 @@ class ProdsController extends Controller
         return $response;
   }
 
-    public function get_prods_detail(Request $request)
+    public function get_prods_detail(Request $request){
+    $url = $request->input('url');
+    $aliases = explode('/', $url);    
+    //$category_alias = $aliases[2];
+    $prods_full_alias  = $aliases[2];
+    $prod = Prods::with('brands_id', 'cats_id', 'filters_id.groups', 'features_id')
+    ->where('prods_full_alias', $prods_full_alias)    
+    ->first();
+    if ($prod)
     {
-        $url = $request->input('url');
-        $aliases = explode('/', $url);    
-        //$category_alias = $aliases[2];
-        $prods_full_alias  = $aliases[2];
-        $prod = Prods::with('brands_id', 'cats_id', 'filters_id.groups', 'features_id')
-        ->where('prods_full_alias', $prods_full_alias)    
-        ->first();
-        if ($prod)
+        SettingsController::set_config_s3();
+        $folder = Settings::select('s3_prods_folder')->first();
+        $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
+        $groups = array();
+        foreach ($prod->filters_id as $filter) 
         {
-            SettingsController::set_config_s3();
-            $folder = Settings::select('s3_prods_folder')->first();
-            $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
-            $groups = array();
-            foreach ($prod->filters_id as $filter) 
+            if (! empty($filter->pivot->filters_value))
             {
                 $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
                 $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
                 $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
                 $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_units'] = $filter->filters_units;
                 $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
-                unset($filter->groups);
             }
-            $prod['groups'] = $groups;    
-            unset($prod->filters_id);
-            $features = array();
-            foreach ($prod->features_id as $feature) 
-            {
-                $feature->features_icon = !empty($feature->features_icon)?Storage::disk('s3')->url('features/'.$feature->features_icon):'';
-                $feature['features_value'] = $feature->pivot->features_value;
-                if ($feature['features_value'] >= $feature->features_norm)
-                {
-                    $features['valid'][] = $feature;
-                }
-                else 
-                {
-                    $features['notvalid'][] = $feature;        
-                }
-            }
-            $prod['features'] = $features;
-            unset($prod->features_id);
-            //get liked prods    
-            $liked = Prods::where('cats_id', $prod->cats_id)
-            ->where('prods_active',1)
-            ->where('prods_id','<>',$prod->prods_id)
-            ->with('brands_id')    
-            ->take(7)
-            ->get();
-            foreach ($liked as $item)
-            {
-                $item->prods_foto = empty($item->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$item->prods_foto);      
-            }
-            $prod['liked'] = $liked;
-
-            $response['data'] = $prod;
+            unset($filter->groups);
         }
-        else
+        $prod['groups'] = $groups;    
+        unset($prod->filters_id);
+        $features = array();
+        foreach ($prod->features_id as $feature) 
         {
-            $response['data'] = false;      
+          $feature->features_icon = !empty($feature->features_icon)?Storage::disk('s3')->url('features/'.$feature->features_icon):'';
+          $value = $feature->pivot->features_value;
+          $feature['features_value'] = $value;
+          if (!empty($value))
+          {   
+                if (!empty($feature->features_rate))
+                {
+                    if ($value >= $feature->features_norm)
+                    {
+                        $features['valid'][] = $feature;
+                    }
+                    else
+                    {
+                        $features['notvalid'][] = $feature;        
+                    }
+                }
+                else
+                {
+                    if ($value < $feature->features_norm)
+                    {
+                        $features['valid'][] = $feature;
+                    }
+                    else
+                    {
+                        $features['notvalid'][] = $feature;        
+                    }
+                }
+            }
         }
-        return $response;
+        $prod['features'] = $features;
+        unset($prod->features_id);
+        //get liked prods    
+        $liked = Prods::where('cats_id', $prod->cats_id)
+        ->where('prods_active',1)
+        ->where('prods_id','<>',$prod->prods_id)
+        ->with('brands_id')    
+        ->take(7)
+        ->get();
+        foreach ($liked as $item)
+        {
+            $item->prods_foto = empty($item->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$item->prods_foto);      
+        }
+        $prod['liked'] = $liked;
+        $response['data'] = $prod;
+    }
+    else
+    {
+        $response['data'] = false;      
+    }
+    return $response;
   }
 
 

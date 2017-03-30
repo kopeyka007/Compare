@@ -43,9 +43,9 @@
 				<div class="row">
 					<div class="groups-footer col-md-6" ng-repeat="cat in products">
 						<h3 ng-if="cat.prods.length"><i class="fa fa-folder-open-o" aria-hidden="true"></i> @{{cat.cats_name}}</h3>
-						<div ng-repeat="prod in cat.prods">
-							<p><a href="/@{{cat.cats_alias}}/@{{prod.prods_full_alias}}">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a></p>
-						</div>
+						<span class="footer-content" ng-repeat="prod in cat.prods">
+							<span>&bull; </span><a href="/@{{cat.cats_alias}}/@{{prod.prods_full_alias}}">@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</a>
+						</span>
 					</div>
 				</div>
 			</div>
