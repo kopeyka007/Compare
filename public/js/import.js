@@ -1,6 +1,7 @@
 (function() {
 	angular.module('panelApp').controller('importCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', 'Upload', importCtrl]);
 	function importCtrl($scope, $rootScope, $http, $window, $uibModal, validate, Upload) {
+		$rootScope.errors = [];
 		$scope.list = [];
 		$scope.cats = [];
 		$scope.importData = {'cats_id': '',
@@ -21,7 +22,7 @@
 						file: file,
 						data: $scope.importData
 				    }).then(function (response){
-						
+						$rootScope.errors = [response.data.message];
 					})
 		}
 	}

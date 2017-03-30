@@ -61,8 +61,10 @@
 			
 			<div class="col-sm-12">
 				<div class="form-group">
-					<input type="checkbox" ng-model="currency.currencies_default" required="required" />
-					<label>Default</label>
+					<label>
+						<input type="checkbox" ng-model="currency.currencies_default" required="required" />
+						Default
+					</label>
 				</div>
 			</div>
 		</div>
