@@ -305,12 +305,32 @@ class ProdsController extends Controller
       $features = array();
       foreach ($prod->features_id as $feature) {
         $feature->features_icon = !empty($feature->features_icon)?Storage::disk('s3')->url('features/'.$feature->features_icon):'';
-        $feature['features_value'] = $feature->pivot->features_value;
-        if ($feature['features_value'] >= $feature->features_norm){
-          $features['valid'][] = $feature;
-        }
-        else {
-          $features['notvalid'][] = $feature;        
+        $value = $feature->pivot->features_value;
+        $feature['features_value'] = $value;
+        if (!empty($value))
+        {   
+            if (!empty($feature->features_rate))
+            {
+                if ($value >= $feature->features_norm)
+                {
+                    $features['valid'][] = $feature;
+                }
+                else
+                {
+                    $features['notvalid'][] = $feature;        
+                }
+            }
+            else
+            {
+                if ($value < $feature->features_norm)
+                {
+                    $features['valid'][] = $feature;
+                }
+                else
+                {
+                    $features['notvalid'][] = $feature;        
+                }
+            }
         }
       }
       $prod['features'] = $features;
