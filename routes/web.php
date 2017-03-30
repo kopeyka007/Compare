@@ -19,7 +19,7 @@ Route::get('/migratefull', function () {
     Artisan::call('migrate');
     Artisan::call('db:seed', array('--class' => 'UsersTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'UsersTypesTableSeeder'));
-    Artisan::call('db:seed', array('--class' => 'GroupsTableSeeder'));
+    //Artisan::call('db:seed', array('--class' => 'GroupsTableSeeder'));
     Artisan::call('db:seed', array('--class' => 'SettingsTableSeeder'));
     //Artisan::call('storage:link');
     return 'All migrates and seed run';
