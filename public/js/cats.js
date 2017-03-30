@@ -1,6 +1,7 @@
 (function() {
 	angular.module('panelApp').controller('catsCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', catsCtrl]);
 	function catsCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
+		$rootScope.errors = [];
 		$scope.add = function(id) {
 			id = id || false;
 

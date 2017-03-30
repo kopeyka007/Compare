@@ -1,6 +1,7 @@
 (function() {
 	angular.module('panelApp').controller('prodsCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', 'Upload', prodsCtrl]);
 	function prodsCtrl($scope, $rootScope, $http, $window, $uibModal, validate, Upload) {
+		$rootScope.errors = [];
 		$scope.cats = [];
 		$http.get('/api/cats/list').then(function(response) {
 			$scope.cats = response.data.data;

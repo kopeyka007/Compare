@@ -1,6 +1,7 @@
 (function() {
 	angular.module('panelApp').controller('brandsCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', brandsCtrl]);
 	function brandsCtrl($scope, $rootScope, $http, $window, $uibModal, validate) {
+		$rootScope.errors = [];
 		$scope.cats = [];
 		$http.get('/api/cats/list').then(function(response) {
 			$scope.cats = response.data.data;
