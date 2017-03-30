@@ -7,7 +7,7 @@
 		</div>
 	</div>
 	
-	<div class="container">
+	<div>
 		<div class="table-responsive">
 			<div class="table-width">
 				<div class="fixed-wrap">
@@ -54,7 +54,7 @@
 													<img src="@{{compareListCats.cats_photo || '/images/nofoto.png'}}" alt="" />
 
 													<span class="compare-price text-danger">
-														@{{compareListCurr.currencies_symbol}}9.999
+														@{{compareListCurr.currencies_symbol}} XX.XX
 													</span>
 												</div>
 
@@ -69,77 +69,78 @@
 						</div>
 					</div>
 				</div>
-			
-				<div ng-show="count > 0">
-					<table class="table">
-						<tbody>
-							<tr>
-								<td class="filters-cell">
-									Features Present In Only One Device (Unique Features)
-								</td>
-								<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
-									<div class="features-cell" ng-if="compareList[i]" ng-init="prod = compareList[i]">
-										<div class="features-box" ng-repeat="feature in prod.features" ng-show="checkFeatures(prod, feature.features_id)">
-											<div class="features-head">
-												<img src="@{{feature.features_icon}}" ng-show="feature.features_icon != ''" alt="" />
-												<span>@{{feature.features_name}}</span>
-											</div>
-											<div class="features-content">
-												<div class="features-prods" ng-repeat="p in compareList" ng-class="{'active': p.prods_id == prod.prods_id}">
-													<div class="row">
-														<div class="col-xs-7">
-															@{{p.prods_name}}
-														</div>
-														<div class="col-xs-5 text-right" ng-show="p.features[feature.features_id].features_value != '' && p.features[feature.features_id].features_value != null" >
-															@{{p.features[feature.features_id].features_value}} @{{p.features[feature.features_id].features_units}}
-														</div>
-														<div class="col-xs-5 text-right" ng-show="p.features[feature.features_id].features_value == '' || p.features[feature.features_id].features_value == null" >
-															No
+				<div class="container">
+					<div ng-show="count > 0">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td class="filters-cell">
+										Features Present In Only One Device (Unique Features)
+									</td>
+									<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+										<div class="features-cell" ng-if="compareList[i]" ng-init="prod = compareList[i]">
+											<div class="features-box" ng-repeat="feature in prod.features" ng-show="checkFeatures(prod, feature.features_id)">
+												<div class="features-head">
+													<img src="@{{feature.features_icon}}" ng-show="feature.features_icon != ''" alt="" />
+													<span>@{{feature.features_name}}</span>
+												</div>
+												<div class="features-content">
+													<div class="features-prods" ng-repeat="p in compareList" ng-class="{'active': p.prods_id == prod.prods_id}">
+														<div class="row">
+															<div class="col-xs-7">
+																@{{p.prods_name}}
+															</div>
+															<div class="col-xs-5 text-right" ng-show="p.features[feature.features_id].features_value != '' && p.features[feature.features_id].features_value != null" >
+																@{{p.features[feature.features_id].features_value}} @{{p.features[feature.features_id].features_units}}
+															</div>
+															<div class="col-xs-5 text-right" ng-show="p.features[feature.features_id].features_value == '' || p.features[feature.features_id].features_value == null" >
+																No
+															</div>
 														</div>
 													</div>
-												</div>
-												<div class="features-desc">
-													<span ng-show="isNumeric(prod.features[feature.features_id].features_value)">Around <b class="text-success">@{{percents(prod, feature.features_id)}} @{{feature.features_around}}</b> than @{{closestProd}}.</span> @{{feature.features_desc}}
+													<div class="features-desc">
+														<span ng-show="isNumeric(prod.features[feature.features_id].features_value)">Around <b class="text-success">@{{percents(prod, feature.features_id)}} @{{feature.features_around}}</b> than @{{closestProd}}.</span> @{{feature.features_desc}}
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				
-				<div class="groups-box" ng-repeat="group in filterList" ng-show="(group.groups_filters | filter:checkDifferences).length">
-					<h3>@{{group.groups_name}}</h3>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="groups-box" ng-repeat="group in filterList" ng-show="(group.groups_filters | filter:checkDifferences).length">
+						<h3>@{{group.groups_name}}</h3>
+						<table class="table table-striped">
+							<tbody>
+								<tr ng-repeat="filter in group.groups_filters | filter:checkDifferences">
+									<td class="filters-cell">@{{filter.filters_name}}</td>
+									<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+										<div ng-if="compareList[i]" ng-init="prod = compareList[i]">
+											<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ prod.filters[filter.filters_id].filters_value }}</span>
+											<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ prod.filters[filter.filters_id].filters_value }}&nbsp;</span>
+											<span ng-show="filter.filters_type != 'check' && prod.filters[filter.filters_id].filters_value != ''">@{{prod.filters[filter.filters_id].filters_value}} @{{prod.filters[filter.filters_id].filters_units}}</span>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h3>Amazon Links</h3>
 					<table class="table table-striped">
 						<tbody>
-							<tr ng-repeat="filter in group.groups_filters | filter:checkDifferences">
-								<td class="filters-cell">@{{filter.filters_name}}</td>
+							<tr>
+								<td></td>
 								<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
-									<div ng-if="compareList[i]" ng-init="prod = compareList[i]">
-										<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ prod.filters[filter.filters_id].filters_value }}</span>
-										<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ prod.filters[filter.filters_id].filters_value }}&nbsp;</span>
-										<span ng-show="filter.filters_type != 'check' && prod.filters[filter.filters_id].filters_value != ''">@{{prod.filters[filter.filters_id].filters_value}} @{{prod.filters[filter.filters_id].filters_units}}</span>
+									<div class="btn-amazon" ng-if="compareList[i].prods_amazon">
+										<a href="@{{compareList[i].prods_amazon}}" target="_blank" type="button" class="btn btn-warning" ng-click="statAmazon(compareList[i])">Buy on Amazon</a>
 									</div>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<h3>Amazon Links</h3>
-				<table class="table table-striped">
-					<tbody>
-						<tr>
-							<td></td>
-							<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
-								<div class="btn-amazon" ng-if="compareList[i].prods_amazon">
-									<a href="@{{compareList[i].prods_amazon}}" target="_blank" type="button" class="btn btn-warning" ng-click="statAmazon(compareList[i])">Buy on Amazon</a>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 		</div>
 	</div>
