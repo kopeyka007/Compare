@@ -59,17 +59,21 @@ class ProdsController extends Controller
     return $response; 
   }
 
-  public function view($id){
-    $prod = Prods::find($id);    
-    if ($prod){
-      $response['data'] = $prod;            
+    public function view($id)
+    {
+        $prod = Prods::find($id);    
+        if ($prod)
+        {
+            $response['data'] = $prod;            
+        }
+        else
+        {
+            $response['data'] = false;          
+            $response['message'] = ['type'=>'danger', 'text'=>'Product not found'];
+        }
+        
+        return $response;
     }
-    else{
-      $response['data'] = false;          
-      $response['message'] = ['type'=>'danger', 'text'=>'Product not found'];
-    }
-    return $response;
-  }
   
   public function save(Request $request){    
     $prod = new Prods;
