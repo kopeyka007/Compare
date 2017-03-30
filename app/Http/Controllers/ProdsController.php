@@ -292,11 +292,14 @@ class ProdsController extends Controller
       $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
       $groups = array();
       foreach ($prod->filters_id as $filter) {
-        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
-        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
-        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
-        $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_units'] = $filter->filters_units;
-        $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
+        if (! empty($filter->pivot->filters_value))
+        {
+            $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_name'] = $filter->filters_name;
+            $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_type'] = $filter->filters_type;
+            $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_value'] = $filter->pivot->filters_value;
+            $groups[$filter->groups->groups_id]['groups_filters'][$filter->filters_id]['filters_units'] = $filter->filters_units;
+            $groups[$filter->groups->groups_id]['groups_name'] = $filter->groups->groups_name;        
+        }
         unset($filter->groups);
       }
       $prod['groups'] = $groups;    
