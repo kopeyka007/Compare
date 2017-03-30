@@ -127,6 +127,13 @@
 						}
 					}
 				}
+				else
+				{
+					if (this_prod.features && (this_prod.features[features_id].features_value == '' || this_prod.features[features_id].features_value == null))
+					{
+						check = false;
+					}
+				}
 			}
 			var result = ! duplicate ? check : false;
 			if (result)

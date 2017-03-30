@@ -74,7 +74,7 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Group Name</label>
-					<input type="text" class="form-control" name="groups_name" ng-model="filter.groups_name" ng-required="required" />
+					<input type="text" class="form-control" name="groups_name" ng-model="filter.groups_name" required="required" />
 				</div>
 			</div>
 
@@ -97,8 +97,10 @@
 			
 			<div class="col-sm-12" ng-show="filter.filters_type == 'text'">
 				<div class="form-group">
-					<label>Filter Units</label>
-					<input type="text" class="form-control" name="filters_units" ng-model="filter.filters_units" required="required" />
+					<label>
+						<input type="text" class="form-control" name="filters_units" ng-model="filter.filters_units" required="required" />
+						Filter Units
+					</label>
 				</div>
 			</div>
 			

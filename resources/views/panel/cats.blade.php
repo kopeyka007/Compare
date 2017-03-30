@@ -80,8 +80,10 @@
 			</div>
 			
 			<div class="col-sm-12">
-				<input type="checkbox" ng-model="cat.cats_default" ng-init="cat.cats_default == true" />
-				<label>Default Category</label>
+				<label>
+					<input type="checkbox" ng-model="cat.cats_default" ng-init="cat.cats_default == true" />
+					Default Category
+				</label>
 			</div>
 		</div>
 	</form>

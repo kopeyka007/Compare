@@ -1,6 +1,7 @@
 (function() {
 	angular.module('panelApp').controller('importCtrl', ['$scope', '$rootScope', '$http', '$window', '$uibModal', 'validate', 'Upload', importCtrl]);
 	function importCtrl($scope, $rootScope, $http, $window, $uibModal, validate, Upload) {
+		$rootScope.errors = [];
 		$scope.list = [];
 		$scope.cats = [];
 		$scope.importData = {'cats_id': '',
@@ -14,15 +15,15 @@
 			});
 		};
 		$scope.get_list();
-							 
+
 		$scope.save = function(file){
 			file.upload = Upload.upload({
-						url: '/api/import/save',
-						file: file,
-						data: $scope.importData
-				    }).then(function (response){
-						
-					})
-		}
+				url: '/api/import/save',
+				file: file,
+				data: $scope.importData
+			}).then(function (response){
+				$rootScope.errors = [response.data.message];
+			})
+}
 	}
 })();
