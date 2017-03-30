@@ -147,9 +147,8 @@ class ImportController extends Controller
       $prod->prods_alias = $this->generate_alias_prods(trim($prods_name));
       $prod->prods_full_alias = $brands->brands_alias.'-'.$prod->prods_alias;
       $prod->prods_price = trim($prods_price);
-      $prod->prods_amazon = trim($prods_amazon);
-      $prods_folder = Settings::select(['s3_prods_folder'])->find(1);
-      $prod->prods_foto = $prods_folder->s3_prods_folder.'/'.trim($prods_foto);
+      $prod->prods_amazon = trim($prods_amazon);      
+      $prod->prods_foto = trim($prods_foto);
       //$prod->prods_foto = trim($prods_foto);
       $prod->prods_active = 1;
       $prod->currencies_id = $currency_default->currencies_id;      
