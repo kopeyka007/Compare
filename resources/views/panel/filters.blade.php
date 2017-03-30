@@ -97,8 +97,10 @@
 			
 			<div class="col-sm-12" ng-show="filter.filters_type == 'text'">
 				<div class="form-group">
-					<label>Filter Units</label>
-					<input type="text" class="form-control" name="filters_units" ng-model="filter.filters_units" required="required" />
+					<label>
+						<input type="text" class="form-control" name="filters_units" ng-model="filter.filters_units" required="required" />
+						Filter Units
+					</label>
 				</div>
 			</div>
 			
