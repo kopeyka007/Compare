@@ -102,16 +102,13 @@ class ProdsController extends Controller
             $prod->prods_active = ($request->input('prods_active') == 'true')?1:0;
             $prod->currencies_id = $request->input('currencies_id')['currencies_id'];        
             if ($request->file){
-                $prod->prods_foto = $this->upload_s3($request->file, $prod);
-                /*
                 try {
                     $prod->prods_foto = $this->upload_s3($request->file, $prod);
                 } catch(S3 $e) {                           
                     $response['data'] = false;          
-                    //$response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()]; 
-                    $response['message'] = ['type'=>'danger', 'text'=>'Error upload']; 
+                    $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()];                     
                     return $response;
-                }*/
+                }
             }
             else{            
                 if (empty($request->input('prods_foto'))){
