@@ -16,7 +16,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="brand-section">
-					<div class="filters-box">
+					<div class="filters-box" ng-if="products_list.filters.length">
 						<h4>Brands</h4>
 						<select class="form-control" ng-model="filters_brand">
 							<option value="">Select a value...</option>
