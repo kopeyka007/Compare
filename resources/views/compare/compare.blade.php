@@ -117,16 +117,30 @@
 								<tr ng-repeat="filter in group.groups_filters | filter:checkDifferences">
 									<td class="filters-cell">@{{filter.filters_name}}</td>
 									<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
-										<div ng-if="compareList[i]" ng-init="prod = compareList[i]">
+										<div ng-if="compareList[i]" ng-init="prod = compareList[i]" ng-click="scoreCount(prod, filter)" ng-class="{'checked': scoreList[filter.filters_id] == prod.prods_id}">
 											<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ prod.filters[filter.filters_id].filters_value }}</span>
 											<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ prod.filters[filter.filters_id].filters_value }}&nbsp;</span>
 											<span ng-show="filter.filters_type != 'check' && prod.filters[filter.filters_id].filters_value != ''">@{{prod.filters[filter.filters_id].filters_value}} @{{prod.filters[filter.filters_id].filters_units}}</span>
+											<i class="fa fa-check check" aria-hidden="true"></i>
 										</div>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
+					<h3>Score</h3>
+					<table class="table table-striped">
+						<tbody>
+							<tr>
+								<td></td>
+								<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]">
+									<div class="score" ng-if="compareList[i]" ng-init="prod = compareList[i]">
+										<span>@{{ scoreShow(prod) }}</span>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 					<h3>Amazon Links</h3>
 					<table class="table table-striped">
 						<tbody>
