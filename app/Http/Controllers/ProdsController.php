@@ -12,7 +12,8 @@ use Aws\S3\Exception\S3Exception as S3;
 class ProdsController extends Controller
 {
     public function __construct()
-    {    
+    {
+        
     }
 
     public function show()
@@ -35,8 +36,8 @@ class ProdsController extends Controller
         $folder = Settings::select('s3_prods_folder')->first();    
         foreach ($prods as $prod) 
         {
-            $prod->short_foto = $prod->prods_foto;      
-            $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
+            $prod->short_foto = $prod->prods_foto;
+            $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.(empty($folder->s3_prods_folder)?'':'/').$prod->prods_foto);      
             $filters = array();
             $groups = array();
             foreach ($prod->filters_id as $filter)
@@ -105,7 +106,7 @@ class ProdsController extends Controller
                     $prod->prods_foto = $this->upload_s3($request->file, $prod);
                 } catch(S3 $e) {                           
                     $response['data'] = false;          
-                    $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()]; 
+                    $response['message'] = ['type'=>'danger', 'text'=>$e->getMessage()];                     
                     return $response;
                 }
             }
@@ -113,7 +114,7 @@ class ProdsController extends Controller
                 if (empty($request->input('prods_foto'))){
                     SettingsController::set_config_s3();
                     $folder = Settings::select('s3_prods_folder')->first();
-                    Storage::disk('s3')->delete($folder->s3_prods_folder.'/'.$prod->prods_foto);
+                    Storage::disk('s3')->delete($folder->s3_prods_folder.(empty($folder->s3_prods_folder)?'':'/').$prod->prods_foto);
                     $prod->prods_foto = '';
                 }
                 else{
@@ -142,7 +143,7 @@ class ProdsController extends Controller
             {
                 SettingsController::set_config_s3();
                 $folder = Settings::select('s3_prods_folder')->first();
-                Storage::disk('s3')->delete($folder->s3_prods_folder.'/'.$prod->prods_foto);
+                Storage::disk('s3')->delete($folder->s3_prods_folder.(empty($folder->s3_prods_folder)?'':'/').$prod->prods_foto);
             }
             //delete relations       
             $prod->filters_id()->detach();
@@ -193,14 +194,14 @@ class ProdsController extends Controller
         $prods_folder = Settings::select(['s3_prods_folder'])->find(1);
         if (!empty($current->prods_foto))
         {
-            if ($s3->exists($current->prods_foto))
+            if ($s3->exists($prods_folder->s3_prods_folder.(empty($prods_folder->s3_prods_folder)?'':'/').$current->prods_foto))
             {          
-                $s3->delete($current->prods_foto);
+                $s3->delete($prods_folder->s3_prods_folder.(empty($prods_folder->s3_prods_folder)?'':'/').$current->prods_foto);
             }  
         }    
         $filename = rand(100000, 999999).'_'.time().'.'.$file->getClientOriginalExtension();    
         $filepath = $prods_folder->s3_prods_folder.'/'.$filename;
-        $s3->put('/'.$filepath, file_get_contents($file), 'public');    
+        $s3->put('/'.$filepath, file_get_contents($file), 'public');            
         return $filename;
     }
 
@@ -212,7 +213,7 @@ class ProdsController extends Controller
         $folder = Settings::select('s3_prods_folder')->first();  
         foreach ($prods as $prod) 
         {      
-            $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
+            $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.(empty($folder->s3_prods_folder)?'':'/').$prod->prods_foto);      
             $filters = array();
             $features = array();
             foreach ($prod->filters_id as $filter) 
@@ -280,7 +281,7 @@ class ProdsController extends Controller
     {
         SettingsController::set_config_s3();
         $folder = Settings::select('s3_prods_folder')->first();
-        $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
+        $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.(empty($folder->s3_prods_folder)?'':'/').$prod->prods_foto);      
         $groups = array();
         foreach ($prod->filters_id as $filter) 
         {
@@ -339,7 +340,7 @@ class ProdsController extends Controller
         ->get();
         foreach ($liked as $item)
         {
-            $item->prods_foto = empty($item->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$item->prods_foto);      
+            $item->prods_foto = empty($item->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.(empty($folder->s3_prods_folder)?'':'/').$item->prods_foto);      
         }
         $prod['liked'] = $liked;
         $response['data'] = $prod;
