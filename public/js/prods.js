@@ -243,11 +243,10 @@
 (function() {
 	angular.module('panelApp').controller('ModalProdsInfoCtrl', ['$scope', '$http', '$uibModalInstance', 'items', ModalProdsInfoCtrl]);
 	function ModalProdsInfoCtrl($scope, $http, $uibModalInstance, items) {
-		$http.get('/api/prods/historyfilters/{id}' + items.prod).then(function(response){
-			console.log(response);
+		$http.get('/api/prods/historyfilters/' + items.prod).then(function(response){
+			$scope.filterCount = response.data;
+			console.log($scope.filterCount);
 		});
-
-		console.log(items.prod);
 
 		$scope.cancel = function () {
 			$uibModalInstance.dismiss('cancel');

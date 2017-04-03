@@ -196,7 +196,21 @@
 <script type="text/ng-template" id="ModalProdsInfo.html">
 	<div class="modal-header">
 	</div>
-
+	<div class="row">
+		<div class="col-sm-12">	
+			<div class="panel panel-default panel-dashboard">
+				<div class="panel-heading"><strong>Comparison count Timeline</strong></div>
+				<table class="table table-striped">
+					<tbody>
+						<tr ng-repeat="count in filterCount">
+							<td>@{{count.filters_name}}</td>
+							<td class="td-counter">@{{count.filters_count}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 	<div class="modal-footer">
 		<button class="btn btn-default" type="button" ng-click="cancel()">Close</button>
 	</div>
