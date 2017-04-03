@@ -16,6 +16,7 @@
 					<th>Slug</th>
 					<th>Price</th>
 					<th>Active</th>
+					<th>Stat</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -31,6 +32,7 @@
 					<td><a href="/@{{prod.cats_id.cats_alias + '/' + prod.prods_full_alias}}" target="_blank">@{{prod.prods_full_alias}}</a></td>
 					<td>@{{prod.currencies_id.currencies_symbol}} @{{prod.prods_price}}</td>
 					<td>@{{prod.prods_active | checkmark}}</td>
+					<td><button type="button" class="btn btn-link" ng-click="stat(prod.prods_id)"><i class="fa fa-align-right fa-rotate-90" aria-hidden="true"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(prod.prods_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(prod.prods_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
@@ -188,5 +190,14 @@
 	<div class="modal-footer">
 		<button class="btn btn-primary" type="button" ng-click="save(prods_foto)">Save</button>
 		<button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="ModalProdsInfo.html">
+	<div class="modal-header">
+	</div>
+
+	<div class="modal-footer">
+		<button class="btn btn-default" type="button" ng-click="cancel()">Close</button>
 	</div>
 </script>

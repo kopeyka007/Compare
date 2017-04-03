@@ -67,6 +67,18 @@
 			});
 		};
 		$scope.get_list();
+
+		$scope.stat = function(prod) {
+			var modalInstance;
+            modalInstance = $uibModal.open({
+                templateUrl: "ModalProdsInfo.html",
+                controller: 'ModalProdsInfoCtrl',
+                size: 'lg',
+                resolve: {
+                	items: {'prod': prod}
+                }
+			});	
+		};
 	}
 })();
 
@@ -222,6 +234,21 @@
 			$scope.prod.prods_foto = '';
 		};
 		
+		$scope.cancel = function () {
+			$uibModalInstance.dismiss('cancel');
+		};
+	}
+})();
+
+(function() {
+	angular.module('panelApp').controller('ModalProdsInfoCtrl', ['$scope', '$http', '$uibModalInstance', 'items', ModalProdsInfoCtrl]);
+	function ModalProdsInfoCtrl($scope, $http, $uibModalInstance, items) {
+		$http.get('/api/prods/historyfilters/{id}' + items.prod).then(function(response){
+			console.log(response);
+		});
+
+		console.log(items.prod);
+
 		$scope.cancel = function () {
 			$uibModalInstance.dismiss('cancel');
 		};
