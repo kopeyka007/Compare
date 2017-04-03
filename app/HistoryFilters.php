@@ -17,10 +17,8 @@ class HistoryFilters extends Model
             $model->created_at = $model->freshTimestamp();
         });
     }
-    
-    public function compare()
-    {      
-      return $this->hasOne('App\HistoryCompare', 'compare_id', 'rows_id');
+    public function filters(){
+      return $this->belongsTo('App\Filters','filters_id');
     }
     
 }
