@@ -7,10 +7,12 @@ use App\HistorySingle;
 use App\HistoryPairs;
 use App\HistoryAmazon;
 use App\HistoryCompare;
+use App\HistoryFilters;
+
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Carbon;
+use Session;
 
 class HistoryController extends Controller
 {
@@ -65,10 +67,31 @@ class HistoryController extends Controller
 
     private function set_compare_history($id, $url)
     {    
-        $cats_id = Prods::select('cats_id')->where('prods_id',$id)->first();
-        $history['cats_id'] = $cats_id->cats_id;
-        $history['compare_link'] = url($url);
-        HistoryCompare::insert($history);
+        $cats_id = Prods::select('cats_id')->where('prods_id',$id)->first();        
+        $history  = new HistoryCompare;
+        $history->cats_id  = $cats_id->cats_id;
+        $history->compare_link = url($url);
+        $history->save();
+        Session::put('compare_id', $history->rows_id);
+    }
+    
+    public function set_history_filters(Request $request)
+    {
+        $compare_id = Session::get('compare_id');
+        $prods_id = $request->input('prods_id');
+        $filters_id = $request->input('filters_id');
+        if (!empty($compare_id))
+        {
+            $history = HistoryFilters::where('filters_id', $filters_id)->where('compare_id', $compare_id)->first();
+            if (empty($history))
+            {
+                $history = new HistoryFilters;
+            }
+            $history->filters_id = $filters_id;
+            $history->prods_id = $prods_id;
+            $history->compare_id = $compare_id;
+            $history->save();            
+        }
     }
 
   // Get history
