@@ -7,10 +7,12 @@ use App\HistorySingle;
 use App\HistoryPairs;
 use App\HistoryAmazon;
 use App\HistoryCompare;
+use App\HistoryFilters;
+
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Carbon;
+use Session;
 
 class HistoryController extends Controller
 {
@@ -66,9 +68,25 @@ class HistoryController extends Controller
     private function set_compare_history($id, $url)
     {    
         $cats_id = Prods::select('cats_id')->where('prods_id',$id)->first();
-        $history['cats_id'] = $cats_id->cats_id;
-        $history['compare_link'] = url($url);
-        HistoryCompare::insert($history);
+        //$history['cats_id'] = $cats_id->cats_id;
+        //$history['compare_link'] = url($url);        
+        // HistoryCompare::insert($history);
+        $history  = new HistoryCompare;
+        $history->cats_id  = $cats_id->cats_id;
+        $history->compare_link = url($url);
+        $history->save();
+        Session::put('compare_id', $history->rows_id);
+    }
+    
+    public function set_history_filters()
+    {
+        $compare_id = Session::get('compare_id');
+        if (!empty($compare_id))
+        {
+            $history = new HistoryFilters;
+            $history->compare()->sync();    
+            //$history->compare
+        }
     }
 
   // Get history
