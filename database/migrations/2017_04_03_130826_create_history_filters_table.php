@@ -16,6 +16,7 @@ class CreateHistoryFiltersTable extends Migration
         Schema::create('history_filters', function (Blueprint $table) {
             $table->increments('rows_id');                        
             $table->integer('compare_id');
+            $table->integer('filters_id');
             $table->integer('prods_id');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         }); 
@@ -28,6 +29,6 @@ class CreateHistoryFiltersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('history_single');                        
+        Schema::dropIfExists('history_filters');                        
     }
 }
