@@ -347,7 +347,7 @@ class CatsController extends Controller
             $folder = Settings::select('s3_prods_folder')->first();
             foreach ($cats->prods as $prod) 
             {
-                $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.'/'.$prod->prods_foto);      
+                $prod->prods_foto = empty($prod->prods_foto)?asset('images/nofoto.png'):Storage::disk('s3')->url($folder->s3_prods_folder.(empty($folder->s3_prods_folder)?'':'/').$prod->prods_foto);      
                 $filters = array();
                 foreach ($prod->filters_id as $filter) 
                 {
