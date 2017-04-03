@@ -49,15 +49,22 @@
 	border-radius: 6px;
 }
 
+.prods-cell-filters {
+	cursor: pointer;
+}
+
 .checked {
-	background: rgba(68, 157, 68, 0.5);
+	background: rgba(52, 168, 83, 0.1);
 	position: relative;
 }
 
 .check {
 	display: none;
 	position: absolute;
-	right: 0;
+	right: 2px;
+	top: 50%;
+	margin-top: -10px;
+	color: #5cb85c;
 }
 
 .checked .check {
