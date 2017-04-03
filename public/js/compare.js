@@ -211,9 +211,9 @@
 			var count_info = {};
 			count_info.prods_id = prod.prods_id;
 			count_info.filters_id = filter.filters_id;
-			$http.post('/api/history/filters', count_info).then(function(response){
+			//$http.post('/api/history/filters', count_info).then(function(response){
 
-			});
+			//});
 		};
 
 		$scope.scoreShow = function(prod) {
