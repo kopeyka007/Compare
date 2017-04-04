@@ -196,12 +196,13 @@
 <script type="text/ng-template" id="ModalProdsInfo.html">
 	<div class="modal-header">
 		<h3>Statistic</h3>
+		<h4><strong>@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</strong></h4>
 	</div>
 	<div class="row">
 		<div class="col-sm-12">	
 			<table class="table table-striped">
 				<thead>
-					<th>@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</th>
+					<th></th>
 					<th></th>
 				</thead>
 				<tbody>

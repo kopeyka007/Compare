@@ -73,7 +73,6 @@
             modalInstance = $uibModal.open({
                 templateUrl: "ModalProdsInfo.html",
                 controller: 'ModalProdsInfoCtrl',
-                size: 'md',
                 resolve: {
                 	items: {'prod': prod}
                 }
