@@ -358,14 +358,12 @@ class ProdsController extends Controller
         $history = HistoryFilters::selectRaw('filters_id, COUNT(filters_id) as filters_count')
                 ->groupBy('filters_id')
                 ->with('filters.groups')->where('prods_id', $prods_id)->get();
-        $arr = array();        
-        $k=0;
+        $arr = array();                
         foreach ($history as $item)
         {
             $arr[$item->filters->groups->groups_id]['groups_filters'][$item->filters->filters_id]['filters_name'] = $item->filters->filters_name;
             $arr[$item->filters->groups->groups_id]['groups_filters'][$item->filters->filters_id]['filters_count'] = $item->filters_count;
-            $arr[$item->filters->groups->groups_id]['groups_name'] = $item->filters->groups->groups_name;
-            $k++;
+            $arr[$item->filters->groups->groups_id]['groups_name'] = $item->filters->groups->groups_name;            
         }
         return $arr;
     }
