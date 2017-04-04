@@ -5,6 +5,7 @@ use App\Prods;
 use App\Cats;
 use App\Settings;
 use App\Currencies;
+use App\HistoryFilters;
 use Illuminate\Http\Request;
 use Storage;
 
@@ -351,6 +352,22 @@ class ProdsController extends Controller
     }
     return $response;
   }
+  
+    public function get_history_filters($prods_id)
+    {
+        $history = HistoryFilters::selectRaw('filters_id, COUNT(filters_id) as filters_count')
+                ->groupBy('filters_id')
+                ->with('filters.groups')->where('prods_id', $prods_id)->get();
+        $arr = array();                
+        foreach ($history as $item)
+        {
+            $arr[$item->filters->groups->groups_id]['groups_filters'][$item->filters->filters_id]['filters_name'] = $item->filters->filters_name;
+            $arr[$item->filters->groups->groups_id]['groups_filters'][$item->filters->filters_id]['filters_count'] = $item->filters_count;
+            $arr[$item->filters->groups->groups_id]['groups_name'] = $item->filters->groups->groups_name;            
+        }
+        return $arr;
+    }
+  
 
 
 }

@@ -202,6 +202,32 @@
 			return '/' + cats_alias + '/' + prod.prods_full_alias;
 		};
 
+		$scope.scoreList = [];
+
+		$scope.scoreCount = function(prod, filter) {
+			
+			$scope.scoreList[filter.filters_id] = prod.prods_id;
+			
+			var count_info = {};
+			count_info.prods_id = prod.prods_id;
+			count_info.filters_id = filter.filters_id;
+			$http.post('/api/history/filters', count_info).then(function(response){
+
+			});
+		};
+
+		$scope.scoreShow = function(prod) {
+			var c = 0;
+			for (var i in $scope.scoreList)
+			{
+				if ($scope.scoreList[i] ==  prod.prods_id)
+				{
+					c++;
+				}
+			}
+			return c;
+		}
+
 		$scope.addToCompare = function(cats_id) {
 			var prods = [];
 			for (var k in $scope.products)

@@ -49,6 +49,28 @@
 	border-radius: 6px;
 }
 
+.prods-cell-filters {
+	cursor: pointer;
+}
+
+.checked {
+	background: rgba(52, 168, 83, 0.1);
+	position: relative;
+}
+
+.check {
+	display: none;
+	position: absolute;
+	right: 2px;
+	top: 50%;
+	margin-top: -10px;
+	color: #5cb85c;
+}
+
+.checked .check {
+	display: inline-block;
+}
+
 .recompare > i {
 	color: #ccc;
 }

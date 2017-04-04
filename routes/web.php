@@ -102,6 +102,7 @@ Route::delete('api/filters/delete/{id}','FiltersController@delete');
 Route::get('api/prods/list','ProdsController@get_all');
 Route::post('api/prods/save','ProdsController@save');
 Route::delete('api/prods/delete/{id}','ProdsController@delete');
+Route::get('api/prods/historyfilters/{id}','ProdsController@get_history_filters');
 //features
 Route::get('api/features/list','FeaturesController@get_all');
 Route::post('api/features/save','FeaturesController@save');
@@ -127,6 +128,7 @@ Route::post('api/compare/list','ProdsController@get_compare_prods');
 Route::post('api/compare/catsfilters','CatsController@get_compare_filters');
 Route::post('api/prods/detail','ProdsController@get_prods_detail');
 Route::post('api/history/amazon','HistoryController@set_history_amazon');
+Route::post('api/history/filters','HistoryController@set_history_filters');
 
 
 
@@ -137,7 +139,7 @@ Route::post('api/history/amazon','HistoryController@set_history_amazon');
 
 //for testing
 //Route::get('test','ProdsController@get_prods_with_filters_group');
-//Route::get('test','SettingsController@get_all');
+//Route::get('test/{id}','ProdsController@get_history_filters');
 //Route::get('import','ImportController@save');
 //Route::get('testapi','UsersController@get_all')->middleware('respapi');
 
