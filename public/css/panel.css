@@ -46,6 +46,10 @@
 	margin: -145px 0 0 -200px;
 }
 
+.modal-table {
+	margin-bottom: 0;
+}
+
 .signin-row form {
 	margin: 0;
 }

@@ -196,18 +196,19 @@
 <script type="text/ng-template" id="ModalProdsInfo.html">
 	<div class="modal-header">
 		<h3>Statistic</h3>
+		<h4><strong>@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</strong></h4>
 	</div>
 	<div class="row">
 		<div class="col-sm-12">	
-			<table class="table table-striped">
+			<table class="table table-striped modal-table" ng-repeat="group in filterCount">
 				<thead>
-					<th>@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</th>
+					<th>@{{group.groups_name}}</th>
 					<th></th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="count in filterCount">
-						<td>@{{count.filters_name}}</td>
-						<td class="td-counter">@{{count.filters_count}}</td>
+					<tr ng-repeat="filter in group.groups_filters">
+						<td>@{{filter.filters_name}}</td>
+						<td class="td-counter">@{{filter.filters_count}}</td>
 					</tr>
 				</tbody>
 			</table>
