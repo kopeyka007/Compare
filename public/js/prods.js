@@ -244,7 +244,6 @@
 	function ModalProdsInfoCtrl($scope, $http, $uibModalInstance, items) {
 		$http.get('/api/prods/historyfilters/' + items.prod.prods_id).then(function(response){
 			$scope.filterCount = response.data;
-			
 		});
 
 		$scope.prod = items.prod;
