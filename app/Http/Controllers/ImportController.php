@@ -44,17 +44,22 @@ class ImportController extends Controller
                     foreach ($csv_array as $item)
                     {      
                         $fields = array_keys($item);
-                        $not_filters = ['Sr.no','Brand','Slug','Model Name','Name', 'Price', 'Link to Amazon', 'Photo'];            
-                        $filters = array();            
-                        $brands = $this->toggleBrands($item['Brand'], $cats_id);
-                        $link_to_amazon = (isset($item['Link to Amazon']))?$item['Link to Amazon']:null;
-                        $prods_foto = (isset($item['Photo']))?$item['Photo']:null;
-                        $prod = $this->toggleProds($item['Model Name'], $item['Price'], $brands, $cats_id, $link_to_amazon, $prods_foto);
-                        for ($i = 0; $i < count($fields); $i++)
+                        $not_filters = ['Sr.no','Brand','Slug','Model','Name', 'Price', 'Link to Amazon', 'Photo'];
+                        $link_to_amazon = (isset($item['Link to Amazon'])) ? $item['Link to Amazon'] : null;
+                        $prods_foto = (isset($item['Photo'])) ? $item['Photo'] : null;
+                        $price = (isset($item['Price'])) ? $item['Price'] : 0;                        
+                        $prods_name = (isset($item['Model'])) ? trim($item['Model']) : '';
+                        $prods_name = (isset($item['Name'])) ? trim($item['Name']) : $prods_name;
+                        if (!empty($prods_name))
                         {
-                            if(!in_array($fields[$i], $not_filters))
-                            {                                
-                                $filter = $this->toggleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $group->groups_id);
+                            $brands = $this->toggleBrands($item['Brand'], $cats_id);
+                            $prod = $this->toggleProds($item['Model'], $price, $brands, $cats_id, $link_to_amazon, $prods_foto);
+                            for ($i = 0; $i < count($fields); $i++)
+                            {
+                                if(!in_array($fields[$i], $not_filters) && !empty(trim($fields[$i])))
+                                {                                
+                                    $filter = $this->toggleFilters($fields[$i], $item[$fields[$i]], $prod, $cats_id, $group->groups_id);
+                                }
                             }
                         }
                     }
