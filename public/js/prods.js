@@ -73,7 +73,7 @@
             modalInstance = $uibModal.open({
                 templateUrl: "ModalProdsInfo.html",
                 controller: 'ModalProdsInfoCtrl',
-                size: 'lg',
+                size: 'md',
                 resolve: {
                 	items: {'prod': prod}
                 }
@@ -243,10 +243,12 @@
 (function() {
 	angular.module('panelApp').controller('ModalProdsInfoCtrl', ['$scope', '$http', '$uibModalInstance', 'items', ModalProdsInfoCtrl]);
 	function ModalProdsInfoCtrl($scope, $http, $uibModalInstance, items) {
-		$http.get('/api/prods/historyfilters/' + items.prod).then(function(response){
+		$http.get('/api/prods/historyfilters/' + items.prod.prods_id).then(function(response){
 			$scope.filterCount = response.data;
-			console.log($scope.filterCount);
+			
 		});
+
+		$scope.prod = items.prod;
 
 		$scope.cancel = function () {
 			$uibModalInstance.dismiss('cancel');

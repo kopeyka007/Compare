@@ -32,7 +32,7 @@
 					<td><a href="/@{{prod.cats_id.cats_alias + '/' + prod.prods_full_alias}}" target="_blank">@{{prod.prods_full_alias}}</a></td>
 					<td>@{{prod.currencies_id.currencies_symbol}} @{{prod.prods_price}}</td>
 					<td>@{{prod.prods_active | checkmark}}</td>
-					<td><button type="button" class="btn btn-link" ng-click="stat(prod.prods_id)"><i class="fa fa-align-right fa-rotate-90" aria-hidden="true"></i></button></td>
+					<td><button type="button" class="btn btn-link" ng-click="stat(prod)"><i class="fa fa-align-right fa-rotate-90" aria-hidden="true"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="add(prod.prods_id)"><i class="fa fa-pencil-square-o text-success"></i></button></td>
 					<td class="td-icon"><button type="button" class="btn btn-link" ng-click="remove(prod.prods_id)"><i class="fa fa-trash-o text-danger"></i></button></td>
 				</tr>
@@ -195,20 +195,22 @@
 
 <script type="text/ng-template" id="ModalProdsInfo.html">
 	<div class="modal-header">
+		<h3>Statistic</h3>
 	</div>
 	<div class="row">
 		<div class="col-sm-12">	
-			<div class="panel panel-default panel-dashboard">
-				<div class="panel-heading"><strong>Comparison count Timeline</strong></div>
-				<table class="table table-striped">
-					<tbody>
-						<tr ng-repeat="count in filterCount">
-							<td>@{{count.filters_name}}</td>
-							<td class="td-counter">@{{count.filters_count}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<table class="table table-striped">
+				<thead>
+					<th>@{{prod.brands_id.brands_name}} @{{prod.prods_name}}</th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="count in filterCount">
+						<td>@{{count.filters_name}}</td>
+						<td class="td-counter">@{{count.filters_count}}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<div class="modal-footer">
