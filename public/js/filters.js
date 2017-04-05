@@ -47,6 +47,7 @@
 
 			}); 
 		};
+		
 
 		$scope.remove = function(id) {
 			if (confirm('Do you realy want to remove this item?'))
