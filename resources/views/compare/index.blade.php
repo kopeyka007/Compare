@@ -18,19 +18,32 @@
 				<div class="brand-section">
 					<div class="filters-box" ng-if="products_list.filters.length">
 						<h4>Brands</h4>
-						<select class="form-control" ng-model="filters_brand">
+						<div class="checkbox" ng-repeat="(id, name) in allBrands">
+							<label>
+								<input type="checkbox" ng-model="filters_brand[id]" ng-change="changeBrand(id)" />@{{name}}
+							</label>
+						</div>
+
+						<!--<select class="form-control" ng-model="filters_brand">
 							<option value="">Select a value...</option>
 							<option value="@{{id}}" ng-repeat="(id, name) in allBrands">@{{name}}</option>
-						</select>
+						</select>-->
 					</div>
 				</div>
 				<div class="filter-section">
 					<div class="filters-box" ng-repeat="filter in products_list.filters">
 						<h4>@{{filter.filters_name}}</h4>
+						<div class="checkbox" ng-repeat="(key, option) in filter.filters_values">
+							<label>
+								<input type="checkbox" ng-model="filters_model[filter.filters_id][key]" ng-change="changeFilter(filter.filters_id, option, key)" />@{{option}} @{{filter.filters_units}}
+							</label>
+						</div>
+						
+						<!--
 						<select class="form-control" ng-change="changeFilter(filter.filters_id)" ng-model="filters_model[filter.filters_id]">
 							<option value="">Select a value...</option>
 							<option value="@{{option}}" ng-repeat="option in filter.filters_values">@{{option}} @{{filter.filters_units}}</option>
-						</select>
+						</select>-->
 					</div>
 				</div>
 			</div>
