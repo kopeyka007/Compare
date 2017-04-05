@@ -14,7 +14,7 @@ use DB;
 
 class ImportController extends Controller
 {
-    public $message = ['brands_new' => 0, 'prods_new'=>0, 'filters_new'=>0, 'filters_set'=>0];
+    public $message = ['prods'=>0];
 
     public function __construct()
     {    
@@ -47,7 +47,7 @@ class ImportController extends Controller
                         $not_filters = ['Sr.no','Brand','Slug','Model','Name', 'Price', 'Link to Amazon', 'Photo'];
                         $link_to_amazon = (isset($item['Link to Amazon'])) ? $item['Link to Amazon'] : null;
                         $prods_foto = (isset($item['Photo'])) ? $item['Photo'] : null;
-                        $price = (isset($item['Price'])) ? $item['Price'] : 0;                        
+                        $price = (isset($item['Price']) && !empty($item['Price'])) ? $item['Price'] : 0;                        
                         $prods_name = (isset($item['Model'])) ? trim($item['Model']) : '';
                         $prods_name = (isset($item['Name'])) ? trim($item['Name']) : $prods_name;
                         if (!empty($prods_name))
@@ -65,7 +65,7 @@ class ImportController extends Controller
                     }
                     DB::commit();    
                     //Storage::delete('import.csv', 'import');
-                    $message = 'New brands - '. $this->message['brands_new'].','.'New prods - '. $this->message['prods_new'].','.'New filters - '. $this->message['filters_new'].','.'Set filters - '. $this->message['filters_set'];
+                    $message = 'Updated prods - '. $this->message['prods'];
                     $response['data'] = true;          
                     $response['message'] = ['type'=>'success', 'text'=>$message];    
                 }
@@ -144,8 +144,7 @@ class ImportController extends Controller
             $brand->brands_name = trim($brands_name);
             $brand->brands_alias = $this->generate_alias_brands(trim($brands_name));
             $brand->cats_id = $cats_id;
-            $brand->save();
-            $this->message['brands_new']++;
+            $brand->save();            
             return $brand;
         }
     }
@@ -157,9 +156,21 @@ class ImportController extends Controller
         ->where('brands_id', $brands->brands_id)
         ->first();    
         if ($current)
-        {
-            $current->prods_price = trim($prods_price);      
+        {            
+            if (!empty($prods_price))
+            {
+                $current->prods_price = trim($prods_price);
+            }
+            if (!empty($prods_amazon))
+            {
+                $current->prods_amazon = trim($prods_amazon);
+            }
+            if (!empty($prods_foto))
+            {
+                $current->prods_foto = trim($prods_foto);
+            }
             $current->save();
+            $this->message['prods']++;
             return $current;
         }   
         else
@@ -173,11 +184,11 @@ class ImportController extends Controller
             $prod->prods_full_alias = $brands->brands_alias.'-'.$prod->prods_alias;
             $prod->prods_price = trim($prods_price);
             $prod->prods_amazon = trim($prods_amazon);      
-            $prod->prods_foto = trim($prods_foto);            
+            $prod->prods_foto = trim($prods_foto);
             $prod->prods_active = 1;
             $prod->currencies_id = $currency_default->currencies_id;      
             $prod->save();
-            $this->message['prods_new']++;
+            $this->message['prods']++;
             return $prod;
         }
     }
@@ -201,8 +212,7 @@ class ImportController extends Controller
         if ($current)
         {      
             $current->prods()->detach([$prod->prods_id]);
-            $current->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);
-            $this->message['filters_set']++;      
+            $current->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);            
             return $current;
         }
         else
@@ -214,8 +224,7 @@ class ImportController extends Controller
             $filter->save();
             $filter->cats_id()->sync([$cats_id]);      
             $filter->prods()->detach([$prod->prods_id]);
-            $filter->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);
-            $this->message['filters_new']++;      
+            $filter->prods()->attach([$prod->prods_id=>['filters_value'=>$filters_value]]);            
             return $filter;
         }
     }
