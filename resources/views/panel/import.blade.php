@@ -13,4 +13,7 @@
 			<button class="btn btn-primary" type="button" ng-click="save(import_file)">Save</button>
 		</div>
 	</div>
+	<div>@{{import_file.name}}</div><br />
+	<uib-progressbar ng-show="import_file" max="max" value="progress"><span style="color:white; white-space:nowrap;"></span></uib-progressbar>
+	<div ng-show="progress == 100">Affected products: @{{infoSave}}</div>
 </div>

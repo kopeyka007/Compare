@@ -62,9 +62,26 @@
 		$scope.get_list = function() {
 			$http.get('/api/filters/list').then(function(response) {
 				$scope.list = response.data.data;
+				for (var k in $scope.list)
+				{
+					if ($scope.list[k].filters_filter == 1)
+					{
+						$scope.list[k].filters_filter = true;
+					}
+					else
+					{
+						$scope.list[k].filters_filter = false;
+					}
+				}
 			});
 		};
 		$scope.get_list();
+
+		$scope.activeFilter = function(filter) {
+			$http.post('/api/filters/activate', {'filters_id': filter.filters_id, 'filters_active': filter.filters_filter}).then(function(response) {
+				console.log(response);
+			});
+		};
 	}
 })();
 
