@@ -58,7 +58,6 @@
 			}
 		};
 		
-		
 		$scope.list = [];
 		$scope.get_list = function() {
 			$http.get('/api/filters/list').then(function(response) {
