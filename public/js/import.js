@@ -26,7 +26,7 @@
 				}
 			}, 500)
 		};
-
+		$scope.progress = 0;
 		$scope.save = function(file){
 			$scope.dynamic = 0;
 			file.upload = Upload.upload({
@@ -36,6 +36,7 @@
 			}).then(function (response){
 					$rootScope.errors = [response.data.message];
 					$scope.progress = 100;
+					$scope.infoSave = response.data.data.prods;
 			}, function (response) {
 
             }, function (evt) {

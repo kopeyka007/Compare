@@ -14,5 +14,6 @@
 		</div>
 	</div>
 	<div>@{{import_file.name}}</div><br />
-	<uib-progressbar max="max" value="progress"><span style="color:white; white-space:nowrap;"></span></uib-progressbar>
+	<uib-progressbar ng-show="import_file" max="max" value="progress"><span style="color:white; white-space:nowrap;"></span></uib-progressbar>
+	<div ng-show="progress == 100">Affected products: @{{infoSave}}</div>
 </div>
