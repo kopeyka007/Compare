@@ -47,7 +47,6 @@
 
 			}); 
 		};
-		
 
 		$scope.remove = function(id) {
 			if (confirm('Do you realy want to remove this item?'))
@@ -76,6 +75,7 @@
 				}
 			});
 		};
+
 		$scope.get_list();
 
 		$scope.activeFilter = function(filter) {
