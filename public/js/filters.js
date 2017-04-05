@@ -64,14 +64,7 @@
 				$scope.list = response.data.data;
 				for (var k in $scope.list)
 				{
-					if ($scope.list[k].filters_filter == 1)
-					{
-						$scope.list[k].filters_filter = true;
-					}
-					else
-					{
-						$scope.list[k].filters_filter = false;
-					}
+					$scope.list[k].filters_filter == 1 ? true : false;
 				}
 			});
 		};
