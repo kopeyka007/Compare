@@ -23,7 +23,11 @@ class FiltersController extends Controller
         ->whereHas('cats_id',function($q){
           $q->access();
         })
-        ->get();    
+        ->get();
+        foreach ($filters as $filter)
+        {
+            
+        }
         $response['data'] = $filters;
         return $response;    
     }
@@ -119,6 +123,24 @@ class FiltersController extends Controller
         $groups = Groups::all();    
         $response['data'] = $groups;
         return $response;   
+    }
+    
+    public function activate(Request $request){
+        $filters_id = $request->input('filters_id');
+        $filters_filter = $request->input('filters_filter');
+        $filter = Filters::find($filters_id);
+        if ($filter)
+        {
+            $filter->filters_filter = $filters_filter;
+            $filter->save();
+            $response['data'] = true;          
+            $response['message'] = ['type'=>'success', 'text'=>'Filter saved'];
+        }
+        else
+        {
+            $response['data'] = false;          
+            $response['message'] = ['type'=>'danger', 'text'=>'Filter not found'];
+        }
     }
 
     //Front

@@ -98,6 +98,7 @@ Route::get('api/filters/list','FiltersController@get_all');
 Route::get('api/filters/list_groups','FiltersController@get_all_groups');
 Route::post('api/filters/save','FiltersController@save');
 Route::delete('api/filters/delete/{id}','FiltersController@delete');
+Route::post('api/filters/activate','FiltersController@activate');
 //prods
 Route::get('api/prods/list','ProdsController@get_all');
 Route::post('api/prods/save','ProdsController@save');
