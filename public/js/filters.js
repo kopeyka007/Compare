@@ -80,6 +80,7 @@
 
 		$scope.activeFilter = function(filter) {
 			$http.post('/api/filters/activate', {'filters_id': filter.filters_id, 'filters_active': filter.filters_filter}).then(function(response) {
+			
 			});
 		};
 	}
