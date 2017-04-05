@@ -65,9 +65,9 @@ class ImportController extends Controller
                     }
                     DB::commit();    
                     //Storage::delete('import.csv', 'import');
-                    $message = 'Updated prods - '. $this->message['prods'];
-                    $response['data'] = true;          
-                    $response['message'] = ['type'=>'success', 'text'=>$message];    
+                    //$message = 'Updated prods - '. $this->message['prods'];
+                    $response['data']['prods'] = $this->message['prods'];          
+                    $response['message'] = ['type'=>'success', 'text'=>'Import success'];    
                 }
                 else
                 {
