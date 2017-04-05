@@ -23,11 +23,7 @@ class FiltersController extends Controller
         ->whereHas('cats_id',function($q){
           $q->access();
         })
-        ->get();
-        foreach ($filters as $filter)
-        {
-            
-        }
+        ->get();    
         $response['data'] = $filters;
         return $response;    
     }
@@ -127,7 +123,7 @@ class FiltersController extends Controller
     
     public function activate(Request $request){
         $filters_id = $request->input('filters_id');
-        $filters_filter = $request->input('filters_filter');
+        $filters_filter = $request->input('filters_active');
         $filter = Filters::find($filters_id);
         if ($filter)
         {
