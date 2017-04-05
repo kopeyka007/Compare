@@ -28,31 +28,64 @@
 		$scope.filters_list();
 		
 		$scope.filters_model = {};
+		$scope.filters_brand = {};
 		$scope.slectedFilters = {};
 		$scope.slectedBrands = {};
 		
-		$scope.changeFilter = function(id) {
-			$scope.slectedFilters[id] = $scope.filters_model[id];
+		$scope.changeFilter = function(id, option, key) {
+			if ( ! $scope.slectedFilters[id])
+			{
+				$scope.slectedFilters[id] = {};
+			}
+			$scope.slectedFilters[id][key] = option;
+		};
+
+		$scope.changeBrand = function(id) {
+			$scope.slectedBrands[id] = $scope.filters_brand[id];
 		};
 
 		$scope.filterProds = function(value, index, array) {
 			var show = true;
 			for (var i in $scope.slectedFilters)
 			{
-				if ($scope.slectedFilters[i] != '')
+				var filter_count = 0;
+				var all_count = 0;
+				for (var k in $scope.slectedFilters[i])
 				{
-					if ((value.filters[i] && value.filters[i] != $scope.slectedFilters[i]) || ! value.filters[i])
+					if ($scope.slectedFilters[i][k] != '' && $scope.filters_model[i][k])
 					{
-						show = false;
+						if ((value.filters[i] && value.filters[i] != $scope.slectedFilters[i][k]) || ! value.filters[i])
+						{
+							filter_count++;
+						}
+						all_count++;
 					}
+				}
+
+				if (filter_count == all_count && all_count > 0)
+				{
+					show = false;
+				}
+			}
+
+			var brand_count = 0;
+			var all_brand_count = 0;
+			for (var id in $scope.slectedBrands)
+			{
+				if ($scope.slectedBrands[id])
+				{
+					if (id != value.brands_id.brands_id)
+					{
+						brand_count++;
+					}
+					all_brand_count++;
 				}
 			}
 			
-			if ($scope.filters_brand && $scope.filters_brand != value.brands_id.brands_id)
+			if (all_brand_count == brand_count && brand_count > 0)
 			{
 				show = false;
 			}
-
 			return show ? value : false;
 		};
 		
