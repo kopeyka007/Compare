@@ -14,7 +14,7 @@
 					<th>Group</th>
 					<th>Filter Type</th>
 					<th>Filter Units</th>
-					<th>Show as filter</th>
+					<th class="text-center">Show as filter</th>
 					<th class="td-icon">Edit</th>
 					<th class="td-icon">Remove</th>
 				</tr>
@@ -28,7 +28,7 @@
 					<td>@{{filter.groups_id.groups_name}}</td>
 					<td>@{{filter.filters_type == 'check' ? 'Yes/No' : 'Text'}}</td>
 					<td>@{{filter.filters_units}}</td>
-					<td>
+					<td class="text-center">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" ng-model="filter.filters_filter" ng-checked="filter.filters_filter" ng-click="activeFilter(filter)">
