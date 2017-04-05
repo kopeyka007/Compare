@@ -120,6 +120,24 @@ class FiltersController extends Controller
         $response['data'] = $groups;
         return $response;   
     }
+    
+    public function activate(Request $request){
+        $filters_id = $request->input('filters_id');
+        $filters_filter = $request->input('filters_active');
+        $filter = Filters::find($filters_id);
+        if ($filter)
+        {
+            $filter->filters_filter = $filters_filter;
+            $filter->save();
+            $response['data'] = true;          
+            $response['message'] = ['type'=>'success', 'text'=>'Filter saved'];
+        }
+        else
+        {
+            $response['data'] = false;          
+            $response['message'] = ['type'=>'danger', 'text'=>'Filter not found'];
+        }
+    }
 
     //Front
 
