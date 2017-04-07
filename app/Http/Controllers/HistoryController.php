@@ -78,19 +78,30 @@ class HistoryController extends Controller
     public function set_history_filters(Request $request)
     {
         $compare_id = Session::get('compare_id');
-        $prods_id = $request->input('prods_id');
+        $prods = $request->input('prods_id');
         $filters_id = $request->input('filters_id');
+        $add = $request->input('add');
         if (!empty($compare_id))
         {
-            $history = HistoryFilters::where('filters_id', $filters_id)->where('compare_id', $compare_id)->first();
-            if (empty($history))
+            foreach ($prods as $prod)
             {
-                $history = new HistoryFilters;
-            }
-            $history->filters_id = $filters_id;
-            $history->prods_id = $prods_id;
-            $history->compare_id = $compare_id;
-            $history->save();            
+                $history = HistoryFilters::where('filters_id', $filters_id)->where('compare_id', $compare_id)->where('prods_id',$prod)->first();
+                if (empty($history))
+                {
+                    $history = new HistoryFilters;
+                }
+                $history->filters_id = $filters_id;
+                $history->prods_id = $prod;
+                $history->compare_id = $compare_id;
+                if ( ! empty($add))
+                {
+                    $history->save();
+                }
+                else
+                {
+                    $history->delete();
+                }
+            }            
         }
     }
 
