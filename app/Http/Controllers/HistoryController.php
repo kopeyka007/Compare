@@ -95,6 +95,9 @@ class HistoryController extends Controller
                 $history->compare_id = $compare_id;
                 if ( ! empty($add))
                 {
+                    if (count($prods) < 2)
+                    {
+                        HistoryFilters::where('filters_id', $filters_id)->where('compare_id', $compare_id)->delete();                         }
                     $history->save();
                 }
                 else
