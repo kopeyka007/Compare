@@ -119,17 +119,31 @@ class CatsController extends Controller
         if ($cat)
         {
             if ($cat->cats_default == 0)
-            {
+            {   
                 $cat->delete();
                 //delete image
+                SettingsController::set_config_s3();  
                 if (!empty($cat->cats_photo))
-                {
-                    SettingsController::set_config_s3();
+                {                    
                     Storage::disk('s3')->delete('cats/'.$cat->cats_photo);
                 }
-                //delete relations       
-                $cat->filters()->detach();
+                //delete relations
+                foreach ($cat->features as $feature)
+                {                    
+                    if (!empty($feature->features_icon))
+                    {
+                        if (Storage::disk('s3')->exists('features/'.$feature->features_icon))
+                        {          
+                            Storage::disk('s3')->delete('features/'.$feature->features_icon);
+                        }  
+                    } 
+                }
+                $cat->features()->delete();
                 $cat->features()->detach();
+                $cat->filters()->delete();
+                $cat->filters()->detach();
+                $cat->prods()->delete();
+                $cat->brands()->delete();
                 $response['data'] = true;      
                 $response['message'] = ['type'=>'success', 'text'=>'Category deleted'];      
             }
