@@ -35,7 +35,7 @@
 		};
 
 		$scope.remove = function(id) {
-			if (confirm('Do you realy want to remove this item?'))
+			if (confirm('Do you realy want to remove this category?\nAlso all brands, features, filters and products will be removed too.'))
 			{
 				$http.delete('/api/cats/delete/' + id).then(function(response) {
 					$rootScope.errors = [response.data.message];
