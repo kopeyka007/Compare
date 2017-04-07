@@ -116,7 +116,7 @@
 							<tbody>
 								<tr ng-repeat="filter in group.groups_filters | filter:checkDifferences">
 									<td class="filters-cell">@{{filter.filters_name}}</td>
-									<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]" ng-class="{'checked': compareList[i] && scoreList[filter.filters_id] == compareList[i].prods_id}">
+									<td class="prods-cell" ng-repeat="i in [0, 1, 2, 3]" ng-class="{'checked': compareList[i] && scoreList[filter.filters_id][compareList[i].prods_id]}">
 										<div ng-if="compareList[i]" ng-init="prod = compareList[i]"  ng-click="scoreCount(prod, filter)" ng-class="{'prods-cell-filters': compareList[i]}">
 											<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'Yes'"><i class="fa fa-check-circle text-success"></i> @{{ prod.filters[filter.filters_id].filters_value }}</span>
 											<span ng-show="filter.filters_type == 'check' && prod.filters[filter.filters_id].filters_value == 'No'"><i class="fa fa-times-circle text-danger"></i> @{{ prod.filters[filter.filters_id].filters_value }}&nbsp;</span>

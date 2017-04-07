@@ -205,8 +205,17 @@
 		$scope.scoreList = [];
 
 		$scope.scoreCount = function(prod, filter) {
+			$scope.scoreList[filter.filters_id] = {};
+			$scope.scoreList[filter.filters_id][prod.prods_id] = true;
 			
-			$scope.scoreList[filter.filters_id] = prod.prods_id;
+			for (var k in $scope.compareList) 
+			{
+				if ($scope.compareList[k].filters[filter.filters_id] && $scope.compareList[k].filters[filter.filters_id].filters_value == prod.filters[filter.filters_id].filters_value)
+				{
+					$scope.scoreList[filter.filters_id][$scope.compareList[k].prods_id] = true;
+					
+				}
+			}
 			
 			var count_info = {};
 			count_info.prods_id = prod.prods_id;
@@ -220,7 +229,7 @@
 			var c = 0;
 			for (var i in $scope.scoreList)
 			{
-				if ($scope.scoreList[i] ==  prod.prods_id)
+				if ($scope.scoreList[i][prod.prods_id])
 				{
 					c++;
 				}
