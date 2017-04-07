@@ -205,24 +205,32 @@
 		$scope.scoreList = [];
 
 		$scope.scoreCount = function(prod, filter) {
-			$scope.scoreList[filter.filters_id] = {};
-			$scope.scoreList[filter.filters_id][prod.prods_id] = true;
-			
-			for (var k in $scope.compareList) 
-			{
-				if ($scope.compareList[k].filters[filter.filters_id] && $scope.compareList[k].filters[filter.filters_id].filters_value == prod.filters[filter.filters_id].filters_value)
-				{
-					$scope.scoreList[filter.filters_id][$scope.compareList[k].prods_id] = true;
-					
-				}
-			}
-			
 			var count_info = {};
 			count_info.prods_id = prod.prods_id;
 			count_info.filters_id = filter.filters_id;
-			$http.post('/api/history/filters', count_info).then(function(response){
 
-			});
+			if ( ! $scope.scoreList[filter.filters_id] || ! $scope.scoreList[filter.filters_id][prod.prods_id])
+			{
+				$scope.scoreList[filter.filters_id] = {};
+				count_info.add = true;
+				$scope.scoreList[filter.filters_id][prod.prods_id] = true;
+
+				for (var k in $scope.compareList) 
+				{
+					if ($scope.compareList[k].filters[filter.filters_id] && $scope.compareList[k].filters[filter.filters_id].filters_value == prod.filters[filter.filters_id].filters_value)
+					{
+						$scope.scoreList[filter.filters_id][$scope.compareList[k].prods_id] = true;
+						console.log($scope.scoreList[filter.filters_id]);
+					}
+				}
+			}
+			else
+			{
+				count_info.add = false;
+				$scope.scoreList[filter.filters_id] = {};
+			}
+
+			$http.post('/api/history/filters', count_info);
 		};
 
 		$scope.scoreShow = function(prod) {
